@@ -63,12 +63,14 @@ typedef struct {
     [self makeFields];
 }
 
+#define FIELD(x, y, w, t) { x, ((y * 10) + (y - 1) * FIELDSIZE), w, FIELDSIZE, t, "" }
+
 - (void)makeFields {
     fieldStruct fields[] = {
-        { 10, 10, 144, FIELDSIZE, "Price", "" }, { 164, 10, 144, FIELDSIZE, "Price", "" },
-        { 10, 20 + FIELDSIZE, 144, FIELDSIZE, "# of Units", "" }, { 164, 20 + FIELDSIZE, 144, FIELDSIZE, "# of Units", "" },
-        { 10, 30 + 2 * FIELDSIZE, 144, FIELDSIZE, "# of Units", "" },
-        { 10, 40 + 3 * FIELDSIZE, 144, FIELDSIZE, "Unit Price", "" }, { 164, 40 + 3 * FIELDSIZE, 144, FIELDSIZE, "Unit Price", "" }
+        FIELD(10, 1, 144, "Price"), FIELD(164, 1, 144, "Price"),
+        FIELD(10, 2, 144, "# of Units"), FIELD(164, 2, 144, "# of Units"),
+        FIELD(10, 3, 144, "Quantity"),
+        FIELD(10, 4, 144, "Unit Price"), FIELD(164, 4, 144, "Unit Price")
     };
     
     fieldStruct *deviceFields[] = {
@@ -76,26 +78,34 @@ typedef struct {
     };
     
     for (int i = 0; i < sizeof(fields)/sizeof(fieldStruct); i++) {
-        [self makeField:[NSString stringWithUTF8String:fields[i].text] label:[NSString stringWithUTF8String:deviceFields[deviceType][i].label] rect:CGRectMake(deviceFields[deviceType][i].x, deviceFields[deviceType][i].y, deviceFields[deviceType][i].w, deviceFields[deviceType][i].h)];
+        CGRect rect = CGRectMake(deviceFields[deviceType][i].x,
+                                 deviceFields[deviceType][i].y,
+                                 deviceFields[deviceType][i].w,
+                                 deviceFields[deviceType][i].h);
+        [self makeButton:
+         [NSString stringWithUTF8String:deviceFields[deviceType][i].text]
+                   label:[NSString stringWithUTF8String:deviceFields[deviceType][i].label] rect:rect];
     }
     
+#define BUTTON(x, y, o, t)  { x * 4 + 10 + 48 * x, y * 48 + o + ((4 + y) * FIELDSIZE), 48, 48, t }
+    
     buttonStruct buttons[] = {
-        { 0 * 4 + 10 + 48 * 0, 0 * 48 + 48 + 4 * FIELDSIZE, 48, 48, "1" },
-        { 1 * 4 + 10 + 48 * 1, 0 * 48 + 48 + 4 * FIELDSIZE, 48, 48, "2" },
-        { 2 * 4 + 10 + 48 * 2, 0 * 48 + 48 + 4 * FIELDSIZE, 48, 48, "3" },
-        { 3 * 4 + 10 + 48 * 3, 0 * 48 + 48 + 4 * FIELDSIZE, 48, 48, "C" },
-        { 0 * 4 + 10 + 48 * 0, 1 * 48 + 28 + 5 * FIELDSIZE, 48, 48, "4" },
-        { 1 * 4 + 10 + 48 * 1, 1 * 48 + 28 + 5 * FIELDSIZE, 48, 48, "5" },
-        { 2 * 4 + 10 + 48 * 2, 1 * 48 + 28 + 5 * FIELDSIZE, 48, 48, "6" },
-        { 3 * 4 + 10 + 48 * 3, 1 * 48 + 28 + 5 * FIELDSIZE, 48, 48, "Help" },
-        { 0 * 4 + 10 + 48 * 0, 2 * 48 + 8 + 6 * FIELDSIZE, 48, 48, "7" },
-        { 1 * 4 + 10 + 48 * 1, 2 * 48 + 8 + 6 * FIELDSIZE, 48, 48, "8" },
-        { 2 * 4 + 10 + 48 * 2, 2 * 48 + 8 + 6 * FIELDSIZE, 48, 48, "9" },
-        { 3 * 4 + 10 + 48 * 3, 2 * 48 + 8 + 6 * FIELDSIZE, 48, 48, "Del" },
-        { 0 * 4 + 10 + 48 * 0, 3 * 48 + -12 + 7 * FIELDSIZE, 48, 48, "." },
-        { 1 * 4 + 10 + 48 * 1, 3 * 48 + -12 + 7 * FIELDSIZE, 48, 48, "0" },
-        { 2 * 4 + 10 + 48 * 2, 3 * 48 + -12 + 7 * FIELDSIZE, 48, 48, "Next" },
-        { 3 * 4 + 10 + 48 * 3, 3 * 48 + -12 + 7 * FIELDSIZE, 48, 48, "..." }
+        BUTTON(0, 0, 48, "1"),
+        BUTTON(1, 0, 48, "2"),
+        BUTTON(2, 0, 48, "3"),
+        BUTTON(3, 0, 48, "C"),
+        BUTTON(0, 1, 28, "4"),
+        BUTTON(1, 1, 28, "5"),
+        BUTTON(2, 1, 28, "6"),
+        BUTTON(3, 1, 28, "Help"),
+        BUTTON(0, 2, 8, "7"),
+        BUTTON(1, 2, 8, "8"),
+        BUTTON(2, 2, 8, "9"),
+        BUTTON(3, 2, 8, "Del"),
+        BUTTON(0, 3, -12, "."),
+        BUTTON(1, 3, -12, "0"),
+        BUTTON(2, 3, -12, "Next"),
+        BUTTON(3, 3, -12, "...")
     };
 
     buttonStruct *deviceButtons[] = {
@@ -103,7 +113,11 @@ typedef struct {
     };
 
     for (int i = 0; i < sizeof(buttons)/sizeof(buttonStruct); i++) {
-        [self makeButton:[NSString stringWithUTF8String:deviceButtons[deviceType][i].label] rect:CGRectMake(deviceButtons[deviceType][i].x, deviceButtons[deviceType][i].y, deviceButtons[deviceType][i].w, deviceButtons[deviceType][i].h)];
+        CGRect rect = CGRectMake(deviceButtons[deviceType][i].x,
+                                 deviceButtons[deviceType][i].y,
+                                 deviceButtons[deviceType][i].w,
+                                 deviceButtons[deviceType][i].h);
+        [self makeButton:[NSString stringWithUTF8String:deviceButtons[deviceType][i].label] label:nil rect:rect];
     }
     
 }
@@ -128,15 +142,23 @@ typedef struct {
     [self.view addSubview:l];
 }
 
-- (void)makeButton:(NSString *)label rect:(CGRect)rect  {
-    UITextField *tf = [[UITextField alloc] initWithFrame:rect];
-    tf.text = label;
-    tf.font = [UIFont systemFontOfSize:fontSizes.button];
-    tf.borderStyle = UITextBorderStyleRoundedRect;
-    tf.textAlignment = NSTextAlignmentCenter;
-    tf.backgroundColor = fieldColor;
-    tf.delegate = self;
-    [self.view addSubview:tf];
+- (void)makeButton:(NSString *)text label:(NSString *)label rect:(CGRect)rect  {
+    UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [b setTitle:text forState:UIControlStateNormal];
+    [b setTitle:text forState:UIControlStateSelected];
+    b.frame = rect;
+    [self.view addSubview:b];
+    
+    if (label != nil) {
+        CGFloat fieldSize = rect.size.height;
+        UILabel *l = [[UILabel alloc] initWithFrame:rect];
+        l.font = [UIFont systemFontOfSize:fontSizes.label / 2];
+        l.text = label;
+        l.textAlignment = NSTextAlignmentCenter;
+        l.transform = CGAffineTransformMakeTranslation(0, -fieldSize * .6);
+        l.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:l];
+    }
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
