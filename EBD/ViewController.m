@@ -12,7 +12,8 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#define FIELDSIZE 36.0
+#define FIELDSIZE fieldsize
+#define BUTTONSIZE buttonsize
 
 typedef enum {
     iPhone4 = 0, iPhone5 = 1, iPad =2
@@ -36,6 +37,7 @@ typedef struct {
     UIColor *fieldColor, *curFieldColor;
     DeviceType deviceType;
     FontSizes fontSizes;
+    CGFloat fieldsize, buttonsize;
 }
 
 @end
@@ -72,10 +74,16 @@ typedef struct {
     fontSizes.button = 40;
     if (height <= 480) {
         deviceType = iPhone4;
+        fieldsize = 36.0;
+        buttonsize = 48.0;
     } else if (height > 480 && height <= 568) {
         deviceType = iPhone5;
+        fieldsize = 36.0;
+        buttonsize = 48.0;
     } else {
         deviceType = iPad;
+        fieldsize = 72.0;
+        buttonsize = 108.0;
     }
     
     fieldColor = UIColorFromRGB(0x86e4ae);
@@ -104,8 +112,15 @@ typedef struct {
         FIELD(10, 3.8, LARGEFIELD, "Unit Price"), FIELD(164, 3.8, LARGEFIELD, "Unit Price")
     };
     
+    fieldStruct fieldsiP[] = {
+        FIELD(10, 1, LARGEFIELD*2.5, "Price"), FIELD(10 + 154*2.5, 1, LARGEFIELD*2.5, "Price"),
+        FIELD(10, 2, SMALLFIELD*2.5, "# of Units"), FIELD(10 + 190*2.5, 2, SMALLFIELD*2.5, "# of Units"),
+        FIELD(10 + 95*2.5, 2.8, SMALLFIELD*2.5, "Quantity"),
+        FIELD(10, 3.8, LARGEFIELD*2.5, "Unit Price"), FIELD(10 + 154*2.5, 3.8, LARGEFIELD*2.5, "Unit Price")
+    };
+    
     fieldStruct *deviceFields[] = {
-        fields4, fields5, fields4
+        fields4, fields5, fieldsiP
     };
     
     for (int i = 0; i < sizeof(fields4)/sizeof(fieldStruct); i++) {
@@ -118,8 +133,8 @@ typedef struct {
                    label:[NSString stringWithUTF8String:deviceFields[deviceType][i].label] rect:rect];
     }
     
-#define BUTTON(m, x, y, o, t)  { m + x * 4 + 10 + 48 * x, 64 + y * 48 + o + ((4 + y) * FIELDSIZE), 48, 48, t }
-#define LASTBUTTON(m, x, y, o, t)  { m + x * 4 + 10 + 48 * x, 64 + y * 48 + o + ((4 + y) * FIELDSIZE), 100, 48, t }
+#define BUTTON(m, x, y, o, t)  { m + x * 4 + 10 + BUTTONSIZE * x, 64 + y * BUTTONSIZE + o + ((4 + y) * FIELDSIZE), BUTTONSIZE, BUTTONSIZE, t }
+#define LASTBUTTON(m, x, y, o, t)  { m + x * 4 + 10 + BUTTONSIZE * x, 64 + y * BUTTONSIZE + o + ((4 + y) * FIELDSIZE), BUTTONSIZE + 102, BUTTONSIZE, t }
 #define LM 46
 
     buttonStruct buttons4[] = {
@@ -130,14 +145,21 @@ typedef struct {
     };
 
     buttonStruct buttons5[] = {
-        BUTTON(LM, 0, 0, 48, "1"), BUTTON(LM, 1, 0, 48, "2"), BUTTON(LM, 2, 0, 48, "3"), BUTTON(LM, 3, 0, 48, "C"),
+        BUTTON(LM, 0, 0, BUTTONSIZE, "1"), BUTTON(LM, 1, 0, BUTTONSIZE, "2"), BUTTON(LM, 2, 0, BUTTONSIZE, "3"), BUTTON(LM, 3, 0, BUTTONSIZE, "C"),
         BUTTON(LM, 0, 1, 16, "4"), BUTTON(LM, 1, 1, 16, "5"), BUTTON(LM, 2, 1, 16, "6"), BUTTON(LM, 3, 1, 16, "Help"),
         BUTTON(LM, 0, 2, -16, "7"), BUTTON(LM, 1, 2, -16, "8"), BUTTON(LM, 2, 2, -16, "9"), BUTTON(LM, 3, 2, -16, "Del"),
-        BUTTON(LM, 0, 3, -48, "."), BUTTON(LM, 1, 3, -48, "0"), LASTBUTTON(LM, 2, 3, -48, "Next")
+        BUTTON(LM, 0, 3, -48, "."), BUTTON(LM, 1, 3, -48, "0"), LASTBUTTON(LM, 2, 3, -100, "Next")
     };
 
+    buttonStruct buttonsiP[] = {
+        BUTTON(LM*2, 0, 0, 48, "1"), BUTTON(LM, 1, 0, 48, "2"), BUTTON(LM, 2, 0, 48, "3"), BUTTON(LM, 3, 0, 48, "C"),
+        BUTTON(LM*2, 0, 1, 16, "4"), BUTTON(LM, 1, 1, 16, "5"), BUTTON(LM, 2, 1, 16, "6"), BUTTON(LM, 3, 1, 16, "Help"),
+        BUTTON(LM*2, 0, 2, -16, "7"), BUTTON(LM, 1, 2, -16, "8"), BUTTON(LM, 2, 2, -16, "9"), BUTTON(LM, 3, 2, -16, "Del"),
+        BUTTON(LM*2, 0, 3, -48, "."), BUTTON(LM, 1, 3, -48, "0"), LASTBUTTON(LM, 2, 3, -48, "Next")
+    };
+    
     buttonStruct *deviceButtons[] = {
-        buttons4, buttons5, buttons4
+        buttons4, buttons5, buttonsiP
     };
 
     for (int i = 0; i < sizeof(buttons4)/sizeof(buttonStruct); i++) {
@@ -172,12 +194,12 @@ typedef struct {
     [self.view addSubview:b];
     
     if (label != nil) {
-        CGFloat fieldSize = rect.size.height;
+        CGFloat labelSize = rect.size.height;
         UILabel *l = [[UILabel alloc] initWithFrame:rect];
         l.font = [UIFont systemFontOfSize:fontSizes.label * .8];
         l.text = label;
         l.textAlignment = NSTextAlignmentCenter;
-        l.transform = CGAffineTransformMakeTranslation(0, -fieldSize * 0.8);
+        l.transform = CGAffineTransformMakeTranslation(0, -labelSize * 0.8);
         l.backgroundColor = [UIColor clearColor];
         [self.view addSubview:l];
     }
