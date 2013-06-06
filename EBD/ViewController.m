@@ -32,7 +32,7 @@ typedef struct {
     char *label;
 } buttonStruct;
 
-@interface ViewController() <ADBannerViewDelegate> {
+@interface ViewController () <ADBannerViewDelegate> {
     UIColor *fieldColor, *curFieldColor;
     DeviceType deviceType;
     FontSizes fontSizes;
@@ -42,30 +42,29 @@ typedef struct {
 
 @implementation ViewController
 
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner
-{
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
+    NSLog(@"%s", __func__);
     [banner setHidden:NO];
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+    NSLog(@"%s", __func__);
     [banner setHidden:YES];
 }
 
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
-{
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
     NSLog(@"%s, Nothing to do", __func__);
     return YES;
 }
 
-- (void)bannerViewActionDidFinish:(ADBannerView *)banner
-{
+- (void)bannerViewActionDidFinish:(ADBannerView *)banner {
     NSLog(@"%s, Nothing to do", __func__);
 }
-
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    ((ADBannerView *)[self.view viewWithTag:999]).delegate = self;
     
     // iPhone 4 = 480, iPhone 5 = 568, iPad > 568
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
