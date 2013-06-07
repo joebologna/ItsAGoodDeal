@@ -19,7 +19,14 @@
 #define T2I(base, tag) (tag - base)
 #define I2T(base, index) (base + index)
 #define BTITLE(b, t) [b setTitle:t forState:UIControlStateNormal]; [b setTitle:t forState:UIControlStateSelected];
+
 #define STORE "Remove Ads"
+#define THANKS "Thank You"
+#define CLR "C"
+#define NEXT "Next"
+#define DEL "Del"
+#define K_STORE (KTAG + 7)
+
 typedef enum {
     PriceA = I2T(FTAG, 0), PriceB = I2T(FTAG, 1),
     NumUnitsA = I2T(FTAG, 2), NumUnitsB = I2T(FTAG, 3),
@@ -168,7 +175,7 @@ typedef struct {
         LABEL(20, YO(211), 64, 48, 15, "1"),
         LABEL(92, YO(211), 64, 48, 15, "2"),
         LABEL(164, YO(211), 64, 48, 15, "3"),
-        LABEL(236, YO(211), 64, 48, 15, "C"),
+        LABEL(236, YO(211), 64, 48, 15, CLR),
         LABEL(20, YO(266), 64, 48, 15, "4"),
         LABEL(92, YO(266), 64, 48, 15, "5"),
         LABEL(164, YO(266), 64, 48, 15, "6"),
@@ -176,17 +183,17 @@ typedef struct {
         LABEL(20, YO(320), 64, 48, 15, "7"),
         LABEL(92, YO(320), 64, 48, 15, "8"),
         LABEL(164, YO(320), 64, 48, 15, "9"),
-        LABEL(236, YO(320), 64, 48, 15, "Del"),
+        LABEL(236, YO(320), 64, 48, 15, DEL),
         LABEL(20, YO(375), 64, 48, 15, "."),
         LABEL(92, YO(375), 64, 48, 15, "0"),
-        LABEL(164, YO(375), 136, 48, 15, "Next")
+        LABEL(164, YO(375), 136, 48, 15, NEXT)
     };
     
     labelStruct keypad5[] = {
         LABEL(20, YO(299), 64, 48, 15, "1"),
         LABEL(92, YO(299), 64, 48, 15, "2"),
         LABEL(164, YO(299), 64, 48, 15, "3"),
-        LABEL(236, YO(299), 64, 48, 15, "C"),
+        LABEL(236, YO(299), 64, 48, 15, CLR),
         LABEL(20, YO(354), 64, 48, 15, "4"),
         LABEL(92, YO(354), 64, 48, 15, "5"),
         LABEL(164, YO(354), 64, 48, 15, "6"),
@@ -194,17 +201,17 @@ typedef struct {
         LABEL(20, YO(408), 64, 48, 15, "7"),
         LABEL(92, YO(408), 64, 48, 15, "8"),
         LABEL(164, YO(408), 64, 48, 15, "9"),
-        LABEL(236, YO(408), 64, 48, 15, "Del"),
+        LABEL(236, YO(408), 64, 48, 15, DEL),
         LABEL(20, YO(463), 64, 48, 15, "."),
         LABEL(92, YO(463), 64, 48, 15, "0"),
-        LABEL(164, YO(463), 136, 48, 15, "Next")
+        LABEL(164, YO(463), 136, 48, 15, NEXT)
     };
     
     labelStruct keypadiP[] = {
         LABEL(24, YO(510), 174, 105, 48, "1"),
         LABEL(206, YO(510), 174, 105, 48, "2"),
         LABEL(388, YO(510), 174, 105, 48, "3"),
-        LABEL(570, YO(510), 174, 105, 48, "C"),
+        LABEL(570, YO(510), 174, 105, 48, CLR),
         LABEL(24, YO(623), 174, 105, 48, "4"),
         LABEL(206, YO(623), 174, 105, 48, "5"),
         LABEL(388, YO(623), 174, 105, 48, "6"),
@@ -212,10 +219,10 @@ typedef struct {
         LABEL(24, YO(734), 174, 105, 48, "7"),
         LABEL(206, YO(734), 174, 105, 48, "8"),
         LABEL(388, YO(734), 174, 105, 48, "9"),
-        LABEL(570, YO(734), 174, 105, 48, "Del"),
+        LABEL(570, YO(734), 174, 105, 48, DEL),
         LABEL(24, YO(845), 174, 105, 48, "."),
         LABEL(206, YO(845), 174, 105, 48, "0"),
-        LABEL(388, YO(845), 356, 105, 48, "Next")
+        LABEL(388, YO(845), 356, 105, 48, NEXT)
     };
     
     labelStruct *deviceKeys[] = {
@@ -243,7 +250,7 @@ typedef struct {
             break;
             
         case KTAG + 3:
-            key = @"C";
+            key = @CLR;
             break;
             
         case KTAG + 4:
@@ -258,7 +265,7 @@ typedef struct {
             key = @"6";
             break;
             
-        case KTAG + 7:
+        case K_STORE:
             key = @STORE;
             break;
             
@@ -275,7 +282,7 @@ typedef struct {
             break;
             
         case KTAG + 11:
-            key = @"Del";
+            key = @DEL;
             break;
             
         case KTAG + 12:
@@ -287,7 +294,7 @@ typedef struct {
             break;
             
         case KTAG + 14:
-            key = @"Next";
+            key = @NEXT;
             break;
             
         default:
@@ -316,21 +323,21 @@ typedef struct {
         }
         NSString *s = fieldValues[T2I(FTAG, curField)];
         NSString *key = [self getKey:sender];
-        if ([key isEqualToString:@"Del"]) {
+        if ([key isEqualToString:@DEL]) {
             if (s.length > 0) {
                 s = [s substringToIndex:s.length - 1];
                 fieldValues[T2I(FTAG, curField)] = s;
             }
-        } else if ([key isEqualToString:@"C"]) {
+        } else if ([key isEqualToString:@CLR]) {
             [self initGUI];
-        } else if ([key isEqualToString:@"Del"]) {
+        } else if ([key isEqualToString:@DEL]) {
             if (curField == NumUnitsA && [fieldValues[T2I(FTAG, NumUnitsA)] length] == 0) {
                 fieldValues[T2I(FTAG, NumUnitsA)] = @"1";
             } else if (curField == NumUnitsB && [fieldValues[T2I(FTAG, NumUnitsB)] length] == 0) {
                 fieldValues[T2I(FTAG, NumUnitsB)] = @"1";
             }
             [self updateFields];
-        } else if ([key isEqualToString:@"Next"]) {
+        } else if ([key isEqualToString:@NEXT]) {
             if (curField == PriceA && [fieldValues[T2I(FTAG, NumUnitsA)] length] == 0) {
                 fieldValues[T2I(FTAG, NumUnitsA)] = @"1";
             } else if (curField == PriceB && [fieldValues[T2I(FTAG, NumUnitsB)] length] == 0) {
@@ -354,12 +361,7 @@ typedef struct {
             }
 
         } else if ([key isEqualToString:@STORE]) {
-            ADBannerView *a = (ADBannerView *)[self.view viewWithTag:Ad];
-            if (a.isHidden) {
-                [a setHidden:NO];
-            } else {
-                [a setHidden:YES];
-            }
+            [self removeAds];
         } else if ([key isEqualToString:@"."]) {
             NSRange r = [s rangeOfString:@"."];
             if (r.location == NSNotFound) {
@@ -443,6 +445,18 @@ typedef struct {
     }
     fieldValues[T2I(FTAG, Result)] = result;
     [self updateFields];
+}
+
+- (void)removeAds {
+    ADBannerView *a = (ADBannerView *)[self.view viewWithTag:Ad];
+    MyButton *b = (MyButton *)[self.view viewWithTag:(K_STORE)];
+    if (a.isHidden) {
+        [a setHidden:NO];
+        BTITLE(b, @STORE);
+    } else {
+        [a setHidden:YES];
+        BTITLE(b, @THANKS);
+    }
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
