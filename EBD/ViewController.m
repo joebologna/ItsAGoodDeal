@@ -22,10 +22,11 @@ typedef enum {
     PriceA = FTAG, NumUnitsA = FTAG + 1,
     PriceB = FTAG + 2, NumUnitsB = FTAG + 3,
     Quantity = FTAG + 4,
-    UnitPriceA = FTAG + 5, UnitPriceB = FTAG + 6, Result = FTAG + 7
+    UnitPriceA = FTAG + 5, UnitPriceB = FTAG + 6,
+    Result = FTAG + 7
 } Field;
 
-#define nInputFields (Result - FTAG)
+#define nInputFields (Quantity - FTAG + 1)
 
 typedef enum {
     iPhone4 = 0, iPhone5 = 1, iPad =2
@@ -52,7 +53,6 @@ typedef struct {
     FontSizes fontSizes;
     CGFloat fieldsize, buttonsize;
     NSInteger curField;
-
 }
 
 @end
@@ -87,7 +87,7 @@ typedef struct {
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     if (height <= 480) {
         deviceType = iPhone4;
-        fieldsize = 36.0;
+        fieldsize = 30.0;
         buttonsize = 48.0;
         fontSizes.text = fontSizes.label = 12;
         fontSizes.button = 20;
@@ -138,24 +138,27 @@ typedef struct {
 
 - (void)makeFields {
     fieldStruct fields4[] = {
-        FIELD(10, 0.9, LARGEFIELD, "Price"), FIELD(164, 0.9, LARGEFIELD, "Price"),
-        FIELD(10, 1.825, SMALLFIELD, "# of Units"), FIELD(200, 1.825, SMALLFIELD, "# of Units"),
-        FIELD(105, 2.5, SMALLFIELD, "Quantity"),
-        FIELD(10, 3.3, LARGEFIELD, "Unit Price"), FIELD(164, 3.3, LARGEFIELD, "Unit Price")
+        FIELD(10, 0.8, LARGEFIELD, "Price"), FIELD(10, 1.7, SMALLFIELD, "# of Units"),
+        FIELD(164, 0.8, LARGEFIELD, "Price"), FIELD(202, 1.7, SMALLFIELD, "# of Units"),
+        FIELD(105, 2.3, SMALLFIELD, "Quantity"),
+        FIELD(10, 3.1, LARGEFIELD, "Unit Price"), FIELD(164, 3.1, LARGEFIELD, "Unit Price"),
+        FIELD(10, 4.0, LARGEFIELD*2+10, "Result")
     };
     
     fieldStruct fields5[] = {
-        FIELD(10, 1, LARGEFIELD, "Price"), FIELD(164, 1, LARGEFIELD, "Price"),
-        FIELD(10, 2, SMALLFIELD, "# of Units"), FIELD(200, 2, SMALLFIELD, "# of Units"),
+        FIELD(10, 1, LARGEFIELD, "Price"), FIELD(10, 1.825, SMALLFIELD, "# of Units"),
+        FIELD(164, 1, LARGEFIELD, "Price"), FIELD(200, 1.825, SMALLFIELD, "# of Units"),
         FIELD(105, 2.8, SMALLFIELD, "Quantity"),
-        FIELD(10, 3.8, LARGEFIELD, "Unit Price"), FIELD(164, 3.8, LARGEFIELD, "Unit Price")
+        FIELD(10, 3.8, LARGEFIELD, "Unit Price"), FIELD(164, 3.8, LARGEFIELD, "Unit Price"),
+        FIELD(10, 4.3, LARGEFIELD*2+10, "Result")
     };
     
     fieldStruct fieldsiP[] = {
-        FIELD(20, 1.1, LARGEFIELD*2.5, "Price"), FIELD(20 + 154*2.4, 1.1, LARGEFIELD*2.5, "Price"),
-        FIELD(20, 2.2, SMALLFIELD*2.5, "# of Units"), FIELD(20 + 8 + 190*2.4, 2.2, SMALLFIELD*2.5, "# of Units"),
+        FIELD(20, 1.1, LARGEFIELD*2.5, "Price"), FIELD(20, 2.2, SMALLFIELD*2.5, "# of Units"), 
+        FIELD(20 + 154*2.4, 1.1, LARGEFIELD*2.5, "Price"), FIELD(20 + 8 + 190*2.4, 2.2, SMALLFIELD*2.5, "# of Units"),
         FIELD(20 + 95*2.5 - 4, 3.0, SMALLFIELD*2.5, "Quantity"),
-        FIELD(20, 4.0, LARGEFIELD*2.5, "Unit Price"), FIELD(20 + 154*2.4, 4.0, LARGEFIELD*2.5, "Unit Price")
+        FIELD(20, 4.0, LARGEFIELD*2.5, "Unit Price"), FIELD(20 + 154*2.4, 4.0, LARGEFIELD*2.5, "Unit Price"),
+        FIELD(10, 4.3, LARGEFIELD*2, "Result")
     };
     
     fieldStruct *deviceFields[] = {
@@ -177,10 +180,10 @@ typedef struct {
 #define LM 46
 
     buttonStruct buttons4[] = {
-        BUTTON(LM, 0, 0, -4, "1"), BUTTON(LM, 1, 0, -4, "2"), BUTTON(LM, 2, 0, -4, "3"), BUTTON(LM, 3, 0, -4, "C"),
-        BUTTON(LM, 0, 1, -36, "4"), BUTTON(LM, 1, 1, -36, "5"), BUTTON(LM, 2, 1, -36, "6"), BUTTON(LM, 3, 1, -36, "Help"),
-        BUTTON(LM, 0, 2, -68, "7"), BUTTON(LM, 1, 2, -68, "8"), BUTTON(LM, 2, 2, -68, "9"), BUTTON(LM, 3, 2, -68, "Del"),
-        BUTTON(LM, 0, 3, -100, "."), BUTTON(LM, 1, 3, -100, "0"), LASTBUTTON(LM, 2, 3, -100, "Next")
+        BUTTON(LM, 0, 0, 38, "1"), BUTTON(LM, 1, 0, 38, "2"), BUTTON(LM, 2, 0, 38, "3"), BUTTON(LM, 3, 0, 38, "C"),
+        BUTTON(LM, 0, 1, 12, "4"), BUTTON(LM, 1, 1, 12, "5"), BUTTON(LM, 2, 1, 12, "6"), BUTTON(LM, 3, 1, 12, "Help"),
+        BUTTON(LM, 0, 2, -34, "7"), BUTTON(LM, 1, 2, -14, "8"), BUTTON(LM, 2, 2, -14, "9"), BUTTON(LM, 3, 2, -14, "Del"),
+        BUTTON(LM, 0, 3, -56, "."), BUTTON(LM, 1, 3, -56, "0"), LASTBUTTON(LM, 2, 3, -56, "Next")
     };
 
     buttonStruct buttons5[] = {
@@ -288,8 +291,8 @@ typedef struct {
             default:
                 break;
         }
+        NSString *s = fieldValues[curField - FTAG];
         if ([key isEqualToString:@"Del"]) {
-            NSString *s = fieldValues[curField - FTAG];
             if (s.length > 0) {
                 s = [s substringToIndex:s.length - 1];
                 [fieldValues replaceObjectAtIndex:curField - FTAG withObject:s];
@@ -310,13 +313,40 @@ typedef struct {
                 [b setTitle:@"1" forState:UIControlStateSelected];
             }
         } else if ([key isEqualToString:@"Next"]) {
+            if (curField == NumUnitsA && [fieldValues[NumUnitsA - FTAG] length] == 0) {
+                fieldValues[NumUnitsA - FTAG] = @"1";
+            } else if (curField == NumUnitsB && [fieldValues[NumUnitsB - FTAG] length] == 0) {
+                fieldValues[NumUnitsB - FTAG] = @"1";
+            }
             NSInteger i = curField - FTAG;
             i = ((i + 1) % nInputFields);
             curField = FTAG + i;
+
+            BOOL curFieldWasQuantity;
+            curFieldWasQuantity = curField == Quantity;
+            int nFilled = 0;
+            for (int i = 0; i < nInputFields; i++) {
+                if ([(NSString *)fieldValues[i] length] > 0) {
+                    nFilled++;
+                }
+            }
+            // allow Qty to be empty, calculate it
+            if (nFilled == nInputFields || (nFilled == nInputFields -1 && [fieldValues[Quantity - FTAG] length] == 0) || curFieldWasQuantity) {
+                [self showResult:curFieldWasQuantity];
+            }
             [self updateFields];
+        } else if ([key isEqualToString:@"Help"]) {
+        } else if ([key isEqualToString:@"."]) {
+            NSRange r = [s rangeOfString:@"."];
+            if (r.location == NSNotFound) {
+                fieldValues[curField - FTAG] = [s stringByAppendingString:key];
+                [self updateFields];
+                [self showResult:NO];
+            }
         } else {
-            [fieldValues replaceObjectAtIndex:curField - FTAG withObject:[fieldValues[curField - FTAG] stringByAppendingString:key]];
+            fieldValues[curField - FTAG] = [s stringByAppendingString:key];
             [self updateFields];
+            [self showResult:NO];
         }
     } else {
         NSLog(@"Ooops");
@@ -357,6 +387,36 @@ typedef struct {
         l.backgroundColor = [UIColor clearColor];
         [self.view addSubview:l];
     }
+}
+
+- (void)showResult:(BOOL)noQty {
+    float qty = [fieldValues[Quantity - FTAG] floatValue];
+    float priceA = [fieldValues[PriceA - FTAG] floatValue];
+    float nUnitsA = [fieldValues[NumUnitsA  - FTAG] floatValue];
+    float unitPriceA = priceA / nUnitsA;
+    fieldValues[UnitPriceA - FTAG] = [NSString stringWithFormat:@"%.2f", unitPriceA];
+    
+    float priceB = [fieldValues[PriceB - FTAG] floatValue];
+    float nUnitsB = [fieldValues[NumUnitsB - FTAG] floatValue];
+    float unitPriceB = priceB / nUnitsB;
+    fieldValues[UnitPriceB - FTAG] = [NSString stringWithFormat:@"%.2f", unitPriceB];
+    
+    NSString *result;
+    if (unitPriceA < unitPriceB || unitPriceA > unitPriceB) {
+        //=ABS(A8-C8)*B7
+        if (noQty) {
+            qty = (unitPriceA < unitPriceB) ? nUnitsA : nUnitsB;
+            fieldValues[Quantity - FTAG] = [NSString stringWithFormat:@"%.0f", qty];
+        } else {
+            qty = [fieldValues[Quantity - FTAG] floatValue];
+        }
+        float savings = ABS(unitPriceA - unitPriceB) * qty;
+        result = [NSString stringWithFormat:@"%@ saves %.2f", (unitPriceA < unitPriceB) ? @"A" : @"B", savings];
+    } else {
+        result = @"A and B are equal";
+    }
+    fieldValues[Result - FTAG] = result; 
+    [self updateFields];
 }
 
 - (void)didReceiveMemoryWarning
