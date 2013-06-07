@@ -19,7 +19,7 @@
 #define T2I(base, tag) (tag - base)
 #define I2T(base, index) (base + index)
 #define BTITLE(b, t) [b setTitle:t forState:UIControlStateNormal]; [b setTitle:t forState:UIControlStateSelected];
-
+#define STORE "Remove Ads"
 typedef enum {
     PriceA = I2T(FTAG, 0), PriceB = I2T(FTAG, 1),
     NumUnitsA = I2T(FTAG, 2), NumUnitsB = I2T(FTAG, 3),
@@ -46,6 +46,7 @@ typedef struct {
     UIColor *fieldColor, *curFieldColor;
     DeviceType deviceType;
     NSInteger curField;
+    BOOL directTap;
 }
 
 @end
@@ -80,6 +81,7 @@ typedef struct {
 }
 
 - (void)initGUI {
+    directTap = NO;
     fieldValues = [NSMutableArray array];
     for (int i = PriceA; i <= Result; i++) {
         [fieldValues addObject:@""];
@@ -134,21 +136,21 @@ typedef struct {
     }
     
     labelStruct labels4[] = {
-        LABEL(8, YO(29), 56, 21, 12, "Price"),
+        LABEL(8, YO(29), 56, 21, 12, "Price A,B"),
         LABEL(8, YO(65), 56, 21, 12, "# of Units"),
         LABEL(8, YO(101), 56, 21, 12, "Quantity"),
         LABEL(8, YO(137), 56, 21, 12, "Unit Cost")
     };
 
     labelStruct labels5[] = {
-        LABEL(8, YO(24), 56, 21, 13, "Price"),
+        LABEL(8, YO(24), 56, 21, 13, "Price A,B"),
         LABEL(8, YO(79), 56, 21, 13, "# of Units"),
         LABEL(8, YO(135), 56, 21, 13, "Quantity"),
         LABEL(8, YO(189), 56, 21, 13, "Unit Cost")
     };
 
     labelStruct labelsiP[] = {
-        LABEL(8, YO(34), 80, 21, 18, "Price"),
+        LABEL(8, YO(34), 80, 21, 18, "Price A,B"),
         LABEL(8, YO(128), 80, 21, 18, "# of Units"),
         LABEL(8, YO(223), 80, 21, 18, "Quantity"),
         LABEL(8, YO(316), 80, 21, 18, "Unit Cost")
@@ -170,7 +172,7 @@ typedef struct {
         LABEL(20, YO(266), 64, 48, 15, "4"),
         LABEL(92, YO(266), 64, 48, 15, "5"),
         LABEL(164, YO(266), 64, 48, 15, "6"),
-        LABEL(236, YO(266), 64, 48, 15, "Help"),
+        LABEL(236, YO(266), 64, 48, 15, STORE),
         LABEL(20, YO(320), 64, 48, 15, "7"),
         LABEL(92, YO(320), 64, 48, 15, "8"),
         LABEL(164, YO(320), 64, 48, 15, "9"),
@@ -188,7 +190,7 @@ typedef struct {
         LABEL(20, YO(354), 64, 48, 15, "4"),
         LABEL(92, YO(354), 64, 48, 15, "5"),
         LABEL(164, YO(354), 64, 48, 15, "6"),
-        LABEL(236, YO(354), 64, 48, 15, "Help"),
+        LABEL(236, YO(354), 64, 48, 15, STORE),
         LABEL(20, YO(408), 64, 48, 15, "7"),
         LABEL(92, YO(408), 64, 48, 15, "8"),
         LABEL(164, YO(408), 64, 48, 15, "9"),
@@ -206,7 +208,7 @@ typedef struct {
         LABEL(24, YO(623), 174, 105, 48, "4"),
         LABEL(206, YO(623), 174, 105, 48, "5"),
         LABEL(388, YO(623), 174, 105, 48, "6"),
-        LABEL(570, YO(623), 174, 105, 48, "Help"),
+        LABEL(570, YO(623), 174, 105, 48, STORE),
         LABEL(24, YO(734), 174, 105, 48, "7"),
         LABEL(206, YO(734), 174, 105, 48, "8"),
         LABEL(388, YO(734), 174, 105, 48, "9"),
@@ -257,7 +259,7 @@ typedef struct {
             break;
             
         case KTAG + 7:
-            key = @"Help";
+            key = @STORE;
             break;
             
         case KTAG + 8:
@@ -303,10 +305,15 @@ typedef struct {
         b = (MyButton *)[self.view viewWithTag:sender.tag];
         [b setBackgroundColor:fieldColor];
         curField = sender.tag;
-        fieldValues[T2I(FTAG, curField)] = @"";
+        directTap = YES;
+        [self updateFields];
     } else  if ((sender.tag >= UnitPriceA) && (sender.tag <= Result)) {
-        [self showResult:NO];
+        [self showResult:YES];
     } else if (sender.tag >= BTAG) {
+        if (directTap) {
+            directTap = NO;
+            fieldValues[T2I(FTAG, curField)] = @"";
+        }
         NSString *s = fieldValues[T2I(FTAG, curField)];
         NSString *key = [self getKey:sender];
         if ([key isEqualToString:@"Del"]) {
@@ -342,11 +349,11 @@ typedef struct {
                 }
             }
             // allow Qty to be empty, calculate it
-            if (nFilled == nInputFields || (nFilled == nInputFields -1 && [fieldValues[T2I(FTAG, Quantity)] length] == 0) || curFieldWasQuantity) {
+            if (nFilled == nInputFields || ((nFilled == (nInputFields - 1)) && ([fieldValues[T2I(FTAG, Quantity)] length] == 0)) || curFieldWasQuantity) {
                 [self showResult:curFieldWasQuantity];
             }
 
-        } else if ([key isEqualToString:@"Help"]) {
+        } else if ([key isEqualToString:@STORE]) {
             ADBannerView *a = (ADBannerView *)[self.view viewWithTag:Ad];
             if (a.isHidden) {
                 [a setHidden:NO];
@@ -374,6 +381,8 @@ typedef struct {
     [b setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor whiteColor], nil]];
     [b setBackgroundColors:[NSArray arrayWithObjects:fieldColor, curFieldColor, [UIColor grayColor], nil]];
     b.titleLabel.font = [UIFont systemFontOfSize:label.f];
+    b.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    b.titleLabel.textAlignment = NSTextAlignmentCenter;
     b.tag = tag;
     if (isKey) {
         [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient3.png"] forState:UIControlStateNormal];
@@ -400,9 +409,10 @@ typedef struct {
     }
 }
 - (void)showResult:(BOOL)noQty {
-    NSLog(@"%s", __func__);
     float qty = [fieldValues[T2I(FTAG, Quantity)] floatValue];
-    [self fillBlank:Quantity v:&qty d:1.0];
+    if (noQty) {
+        [self fillBlank:Quantity v:&qty d:1.0];
+    }
     float priceA = [fieldValues[T2I(FTAG, PriceA)] floatValue];
     [self fillBlank:PriceA v:&priceA d:1.0];
     float nUnitsA = [fieldValues[T2I(FTAG, NumUnitsA)] floatValue];
