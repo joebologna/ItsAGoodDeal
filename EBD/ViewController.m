@@ -25,6 +25,7 @@ typedef enum {
     UnitPriceA = FTAG + 5, UnitPriceB = FTAG + 6, Result = FTAG + 7
 } Field;
 
+#define nInputFields (Result - FTAG)
 
 typedef enum {
     iPhone4 = 0, iPhone5 = 1, iPad =2
@@ -51,7 +52,7 @@ typedef struct {
     FontSizes fontSizes;
     CGFloat fieldsize, buttonsize;
     NSInteger curField;
-    BOOL directTap;
+
 }
 
 @end
@@ -118,11 +119,10 @@ typedef struct {
         [fieldValues addObject:@""];
     }
     curField = FTAG;
-    directTap = NO;
     [self updateFields];
 }
 
-- (void) updateFields {
+- (void)updateFields {
     for (int tag = PriceA; tag <= Result; tag++) {
         NSInteger i = tag - FTAG;
         MyButton *b = (MyButton *)[self.view viewWithTag:tag];
@@ -220,7 +220,8 @@ typedef struct {
         b = (MyButton *)[self.view viewWithTag:sender.tag];
         [b setBackgroundColor:fieldColor];
         curField = sender.tag;
-        directTap = YES;
+        fieldValues[curField - FTAG] = @"";
+        [self updateFields];
     } else if (sender.tag >= BTAG) {
         NSString *key = @"";
         switch (sender.tag) {
@@ -288,7 +289,7 @@ typedef struct {
                 break;
         }
         if ([key isEqualToString:@"Del"]) {
-            NSString *s = fieldValues[FTAG - curField];
+            NSString *s = fieldValues[curField - FTAG];
             if (s.length > 0) {
                 s = [s substringToIndex:s.length - 1];
                 [fieldValues replaceObjectAtIndex:curField - FTAG withObject:s];
@@ -296,6 +297,23 @@ typedef struct {
             }
         } else if ([key isEqualToString:@"C"]) {
             [self initGUI];
+        } else if ([key isEqualToString:@"Del"]) {
+            if (curField == NumUnitsA && [fieldValues[NumUnitsA] length] == 0) {
+                fieldValues[NumUnitsA - FTAG] = @"1";
+                MyButton *b = (MyButton *)[self.view viewWithTag:NumUnitsA];
+                [b setTitle:@"1" forState:UIControlStateNormal];
+                [b setTitle:@"1" forState:UIControlStateSelected];
+            } else if (curField == NumUnitsB && [fieldValues[NumUnitsB] length] == 0) {
+                fieldValues[NumUnitsB - FTAG] = @"1";
+                MyButton *b = (MyButton *)[self.view viewWithTag:NumUnitsB];
+                [b setTitle:@"1" forState:UIControlStateNormal];
+                [b setTitle:@"1" forState:UIControlStateSelected];
+            }
+        } else if ([key isEqualToString:@"Next"]) {
+            NSInteger i = curField - FTAG;
+            i = ((i + 1) % nInputFields);
+            curField = FTAG + i;
+            [self updateFields];
         } else {
             [fieldValues replaceObjectAtIndex:curField - FTAG withObject:[fieldValues[curField - FTAG] stringByAppendingString:key]];
             [self updateFields];
