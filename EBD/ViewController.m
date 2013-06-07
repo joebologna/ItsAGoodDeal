@@ -16,13 +16,16 @@
 #define BTAG 200
 #define LTAG 300
 #define KTAG 400
+#define T2I(base, tag) (tag - base)
+#define I2T(base, index) (base + index)
+#define BTITLE(b, t) [b setTitle:t forState:UIControlStateNormal]; [b setTitle:t forState:UIControlStateSelected];
 
 typedef enum {
-    PriceA = FTAG, NumUnitsA = FTAG + 1,
-    PriceB = FTAG + 2, NumUnitsB = FTAG + 3,
-    Quantity = FTAG + 4,
-    UnitPriceA = FTAG + 5, UnitPriceB = FTAG + 6,
-    Result = FTAG + 7,
+    PriceA = I2T(FTAG, 0), PriceB = I2T(FTAG, 1),
+    NumUnitsA = I2T(FTAG, 2), NumUnitsB = I2T(FTAG, 3),
+    Quantity = I2T(FTAG, 4),
+    UnitPriceA = I2T(FTAG, 5), UnitPriceB = I2T(FTAG, 6),
+    Result = I2T(FTAG, 7),
     Ad = 999
 } Field;
 
@@ -54,8 +57,7 @@ typedef struct {
     [banner setHidden:NO];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     ((ADBannerView *)[self.view viewWithTag:Ad]).delegate = self;
     
@@ -88,10 +90,9 @@ typedef struct {
 
 - (void)updateFields {
     for (int tag = PriceA; tag <= Result; tag++) {
-        NSInteger i = tag - FTAG;
+        NSInteger i = T2I(FTAG, tag);
         MyButton *b = (MyButton *)[self.view viewWithTag:tag];
-        [b setTitle:fieldValues[i] forState:UIControlStateNormal];
-        [b setTitle:fieldValues[i] forState:UIControlStateSelected];
+        BTITLE(b, fieldValues[i]);
         [b setBackgroundColor:(tag == curField) ? curFieldColor : fieldColor];
     }
 }
@@ -129,7 +130,7 @@ typedef struct {
     };
     
     for (int i = 0; i < sizeof(fields4)/sizeof(labelStruct); i++) {
-        [self makeButton:deviceFields[deviceType][i] tag:(FTAG + i) isKey:NO];
+        [self makeButton:deviceFields[deviceType][i] tag:I2T(FTAG, i) isKey:NO];
     }
     
     labelStruct labels4[] = {
@@ -158,10 +159,8 @@ typedef struct {
     };
 
     for (int i = 0; i < sizeof(labels4)/sizeof(labelStruct); i++) {
-        [self makeLabel:deviceLabels[deviceType][i] tag:(LTAG + i)];
+        [self makeLabel:deviceLabels[deviceType][i] tag:I2T(LTAG, i)];
     }
-    
-#define LABEL(x, y, w, h, f, t) { x, y, w, h, f, t}
     
     labelStruct keypad4[] = {
         LABEL(20, YO(211), 64, 48, 15, "1"),
@@ -222,120 +221,120 @@ typedef struct {
     };
     
     for (int i = 0; i < sizeof(keypad4)/sizeof(labelStruct); i++) {
-        [self makeButton:deviceKeys[deviceType][i] tag:(KTAG + i) isKey:YES];
+        [self makeButton:deviceKeys[deviceType][i] tag:I2T(KTAG, i) isKey:YES];
     }
+}
+
+- (NSString *)getKey:(MyButton *)sender {
+    NSString *key = @"";
+    switch (sender.tag) {
+        case KTAG:
+            key = @"1";
+            break;
+            
+        case KTAG + 1:
+            key = @"2";
+            break;
+            
+        case KTAG + 2:
+            key = @"3";
+            break;
+            
+        case KTAG + 3:
+            key = @"C";
+            break;
+            
+        case KTAG + 4:
+            key = @"4";
+            break;
+            
+        case KTAG + 5:
+            key = @"5";
+            break;
+            
+        case KTAG + 6:
+            key = @"6";
+            break;
+            
+        case KTAG + 7:
+            key = @"Help";
+            break;
+            
+        case KTAG + 8:
+            key = @"7";
+            break;
+            
+        case KTAG + 9:
+            key = @"8";
+            break;
+            
+        case KTAG + 10:
+            key = @"9";
+            break;
+            
+        case KTAG + 11:
+            key = @"Del";
+            break;
+            
+        case KTAG + 12:
+            key = @".";
+            break;
+            
+        case KTAG + 13:
+            key = @"0";
+            break;
+            
+        case KTAG + 14:
+            key = @"Next";
+            break;
+            
+        default:
+            break;
+    }
+    return key;
 }
 
 - (void)buttonPushed:(MyButton *)sender {
 //    NSLog(@"%s, %d", __func__, sender.tag);
-    
-    if (sender.tag >= FTAG && sender.tag < BTAG) {
+
+    if ((sender.tag >= FTAG) && (sender.tag <= Quantity)) {
         MyButton *b = (MyButton *)[self.view viewWithTag:curField];
         [b setBackgroundColor:curFieldColor];
         b = (MyButton *)[self.view viewWithTag:sender.tag];
         [b setBackgroundColor:fieldColor];
         curField = sender.tag;
-        fieldValues[curField - FTAG] = @"";
-        [self updateFields];
+        fieldValues[T2I(FTAG, curField)] = @"";
+    } else  if ((sender.tag >= UnitPriceA) && (sender.tag <= Result)) {
+        [self showResult:NO];
     } else if (sender.tag >= BTAG) {
-        NSString *key = @"";
-        switch (sender.tag) {
-            case KTAG:
-                key = @"1";
-                break;
-                
-            case KTAG + 1:
-                key = @"2";
-                break;
-                
-            case KTAG + 2:
-                key = @"3";
-                break;
-                
-            case KTAG + 3:
-                key = @"C";
-                break;
-                
-            case KTAG + 4:
-                key = @"4";
-                break;
-                
-            case KTAG + 5:
-                key = @"5";
-                break;
-                
-            case KTAG + 6:
-                key = @"6";
-                break;
-                
-            case KTAG + 7:
-                key = @"Help";
-                break;
-                
-            case KTAG + 8:
-                key = @"7";
-                break;
-                
-            case KTAG + 9:
-                key = @"8";
-                break;
-                
-            case KTAG + 10:
-                key = @"9";
-                break;
-                
-            case KTAG + 11:
-                key = @"Del";
-                break;
-                
-            case KTAG + 12:
-                key = @".";
-                break;
-                
-            case KTAG + 13:
-                key = @"0";
-                break;
-                
-            case KTAG + 14:
-                key = @"Next";
-                break;
-                
-            default:
-                break;
-        }
-        NSString *s = fieldValues[curField - FTAG];
+        NSString *s = fieldValues[T2I(FTAG, curField)];
+        NSString *key = [self getKey:sender];
         if ([key isEqualToString:@"Del"]) {
             if (s.length > 0) {
                 s = [s substringToIndex:s.length - 1];
-                [fieldValues replaceObjectAtIndex:curField - FTAG withObject:s];
-                [self updateFields];
+                fieldValues[T2I(FTAG, curField)] = s;
             }
         } else if ([key isEqualToString:@"C"]) {
             [self initGUI];
         } else if ([key isEqualToString:@"Del"]) {
-            if (curField == NumUnitsA && [fieldValues[NumUnitsA] length] == 0) {
-                fieldValues[NumUnitsA - FTAG] = @"1";
-                MyButton *b = (MyButton *)[self.view viewWithTag:NumUnitsA];
-                [b setTitle:@"1" forState:UIControlStateNormal];
-                [b setTitle:@"1" forState:UIControlStateSelected];
-            } else if (curField == NumUnitsB && [fieldValues[NumUnitsB] length] == 0) {
-                fieldValues[NumUnitsB - FTAG] = @"1";
-                MyButton *b = (MyButton *)[self.view viewWithTag:NumUnitsB];
-                [b setTitle:@"1" forState:UIControlStateNormal];
-                [b setTitle:@"1" forState:UIControlStateSelected];
+            if (curField == NumUnitsA && [fieldValues[T2I(FTAG, NumUnitsA)] length] == 0) {
+                fieldValues[T2I(FTAG, NumUnitsA)] = @"1";
+            } else if (curField == NumUnitsB && [fieldValues[T2I(FTAG, NumUnitsB)] length] == 0) {
+                fieldValues[T2I(FTAG, NumUnitsB)] = @"1";
             }
+            [self updateFields];
         } else if ([key isEqualToString:@"Next"]) {
-            if (curField == NumUnitsA && [fieldValues[NumUnitsA - FTAG] length] == 0) {
-                fieldValues[NumUnitsA - FTAG] = @"1";
-            } else if (curField == NumUnitsB && [fieldValues[NumUnitsB - FTAG] length] == 0) {
-                fieldValues[NumUnitsB - FTAG] = @"1";
+            if (curField == PriceA && [fieldValues[T2I(FTAG, NumUnitsA)] length] == 0) {
+                fieldValues[T2I(FTAG, NumUnitsA)] = @"1";
+            } else if (curField == PriceB && [fieldValues[T2I(FTAG, NumUnitsB)] length] == 0) {
+                fieldValues[T2I(FTAG, NumUnitsB)] = @"1";
             }
-            NSInteger i = curField - FTAG;
+            NSInteger i = T2I(FTAG, curField);
             i = ((i + 1) % nInputFields);
-            curField = FTAG + i;
+            curField = I2T(FTAG, i);
 
             BOOL curFieldWasQuantity;
-            curFieldWasQuantity = curField == Quantity;
+            curFieldWasQuantity = (curField == Quantity);
             int nFilled = 0;
             for (int i = 0; i < nInputFields; i++) {
                 if ([(NSString *)fieldValues[i] length] > 0) {
@@ -343,10 +342,10 @@ typedef struct {
                 }
             }
             // allow Qty to be empty, calculate it
-            if (nFilled == nInputFields || (nFilled == nInputFields -1 && [fieldValues[Quantity - FTAG] length] == 0) || curFieldWasQuantity) {
+            if (nFilled == nInputFields || (nFilled == nInputFields -1 && [fieldValues[T2I(FTAG, Quantity)] length] == 0) || curFieldWasQuantity) {
                 [self showResult:curFieldWasQuantity];
             }
-            [self updateFields];
+
         } else if ([key isEqualToString:@"Help"]) {
             ADBannerView *a = (ADBannerView *)[self.view viewWithTag:Ad];
             if (a.isHidden) {
@@ -357,15 +356,12 @@ typedef struct {
         } else if ([key isEqualToString:@"."]) {
             NSRange r = [s rangeOfString:@"."];
             if (r.location == NSNotFound) {
-                fieldValues[curField - FTAG] = [s stringByAppendingString:key];
-                [self updateFields];
-                [self showResult:NO];
+                fieldValues[T2I(FTAG, curField)] = [s stringByAppendingString:key];
             }
         } else {
-            fieldValues[curField - FTAG] = [s stringByAppendingString:key];
-            [self updateFields];
-            [self showResult:NO];
+            fieldValues[T2I(FTAG, curField)] = [s stringByAppendingString:key];
         }
+        [self updateFields];
     } else {
         NSLog(@"Ooops");
     }
@@ -382,8 +378,7 @@ typedef struct {
     if (isKey) {
         [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient3.png"] forState:UIControlStateNormal];
         [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient.3png"] forState:UIControlStateSelected];
-        [b setTitle:[NSString stringWithCString:label.label encoding:NSASCIIStringEncoding] forState:UIControlStateNormal];
-        [b setTitle:[NSString stringWithCString:label.label encoding:NSASCIIStringEncoding] forState:UIControlStateSelected];
+        BTITLE(b, [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding]);
     }
     [b setBackgroundColor:(tag == curField) ? fieldColor : curFieldColor];
     [self.view addSubview:b];
@@ -398,33 +393,45 @@ typedef struct {
     [self.view addSubview:l];
 }
 
+- (void)fillBlank:(Field)f v:(float *)v d:(float)d {
+    if ([fieldValues[T2I(FTAG, f)] length] == 0) {
+        *v = d;
+        fieldValues[T2I(FTAG, f)] = [NSString stringWithFormat:@"%.2f", *v];
+    }
+}
 - (void)showResult:(BOOL)noQty {
-    float qty = [fieldValues[Quantity - FTAG] floatValue];
-    float priceA = [fieldValues[PriceA - FTAG] floatValue];
-    float nUnitsA = [fieldValues[NumUnitsA  - FTAG] floatValue];
+    NSLog(@"%s", __func__);
+    float qty = [fieldValues[T2I(FTAG, Quantity)] floatValue];
+    [self fillBlank:Quantity v:&qty d:1.0];
+    float priceA = [fieldValues[T2I(FTAG, PriceA)] floatValue];
+    [self fillBlank:PriceA v:&priceA d:1.0];
+    float nUnitsA = [fieldValues[T2I(FTAG, NumUnitsA)] floatValue];
+    [self fillBlank:NumUnitsA v:&nUnitsA d:1.0];
     float unitPriceA = priceA / nUnitsA;
-    fieldValues[UnitPriceA - FTAG] = [NSString stringWithFormat:@"%.2f", unitPriceA];
+    fieldValues[T2I(FTAG, UnitPriceA)] = [NSString stringWithFormat:@"%.2f", unitPriceA];
     
-    float priceB = [fieldValues[PriceB - FTAG] floatValue];
-    float nUnitsB = [fieldValues[NumUnitsB - FTAG] floatValue];
+    float priceB = [fieldValues[T2I(FTAG, PriceB)] floatValue];
+    [self fillBlank:PriceB v:&priceB d:1.0];
+    float nUnitsB = [fieldValues[T2I(FTAG, NumUnitsB)] floatValue];
+    [self fillBlank:NumUnitsB v:&nUnitsB d:1.0];
     float unitPriceB = priceB / nUnitsB;
-    fieldValues[UnitPriceB - FTAG] = [NSString stringWithFormat:@"%.2f", unitPriceB];
+    fieldValues[T2I(FTAG, UnitPriceB)] = [NSString stringWithFormat:@"%.2f", unitPriceB];
     
     NSString *result;
     if (unitPriceA < unitPriceB || unitPriceA > unitPriceB) {
         //=ABS(A8-C8)*B7
         if (noQty) {
             qty = (unitPriceA < unitPriceB) ? nUnitsA : nUnitsB;
-            fieldValues[Quantity - FTAG] = [NSString stringWithFormat:@"%.0f", qty];
+            fieldValues[T2I(FTAG, Quantity)] = [NSString stringWithFormat:@"%.0f", qty];
         } else {
-            qty = [fieldValues[Quantity - FTAG] floatValue];
+            qty = [fieldValues[T2I(FTAG, Quantity)] floatValue];
         }
         float savings = ABS(unitPriceA - unitPriceB) * qty;
         result = [NSString stringWithFormat:@"%@ saves %.2f", (unitPriceA < unitPriceB) ? @"A" : @"B", savings];
     } else {
         result = @"A and B are equal";
     }
-    fieldValues[Result - FTAG] = result; 
+    fieldValues[T2I(FTAG, Result)] = result;
     [self updateFields];
 }
 
@@ -442,8 +449,7 @@ typedef struct {
     NSLog(@"%s, Nothing to do", __func__);
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
