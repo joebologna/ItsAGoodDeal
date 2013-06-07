@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3B312C0B17602A8F00AF12F9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B312C0A17602A8F00AF12F9 /* iAd.framework */; };
+		3B3A62F81761557700C7DD46 /* ButtonGradient2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B3A62F51761557700C7DD46 /* ButtonGradient2.png */; };
+		3B3A62F91761557700C7DD46 /* ButtonGradient3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B3A62F61761557700C7DD46 /* ButtonGradient3.png */; };
+		3B3A62FA1761557700C7DD46 /* ButtonGradient4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B3A62F71761557700C7DD46 /* ButtonGradient4.png */; };
 		3B730725175EC9F500873194 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B730727175EC9F500873194 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
 		3B730729175EC9F500873194 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730728175EC9F500873194 /* CoreGraphics.framework */; };
@@ -23,11 +26,13 @@
 		3BDF4FA51760175000964B0E /* ButtonGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF4FA41760175000964B0E /* ButtonGradient.png */; };
 		3BDF4FA8176019D800964B0E /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF4FA7176019D800964B0E /* MyButton.m */; };
 		3BDF4FAA17601B3C00964B0E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF4FA917601B3C00964B0E /* QuartzCore.framework */; };
-		3BDF4FAC17601E8000964B0E /* ButtonGradient2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF4FAB17601E7F00964B0E /* ButtonGradient2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3B312C0A17602A8F00AF12F9 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		3B3A62F51761557700C7DD46 /* ButtonGradient2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGradient2.png; sourceTree = "<group>"; };
+		3B3A62F61761557700C7DD46 /* ButtonGradient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGradient3.png; sourceTree = "<group>"; };
+		3B3A62F71761557700C7DD46 /* ButtonGradient4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGradient4.png; sourceTree = "<group>"; };
 		3B730721175EC9F500873194 /* EBD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EBD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B730724175EC9F500873194 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3B730726175EC9F500873194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -49,7 +54,6 @@
 		3BDF4FA6176019D800964B0E /* MyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyButton.h; sourceTree = "<group>"; };
 		3BDF4FA7176019D800964B0E /* MyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyButton.m; sourceTree = "<group>"; };
 		3BDF4FA917601B3C00964B0E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		3BDF4FAB17601E7F00964B0E /* ButtonGradient2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonGradient2.png; path = ../../EvenBetterDeal/EvenBetterDeal/ButtonGradient2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,8 +110,10 @@
 				3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */,
 				3B730742175EC9F500873194 /* ViewController.h */,
 				3B730743175EC9F500873194 /* ViewController.m */,
-				3BDF4FAB17601E7F00964B0E /* ButtonGradient2.png */,
 				3BDF4FA41760175000964B0E /* ButtonGradient.png */,
+				3B3A62F51761557700C7DD46 /* ButtonGradient2.png */,
+				3B3A62F61761557700C7DD46 /* ButtonGradient3.png */,
+				3B3A62F71761557700C7DD46 /* ButtonGradient4.png */,
 				3BDF4FA6176019D800964B0E /* MyButton.h */,
 				3BDF4FA7176019D800964B0E /* MyButton.m */,
 				3B73072B175EC9F500873194 /* Supporting Files */,
@@ -187,7 +193,9 @@
 				3B73073E175EC9F500873194 /* MainStoryboard_iPhone.storyboard in Resources */,
 				3B730741175EC9F500873194 /* MainStoryboard_iPad.storyboard in Resources */,
 				3BDF4FA51760175000964B0E /* ButtonGradient.png in Resources */,
-				3BDF4FAC17601E8000964B0E /* ButtonGradient2.png in Resources */,
+				3B3A62F81761557700C7DD46 /* ButtonGradient2.png in Resources */,
+				3B3A62F91761557700C7DD46 /* ButtonGradient3.png in Resources */,
+				3B3A62FA1761557700C7DD46 /* ButtonGradient4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

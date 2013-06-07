@@ -15,6 +15,17 @@
 #define FIELDSIZE fieldsize
 #define BUTTONSIZE buttonsize
 
+#define FTAG 100
+#define BTAG 200
+
+typedef enum {
+    PriceA = FTAG, NumUnitsA = FTAG + 1,
+    PriceB = FTAG + 2, NumUnitsB = FTAG + 3,
+    Quantity = FTAG + 4,
+    UnitPriceA = FTAG + 5, UnitPriceB = FTAG + 6, Result = FTAG + 7
+} Field;
+
+
 typedef enum {
     iPhone4 = 0, iPhone5 = 1, iPad =2
 } DeviceType;
@@ -34,10 +45,13 @@ typedef struct {
 } buttonStruct;
 
 @interface ViewController () <ADBannerViewDelegate> {
+    NSMutableArray *fieldValues;
     UIColor *fieldColor, *curFieldColor;
     DeviceType deviceType;
     FontSizes fontSizes;
     CGFloat fieldsize, buttonsize;
+    NSInteger curField;
+    BOOL directTap;
 }
 
 @end
@@ -70,27 +84,52 @@ typedef struct {
     
     // iPhone 4 = 480, iPhone 5 = 568, iPad > 568
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    fontSizes.text = fontSizes.label = 12;
-    fontSizes.button = 40;
     if (height <= 480) {
         deviceType = iPhone4;
         fieldsize = 36.0;
         buttonsize = 48.0;
+        fontSizes.text = fontSizes.label = 12;
+        fontSizes.button = 20;
     } else if (height > 480 && height <= 568) {
         deviceType = iPhone5;
         fieldsize = 36.0;
         buttonsize = 48.0;
+        fontSizes.text = fontSizes.label = 12;
+        fontSizes.button = 20;
     } else {
         deviceType = iPad;
         fieldsize = 72.0;
-        buttonsize = 108.0;
+        buttonsize = 128.0;
+        fontSizes.text = fontSizes.label = 24;
+        fontSizes.button = 48;
     }
     
     fieldColor = UIColorFromRGB(0x86e4ae);
-    curFieldColor = UIColorFromRGB(0x86ffaf);
+    curFieldColor = UIColorFromRGB(0x86ffcf);
 
     self.view.backgroundColor = [UIColor colorWithRed:0.326184 green:0.914025 blue:0.620324 alpha:1];
     [self makeFields];
+    [self initGUI];
+}
+
+- (void)initGUI {
+    fieldValues = [NSMutableArray array];
+    for (int i = PriceA; i <= Result; i++) {
+        [fieldValues addObject:@""];
+    }
+    curField = FTAG;
+    directTap = NO;
+    [self updateFields];
+}
+
+- (void) updateFields {
+    for (int tag = PriceA; tag <= Result; tag++) {
+        NSInteger i = tag - FTAG;
+        MyButton *b = (MyButton *)[self.view viewWithTag:tag];
+        [b setTitle:fieldValues[i] forState:UIControlStateNormal];
+        [b setTitle:fieldValues[i] forState:UIControlStateSelected];
+        [b setBackgroundColor:(tag == curField) ? curFieldColor : fieldColor];
+    }
 }
 
 #define FIELD(x, y, w, t) { x, ((y * 25) + (y - 1) * FIELDSIZE), w, FIELDSIZE, t, "" }
@@ -113,10 +152,10 @@ typedef struct {
     };
     
     fieldStruct fieldsiP[] = {
-        FIELD(10, 1, LARGEFIELD*2.5, "Price"), FIELD(10 + 154*2.5, 1, LARGEFIELD*2.5, "Price"),
-        FIELD(10, 2, SMALLFIELD*2.5, "# of Units"), FIELD(10 + 190*2.5, 2, SMALLFIELD*2.5, "# of Units"),
-        FIELD(10 + 95*2.5, 2.8, SMALLFIELD*2.5, "Quantity"),
-        FIELD(10, 3.8, LARGEFIELD*2.5, "Unit Price"), FIELD(10 + 154*2.5, 3.8, LARGEFIELD*2.5, "Unit Price")
+        FIELD(20, 1.1, LARGEFIELD*2.5, "Price"), FIELD(20 + 154*2.4, 1.1, LARGEFIELD*2.5, "Price"),
+        FIELD(20, 2.2, SMALLFIELD*2.5, "# of Units"), FIELD(20 + 8 + 190*2.4, 2.2, SMALLFIELD*2.5, "# of Units"),
+        FIELD(20 + 95*2.5 - 4, 3.0, SMALLFIELD*2.5, "Quantity"),
+        FIELD(20, 4.0, LARGEFIELD*2.5, "Unit Price"), FIELD(20 + 154*2.4, 4.0, LARGEFIELD*2.5, "Unit Price")
     };
     
     fieldStruct *deviceFields[] = {
@@ -130,11 +169,11 @@ typedef struct {
                                  deviceFields[deviceType][i].h);
         [self makeButton:
          [NSString stringWithUTF8String:deviceFields[deviceType][i].text]
-                   label:[NSString stringWithUTF8String:deviceFields[deviceType][i].label] rect:rect];
+                   label:[NSString stringWithUTF8String:deviceFields[deviceType][i].label] rect:rect tag:(FTAG + i)];
     }
     
 #define BUTTON(m, x, y, o, t)  { m + x * 4 + 10 + BUTTONSIZE * x, 64 + y * BUTTONSIZE + o + ((4 + y) * FIELDSIZE), BUTTONSIZE, BUTTONSIZE, t }
-#define LASTBUTTON(m, x, y, o, t)  { m + x * 4 + 10 + BUTTONSIZE * x, 64 + y * BUTTONSIZE + o + ((4 + y) * FIELDSIZE), BUTTONSIZE + 102, BUTTONSIZE, t }
+#define LASTBUTTON(m, x, y, o, t)  { m + x * 4 + 10 + BUTTONSIZE * x, 64 + y * BUTTONSIZE + o + ((4 + y) * FIELDSIZE), BUTTONSIZE + ((deviceType == iPad) ? 136 : 52), BUTTONSIZE, t }
 #define LM 46
 
     buttonStruct buttons4[] = {
@@ -152,10 +191,10 @@ typedef struct {
     };
 
     buttonStruct buttonsiP[] = {
-        BUTTON(LM*2, 0, 0, 48, "1"), BUTTON(LM, 1, 0, 48, "2"), BUTTON(LM, 2, 0, 48, "3"), BUTTON(LM, 3, 0, 48, "C"),
-        BUTTON(LM*2, 0, 1, 16, "4"), BUTTON(LM, 1, 1, 16, "5"), BUTTON(LM, 2, 1, 16, "6"), BUTTON(LM, 3, 1, 16, "Help"),
-        BUTTON(LM*2, 0, 2, -16, "7"), BUTTON(LM, 1, 2, -16, "8"), BUTTON(LM, 2, 2, -16, "9"), BUTTON(LM, 3, 2, -16, "Del"),
-        BUTTON(LM*2, 0, 3, -48, "."), BUTTON(LM, 1, 3, -48, "0"), LASTBUTTON(LM, 2, 3, -48, "Next")
+        BUTTON(LM*2+20, 0, 0, 48, "1"), BUTTON(LM*2+20, 1, 0, 48, "2"), BUTTON(LM*2+20, 2, 0, 48, "3"), BUTTON(LM*2+20, 3, 0, 48, "C"),
+        BUTTON(LM*2+20, 0, 1, -20, "4"), BUTTON(LM*2+20, 1, 1, -20, "5"), BUTTON(LM*2+20, 2, 1, -20, "6"), BUTTON(LM*2+20, 3, 1, -20, "Help"),
+        BUTTON(LM*2+20, 0, 2, -88, "7"), BUTTON(LM*2+20, 1, 2, -88, "8"), BUTTON(LM*2+20, 2, 2, -88, "9"), BUTTON(LM*2+20, 3, 2, -88, "Del"),
+        BUTTON(LM*2+20, 0, 3, -156, "."), BUTTON(LM*2+20, 1, 3, -156, "0"), LASTBUTTON(LM*2+20, 2, 3, -156, "Next")
     };
     
     buttonStruct *deviceButtons[] = {
@@ -167,28 +206,125 @@ typedef struct {
                                  deviceButtons[deviceType][i].y,
                                  deviceButtons[deviceType][i].w,
                                  deviceButtons[deviceType][i].h);
-        [self makeButton:[NSString stringWithUTF8String:deviceButtons[deviceType][i].label] label:nil rect:rect];
+        [self makeButton:[NSString stringWithUTF8String:deviceButtons[deviceType][i].label] label:nil rect:rect tag:(BTAG + i)];
     }
     
 }
 
-- (void)makeButton:(NSString *)text label:(NSString *)label rect:(CGRect)rect  {
-    // if a label is missing it's on the keypad, therefore it needs a gradient
-    MyButton *b = [[MyButton alloc] initWithFrame:rect];
-    [b setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor whiteColor], nil]];
-    [b setBackgroundColors:[NSArray arrayWithObjects:self.view.backgroundColor, self.view.backgroundColor, self.view.backgroundColor, nil]];
-    [b setTitle:text forState:UIControlStateNormal];
-    [b setTitle:text forState:UIControlStateSelected];
-    if (label == nil) {
-        if ([text isEqualToString:@"Next"]) {
-            [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient2.png"] forState:UIControlStateNormal];
-            [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient2.png"] forState:UIControlStateSelected];
+- (void)buttonPushed:(MyButton *)sender {
+//    NSLog(@"%s, %d", __func__, sender.tag);
+    
+    if (sender.tag >= FTAG && sender.tag < BTAG) {
+        MyButton *b = (MyButton *)[self.view viewWithTag:curField];
+        [b setBackgroundColor:curFieldColor];
+        b = (MyButton *)[self.view viewWithTag:sender.tag];
+        [b setBackgroundColor:fieldColor];
+        curField = sender.tag;
+        directTap = YES;
+    } else if (sender.tag >= BTAG) {
+        NSString *key = @"";
+        switch (sender.tag) {
+            case BTAG:
+                key = @"1";
+                break;
+                
+            case BTAG + 1:
+                key = @"2";
+                break;
+                
+            case BTAG + 2:
+                key = @"3";
+                break;
+                
+            case BTAG + 3:
+                key = @"C";
+                break;
+                
+            case BTAG + 4:
+                key = @"4";
+                break;
+                
+            case BTAG + 5:
+                key = @"5";
+                break;
+                
+            case BTAG + 6:
+                key = @"6";
+                break;
+                
+            case BTAG + 7:
+                key = @"Help";
+                break;
+                
+            case BTAG + 8:
+                key = @"7";
+                break;
+                
+            case BTAG + 9:
+                key = @"8";
+                break;
+                
+            case BTAG + 10:
+                key = @"9";
+                break;
+                
+            case BTAG + 11:
+                key = @"Del";
+                break;
+                
+            case BTAG + 12:
+                key = @".";
+                break;
+                
+            case BTAG + 13:
+                key = @"0";
+                break;
+                
+            case BTAG + 14:
+                key = @"Next";
+                break;
+                
+            default:
+                break;
+        }
+        if ([key isEqualToString:@"Del"]) {
+            NSString *s = fieldValues[FTAG - curField];
+            if (s.length > 0) {
+                s = [s substringToIndex:s.length - 1];
+                [fieldValues replaceObjectAtIndex:curField - FTAG withObject:s];
+                [self updateFields];
+            }
+        } else if ([key isEqualToString:@"C"]) {
+            [self initGUI];
         } else {
-            [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient.png"] forState:UIControlStateNormal];
-            [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient.png"] forState:UIControlStateSelected];
+            [fieldValues replaceObjectAtIndex:curField - FTAG withObject:[fieldValues[curField - FTAG] stringByAppendingString:key]];
+            [self updateFields];
         }
     } else {
-        [b setBackgroundColor:fieldColor];
+        NSLog(@"Ooops");
+    }
+}
+
+- (void)makeButton:(NSString *)text label:(NSString *)label rect:(CGRect)rect tag:(NSInteger)tag  {
+    // if a label is missing it's on the keypad, therefore it needs a gradient
+    MyButton *b = [[MyButton alloc] initWithFrame:rect];
+    [b addTarget:self action:@selector(buttonPushed:) forControlEvents:UIControlEventTouchUpInside];
+    [b setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor whiteColor], nil]];
+    [b setBackgroundColors:[NSArray arrayWithObjects:fieldColor, curFieldColor, [UIColor grayColor], nil]];
+    [b setTitle:text forState:UIControlStateNormal];
+    [b setTitle:text forState:UIControlStateSelected];
+    b.titleLabel.font = [UIFont systemFontOfSize:fontSizes.button];
+    b.tag = tag;
+    if (label == nil) {
+        if ([text isEqualToString:@"Next"]) {
+            [b setBackgroundImage:[UIImage imageNamed:(deviceType == iPad) ? @"ButtonGradient4.png" : @"ButtonGradient2.png"] forState:UIControlStateNormal];
+            [b setBackgroundImage:[UIImage imageNamed:(deviceType == iPad) ? @"ButtonGradient4.png" : @"ButtonGradient2.png"] forState:UIControlStateSelected];
+        } else {
+            [b setBackgroundImage:[UIImage imageNamed:(deviceType == iPad) ? @"ButtonGradient3.png" : @"ButtonGradient.png"] forState:UIControlStateNormal];
+            [b setBackgroundImage:[UIImage imageNamed:(deviceType == iPad) ? @"ButtonGradient3.png" : @"ButtonGradient.png"] forState:UIControlStateSelected];
+        }
+    } else {
+        [b setBackgroundColor:(tag == curField) ? fieldColor : curFieldColor];
     }
     b.frame = rect;
     [self.view addSubview:b];
@@ -203,11 +339,6 @@ typedef struct {
         l.backgroundColor = [UIColor clearColor];
         [self.view addSubview:l];
     }
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    textField.text = @"1";
-    return NO;
 }
 
 - (void)didReceiveMemoryWarning
