@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "MyButton.h"
+
 #import <iAd/iAd.h>
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -60,14 +61,49 @@ typedef struct {
 
 @implementation ViewController
 
+#define kBought CFSTR("bought")
+#define vNo CFSTR("NO")
+#define vYes CFSTR("YES")
+
+// setters/getters
+- (void)setBought:(BOOL)newValue {
+//    NSLog(@"%s, %@", __func__, newValue ? vYes : vNo);
+    bought = newValue;
+    
+    // Set up the preference.
+    CFPreferencesSetAppValue(kBought, (newValue ? vYes : vNo), kCFPreferencesCurrentApplication);
+    
+    // Write out the preference data.
+    CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication);
+}
+
+- (BOOL)bought {
+    CFStringRef boughtStr;
+    
+    // Read the preference.
+    boughtStr = (CFStringRef)CFPreferencesCopyAppValue(kBought, kCFPreferencesCurrentApplication);
+    if (boughtStr == nil) {
+        boughtStr = vNo;
+    }
+    CFComparisonResult r = CFStringCompare(boughtStr, vYes, kCFCompareCaseInsensitive);
+    bought = (r == kCFCompareEqualTo);
+
+    // When finished with value, you must release it
+    // CFRelease(boughtStr);
+//    NSLog(@"%s, bought is: %@", __func__, bought ? vYes : vNo);
+    return bought;
+}
+
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
     NSLog(@"%s", __func__);
-    [banner setHidden:NO];
+    [banner setHidden:self.bought];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    ((ADBannerView *)[self.view viewWithTag:Ad]).delegate = self;
+
+    ADBannerView *adView = (ADBannerView *)[self.view viewWithTag:Ad];
+    adView.delegate = self;
     
     // iPhone 4 = 480, iPhone 5 = 568, iPad > 568
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
@@ -95,6 +131,7 @@ typedef struct {
     }
     curField = FTAG;
     [self updateFields];
+    [self setAdButtonState];
 }
 
 - (void)updateFields {
@@ -356,8 +393,13 @@ typedef struct {
                 }
             }
             // allow Qty to be empty, calculate it
-            if (nFilled == nInputFields || ((nFilled == (nInputFields - 1)) && ([fieldValues[T2I(FTAG, Quantity)] length] == 0)) || curFieldWasQuantity) {
-                [self showResult:curFieldWasQuantity];
+//            if (((nFilled == nInputFields) || (nFilled == (nInputFields - 1))) && (([fieldValues[T2I(FTAG, Quantity)] length] == 0) || curFieldWasQuantity)) {
+            if (nFilled == nInputFields) {
+                [self showResult:NO];
+            } else if((nFilled == (nInputFields - 1)) && ([fieldValues[T2I(FTAG, Quantity)] length] == 0)) {
+                [self showResult:YES];
+            } else {
+                // do nothing
             }
 
         } else if ([key isEqualToString:@STORE]) {
@@ -448,15 +490,16 @@ typedef struct {
 }
 
 - (void)removeAds {
+    self.bought = !self.bought;
+    [self setAdButtonState];
+}
+
+- (void)setAdButtonState {
+    NSLog(@"%s", __func__);
     ADBannerView *a = (ADBannerView *)[self.view viewWithTag:Ad];
     MyButton *b = (MyButton *)[self.view viewWithTag:(K_STORE)];
-    if (a.isHidden) {
-        [a setHidden:NO];
-        BTITLE(b, @STORE);
-    } else {
-        [a setHidden:YES];
-        BTITLE(b, @THANKS);
-    }
+    [a setHidden:self.bought];
+    BTITLE(b, self.bought ? @THANKS : @STORE);
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {

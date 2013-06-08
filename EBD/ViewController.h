@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController  <UITextFieldDelegate>
+@interface ViewController : UIViewController  <UITextFieldDelegate> {
+    BOOL bought;
+}
+
+@property (unsafe_unretained, nonatomic) BOOL bought;
 
 @end
