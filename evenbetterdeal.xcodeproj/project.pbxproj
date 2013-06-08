@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B312C0B17602A8F00AF12F9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B312C0A17602A8F00AF12F9 /* iAd.framework */; };
-		3B3A62F81761557700C7DD46 /* ButtonGradient2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B3A62F51761557700C7DD46 /* ButtonGradient2.png */; };
 		3B3A62F91761557700C7DD46 /* ButtonGradient3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B3A62F61761557700C7DD46 /* ButtonGradient3.png */; };
-		3B3A62FA1761557700C7DD46 /* ButtonGradient4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B3A62F71761557700C7DD46 /* ButtonGradient4.png */; };
 		3B730725175EC9F500873194 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B730727175EC9F500873194 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
 		3B730729175EC9F500873194 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730728175EC9F500873194 /* CoreGraphics.framework */; };
@@ -29,13 +27,13 @@
 		3BDB0D001762A7FA007AB586 /* scale-114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */; };
 		3BDB0D021762C184007AB586 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDB0D011762C184007AB586 /* StoreKit.framework */; };
 		3BDB0D051762CCD9007AB586 /* MyStoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDB0D041762CCD9007AB586 /* MyStoreObserver.m */; };
-		3BDF4FA51760175000964B0E /* ButtonGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF4FA41760175000964B0E /* ButtonGradient.png */; };
 		3BDF4FA8176019D800964B0E /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF4FA7176019D800964B0E /* MyButton.m */; };
 		3BDF4FAA17601B3C00964B0E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF4FA917601B3C00964B0E /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3B312C0A17602A8F00AF12F9 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		3B3560F6176378DC0064E489 /* evenbetterdeal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = evenbetterdeal.entitlements; sourceTree = "<group>"; };
 		3B3A62F51761557700C7DD46 /* ButtonGradient2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGradient2.png; sourceTree = "<group>"; };
 		3B3A62F61761557700C7DD46 /* ButtonGradient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGradient3.png; sourceTree = "<group>"; };
 		3B3A62F71761557700C7DD46 /* ButtonGradient4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGradient4.png; sourceTree = "<group>"; };
@@ -94,6 +92,7 @@
 		3B730718175EC9F400873194 = {
 			isa = PBXGroup;
 			children = (
+				3B3560F6176378DC0064E489 /* evenbetterdeal.entitlements */,
 				3BD286731762EFC000A9AEE4 /* Default-Portrait~ipad.png */,
 				3BD286711762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png */,
 				3BD2866F1762EB0700A9AEE4 /* scale-72x72.png */,
@@ -228,10 +227,7 @@
 				3B73072F175EC9F500873194 /* InfoPlist.strings in Resources */,
 				3B73073E175EC9F500873194 /* MainStoryboard_iPhone.storyboard in Resources */,
 				3B730741175EC9F500873194 /* MainStoryboard_iPad.storyboard in Resources */,
-				3BDF4FA51760175000964B0E /* ButtonGradient.png in Resources */,
-				3B3A62F81761557700C7DD46 /* ButtonGradient2.png in Resources */,
 				3B3A62F91761557700C7DD46 /* ButtonGradient3.png in Resources */,
-				3B3A62FA1761557700C7DD46 /* ButtonGradient4.png in Resources */,
 				3BDB0CFD1762A7FA007AB586 /* Default-568h@2x.png in Resources */,
 				3BDB0D001762A7FA007AB586 /* scale-114x114.png in Resources */,
 				3BD2866C1762E97100A9AEE4 /* scale-57x57.png in Resources */,
@@ -352,10 +348,15 @@
 		3B730748175EC9F500873194 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = evenbetterdeal.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EBD/evenbetterdeal-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/EBD/evenbetterdeal-Info.plist";
 				PRODUCT_NAME = evenbetterdeal;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -363,10 +364,15 @@
 		3B730749175EC9F500873194 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = evenbetterdeal.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EBD/evenbetterdeal-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/EBD/evenbetterdeal-Info.plist";
 				PRODUCT_NAME = evenbetterdeal;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
