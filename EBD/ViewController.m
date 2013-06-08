@@ -49,7 +49,13 @@ typedef struct {
     char *label;
 } labelStruct;
 
-@interface ViewController () <ADBannerViewDelegate> {
+#if DEBUG==1
+static BOOL debug = YES;
+#else
+static BOOL debug = NO;
+#endif
+
+@interface ViewController () <ADBannerViewDelegate, UIAlertViewDelegate> {
     NSMutableArray *fieldValues;
     UIColor *fieldColor, *curFieldColor;
     DeviceType deviceType;
@@ -388,7 +394,9 @@ typedef struct {
             }
 
         } else if ([key isEqualToString:@STORE]) {
-            [self removeAds];
+            if (!self.bought || debug) {
+                [self removeAds];
+            }
         } else if ([key isEqualToString:@"."]) {
             NSRange r = [s rangeOfString:@"."];
             if (r.location == NSNotFound) {
@@ -478,8 +486,24 @@ typedef struct {
 }
 
 - (void)removeAds {
-    self.bought = !self.bought;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@STORE message:@"Do you wish to remove Ads for $0.99" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+    alert.delegate = self;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
+        NSLog(@"Buy it here");
+        self.bought = YES;
+    } else {
+        if (debug) {
+            self.bought = NO;
+        } else {
+            NSLog(@"Dont do anything");
+        }
+    }
     [self setAdButtonState];
+    [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }
 
 - (void)setAdButtonState {
