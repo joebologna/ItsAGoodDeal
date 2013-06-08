@@ -10,13 +10,13 @@
 
 @implementation AppDelegate
 
-@synthesize myStoreObserver;
+@synthesize myStoreObserver = _myStoreObserver;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
     self.myStoreObserver = [MyStoreObserver myStoreObserver];
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:myStoreObserver];
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self.myStoreObserver];
     [self requestProductData];
     return YES;
 }
@@ -32,10 +32,10 @@
 {
     NSLog(@"valid: %@", response.products);
     NSLog(@"invalid: %@", response.invalidProductIdentifiers);
-    myStoreObserver.myProducts = response.products;
+    self.myStoreObserver.myProducts = response.products;
     // Populate your UI from the products list.
     // Save a reference to the products list.
-    NSLog(@"%s, %@", __func__, myStoreObserver.myProducts);
+    NSLog(@"%s, %@", __func__, self.myStoreObserver.myProducts);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -64,5 +64,4 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 @end

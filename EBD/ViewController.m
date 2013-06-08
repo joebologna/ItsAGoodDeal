@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "MyButton.h"
-#import "AppDelegate.h"
+#import "MyStoreObserver.h"
 
 #import <iAd/iAd.h>
 #import <StoreKit/StoreKit.h>
@@ -63,48 +63,16 @@ static BOOL debug = NO;
     DeviceType deviceType;
     NSInteger curField;
     BOOL directTap;
+    MyStoreObserver *myStoreObserver;
 }
 
 @end
 
 @implementation ViewController
 
-#define kBought CFSTR("bought")
-#define vNo CFSTR("NO")
-#define vYes CFSTR("YES")
-
-// setters/getters
-- (void)setBought:(BOOL)newValue {
-//    NSLog(@"%s, %@", __func__, newValue ? vYes : vNo);
-    bought = newValue;
-    
-    // Set up the preference.
-    CFPreferencesSetAppValue(kBought, (newValue ? vYes : vNo), kCFPreferencesCurrentApplication);
-    
-    // Write out the preference data.
-    CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication);
-}
-
-- (BOOL)bought {
-    CFStringRef boughtStr;
-    
-    // Read the preference.
-    boughtStr = (CFStringRef)CFPreferencesCopyAppValue(kBought, kCFPreferencesCurrentApplication);
-    if (boughtStr == nil) {
-        boughtStr = vNo;
-    }
-    CFComparisonResult r = CFStringCompare(boughtStr, vYes, kCFCompareCaseInsensitive);
-    bought = (r == kCFCompareEqualTo);
-
-    // When finished with value, you must release it
-    // CFRelease(boughtStr);
-//    NSLog(@"%s, bought is: %@", __func__, bought ? vYes : vNo);
-    return bought;
-}
-
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
     NSLog(@"%s", __func__);
-    [banner setHidden:self.bought];
+    [banner setHidden:myStoreObserver.bought];
 }
 
 - (void)viewDidLoad {
@@ -129,6 +97,11 @@ static BOOL debug = NO;
     self.view.backgroundColor = [UIColor colorWithRed:0.326184 green:0.914025 blue:0.620324 alpha:1];
     [self populateScreen];
     [self initGUI];
+    
+    myStoreObserver = [MyStoreObserver myStoreObserver];
+    myStoreObserver.delegate = self;
+    
+    NSLog(@"%s, %@", __func__, myStoreObserver);
 }
 
 - (void)initGUI {
@@ -396,7 +369,7 @@ static BOOL debug = NO;
             }
 
         } else if ([key isEqualToString:@STORE]) {
-            if (!self.bought || debug) {
+            if (!myStoreObserver.bought || debug) {
                 if ([SKPaymentQueue canMakePayments]) {
                     [self removeAds];
                 } else {
@@ -505,28 +478,33 @@ static BOOL debug = NO;
             [self doPayment];
         } else {
             if (debug) {
-                self.bought = NO;
+                myStoreObserver.bought = NO;
+                [self setAdButtonState];
             } else {
                 NSLog(@"Dont do anything");
             }
         }
-        [self setAdButtonState];
+//        [self setAdButtonState];
     }
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }
 
 - (void)doPayment {
-    SKProduct *selectedProduct = [[(AppDelegate *)[UIApplication sharedApplication] myStoreObserver] myProducts][0];
-    SKPayment *payment = [SKPayment paymentWithProduct:selectedProduct];
-    [[SKPaymentQueue defaultQueue] addPayment:payment];
+    if (myStoreObserver.myProducts.count > 0) {
+        SKProduct *selectedProduct = myStoreObserver.myProducts[0];
+        SKPayment *payment = [SKPayment paymentWithProduct:selectedProduct];
+        [[SKPaymentQueue defaultQueue] addPayment:payment];
+    } else {
+        NSLog(@"no products found");
+    }
 }
 
 - (void)setAdButtonState {
     NSLog(@"%s", __func__);
     ADBannerView *a = (ADBannerView *)[self.view viewWithTag:Ad];
     MyButton *b = (MyButton *)[self.view viewWithTag:(K_STORE)];
-    [a setHidden:self.bought];
-    BTITLE(b, self.bought ? @THANKS : @STORE);
+    [a setHidden:myStoreObserver.bought];
+    BTITLE(b, myStoreObserver.bought ? @THANKS : @STORE);
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
@@ -546,6 +524,11 @@ static BOOL debug = NO;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)processCompleted {
+    NSLog(@"%s", __func__);
+    [self setAdButtonState];
 }
 
 @end

@@ -7,11 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyStoreObserver.h"
 
-@interface ViewController : UIViewController  <UITextFieldDelegate> {
-    BOOL bought;
-}
-
-@property (unsafe_unretained, nonatomic) BOOL bought;
+@interface ViewController : UIViewController <UITextFieldDelegate, MyStoreObserverDelegate>
 
 @end
