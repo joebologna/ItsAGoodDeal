@@ -24,6 +24,8 @@
 		3BDB0CFE1762A7FA007AB586 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDB0CFA1762A7FA007AB586 /* Default.png */; };
 		3BDB0CFF1762A7FA007AB586 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDB0CFB1762A7FA007AB586 /* Default@2x.png */; };
 		3BDB0D001762A7FA007AB586 /* scale-114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */; };
+		3BDB0D021762C184007AB586 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDB0D011762C184007AB586 /* StoreKit.framework */; };
+		3BDB0D051762CCD9007AB586 /* MyStoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDB0D041762CCD9007AB586 /* MyStoreObserver.m */; };
 		3BDF4FA51760175000964B0E /* ButtonGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF4FA41760175000964B0E /* ButtonGradient.png */; };
 		3BDF4FA8176019D800964B0E /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF4FA7176019D800964B0E /* MyButton.m */; };
 		3BDF4FAA17601B3C00964B0E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF4FA917601B3C00964B0E /* QuartzCore.framework */; };
@@ -55,6 +57,9 @@
 		3BDB0CFA1762A7FA007AB586 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		3BDB0CFB1762A7FA007AB586 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scale-114x114.png"; sourceTree = "<group>"; };
+		3BDB0D011762C184007AB586 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		3BDB0D031762CCD9007AB586 /* MyStoreObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStoreObserver.h; sourceTree = "<group>"; };
+		3BDB0D041762CCD9007AB586 /* MyStoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStoreObserver.m; sourceTree = "<group>"; };
 		3BDF4FA41760175000964B0E /* ButtonGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGradient.png; sourceTree = "<group>"; };
 		3BDF4FA6176019D800964B0E /* MyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyButton.h; sourceTree = "<group>"; };
 		3BDF4FA7176019D800964B0E /* MyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyButton.m; sourceTree = "<group>"; };
@@ -66,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BDB0D021762C184007AB586 /* StoreKit.framework in Frameworks */,
 				3B312C0B17602A8F00AF12F9 /* iAd.framework in Frameworks */,
 				3BDF4FAA17601B3C00964B0E /* QuartzCore.framework in Frameworks */,
 				3B730725175EC9F500873194 /* UIKit.framework in Frameworks */,
@@ -101,6 +107,7 @@
 		3B730723175EC9F500873194 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3BDB0D011762C184007AB586 /* StoreKit.framework */,
 				3B312C0A17602A8F00AF12F9 /* iAd.framework */,
 				3BDF4FA917601B3C00964B0E /* QuartzCore.framework */,
 				3B730724175EC9F500873194 /* UIKit.framework */,
@@ -115,6 +122,8 @@
 			children = (
 				3B730733175EC9F500873194 /* AppDelegate.h */,
 				3B730734175EC9F500873194 /* AppDelegate.m */,
+				3BDB0D031762CCD9007AB586 /* MyStoreObserver.h */,
+				3BDB0D041762CCD9007AB586 /* MyStoreObserver.m */,
 				3B73073C175EC9F500873194 /* MainStoryboard_iPhone.storyboard */,
 				3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */,
 				3B730742175EC9F500873194 /* ViewController.h */,
@@ -228,6 +237,7 @@
 				3B730735175EC9F500873194 /* AppDelegate.m in Sources */,
 				3B730744175EC9F500873194 /* ViewController.m in Sources */,
 				3BDF4FA8176019D800964B0E /* MyButton.m in Sources */,
+				3BDB0D051762CCD9007AB586 /* MyStoreObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +283,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Focused for Success, Inc. (2GC862GT48)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -288,6 +299,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "2818785D-133F-4B2A-A0E3-F6D8DAADBBBD";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -305,6 +317,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Focused for Success, Inc. (2GC862GT48)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -313,6 +326,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "2818785D-133F-4B2A-A0E3-F6D8DAADBBBD";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

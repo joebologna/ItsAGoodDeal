@@ -10,12 +10,34 @@
 
 @implementation AppDelegate
 
+@synthesize myStoreObserver;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    self.myStoreObserver = [MyStoreObserver myStoreObserver];
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:myStoreObserver];
+    [self requestProductData];
     return YES;
 }
-							
+
+- (void) requestProductData
+{
+    SKProductsRequest *request= [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:@"com.focusedforsuccess.evenbetterdeal.noads"]];
+    request.delegate = self;
+    [request start];
+}
+
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
+{
+    NSLog(@"valid: %@", response.products);
+    NSLog(@"invalid: %@", response.invalidProductIdentifiers);
+    myStoreObserver.myProducts = response.products;
+    // Populate your UI from the products list.
+    // Save a reference to the products list.
+    NSLog(@"%s, %@", __func__, myStoreObserver.myProducts);
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

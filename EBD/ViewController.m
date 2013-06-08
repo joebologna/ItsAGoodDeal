@@ -8,8 +8,10 @@
 
 #import "ViewController.h"
 #import "MyButton.h"
+#import "AppDelegate.h"
 
 #import <iAd/iAd.h>
+#import <StoreKit/StoreKit.h>
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -395,7 +397,11 @@ static BOOL debug = NO;
 
         } else if ([key isEqualToString:@STORE]) {
             if (!self.bought || debug) {
-                [self removeAds];
+                if ([SKPaymentQueue canMakePayments]) {
+                    [self removeAds];
+                } else {
+                    [[[UIAlertView alloc] initWithTitle:@"Payments Disabled" message:@"Use Settings to enable payments" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                }
             }
         } else if ([key isEqualToString:@"."]) {
             NSRange r = [s rangeOfString:@"."];
@@ -492,18 +498,27 @@ static BOOL debug = NO;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
-        NSLog(@"Buy it here");
-        self.bought = YES;
-    } else {
-        if (debug) {
-            self.bought = NO;
+    if (![[alertView title] isEqualToString:@"Payments Disabled"]) {
+        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
+            NSLog(@"Buy it here");
+//            self.bought = YES;
+            [self doPayment];
         } else {
-            NSLog(@"Dont do anything");
+            if (debug) {
+                self.bought = NO;
+            } else {
+                NSLog(@"Dont do anything");
+            }
         }
+        [self setAdButtonState];
     }
-    [self setAdButtonState];
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+}
+
+- (void)doPayment {
+    SKProduct *selectedProduct = [[(AppDelegate *)[UIApplication sharedApplication] myStoreObserver] myProducts][0];
+    SKPayment *payment = [SKPayment paymentWithProduct:selectedProduct];
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
 }
 
 - (void)setAdButtonState {
