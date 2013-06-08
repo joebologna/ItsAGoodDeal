@@ -350,9 +350,8 @@ typedef struct {
         [b setBackgroundColor:fieldColor];
         curField = sender.tag;
         directTap = YES;
-        [self updateFields];
     } else  if ((sender.tag >= UnitPriceA) && (sender.tag <= Result)) {
-        [self showResult:YES];
+        [self showResult];
     } else if (sender.tag >= BTAG) {
         if (directTap) {
             directTap = NO;
@@ -367,13 +366,6 @@ typedef struct {
             }
         } else if ([key isEqualToString:@CLR]) {
             [self initGUI];
-        } else if ([key isEqualToString:@DEL]) {
-            if (curField == NumUnitsA && [fieldValues[T2I(FTAG, NumUnitsA)] length] == 0) {
-                fieldValues[T2I(FTAG, NumUnitsA)] = @"1";
-            } else if (curField == NumUnitsB && [fieldValues[T2I(FTAG, NumUnitsB)] length] == 0) {
-                fieldValues[T2I(FTAG, NumUnitsB)] = @"1";
-            }
-            [self updateFields];
         } else if ([key isEqualToString:@NEXT]) {
             if (curField == PriceA && [fieldValues[T2I(FTAG, NumUnitsA)] length] == 0) {
                 fieldValues[T2I(FTAG, NumUnitsA)] = @"1";
@@ -384,8 +376,6 @@ typedef struct {
             i = ((i + 1) % nInputFields);
             curField = I2T(FTAG, i);
 
-            BOOL curFieldWasQuantity;
-            curFieldWasQuantity = (curField == Quantity);
             int nFilled = 0;
             for (int i = 0; i < nInputFields; i++) {
                 if ([(NSString *)fieldValues[i] length] > 0) {
@@ -393,13 +383,8 @@ typedef struct {
                 }
             }
             // allow Qty to be empty, calculate it
-//            if (((nFilled == nInputFields) || (nFilled == (nInputFields - 1))) && (([fieldValues[T2I(FTAG, Quantity)] length] == 0) || curFieldWasQuantity)) {
-            if (nFilled == nInputFields) {
-                [self showResult:NO];
-            } else if((nFilled == (nInputFields - 1)) && ([fieldValues[T2I(FTAG, Quantity)] length] == 0)) {
-                [self showResult:YES];
-            } else {
-                // do nothing
+            if ((nFilled == nInputFields) || ((nFilled == (nInputFields - 1)) && ([fieldValues[T2I(FTAG, Quantity)] length] == 0))) {
+                [self showResult];
             }
 
         } else if ([key isEqualToString:@STORE]) {
@@ -452,10 +437,13 @@ typedef struct {
         fieldValues[T2I(FTAG, f)] = [NSString stringWithFormat:@"%.2f", *v];
     }
 }
-- (void)showResult:(BOOL)noQty {
-    float qty = [fieldValues[T2I(FTAG, Quantity)] floatValue];
-    if (noQty) {
-        [self fillBlank:Quantity v:&qty d:1.0];
+- (void)showResult {
+    NSString *qString = fieldValues[T2I(FTAG, Quantity)];
+    float qty;
+    if (qString.length == 0) {
+        qty = 1;
+    } else {
+        qty = [qString floatValue];
     }
     float priceA = [fieldValues[T2I(FTAG, PriceA)] floatValue];
     [self fillBlank:PriceA v:&priceA d:1.0];
@@ -474,11 +462,11 @@ typedef struct {
     NSString *result;
     if (unitPriceA < unitPriceB || unitPriceA > unitPriceB) {
         //=ABS(A8-C8)*B7
-        if (noQty) {
-            qty = (unitPriceA < unitPriceB) ? nUnitsA : nUnitsB;
-            fieldValues[T2I(FTAG, Quantity)] = [NSString stringWithFormat:@"%.0f", qty];
+        qString = fieldValues[T2I(FTAG, Quantity)];
+        if (qString.length != 0) {
+            qty = [qString floatValue];
         } else {
-            qty = [fieldValues[T2I(FTAG, Quantity)] floatValue];
+            qty = (unitPriceA < unitPriceB) ? nUnitsA : nUnitsB;
         }
         float savings = ABS(unitPriceA - unitPriceB) * qty;
         result = [NSString stringWithFormat:@"%@ saves %.2f", (unitPriceA < unitPriceB) ? @"A" : @"B", savings];
