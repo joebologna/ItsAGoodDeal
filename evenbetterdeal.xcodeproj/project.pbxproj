@@ -11,7 +11,7 @@
 		3B3A62F91761557700C7DD46 /* ButtonGradient3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B3A62F61761557700C7DD46 /* ButtonGradient3.png */; };
 		3B47EFA1176955EB00A67A31 /* iPhone4A.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B47EFA0176955EB00A67A31 /* iPhone4A.xib */; };
 		3B47EFA31769635C00A67A31 /* iPhone3.5A.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B47EFA21769635C00A67A31 /* iPhone3.5A.xib */; };
-		3B47EFA9176965B800A67A31 /* iPad4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B47EFA8176965B800A67A31 /* iPad4.xib */; };
+		3B47EFA9176965B800A67A31 /* iPadA.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B47EFA8176965B800A67A31 /* iPadA.xib */; };
 		3B730725175EC9F500873194 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B730727175EC9F500873194 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
 		3B730729175EC9F500873194 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730728175EC9F500873194 /* CoreGraphics.framework */; };
@@ -42,7 +42,7 @@
 		3B3A62F71761557700C7DD46 /* ButtonGradient4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGradient4.png; sourceTree = "<group>"; };
 		3B47EFA0176955EB00A67A31 /* iPhone4A.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPhone4A.xib; sourceTree = "<group>"; };
 		3B47EFA21769635C00A67A31 /* iPhone3.5A.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPhone3.5A.xib; sourceTree = "<group>"; };
-		3B47EFA8176965B800A67A31 /* iPad4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPad4.xib; sourceTree = "<group>"; };
+		3B47EFA8176965B800A67A31 /* iPadA.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPadA.xib; sourceTree = "<group>"; };
 		3B730721175EC9F500873194 /* evenbetterdeal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = evenbetterdeal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B730724175EC9F500873194 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3B730726175EC9F500873194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -174,7 +174,7 @@
 			children = (
 				3BDB0CE61762032E007AB586 /* iPhone3.5.xib */,
 				3BDB0CEA17620DC1007AB586 /* iPad.xib */,
-				3B47EFA8176965B800A67A31 /* iPad4.xib */,
+				3B47EFA8176965B800A67A31 /* iPadA.xib */,
 				3BDB0CE817620AE1007AB586 /* iPhone4.xib */,
 				3B47EFA0176955EB00A67A31 /* iPhone4A.xib */,
 				3B47EFA21769635C00A67A31 /* iPhone3.5A.xib */,
@@ -246,7 +246,7 @@
 				3BD286741762EFC000A9AEE4 /* Default-Portrait~ipad.png in Resources */,
 				3B47EFA1176955EB00A67A31 /* iPhone4A.xib in Resources */,
 				3B47EFA31769635C00A67A31 /* iPhone3.5A.xib in Resources */,
-				3B47EFA9176965B800A67A31 /* iPad4.xib in Resources */,
+				3B47EFA9176965B800A67A31 /* iPadA.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
