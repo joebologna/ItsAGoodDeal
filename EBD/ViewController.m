@@ -108,7 +108,7 @@ static BOOL debug = NO;
 - (void)initGUI {
     directTap = NO;
     fieldValues = [NSMutableArray array];
-    for (int i = PriceA; i <= Result; i++) {
+    for (int i = NumberOfItemsA; i <= Result; i++) {
         [fieldValues addObject:@""];
     }
     curField = FTAG;
@@ -117,7 +117,7 @@ static BOOL debug = NO;
 }
 
 - (void)updateFields {
-    for (int tag = PriceA; tag <= Result; tag++) {
+    for (int tag = NumberOfItemsA; tag <= Result; tag++) {
         NSInteger i = T2I(FTAG, tag);
         MyButton *b = (MyButton *)[self.view viewWithTag:tag];
         BTITLE(b, fieldValues[i]);
@@ -126,35 +126,36 @@ static BOOL debug = NO;
 }
 
 #define LABEL(x, y, w, h, f, t) { x, y, w, h, f, t}
-#define YO(y) (y - 18)
-#define YO2(y) (y - 32)
+#define YO1(y) (y - 26)
+#define YO2(y) (y - 12)
+#define YO3(y) (y - 32)
 
 - (void)populateScreen {
     labelStruct fields4[] = {
-        LABEL(20, YO(31), 64, 30, 17, ""), LABEL(92, YO(31), 64, 30, 17, ""),
-        LABEL(164, YO(31), 64, 30, 17, ""), LABEL(236, YO(31), 64, 30, 17, ""),
-        LABEL(20, YO(69), 136, 30, 17, ""), LABEL(164, YO(69), 136, 30, 17, ""),
-        LABEL(20, YO(107), 280, 30, 17, ""),
-        LABEL(20, YO(145), 136, 30, 17, ""), LABEL(164, YO(145), 136, 30, 17, ""),
-        LABEL(20, YO(183), 280, 30, 17, "")
+        LABEL(20, YO1(31), 64, 30, 17, ""), LABEL(92, YO1(31), 64, 30, 17, ""),
+        LABEL(164, YO1(31), 64, 30, 17, ""), LABEL(236, YO1(31), 64, 30, 17, ""),
+        LABEL(20, YO1(69), 136, 30, 17, ""), LABEL(164, YO1(69), 136, 30, 17, ""),
+        LABEL(20, YO1(107), 280, 30, 17, ""),
+        LABEL(20, YO1(145), 136, 30, 17, ""), LABEL(164, YO1(145), 136, 30, 17, ""),
+        LABEL(20, YO1(183), 280, 30, 17, "")
     };
     
     labelStruct fields5[] = {
-        LABEL(20, YO(31), 64, 47, 18, ""), LABEL(92, YO(31), 64, 47, 18, ""),
-        LABEL(164, YO(31), 64, 47, 18, ""), LABEL(236, YO(31), 64, 47, 18, ""),
-        LABEL(20, YO(69), 136, 47, 18, ""), LABEL(164, YO(69), 136, 47, 18, ""),
-        LABEL(20, YO(107), 280, 47, 18, ""),
-        LABEL(20, YO(145), 136, 47, 18, ""), LABEL(164, YO(145), 136, 47, 18, ""),
-        LABEL(20, YO(183), 280, 47, 18, "")
+        LABEL(20, YO2(31), 64, 30, 18, ""), LABEL(92, YO2(31), 64, 30, 18, ""),
+        LABEL(164, YO2(31), 64, 30, 18, ""), LABEL(236, YO2(31), 64, 30, 18, ""),
+        LABEL(20, YO2(69), 136, 30, 18, ""), LABEL(164, YO2(69), 136, 30, 18, ""),
+        LABEL(20, YO2(107), 280, 30, 18, ""),
+        LABEL(20, YO2(145), 136, 30, 18, ""), LABEL(164, YO2(145), 136, 30, 18, ""),
+        LABEL(20, YO2(183), 280, 30, 18, "")
     };
     
     labelStruct fieldsiP[] = {
-        LABEL(20, YO(40), 176, 70, 48, ""), LABEL(204, YO(40), 176, 70, 48, ""),
-        LABEL(388, YO(40), 176, 70, 48, ""), LABEL(572, YO(40), 176, 70, 48, ""),
-        LABEL(20, YO(118), 360, 70, 48, ""), LABEL(388, YO(118), 359, 70, 48, ""),
-        LABEL(20, YO(196), 728, 70, 48, ""),
-        LABEL(20, YO(274), 360, 70, 48, ""), LABEL(388, YO(274), 360, 70, 48, ""),
-        LABEL(20, YO(352), 728, 70, 48, "")
+        LABEL(20, YO1(40), 176, 70, 48, ""), LABEL(204, YO1(40), 176, 70, 48, ""),
+        LABEL(388, YO1(40), 176, 70, 48, ""), LABEL(572, YO1(40), 176, 70, 48, ""),
+        LABEL(20, YO1(118), 360, 70, 48, ""), LABEL(388, YO1(118), 359, 70, 48, ""),
+        LABEL(20, YO1(196), 728, 70, 48, ""),
+        LABEL(20, YO1(274), 360, 70, 48, ""), LABEL(388, YO1(274), 360, 70, 48, ""),
+        LABEL(20, YO1(352), 728, 70, 48, "")
     };
     
     labelStruct *deviceFields[] = {
@@ -164,88 +165,59 @@ static BOOL debug = NO;
     for (int i = 0; i < sizeof(fields4)/sizeof(labelStruct); i++) {
         [self makeButton:deviceFields[deviceType][i] tag:I2T(FTAG, i) isKey:NO];
     }
-    
-    labelStruct labels4[] = {
-        LABEL(8, YO(29), 56, 21, 12, "Price A,B"),
-        LABEL(8, YO(65), 56, 21, 12, "# of Units"),
-        LABEL(8, YO(101), 56, 21, 12, "Quantity"),
-        LABEL(8, YO(137), 56, 21, 12, "Unit Cost")
-    };
-
-    labelStruct labels5[] = {
-        LABEL(8, YO(24), 56, 21, 13, "Price A,B"),
-        LABEL(8, YO(79), 56, 21, 13, "# of Units"),
-        LABEL(8, YO(135), 56, 21, 13, "Quantity"),
-        LABEL(8, YO(189), 56, 21, 13, "Unit Cost")
-    };
-
-    labelStruct labelsiP[] = {
-        LABEL(8, YO(34), 80, 21, 18, "Price A,B"),
-        LABEL(8, YO(128), 80, 21, 18, "# of Units"),
-        LABEL(8, YO(223), 80, 21, 18, "Quantity"),
-        LABEL(8, YO(316), 80, 21, 18, "Unit Cost")
-    };
-    
-    labelStruct *deviceLabels[] = {
-        labels4, labels5, labelsiP
-    };
-
-    for (int i = 0; i < sizeof(labels4)/sizeof(labelStruct); i++) {
-        [self makeLabel:deviceLabels[deviceType][i] tag:I2T(LTAG, i)];
-    }
-    
+        
     labelStruct keypad4[] = {
-        LABEL(20, YO(219), 64, 46, 15, "1"),
-        LABEL(92, YO(219), 64, 46, 15, "2"),
-        LABEL(164, YO(219), 64, 46, 15, "3"),
-        LABEL(236, YO(219), 64, 46, 15, CLR),
-        LABEL(20, YO(272), 64, 46, 15, "4"),
-        LABEL(92, YO(272), 64, 46, 15, "5"),
-        LABEL(164, YO(272), 64, 46, 15, "6"),
-        LABEL(236, YO(272), 64, 46, 15, STORE),
-        LABEL(20, YO(325), 64, 46, 15, "7"),
-        LABEL(92, YO(325), 64, 46, 15, "8"),
-        LABEL(164, YO(325), 64, 46, 15, "9"),
-        LABEL(236, YO(325), 64, 46, 15, DEL),
-        LABEL(20, YO(378), 64, 46, 15, "."),
-        LABEL(92, YO(378), 64, 46, 15, "0"),
-        LABEL(164, YO(378), 136, 46, 15, NEXT)
+        LABEL(20, YO1(219), 64, 46, 15, "1"),
+        LABEL(92, YO1(219), 64, 46, 15, "2"),
+        LABEL(164, YO1(219), 64, 46, 15, "3"),
+        LABEL(236, YO1(219), 64, 46, 15, CLR),
+        LABEL(20, YO1(272), 64, 46, 15, "4"),
+        LABEL(92, YO1(272), 64, 46, 15, "5"),
+        LABEL(164, YO1(272), 64, 46, 15, "6"),
+        LABEL(236, YO1(272), 64, 46, 15, STORE),
+        LABEL(20, YO1(325), 64, 46, 15, "7"),
+        LABEL(92, YO1(325), 64, 46, 15, "8"),
+        LABEL(164, YO1(325), 64, 46, 15, "9"),
+        LABEL(236, YO1(325), 64, 46, 15, DEL),
+        LABEL(20, YO1(378), 64, 46, 15, "."),
+        LABEL(92, YO1(378), 64, 46, 15, "0"),
+        LABEL(164, YO1(378), 136, 46, 15, NEXT)
     };
     
     labelStruct keypad5[] = {
-        LABEL(20, YO(221), 64, 66, 15, "1"),
-        LABEL(92, YO(221), 64, 66, 15, "2"),
-        LABEL(164, YO(221), 64, 66, 15, "3"),
-        LABEL(236, YO(221), 64, 66, 15, CLR),
-        LABEL(20, YO(294), 64, 66, 15, "4"),
-        LABEL(92, YO(294), 64, 66, 15, "5"),
-        LABEL(164, YO(294), 64, 66, 15, "6"),
-        LABEL(236, YO(294), 64, 66, 15, STORE),
-        LABEL(20, YO(367), 64, 66, 15, "7"),
-        LABEL(92, YO(367), 64, 66, 15, "8"),
-        LABEL(164, YO(367), 64, 66, 15, "9"),
-        LABEL(236, YO(367), 64, 66, 15, DEL),
-        LABEL(20, YO(440), 64, 66, 15, "."),
-        LABEL(92, YO(440), 64, 66, 15, "0"),
-        LABEL(164, YO(440), 136, 66, 15, NEXT)
+        LABEL(20, YO2(221), 64, 66, 15, "1"),
+        LABEL(92, YO2(221), 64, 66, 15, "2"),
+        LABEL(164, YO2(221), 64, 66, 15, "3"),
+        LABEL(236, YO2(221), 64, 66, 15, CLR),
+        LABEL(20, YO2(294), 64, 66, 15, "4"),
+        LABEL(92, YO2(294), 64, 66, 15, "5"),
+        LABEL(164, YO2(294), 64, 66, 15, "6"),
+        LABEL(236, YO2(294), 64, 66, 15, STORE),
+        LABEL(20, YO2(367), 64, 66, 15, "7"),
+        LABEL(92, YO2(367), 64, 66, 15, "8"),
+        LABEL(164, YO2(367), 64, 66, 15, "9"),
+        LABEL(236, YO2(367), 64, 66, 15, DEL),
+        LABEL(20, YO2(440), 64, 66, 15, "."),
+        LABEL(92, YO2(440), 64, 66, 15, "0"),
+        LABEL(164, YO2(440), 136, 66, 15, NEXT)
     };
     
     labelStruct keypadiP[] = {
-        LABEL(20, YO2(430), 176, 128, 48, "1"),
-        LABEL(204, YO2(430), 176, 128, 48, "2"),
-        LABEL(388, YO2(430), 176, 128, 48, "3"),
-        LABEL(572, YO2(430), 176, 128, 48, CLR),
-        LABEL(20, YO2(565), 176, 128, 48, "4"),
-        LABEL(204, YO2(565), 176, 128, 48, "5"),
-        LABEL(388, YO2(565), 176, 128, 48, "6"),
-        LABEL(572, YO2(565), 176, 128, 36, STORE),
-        LABEL(20, YO2(700), 176, 128, 48, "7"),
-        LABEL(204, YO2(700), 176, 128, 48, "8"),
-        LABEL(388, YO2(700), 176, 128, 48, "9"),
-        LABEL(572, YO2(700), 176, 128, 48, DEL),
-        LABEL(20, YO2(835), 176, 128, 48, "."),
-        LABEL(204, YO2(835), 176, 128, 48, "0"),
-        LABEL(388, YO2(835), 360, 128, 48, NEXT)
+        LABEL(20, YO3(430), 176, 128, 48, "1"),
+        LABEL(204, YO3(430), 176, 128, 48, "2"),
+        LABEL(388, YO3(430), 176, 128, 48, "3"),
+        LABEL(572, YO3(430), 176, 128, 48, CLR),
+        LABEL(20, YO3(565), 176, 128, 48, "4"),
+        LABEL(204, YO3(565), 176, 128, 48, "5"),
+        LABEL(388, YO3(565), 176, 128, 48, "6"),
+        LABEL(572, YO3(565), 176, 128, 36, STORE),
+        LABEL(20, YO3(700), 176, 128, 48, "7"),
+        LABEL(204, YO3(700), 176, 128, 48, "8"),
+        LABEL(388, YO3(700), 176, 128, 48, "9"),
+        LABEL(572, YO3(700), 176, 128, 48, DEL),
+        LABEL(20, YO3(835), 176, 128, 48, "."),
+        LABEL(204, YO3(835), 176, 128, 48, "0"),
+        LABEL(388, YO3(835), 360, 128, 48, NEXT)
     };
     
     labelStruct *deviceKeys[] = {
