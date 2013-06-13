@@ -31,11 +31,12 @@
 #define K_STORE (KTAG + 7)
 
 typedef enum {
-    PriceA = I2T(FTAG, 0), PriceB = I2T(FTAG, 1),
-    NumUnitsA = I2T(FTAG, 2), NumUnitsB = I2T(FTAG, 3),
-    Quantity = I2T(FTAG, 4),
-    UnitPriceA = I2T(FTAG, 5), UnitPriceB = I2T(FTAG, 6),
-    Result = I2T(FTAG, 7),
+    NumberOfItemsA = I2T(FTAG, 0), PriceA = I2T(FTAG, 1),
+    NumberOfItemsB = I2T(FTAG, 2), PriceB = I2T(FTAG, 3),
+    NumUnitsA = I2T(FTAG, 4), NumUnitsB = I2T(FTAG, 5),
+    Quantity = I2T(FTAG, 6),
+    UnitPriceA = I2T(FTAG, 7), UnitPriceB = I2T(FTAG, 8),
+    Result = I2T(FTAG, 9),
     Ad = 999
 } Field;
 
@@ -130,27 +131,30 @@ static BOOL debug = NO;
 
 - (void)populateScreen {
     labelStruct fields4[] = {
-        LABEL(70, YO(29), 111, 30, 17, ""), LABEL(189, YO(29), 111, 30, 17, ""),
-        LABEL(70, YO(65), 111, 30, 17, ""), LABEL(189, YO(65), 111, 30, 17, ""),
-        LABEL(70, YO(101), 230, 30, 17, ""),
-        LABEL(70, YO(137), 111, 30, 17, ""), LABEL(189, YO(137), 111, 30, 17, ""),
-        LABEL(20, YO(173), 280, 30, 17, "")
+        LABEL(20, YO(31), 64, 30, 17, ""), LABEL(92, YO(31), 64, 30, 17, ""),
+        LABEL(164, YO(31), 64, 30, 17, ""), LABEL(236, YO(31), 64, 30, 17, ""),
+        LABEL(20, YO(69), 136, 30, 17, ""), LABEL(164, YO(69), 136, 30, 17, ""),
+        LABEL(20, YO(107), 280, 30, 17, ""),
+        LABEL(20, YO(145), 136, 30, 17, ""), LABEL(164, YO(145), 136, 30, 17, ""),
+        LABEL(20, YO(183), 280, 30, 17, "")
     };
     
     labelStruct fields5[] = {
-        LABEL(70, YO(24), 111, 47, 18, ""), LABEL(189, YO(24), 111, 47, 18, ""),
-        LABEL(70, YO(79), 111, 47, 18, ""), LABEL(189, YO(79), 111, 47, 18, ""),
-        LABEL(70, YO(135), 230, 47, 18, ""),
-        LABEL(70, YO(189), 111, 47, 18, ""), LABEL(189, YO(189), 111, 47, 18, ""),
-        LABEL(20, YO(244), 280, 47, 18, "")
+        LABEL(20, YO(31), 64, 47, 18, ""), LABEL(92, YO(31), 64, 47, 18, ""),
+        LABEL(164, YO(31), 64, 47, 18, ""), LABEL(236, YO(31), 64, 47, 18, ""),
+        LABEL(20, YO(69), 136, 47, 18, ""), LABEL(164, YO(69), 136, 47, 18, ""),
+        LABEL(20, YO(107), 280, 47, 18, ""),
+        LABEL(20, YO(145), 136, 47, 18, ""), LABEL(164, YO(145), 136, 47, 18, ""),
+        LABEL(20, YO(183), 280, 47, 18, "")
     };
     
     labelStruct fieldsiP[] = {
-        LABEL(108, YO(34), 316, 86, 48, ""), LABEL(432, YO(34), 316, 86, 48, ""),
-        LABEL(108, YO(128), 316, 86, 48, ""), LABEL(432, YO(128), 316, 86, 48, ""),
-        LABEL(108, YO(223), 640, 86, 48, ""),
-        LABEL(108, YO(316), 316, 86, 48, ""), LABEL(432, YO(316), 316, 86, 48, ""),
-        LABEL(24, YO(409), 724, 86, 48, "")
+        LABEL(20, YO(40), 176, 70, 48, ""), LABEL(204, YO(40), 176, 70, 48, ""),
+        LABEL(388, YO(40), 176, 70, 48, ""), LABEL(572, YO(40), 176, 70, 48, ""),
+        LABEL(20, YO(118), 360, 70, 48, ""), LABEL(388, YO(118), 359, 70, 48, ""),
+        LABEL(20, YO(196), 728, 70, 48, ""),
+        LABEL(20, YO(274), 360, 70, 48, ""), LABEL(388, YO(274), 360, 70, 48, ""),
+        LABEL(20, YO(352), 728, 70, 48, "")
     };
     
     labelStruct *deviceFields[] = {
