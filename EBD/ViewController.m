@@ -395,12 +395,22 @@ static BOOL debug = NO;
     [self.view addSubview:l];
 }
 
+- (void)makeField:(labelStruct)label tag:(NSInteger)tag  {
+    UITextField *l = [[UITextField alloc] initWithFrame:label.rect];
+    l.font = [UIFont systemFontOfSize:label.f];
+    l.text = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
+    l.textAlignment = NSTextAlignmentLeft;
+    l.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:l];
+}
+
 - (void)fillBlank:(Field)f v:(float *)v d:(float)d {
     if ([fieldValues[T2I(FTAG, f)] length] == 0) {
         *v = d;
         fieldValues[T2I(FTAG, f)] = [NSString stringWithFormat:@"%.2f", *v];
     }
 }
+
 - (void)showResult {
     NSString *qString = fieldValues[T2I(FTAG, Quantity)];
     float qty;
@@ -409,18 +419,22 @@ static BOOL debug = NO;
     } else {
         qty = [qString floatValue];
     }
+    float nItemsA = [fieldValues[T2I(FTAG, NumberOfItemsA)] floatValue];
+    [self fillBlank:NumberOfItemsA v:&nItemsA d:1.0];
     float priceA = [fieldValues[T2I(FTAG, PriceA)] floatValue];
     [self fillBlank:PriceA v:&priceA d:1.0];
     float nUnitsA = [fieldValues[T2I(FTAG, NumUnitsA)] floatValue];
     [self fillBlank:NumUnitsA v:&nUnitsA d:1.0];
-    float unitPriceA = priceA / nUnitsA;
+    float unitPriceA = priceA / (nUnitsA * nItemsA);
     fieldValues[T2I(FTAG, UnitPriceA)] = [NSString stringWithFormat:@"%.2f", unitPriceA];
     
+    float nItemsB = [fieldValues[T2I(FTAG, NumberOfItemsB)] floatValue];
+    [self fillBlank:NumberOfItemsB v:&nItemsB d:1.0];
     float priceB = [fieldValues[T2I(FTAG, PriceB)] floatValue];
     [self fillBlank:PriceB v:&priceB d:1.0];
     float nUnitsB = [fieldValues[T2I(FTAG, NumUnitsB)] floatValue];
     [self fillBlank:NumUnitsB v:&nUnitsB d:1.0];
-    float unitPriceB = priceB / nUnitsB;
+    float unitPriceB = priceB / (nUnitsB * nItemsB);
     fieldValues[T2I(FTAG, UnitPriceB)] = [NSString stringWithFormat:@"%.2f", unitPriceB];
     
     NSString *result;
