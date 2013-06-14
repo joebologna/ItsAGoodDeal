@@ -19,7 +19,6 @@
 			}
 
 			function recalc() {
-
 				var priceA = $('#PriceA').val();
 				var reqNumToPurchA = $('#ReqNumToPurchA').val();
 				var sizeA = $('#SizeA').val();
@@ -65,7 +64,7 @@
 					numPurchB = reqNumToPurchB;
 				if ((numPurchB % reqNumToPurchB) != 0)
 					numPurchB = reqNumToPurchB;
-					
+
 				if (numPurchA > numPurchB) {
 					numPurchB = numPurchA;
 				} else {
@@ -91,7 +90,7 @@
 					$('#SavingsA').val("No diff");
 					$('#SavingsB').val("No diff");
 				}
-				
+
 				var numA = numPurchA * unitsPurchA;
 				var numB = numPurchB * unitsPurchB;
 				var more = Math.abs(numA - numB);
@@ -107,17 +106,33 @@
 				}
 			}
 
+			var id = 0;
+			var data = [];
+			data.push([[1, 1, 1], [1, 1, 1]]);
+			data.push([[1, 1, 1], [1, 1, 2]]);
+			data.push([[2, 1, 1], [1, 1, 1]]);
+			data.push([[2, 2, 1], [1, 1, 1]]);
 
-			$(document).ready(function() {
-				$('input').attr('size', 5);
-				// var data = [[3, 2, 7.5], [2, 1, 8.5]];
-				var data = [[3, 2, 7.5], [3, 2, 8.5]];
-				for (var i = 0; i < data.length; i++) {
-					for (var j = 0; j < data[i].length; j++) {
-						$('tr:eq(' + (i + 1) + ') td:eq(' + (j + 1) + ') input').val(data[i][j]);
+			function fill() {
+				for (var i = 0; i < data[id].length; i++) {
+					for (var j = 0; j < data[id][i].length; j++) {
+						$('tr:eq(' + (i + 1) + ') td:eq(' + (j + 1) + ') input').val(data[id][i][j]);
 					}
 				}
 				recalc();
+				$('tr:eq(2) td:eq(0)').text(id + ' B');
+			}
+
+			function next() {
+				id = (++id % data.length);
+				fill();
+			}
+
+
+			$(document).ready(function() {
+				$('.h').hide();
+				$('input').attr('size', 5);
+				fill();
 				$('#PriceA,#PriceB,#ReqNumToPurchA,#ReqNumToPurchB,#SizeA,#SizeB,#NumPurchA,#NumPurchB').change(function() {
 					if (/NumPurchA/.test(this.id)) {
 						$('#NumPurchB').val('');
@@ -136,19 +151,22 @@
 				<th>Price</th>
 				<th>Req # to Purch</th>
 				<th>Size</th>
-				<th>Units Purch</th>
-				<th>Unit Cost</th>
-				<th># to Purch</th>
-				<th>For # Units</th>
-				<th>Total Cost</th>
+				<th class="h">Units Purch</th>
+				<th class="h">Unit Cost</th>
+				<th class="h"># to Purch</th>
+				<th class="h">For # Units</th>
+				<th class="h">Total Cost</th>
 				<th>Best Deal</th>
 				<th># Purch</th>
-				<th>Cost</th>
+				<th class="h">Cost</th>
 				<th>Savings</th>
 				<th>More Product</th>
 			</tr>
 			<tr>
-				<td>A</td>
+				<td>
+				<button onclick="next()">
+					next
+				</button>A</td>
 				<td>
 				<input id="PriceA" type="text">
 				</td>
@@ -158,19 +176,19 @@
 				<td>
 				<input id="SizeA" type="text">
 				</td>
-				<td>
+				<td class="h">
 				<input id="UnitsPurchA" type="text" readonly="readonly">
 				</td>
-				<td>
+				<td class="h">
 				<input id="UnitCostA" type="text" readonly="readonly">
 				</td>
-				<td>
+				<td class="h">
 				<input id="NumToPurchA" type="text" readonly="readonly">
 				</td>
-				<td>
+				<td class="h">
 				<input id="NumUnitsPurchA" type="text" readonly="readonly">
 				</td>
-				<td>
+				<td class="h">
 				<input id="TotalCostA" type="text" readonly="readonly">
 				</td>
 				<td>
@@ -179,7 +197,7 @@
 				<td>
 				<input id="NumPurchA" type="text">
 				</td>
-				<td>
+				<td class="h">
 				<input id="CostA" type="text" readonly="readonly">
 				</td>
 				<td>
@@ -200,19 +218,19 @@
 				<td>
 				<input id="SizeB" type="text">
 				</td>
-				<td>
+				<td class="h">
 				<input id="UnitsPurchB" type="text" readonly="readonly">
 				</td>
-				<td>
+				<td class="h">
 				<input id="UnitCostB" type="text" readonly="readonly">
 				</td>
-				<td>
+				<td class="h">
 				<input id="NumToPurchB" type="text" readonly="readonly">
 				</td>
-				<td>
+				<td class="h">
 				<input id="NumUnitsPurchB" type="text" readonly="readonly">
 				</td>
-				<td>
+				<td class="h">
 				<input id="TotalCostB" type="text" readonly="readonly">
 				</td>
 				<td>
@@ -221,7 +239,7 @@
 				<td>
 				<input id="NumPurchB" type="text">
 				</td>
-				<td>
+				<td class="h">
 				<input id="CostB" type="text" readonly="readonly">
 				</td>
 				<td>
