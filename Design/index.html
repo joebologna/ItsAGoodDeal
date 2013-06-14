@@ -18,16 +18,8 @@
 				return a > b ? a : b;
 			}
 
+			function recalc() {
 
-			$(document).ready(function() {
-				$('input').attr('size', 5);
-				var data = [[3, 2, 7.5], [2, 1, 8.5]];
-				for (var i = 0; i < data.length; i++) {
-					for (var j = 0; j < data[i].length; j++) {
-						$('tr:eq(' + (i + 1) + ') td:eq(' + (j + 1) + ') input').val(data[i][j]);
-					}
-				}
-				
 				var priceA = $('#PriceA').val();
 				var reqNumToPurchA = $('#ReqNumToPurchA').val();
 				var sizeA = $('#SizeA').val();
@@ -46,21 +38,79 @@
 
 				var numToPurchA = max(reqNumToPurchA, reqNumToPurchB);
 				$('#NumToPurchA').val(Number(numToPurchA).toFixed(2));
-				var numUnitsPurchA = numToPurchA * sizeA;				
+				var numUnitsPurchA = numToPurchA * sizeA;
 				$('#NumUnitsPurchA').val(Number(numUnitsPurchA).toFixed(2));
 				var totalCostA = numUnitsPurchA * unitCostA;
 				$('#TotalCostA').val(Number(totalCostA).toFixed(2));
-				var bestDealA = unitCostA < unitCostB ? 'X' : '&nbsp;';
+				var bestDealA = unitCostA <= unitCostB ? 'X' : '';
 				$('#BestDealA').val(bestDealA);
-				
+
+				var numPurchA = Number($('#NumPurchA').val());
+				if (numPurchA < reqNumToPurchA)
+					numPurchA = reqNumToPurchA;
+				if ((numPurchA % reqNumToPurchA) != 0)
+					numPurchA = reqNumToPurchA;
+
 				var numToPurchB = max(reqNumToPurchA, reqNumToPurchB);
 				$('#NumToPurchB').val(Number(numToPurchB).toFixed(2));
-				var numUnitsPurchB = numToPurchB * sizeB;				
+				var numUnitsPurchB = numToPurchB * sizeB;
 				$('#NumUnitsPurchB').val(Number(numUnitsPurchB).toFixed(2));
 				var totalCostB = numUnitsPurchB * unitCostB;
 				$('#TotalCostB').val(Number(totalCostB).toFixed(2));
-				var bestDealA = unitCostA < unitCostB ? '&nbsp;' : 'X';
+				var bestDealB = unitCostA <= unitCostB ? '' : 'X';
 				$('#BestDealB').val(bestDealB);
+
+				var numPurchB = Number($('#NumPurchB').val());
+				if (numPurchB < reqNumToPurchB)
+					numPurchB = reqNumToPurchB;
+				if ((numPurchB % reqNumToPurchB) != 0)
+					numPurchB = reqNumToPurchB;
+					
+				if (numPurchA > numPurchB) {
+					numPurchB = numPurchA;
+				} else {
+					numPurchA = numPurchB;
+				}
+
+				$('#NumPurchA').val(Number(numPurchA).toFixed(2));
+				var costA = numPurchA * unitCostA * sizeA;
+				$('#CostA').val(Number(costA).toFixed(2));
+
+				$('#NumPurchB').val(Number(numPurchB).toFixed(2));
+				var costB = numPurchB * unitCostB * sizeB;
+				$('#CostB').val(Number(costB).toFixed(2));
+
+				var savings = Math.abs(costA - costB);
+				if (costA > costB) {
+					$('#SavingsA').val("");
+					$('#SavingsB').val(Number(savings).toFixed(2));
+				} else if (costB > costA) {
+					$('#SavingsA').val(Number(savings).toFixed(2));
+					$('#SavingsB').val("");
+				} else {
+					$('#SavingsA').val("No difference");
+					$('#SavingsB').val("No difference");
+				}
+			}
+
+
+			$(document).ready(function() {
+				$('input').attr('size', 5);
+				var data = [[3, 2, 7.5], [2, 1, 8.5]];
+				for (var i = 0; i < data.length; i++) {
+					for (var j = 0; j < data[i].length; j++) {
+						$('tr:eq(' + (i + 1) + ') td:eq(' + (j + 1) + ') input').val(data[i][j]);
+					}
+				}
+				recalc();
+				$('#PriceA,#PriceB,#ReqNumToPurchA,#ReqNumToPurchB,#SizeA,#SizeB,#NumPurchA,#NumPurchB').change(function() {
+					if (/NumPurchA/.test(this.id)) {
+						$('#NumPurchB').val('');
+					} else if (/NumPurchB/.test(this.id)) {
+						$('NumPurchA').val('');
+					}
+					recalc();
+				});
 			});
 		</script>
 	</head>
@@ -77,6 +127,9 @@
 				<th>For # Units</th>
 				<th>Total Cost</th>
 				<th>Best Deal</th>
+				<th># Purch</th>
+				<th>Cost</th>
+				<th>Savings</th>
 			</tr>
 			<tr>
 				<td>A</td>
@@ -90,22 +143,31 @@
 				<input id="SizeA" type="text">
 				</td>
 				<td>
-				<input id="UnitsPurchA" type="text">
+				<input id="UnitsPurchA" type="text" readonly="readonly">
 				</td>
 				<td>
-				<input id="UnitCostA" type="text">
+				<input id="UnitCostA" type="text" readonly="readonly">
 				</td>
 				<td>
-				<input id="NumToPurchA" type="text">
+				<input id="NumToPurchA" type="text" readonly="readonly">
 				</td>
 				<td>
-				<input id="NumUnitsPurchA" type="text">
+				<input id="NumUnitsPurchA" type="text" readonly="readonly">
 				</td>
 				<td>
-				<input id="TotalCostA" type="text">
+				<input id="TotalCostA" type="text" readonly="readonly">
 				</td>
 				<td>
-				<input id="BestDealA" type="text">
+				<input id="BestDealA" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="NumPurchA" type="text">
+				</td>
+				<td>
+				<input id="CostA" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="SavingsA" type="text" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
@@ -120,22 +182,31 @@
 				<input id="SizeB" type="text">
 				</td>
 				<td>
-				<input id="UnitsPurchB" type="text">
+				<input id="UnitsPurchB" type="text" readonly="readonly">
 				</td>
 				<td>
-				<input id="UnitCostB" type="text">
+				<input id="UnitCostB" type="text" readonly="readonly">
 				</td>
 				<td>
-				<input id="NumToPurchB" type="text">
+				<input id="NumToPurchB" type="text" readonly="readonly">
 				</td>
 				<td>
-				<input id="NumUnitsPurchB" type="text">
+				<input id="NumUnitsPurchB" type="text" readonly="readonly">
 				</td>
 				<td>
-				<input id="TotalCostB" type="text">
+				<input id="TotalCostB" type="text" readonly="readonly">
 				</td>
 				<td>
-				<input id="BestDealB" type="text">
+				<input id="BestDealB" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="NumPurchB" type="text">
+				</td>
+				<td>
+				<input id="CostB" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="SavingsB" type="text" readonly="readonly">
 				</td>
 			</tr>
 		</table>
