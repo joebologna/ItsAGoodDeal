@@ -88,15 +88,30 @@
 					$('#SavingsA').val(Number(savings).toFixed(2));
 					$('#SavingsB').val("");
 				} else {
-					$('#SavingsA').val("No difference");
-					$('#SavingsB').val("No difference");
+					$('#SavingsA').val("No diff");
+					$('#SavingsB').val("No diff");
+				}
+				
+				var numA = numPurchA * unitsPurchA;
+				var numB = numPurchB * unitsPurchB;
+				var more = Math.abs(numA - numB);
+				if (numA > numB) {
+					$('#MoreA').val(Number(more).toFixed(2));
+					$('#MoreB').val('');
+				} else if (numB > numA) {
+					$('#MoreA').val('');
+					$('#MoreB').val(Number(more).toFixed(2));
+				} else {
+					$('#MoreA').val('No diff');
+					$('#MoreB').val('No diff');
 				}
 			}
 
 
 			$(document).ready(function() {
 				$('input').attr('size', 5);
-				var data = [[3, 2, 7.5], [2, 1, 8.5]];
+				// var data = [[3, 2, 7.5], [2, 1, 8.5]];
+				var data = [[3, 2, 7.5], [3, 2, 8.5]];
 				for (var i = 0; i < data.length; i++) {
 					for (var j = 0; j < data[i].length; j++) {
 						$('tr:eq(' + (i + 1) + ') td:eq(' + (j + 1) + ') input').val(data[i][j]);
@@ -130,6 +145,7 @@
 				<th># Purch</th>
 				<th>Cost</th>
 				<th>Savings</th>
+				<th>More Product</th>
 			</tr>
 			<tr>
 				<td>A</td>
@@ -169,6 +185,9 @@
 				<td>
 				<input id="SavingsA" type="text" readonly="readonly">
 				</td>
+				<td>
+				<input id="MoreA" type="text" readonly="readonly">
+				</td>
 			</tr>
 			<tr>
 				<td>B</td>
@@ -207,6 +226,9 @@
 				</td>
 				<td>
 				<input id="SavingsB" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="MoreB" type="text" readonly="readonly">
 				</td>
 			</tr>
 		</table>
