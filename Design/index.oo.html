@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>EBD Design</title>
+		<style type="text/css">
+			td, th, input {
+				text-align: right;
+				width: 4em;
+			}
+		</style>
+		<script src=js/jquery-1.9.1.min.js></script>
+		<script>
+			function oField(tag) {
+				this.tag = tag;
+				this.val = $('#' + this.tag).val();
+				this.get = function() {
+					this.val = $('#' + this.tag).val();
+					return this.val;
+				}
+				this.set = function() {
+					$('#' + this.tag).val(Number(this.val).toFixed(2));
+				}
+				this.get();
+				return this;
+			}
+
+			function recalc(o) {
+				for(var i in o.ab) {
+					o.price[o.ab[i]].get();
+					o.reqNumToPurch[o.ab[i]].get();
+					o.size[o.ab[i]].get();
+					o.unitsPurch[o.ab[i]].set(o.reqNumToPurch[o.ab[i]].val + o.size[o.ab[i]].val);
+					o.unitCost[o.ab[i]].set(o.price[o.ab[i]].val / o.unitsPurch[o.ab[i]].val);
+					o.numToPurch[o.ab[i]].set(Math.max(o.reqNumToPurch[o.ab[0]], o.reqNumToPurch[o.ab[1]]))
+					o.numUnitsPurch[o.ab[i]] = o.numToPurch[o.ab[i]].val * o.size[o.ab[i]].val;
+					o.totalCost[o.ab[i]] = o.numUnitsPurch[o.ab[i]].val * o.unitCost[o.ab[i]].val;
+					o.bestDeal[o.ab[i]].set(o.unitCost[o.ab[0]].val <= o.unitCost[o.ab[1]].val ? 'X' : '');
+				}
+				
+				var savings = o.cost[o.ab[0]].val - o.cost[o.ab[1]].val;
+				if (savings > 0) {
+					o.savings[o.ab[0]].set("");						
+					o.savings[o.ab[1]].set(Math.abs(savings));						
+				} else if (savings < 0) {
+					o.savings[o.ab[0]].set(Math.abs(savings));						
+					o.savings[o.ab[1]].set("");						
+				} else {
+					o.savings[o.ab[0]].set("no diff");						
+					o.savings[o.ab[1]].set("no diff");						
+				}
+				
+				var more = o.numPurch[o.abs[0]].val * o.unitsPurch[o.abs[0]].val - o.numPurch[o.abs[0]].val * o.unitsPurch[o.abs[1]].val;
+				if (more > 0) {
+					o.more[o.ab[0]].set(Math.abs(more));
+					o.more[o.ab[1]].set('');
+				} else if (more < 0) {
+					o.more[o.ab[0]].set('');
+					o.more[o.ab[1]].set(Math.abs(more));
+				} else {
+					o.more[o.ab[0]].set('no diff');
+					o.more[o.ab[1]].set('no diff');
+				}
+			}
+
+			var id = 0;
+			var data = [];
+			data.push([[1, 1, 1], [1, 1, 1]]);
+			data.push([[1, 1, 1], [1, 1, 2]]);
+			data.push([[2, 1, 1], [1, 1, 1]]);
+			data.push([[2, 2, 1], [1, 1, 1]]);
+
+			function fill(o) {
+				for (var i = 0; i < data[id].length; i++) {
+					for (var j = 0; j < data[id][i].length; j++) {
+						$('tr:eq(' + (i + 1) + ') td:eq(' + (j + 1) + ') input').val(data[id][i][j]);
+					}
+				}
+				recalc(o);
+				$('tr:eq(2) td:eq(0)').text(id + ' B');
+			}
+
+			function next() {
+				id = (++id % data.length);
+				fill();
+			}
+
+			function oInit() {
+				this.ab = ["A", "B"];
+				this.price = [];
+				this.reqNumToPurch = [];
+				this.size = [];
+				this.unitsPurch = [];
+				this.unitCost = [];
+				this.numToPurch = [];
+				this.numUnitsPurch = [];
+				this.totalCost = [];
+				this.bestDeal = [];
+				this.numPurch = [];
+				this.savings = [];
+				this.more = [];
+				for(var i = 0; i < this.ab.length; i++) {
+					this.price[this.ab[i]] = new oField('Price' + this.ab[i]);
+					this.reqNumToPurch[this.ab[i]] = new oField('ReqNumToPurch' + this.ab[i]);
+					this.size[this.ab[i]] = new oField('Size' + this.ab[i]);
+					this.unitsPurch[this.ab[i]] = new oField('unitsPurch' + this.ab[i]);
+					this.unitCost[this.ab[i]] = new oField('UnitCost' + this.ab[i]);
+					this.numToPurch[this.ab[i]] = new oField('NumToPurch' + this.ab[i]);
+					this.numUnitsPurch[this.ab[i]] = new oField('NumUnitsPurch' + this.ab[i]);
+					this.totalCost[this.ab[i]] = new oField('totalCost' + this.ab[i]);
+					this.bestDeal[this.ab[i]] = new oField('BestDeal' + this.ab[i]);
+					this.numPurch[this.ab[i]] = new oField('NumPurch' + this.ab[i]);
+					this.savings[this.ab[i]] = new oField('Savings' + this.ab[i]);
+					this.more[this.ab[i]] = new oField('More' + this.ab[i]);
+				}
+				return this;
+			}
+
+			$(document).ready(function() {
+				var o = new oInit();
+
+				$('.h').hide();
+				$('input').attr('size', 5);
+				fill(o);
+				$('#PriceA,#PriceB,#ReqNumToPurchA,#ReqNumToPurchB,#SizeA,#SizeB,#NumPurchA,#NumPurchB').change(function(o) {
+					if (/NumPurchA/.test(this.id)) {
+						$('#NumPurchB').val('');
+					} else if (/NumPurchB/.test(this.id)) {
+						$('NumPurchA').val('');
+					}
+					recalc(o);
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<table border=1>
+			<tr>
+				<th>Item</th>
+				<th>Price</th>
+				<th>Req # to Purch</th>
+				<th>Size</th>
+				<th class="h">Units Purch</th>
+				<th class="h">Unit Cost</th>
+				<th class="h"># to Purch</th>
+				<th class="h">For # Units</th>
+				<th class="h">Total Cost</th>
+				<th>Best Deal</th>
+				<th># Purch</th>
+				<th class="h">Cost</th>
+				<th>Savings</th>
+				<th>More Product</th>
+			</tr>
+			<tr>
+				<td>
+				<button onclick="next()">
+					next
+				</button>A</td>
+				<td>
+				<input id="PriceA" type="text">
+				</td>
+				<td>
+				<input id="ReqNumToPurchA" type="text">
+				</td>
+				<td>
+				<input id="SizeA" type="text">
+				</td>
+				<td class="h">
+				<input id="UnitsPurchA" type="text" readonly="readonly">
+				</td>
+				<td class="h">
+				<input id="UnitCostA" type="text" readonly="readonly">
+				</td>
+				<td class="h">
+				<input id="NumToPurchA" type="text" readonly="readonly">
+				</td>
+				<td class="h">
+				<input id="NumUnitsPurchA" type="text" readonly="readonly">
+				</td>
+				<td class="h">
+				<input id="TotalCostA" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="BestDealA" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="NumPurchA" type="text">
+				</td>
+				<td class="h">
+				<input id="CostA" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="SavingsA" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="MoreA" type="text" readonly="readonly">
+				</td>
+			</tr>
+			<tr>
+				<td>B</td>
+				<td>
+				<input id="PriceB" type="text">
+				</td>
+				<td>
+				<input id="ReqNumToPurchB" type="text">
+				</td>
+				<td>
+				<input id="SizeB" type="text">
+				</td>
+				<td class="h">
+				<input id="UnitsPurchB" type="text" readonly="readonly">
+				</td>
+				<td class="h">
+				<input id="UnitCostB" type="text" readonly="readonly">
+				</td>
+				<td class="h">
+				<input id="NumToPurchB" type="text" readonly="readonly">
+				</td>
+				<td class="h">
+				<input id="NumUnitsPurchB" type="text" readonly="readonly">
+				</td>
+				<td class="h">
+				<input id="TotalCostB" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="BestDealB" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="NumPurchB" type="text">
+				</td>
+				<td class="h">
+				<input id="CostB" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="SavingsB" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="MoreB" type="text" readonly="readonly">
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
