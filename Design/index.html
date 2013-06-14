@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>EBD Design</title>
+		<style type="text/css">
+			td, th, input {
+				text-align: right;
+				width: 4em;
+			}
+		</style>
+		<script src=js/jquery-1.9.1.min.js></script>
+		<script>
+			function min(a, b) {
+				return a < b ? a : b;
+			}
+
+			function max(a, b) {
+				return a > b ? a : b;
+			}
+
+
+			$(document).ready(function() {
+				$('input').attr('size', 5);
+				var data = [[3, 2, 7.5], [2, 1, 8.5]];
+				for (var i = 0; i < data.length; i++) {
+					for (var j = 0; j < data[i].length; j++) {
+						$('tr:eq(' + (i + 1) + ') td:eq(' + (j + 1) + ') input').val(data[i][j]);
+					}
+				}
+				
+				var priceA = $('#PriceA').val();
+				var reqNumToPurchA = $('#ReqNumToPurchA').val();
+				var sizeA = $('#SizeA').val();
+				var unitsPurchA = reqNumToPurchA * sizeA;
+				$('#UnitsPurchA').val(Number(unitsPurchA).toFixed(2));
+				var unitCostA = priceA / unitsPurchA;
+				$('#UnitCostA').val(Number(unitCostA).toFixed(2));
+
+				var priceB = $('#PriceB').val();
+				var reqNumToPurchB = $('#ReqNumToPurchB').val();
+				var sizeB = $('#SizeB').val();
+				var unitsPurchB = reqNumToPurchB * sizeB;
+				$('#UnitsPurchB').val(Number(unitsPurchB).toFixed(2));
+				var unitCostB = priceB / unitsPurchB;
+				$('#UnitCostB').val(Number(unitCostB).toFixed(2));
+
+				var numToPurchA = max(reqNumToPurchA, reqNumToPurchB);
+				$('#NumToPurchA').val(Number(numToPurchA).toFixed(2));
+				var numUnitsPurchA = numToPurchA * sizeA;				
+				$('#NumUnitsPurchA').val(Number(numUnitsPurchA).toFixed(2));
+				var totalCostA = numUnitsPurchA * unitCostA;
+				$('#TotalCostA').val(Number(totalCostA).toFixed(2));
+				var bestDealA = unitCostA < unitCostB ? 'X' : '&nbsp;';
+				$('#BestDealA').val(bestDealA);
+				
+				var numToPurchB = max(reqNumToPurchA, reqNumToPurchB);
+				$('#NumToPurchB').val(Number(numToPurchB).toFixed(2));
+				var numUnitsPurchB = numToPurchB * sizeB;				
+				$('#NumUnitsPurchB').val(Number(numUnitsPurchB).toFixed(2));
+				var totalCostB = numUnitsPurchB * unitCostB;
+				$('#TotalCostB').val(Number(totalCostB).toFixed(2));
+				var bestDealA = unitCostA < unitCostB ? '&nbsp;' : 'X';
+				$('#BestDealB').val(bestDealB);
+			});
+		</script>
+	</head>
+	<body>
+		<table border=1>
+			<tr>
+				<th>Item</th>
+				<th>Price</th>
+				<th>Req # to Purch</th>
+				<th>Size</th>
+				<th>Units Purch</th>
+				<th>Unit Cost</th>
+				<th># to Purch</th>
+				<th>For # Units</th>
+				<th>Total Cost</th>
+				<th>Best Deal</th>
+			</tr>
+			<tr>
+				<td>A</td>
+				<td>
+				<input id="PriceA" type="text">
+				</td>
+				<td>
+				<input id="ReqNumToPurchA" type="text">
+				</td>
+				<td>
+				<input id="SizeA" type="text">
+				</td>
+				<td>
+				<input id="UnitsPurchA" type="text">
+				</td>
+				<td>
+				<input id="UnitCostA" type="text">
+				</td>
+				<td>
+				<input id="NumToPurchA" type="text">
+				</td>
+				<td>
+				<input id="NumUnitsPurchA" type="text">
+				</td>
+				<td>
+				<input id="TotalCostA" type="text">
+				</td>
+				<td>
+				<input id="BestDealA" type="text">
+				</td>
+			</tr>
+			<tr>
+				<td>B</td>
+				<td>
+				<input id="PriceB" type="text">
+				</td>
+				<td>
+				<input id="ReqNumToPurchB" type="text">
+				</td>
+				<td>
+				<input id="SizeB" type="text">
+				</td>
+				<td>
+				<input id="UnitsPurchB" type="text">
+				</td>
+				<td>
+				<input id="UnitCostB" type="text">
+				</td>
+				<td>
+				<input id="NumToPurchB" type="text">
+				</td>
+				<td>
+				<input id="NumUnitsPurchB" type="text">
+				</td>
+				<td>
+				<input id="TotalCostB" type="text">
+				</td>
+				<td>
+				<input id="BestDealB" type="text">
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
