@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>EBD Design</title>
+		<style type="text/css">
+			td, th, input {
+				text-align: right;
+				width: 4em;
+			}
+		</style>
+		<script src=js/jquery-1.9.1.min.js></script>
+		<script>
+			function oField(tag, suffix) {
+				this.tag = '#' + tag + suffix;
+				this.val = Number($(this.tag).val());
+				this.get = function() {
+					this.val = $(this.tag).val();
+					return Number(this.val);
+				}
+				this.set = function(n) {
+					this.val = n;
+					$(this.tag).val(this.val);
+				}
+				this.get();
+				return this;
+			}
+
+			function oInit() {
+				this.price = [];
+				this.qty = [];
+				this.size = [];
+				this.numberToBuy = [];
+				this.cost = [];
+				this.savings = [];
+
+				var ab = ['A', 'B'];
+				for (var i in ab) {
+					var suffix = ab[i];
+					this.price[suffix] = new oField('price', suffix);
+					this.qty[suffix] = new oField('qty', suffix);
+					this.size[suffix] = new oField('size', suffix);
+					this.numberToBuy[suffix] = new oField('numberToBuy', suffix);
+					this.cost[suffix] = new oField('cost', suffix);
+					this.savings[suffix] = new oField('savings', suffix);
+				}
+				return this;
+			}
+
+			function fill(o) {
+				for (var i = 0; i < data[id].length; i++) {
+					for (var j = 0; j < data[id][i].length; j++) {
+						$('tr:eq(' + (i + 1) + ') td:eq(' + (j + 1) + ') input').val(data[id][i][j].toFixed(2));
+					}
+				}
+				recalc(o, null);
+				$('tr:eq(2) td:eq(0)').text(id + ' B');
+			}
+
+			function next(o) {
+				id = (++id % data.length);
+				fill(o);
+				o.numberToBuy['A'].set('');
+				fixscreen(o, o.numberToBuy['A']);
+			}
+
+			function fixscreen(o, id) {
+				//var s=""; for(var i in id) s += i + ','; $('body').append(s);
+				//$('body').append(id);
+				var ab = [];
+				if (/numberToBuyA/.test(id)) {
+					ab = ['A', 'B'];
+				} else if (/numberToBuyB/.test(id)) {
+					ab = ['B', 'A'];
+				}
+				if (ab.length > 0) {
+					var n = o.numberToBuy[ab[0]].get();
+					if (isNaN(n)) {
+						o.numberToBuy[ab[0]].set('');
+						o.numberToBuy[ab[1]].set('');
+					} else {
+						o.numberToBuy[ab[1]].set('');
+					}
+					o.cost[ab[0]].set('');
+					o.cost[ab[1]].set('');
+					o.savings[ab[0]].set('');
+					o.savings[ab[1]].set('');
+				}
+			}
+
+			function recalc(o, e) {
+				var ab = [];
+				if (Number(o.numberToBuy['A'].get()) > 0) {
+					ab = ['A', 'B'];
+				} else if (Number(o.numberToBuy['B'].get()) > 0) {
+					ab = ['B', 'A'];
+				}
+				if (ab.length > 0) {
+					var size = []; var numberToBuy = []; var qty = []; var cost = [];
+					for (var i in ab) {
+						size[i] = o.size[ab[i]].get();
+						numberToBuy[i] = o.numberToBuy[ab[i]].get();
+						qty[i] = o.qty[ab[i]].get();
+						cost[i] = numberToBuy[i] / qty[i] / size[i];
+						if (cost[i] > 0) {
+							o.cost[ab[i]].set(cost[i]);
+						}
+					}
+					var savings = cost[0] - cost[1];
+					o.savings.A.set(savings);
+					o.savings.B.set(savings);
+				}
+			}
+
+			var id = 0;
+			var data = [];
+			data.push([[1, 1, 1], [1, 1, 2]]);
+			data.push([[1, 1, 1], [1, 1, 1]]);
+			data.push([[2, 1, 1], [1, 1, 1]]);
+			data.push([[2, 2, 1], [1, 1, 1]]);
+
+			var o;
+
+			$(document).ready(function() {
+				o = new oInit();
+				$('ieput').attr('size', 5);
+				fill(o);
+				$('input').change(function(e) {
+					fixscreen(o, e.target.id);
+					recalc(o, e);
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<table border=1>
+			<tr>
+				<th>Item</th>
+				<th>Price</th>
+				<th>Qty</th>
+				<th>Size</th>
+				<th># to Buy</th>
+				<th>Cost</th>
+				<th>Savings</th>
+			</tr>
+			<tr>
+				<td>
+				<button onclick="next(o)">
+					next
+				</button>A</td>
+				<td>
+				<input id="priceA" type="text">
+				</td>
+				<td>
+				<input id="qtyA" type="text">
+				</td>
+				<td>
+				<input id="sizeA" type="text">
+				</td>
+				<td>
+				<input id="numberToBuyA" type="text">
+				</td>
+				<td>
+				<input id="costA" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="savingsA" type="text" readonly="readonly">
+				</td>
+			</tr>
+			<tr>
+				<td>B</td>
+				<td>
+				<input id="priceB" type="text">
+				</td>
+				<td>
+				<input id="qtyB" type="text">
+				</td>
+				<td>
+				<input id="sizeB" type="text">
+				</td>
+				<td>
+				<input id="numberToBuyB" type="text">
+				</td>
+				<td>
+				<input id="costB" type="text" readonly="readonly">
+				</td>
+				<td>
+				<input id="savingsB" type="text" readonly="readonly">
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
