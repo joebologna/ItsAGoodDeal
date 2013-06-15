@@ -1,0 +1,2 @@
+#!/bin/bash
+rsync -rv${1} --progress --exclude .git'*' --exclude .project $(pwd) ~/Dropbox/PanduitMacBridge/

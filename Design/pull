@@ -1,0 +1,2 @@
+#!/bin/bash
+rsync -rv${1} --progress ~/Dropbox/PanduitMacBridge/Design ..
