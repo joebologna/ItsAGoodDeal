@@ -10,136 +10,145 @@
 		</style>
 		<script src=js/jquery-1.9.1.min.js></script>
 		<script>
-			function min(a, b) {
-				return a < b ? a : b;
+			function oField(tag, suffix) {
+				this.tag = '#' + tag + suffix;
+				this.val = Number($(this.tag).val());
+				this.get = function() {
+					this.val = $(this.tag).val();
+					return Number(this.val);
+				}
+				this.set = function(n) {
+					this.val = n;
+					$(this.tag).val(this.val);
+				}
+				this.get();
+				return this;
+			}
+			
+			function oInit() {
+				this.price = [];
+				this.reqNumToPurch = [];
+				this.size = [];
+				this.unitsPurch = [];
+				this.unitCost = [];
+				this.numToPurch = [];
+				this.numUnitsPurch = [];
+				this.totalCost = [];
+				this.bestDeal = [];
+				this.numPurch = [];
+				this.cost = [];
+				this.savings = [];
+				this.more = [];
+
+				var ab = ['A', 'B'];
+				for(var i in ab) {
+					var suffix = ab[i];
+					this.price[suffix] = new oField('Price', suffix);
+					this.reqNumToPurch[suffix] = new oField('ReqNumToPurch', suffix);
+					this.size[suffix] = new oField('Size', suffix);
+					this.unitsPurch[suffix] = new oField('UnitsPurch', suffix);
+					this.unitCost[suffix] = new oField('UnitCost', suffix);
+					this.numToPurch[suffix] = new oField('NumToPurch', suffix);
+					this.numUnitsPurch[suffix] = new oField('NumUnitsPurch', suffix);
+					this.totalCost[suffix] = new oField('TotalCost', suffix);
+					this.bestDeal[suffix] = new oField('BestDeal', suffix);
+					this.numPurch[suffix] = new oField('NumPurch', suffix);
+					this.cost[suffix] = new oField('Cost', suffix);
+					this.savings[suffix] = new oField('Savings', suffix);
+					this.more[suffix] = new oField('More', suffix);
+
+				}
+				return this;
 			}
 
-			function max(a, b) {
-				return a > b ? a : b;
-			}
-
-			function recalc() {
-				var priceA = $('#PriceA').val();
-				var reqNumToPurchA = $('#ReqNumToPurchA').val();
-				var sizeA = $('#SizeA').val();
-				var unitsPurchA = reqNumToPurchA * sizeA;
-				$('#UnitsPurchA').val(Number(unitsPurchA).toFixed(2));
-				var unitCostA = priceA / unitsPurchA;
-				$('#UnitCostA').val(Number(unitCostA).toFixed(2));
-
-				var priceB = $('#PriceB').val();
-				var reqNumToPurchB = $('#ReqNumToPurchB').val();
-				var sizeB = $('#SizeB').val();
-				var unitsPurchB = reqNumToPurchB * sizeB;
-				$('#UnitsPurchB').val(Number(unitsPurchB).toFixed(2));
-				var unitCostB = priceB / unitsPurchB;
-				$('#UnitCostB').val(Number(unitCostB).toFixed(2));
-
-				var numToPurchA = max(reqNumToPurchA, reqNumToPurchB);
-				$('#NumToPurchA').val(Number(numToPurchA).toFixed(2));
-				var numUnitsPurchA = numToPurchA * sizeA;
-				$('#NumUnitsPurchA').val(Number(numUnitsPurchA).toFixed(2));
-				var totalCostA = numUnitsPurchA * unitCostA;
-				$('#TotalCostA').val(Number(totalCostA).toFixed(2));
-				var bestDealA = unitCostA <= unitCostB ? 'X' : '';
-				$('#BestDealA').val(bestDealA);
-
-				var numPurchA = Number($('#NumPurchA').val());
-				if (numPurchA < reqNumToPurchA)
-					numPurchA = reqNumToPurchA;
-				if ((numPurchA % reqNumToPurchA) != 0)
-					numPurchA = reqNumToPurchA;
-
-				var numToPurchB = max(reqNumToPurchA, reqNumToPurchB);
-				$('#NumToPurchB').val(Number(numToPurchB).toFixed(2));
-				var numUnitsPurchB = numToPurchB * sizeB;
-				$('#NumUnitsPurchB').val(Number(numUnitsPurchB).toFixed(2));
-				var totalCostB = numUnitsPurchB * unitCostB;
-				$('#TotalCostB').val(Number(totalCostB).toFixed(2));
-				var bestDealB = unitCostA <= unitCostB ? '' : 'X';
-				$('#BestDealB').val(bestDealB);
-
-				var numPurchB = Number($('#NumPurchB').val());
-				if (numPurchB < reqNumToPurchB)
-					numPurchB = reqNumToPurchB;
-				if ((numPurchB % reqNumToPurchB) != 0)
-					numPurchB = reqNumToPurchB;
-
-				if (numPurchA > numPurchB) {
-					numPurchB = numPurchA;
+			function recalc(o, e) {
+				var ab = ['A', 'B'];
+				for(var i in ab) {
+					var suffix = ab[i];
+					o.unitsPurch[suffix].set(Number(o.reqNumToPurch[suffix].get() * o.size[suffix].get()).toFixed(2));
+					o.unitCost[suffix].set(Number(o.price[suffix].get() / o.unitsPurch[suffix].get()).toFixed(2));
+				}
+				for(var i in ab) {
+					var suffix = ab[i];
+					o.numToPurch[suffix].set(Math.max(o.reqNumToPurch.A.get(), o.reqNumToPurch.B.get()).toFixed(2));
+				}
+				for(var i in ab) {
+					var suffix = ab[i];
+					o.numUnitsPurch[suffix].set(Number(o.numToPurch[suffix].get() * o.size[suffix].get()).toFixed(2));
+					o.totalCost[suffix].set(Number(o.numToPurch[suffix].get() * o.unitCost[suffix].get()).toFixed(2));
+				}
+				o.bestDeal.A.set(o.unitCost.A.get() <= o.unitCost.B.get() ? 'X' : '');
+				o.bestDeal.B.set(o.unitCost.A.get() >= o.unitCost.B.get() ? 'X' : '');
+				
+				if (o.numPurch.A.val.length == 0) o.numPurch.A.set(o.numToPurch.A.val);
+				if (o.numPurch.B.val.length == 0) o.numPurch.B.set(o.numToPurch.B.val);
+				
+				o.cost.A.set(Number(o.price.A.val / o.reqNumToPurch.A.val * o.numPurch.A.val).toFixed(2));
+				o.cost.B.set(Number(o.price.B.val / o.reqNumToPurch.B.val * o.numPurch.B.val).toFixed(2));
+				
+				var savings = Math.abs(o.cost.A.val - o.cost.B.val);
+				if (o.cost.A.val > o.cost.B.val) {
+					o.savings.A.set('');
+					o.savings.B.set(Number(savings).toFixed(2));
+				} else if (o.cost.B.val > o.cost.A.val) {
+					o.savings.A.set(Number(savings).toFixed(2));
+					o.savings.B.set('');
 				} else {
-					numPurchA = numPurchB;
+					o.savings.A.set('no diff');
+					o.savings.B.set('no diff');
 				}
 
-				$('#NumPurchA').val(Number(numPurchA).toFixed(2));
-				var costA = numPurchA * unitCostA * sizeA;
-				$('#CostA').val(Number(costA).toFixed(2));
-
-				$('#NumPurchB').val(Number(numPurchB).toFixed(2));
-				var costB = numPurchB * unitCostB * sizeB;
-				$('#CostB').val(Number(costB).toFixed(2));
-
-				var savings = Math.abs(costA - costB);
-				if (costA > costB) {
-					$('#SavingsA').val("");
-					$('#SavingsB').val(Number(savings).toFixed(2));
-				} else if (costB > costA) {
-					$('#SavingsA').val(Number(savings).toFixed(2));
-					$('#SavingsB').val("");
-				} else {
-					$('#SavingsA').val("No diff");
-					$('#SavingsB').val("No diff");
-				}
-
-				var numA = numPurchA * unitsPurchA;
-				var numB = numPurchB * unitsPurchB;
-				var more = Math.abs(numA - numB);
+				var numA = o.numPurch.A.get() * o.unitsPurch.A.get();
+				var numB = o.numPurch.B.get() * o.unitsPurch.B.get();
+				var more = Math.abs(numA - numB).toFixed(2);
 				if (numA > numB) {
-					$('#MoreA').val(Number(more).toFixed(2));
-					$('#MoreB').val('');
+					o.more.A.set(more);
+					o.more.B.set('');
 				} else if (numB > numA) {
-					$('#MoreA').val('');
-					$('#MoreB').val(Number(more).toFixed(2));
+					o.more.A.set('');
+					o.more.B.set(more);
 				} else {
-					$('#MoreA').val('No diff');
-					$('#MoreB').val('No diff');
+					o.more.A.set('no diff');
+					o.more.B.set('no diff');
 				}
 			}
 
 			var id = 0;
 			var data = [];
-			data.push([[1, 1, 1], [1, 1, 1]]);
 			data.push([[1, 1, 1], [1, 1, 2]]);
+			data.push([[1, 1, 1], [1, 1, 1]]);
 			data.push([[2, 1, 1], [1, 1, 1]]);
 			data.push([[2, 2, 1], [1, 1, 1]]);
 
-			function fill() {
+			function fill(o) {
 				for (var i = 0; i < data[id].length; i++) {
 					for (var j = 0; j < data[id][i].length; j++) {
-						$('tr:eq(' + (i + 1) + ') td:eq(' + (j + 1) + ') input').val(data[id][i][j]);
+						$('tr:eq(' + (i + 1) + ') td:eq(' + (j + 1) + ') input').val(data[id][i][j].toFixed(2));
 					}
 				}
-				recalc();
+				recalc(o, null);
 				$('tr:eq(2) td:eq(0)').text(id + ' B');
 			}
 
-			function next() {
+			function next(o) {
 				id = (++id % data.length);
-				fill();
+				fill(o);
 			}
 
-
+			var o;
+			
 			$(document).ready(function() {
-				$('.h').hide();
+				o = new oInit();
+				// $('.h').hide();
 				$('input').attr('size', 5);
-				fill();
-				$('#PriceA,#PriceB,#ReqNumToPurchA,#ReqNumToPurchB,#SizeA,#SizeB,#NumPurchA,#NumPurchB').change(function() {
-					if (/NumPurchA/.test(this.id)) {
-						$('#NumPurchB').val('');
-					} else if (/NumPurchB/.test(this.id)) {
-						$('NumPurchA').val('');
+				fill(o);
+				$('#PriceA,#PriceB,#ReqNumToPurchA,#ReqNumToPurchB,#SizeA,#SizeB,#NumPurchA,#NumPurchB').change(function(e) {
+					if (/NumPurchA/.test(e.target.id)) {
+						o.numPurch.B.set(o.numPurch.A.get());
+					} else if (/NumPurchB/.test(e.target.id)) {
+						o.numPurch.A.set(o.numPurch.B.get());
 					}
-					recalc();
+					recalc(o, e);
 				});
 			});
 		</script>
@@ -157,14 +166,14 @@
 				<th class="h">For # Units</th>
 				<th class="h">Total Cost</th>
 				<th>Best Deal</th>
-				<th># Purch</th>
+				<th># Bought</th>
 				<th class="h">Cost</th>
 				<th>Savings</th>
 				<th>More Product</th>
 			</tr>
 			<tr>
 				<td>
-				<button onclick="next()">
+				<button onclick="next(o)">
 					next
 				</button>A</td>
 				<td>
