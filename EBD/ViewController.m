@@ -139,9 +139,9 @@ static BOOL debug = NO;
 - (void)updateFields {
     for (int tag = PriceA; tag <= SavingsB; tag++) {
         NSInteger i = T2I(FTAG, tag);
-        MyButton *b = (MyButton *)[self.view viewWithTag:tag];
-        BTITLE(b, fieldValues[i]);
-        [b setBackgroundColor:(tag == InputFields[curFieldIndex]) ? curFieldColor : fieldColor];
+        UITextField *t = (UITextField *)[self.view viewWithTag:tag];
+        t.text = fieldValues[i];
+        t.backgroundColor = (tag == InputFields[curFieldIndex]) ? curFieldColor : fieldColor;
     }
 }
 
@@ -156,11 +156,11 @@ static BOOL debug = NO;
 - (void)populateScreen {
     labelStruct fieldsIPhone35[] = {
 		// A
-        LABEL(20, YO11(29), 136, 30, 17, ""),
-		LABEL(20, YO11(67), 64, 30, 17, ""), LABEL(92, YO11(67), 64, 30, 17, ""),
-		LABEL(20, YO11(105), 136, 30, 17, ""),
-        LABEL(20, YO11(143), 64, 30, 17, ""), LABEL(92, YO11(143), 64, 30, 17, ""),
-        LABEL(20, YO11(181), 136, 30, 17, ""),
+        LABEL(20, YO11(29), 136, 30, 17, "PriceA"),
+		LABEL(20, YO11(67), 64, 30, 17, "QtyA"), LABEL(92, YO11(67), 64, 30, 17, "SizeA"),
+		LABEL(20, YO11(105), 136, 30, 17, "Better Deal A"),
+        LABEL(20, YO11(143), 64, 30, 17, "# to Buy A"), LABEL(92, YO11(143), 64, 30, 17, "Cost to Buy A"),
+        LABEL(20, YO11(181), 136, 30, 17, "Savings A"),
 		// B
         LABEL(164, YO11(29), 136, 30, 17, ""),
 		LABEL(164, YO11(67), 64, 30, 17, ""), LABEL(236, YO11(67), 64, 30, 17, ""),
@@ -171,7 +171,7 @@ static BOOL debug = NO;
     
     labelStruct fieldsIPhone40[] = {
 		// A
-        LABEL(20, YO12(31), 136, 30, 17, ""),
+        LABEL(20, YO12(31), 136, 30, 17, "PriceA"),
 		LABEL(20, YO12(69), 64, 30, 17, ""), LABEL(92, YO12(69), 64, 30, 17, ""),
 		LABEL(20, YO12(107), 136, 30, 17, ""),
         LABEL(20, YO12(145), 64, 30, 17, ""), LABEL(92, YO12(145), 64, 30, 17, ""),
@@ -204,7 +204,8 @@ static BOOL debug = NO;
     };
     
     for (int i = 0; i < sizeof(fieldsIPhone35)/sizeof(labelStruct); i++) {
-        [self makeButton:deviceFields[deviceType][i] tag:I2T(FTAG, i) isKey:NO];
+//        [self makeButton:deviceFields[deviceType][i] tag:I2T(FTAG, i) isKey:NO];
+        [self makeField:deviceFields[deviceType][i] tag:I2T(FTAG, i)];
     }
         
     labelStruct keypadIPhone35[] = {
@@ -454,7 +455,6 @@ static BOOL debug = NO;
 }
 
 - (void)makeButton:(labelStruct)label tag:(NSInteger)tag isKey:(BOOL)isKey {
-    // if a label is missing it's on the keypad, therefore it needs a gradient
     MyButton *b = [[MyButton alloc] initWithFrame:label.rect];
     [b addTarget:self action:@selector(buttonPushed:) forControlEvents:UIControlEventTouchUpInside];
     [b setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor whiteColor], nil]];
@@ -481,13 +481,22 @@ static BOOL debug = NO;
     [self.view addSubview:l];
 }
 
-- (void)makeField:(labelStruct)label tag:(NSInteger)tag  {
-    UITextField *l = [[UITextField alloc] initWithFrame:label.rect];
-    l.font = [UIFont systemFontOfSize:label.f];
-    l.text = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
-    l.textAlignment = NSTextAlignmentLeft;
-    l.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:l];
+- (void)makeField:(labelStruct)label tag:(NSInteger)tag {
+    UITextField *t = [[UITextField alloc] initWithFrame:label.rect];
+    t.font = [UIFont systemFontOfSize:label.f];
+    t.text = @"";
+    t.placeholder = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
+    t.textAlignment = NSTextAlignmentCenter;
+    t.tag = tag;
+    t.backgroundColor = (tag == InputFields[curFieldIndex]) ? fieldColor : curFieldColor;
+    t.delegate = self;
+    t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [self.view addSubview:t];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self performSelector:@selector(buttonPushed:) withObject:textField afterDelay:0.125];
+    return NO;
 }
 
 - (void)fillBlank:(Field)f v:(float *)v d:(float)d {
