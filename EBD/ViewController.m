@@ -37,13 +37,13 @@ typedef enum {
     QtyA = I2T(FTAG, 5), SizeA = I2T(FTAG, 6),
     Qty2BuyA = I2T(FTAG, 7),
     PriceB = I2T(FTAG, 8),
-    SizeB = I2T(FTAG, 9), QtyB = I2T(FTAG, 10),
+    QtyB = I2T(FTAG, 9), SizeB = I2T(FTAG, 10),
     Qty2BuyB = I2T(FTAG, 11),
     Savings = I2T(FTAG, 12),
     Ad = 999
 } Field;
 
-static int InputFields[] = {
+static NSInteger InputFields[] = {
     PriceA, QtyA, SizeA,
     PriceB, QtyB, SizeB,
     Qty2BuyA, Qty2BuyB
@@ -60,6 +60,123 @@ typedef struct {
     CGFloat f;
     char *label;
 } labelStruct;
+
+#define LABEL(x, y, w, h, f, t) { x, y, w, h, f, t}
+#define YO11(y) (y - 20)
+#define YO12(y) (y - 20)
+#define YO13(y) (y - 25)
+#define YO21(y) (y - 20)
+#define YO22(y) (y - 20)
+#define YO23(y) (y - 30)
+
+static labelStruct fieldsIPhone35[] = {
+    LABEL(1, YO11(21), 159, 156, 14, "Deal A"),
+    LABEL(161, YO11(21), 158, 156, 14, "Deal B"),
+    LABEL(10, YO11(146), 136, 30, 10, ""),
+    LABEL(174, YO11(146), 136, 30, 10, ""),
+    // A
+    LABEL(10, YO11(40), 136, 30, 17, "Price A"),
+    LABEL(10, YO11(78), 64, 30, 17, "MinQtyA"), LABEL(82, YO11(78), 64, 30, 17, "Size A"),
+    LABEL(38, YO11(116), 80, 30, 17, "# to Buy"),
+    // B
+    LABEL(174, YO11(40), 136, 30, 17, "Price B"),
+    LABEL(174, YO11(78), 64, 30, 17, "MinQtyB"), LABEL(246, YO11(78), 64, 30, 17, "Size B"),
+    LABEL(202, YO11(116), 80, 30, 17, "# to Buy"),
+    // Savings
+    LABEL(20, YO11(183), 280, 30, 17, "Enter Price, Min Qty & Size of Items")
+};
+
+static labelStruct fieldsIPhone40[] = {
+    // A
+    LABEL(20, YO12(31), 136, 30, 17, "PriceA"),
+    LABEL(20, YO12(69), 64, 30, 17, ""), LABEL(92, YO12(69), 64, 30, 17, ""),
+    LABEL(20, YO12(107), 136, 30, 17, ""),
+    LABEL(20, YO12(145), 64, 30, 17, ""), LABEL(92, YO12(145), 64, 30, 17, ""),
+    LABEL(20, YO12(183), 136, 30, 17, ""),
+    // B
+    LABEL(164, YO12(31), 136, 30, 17, ""),
+    LABEL(164, YO12(69), 64, 30, 17, ""), LABEL(236, YO12(69), 64, 30, 17, ""),
+    LABEL(164, YO12(107), 136, 30, 17, ""),
+    LABEL(164, YO12(145), 64, 30, 17, ""), LABEL(236, YO12(145), 64, 30, 17, ""),
+    LABEL(164, YO12(183), 136, 30, 17, ""),
+};
+
+static labelStruct fieldsIPad[] = {
+    // A
+    LABEL(20, YO13(30), 360, 72, 48, ""),
+    LABEL(20, YO13(109), 176, 72, 48, ""), LABEL(204, YO13(109), 176, 72, 48, ""),
+    LABEL(20, YO13(188), 360, 72, 48, ""),
+    LABEL(20, YO13(267), 176, 72, 48, ""), LABEL(204, YO13(267), 176, 72, 48, ""),
+    LABEL(20, YO13(346), 360, 72, 48, ""),
+    // B
+    LABEL(388, YO13(30), 360, 72, 48, ""),
+    LABEL(388, YO13(109), 176, 72, 48, ""), LABEL(572, YO13(109), 176, 72, 48, ""),
+    LABEL(388, YO13(188), 360, 72, 48, ""),
+    LABEL(388, YO13(267), 176, 72, 48, ""), LABEL(572, YO13(267), 176, 72, 48, ""),
+    LABEL(388, YO13(346), 360, 72, 48, ""),
+};
+
+static labelStruct *deviceFields[] = {
+    fieldsIPhone35, fieldsIPhone40, fieldsIPad
+};
+
+static labelStruct keypadIPhone35[] = {
+    LABEL(20, YO21(219), 64, 46, 15, "1"),
+    LABEL(92, YO21(219), 64, 46, 15, "2"),
+    LABEL(164, YO21(219), 64, 46, 15, "3"),
+    LABEL(236, YO21(219), 64, 46, 15, CLR),
+    LABEL(20, YO21(272), 64, 46, 15, "4"),
+    LABEL(92, YO21(272), 64, 46, 15, "5"),
+    LABEL(164, YO21(272), 64, 46, 15, "6"),
+    LABEL(236, YO21(272), 64, 46, 15, STORE),
+    LABEL(20, YO21(325), 64, 46, 15, "7"),
+    LABEL(92, YO21(325), 64, 46, 15, "8"),
+    LABEL(164, YO21(325), 64, 46, 15, "9"),
+    LABEL(236, YO21(325), 64, 46, 15, DEL),
+    LABEL(20, YO21(378), 64, 46, 15, "."),
+    LABEL(92, YO21(378), 64, 46, 15, "0"),
+    LABEL(164, YO21(378), 136, 46, 15, NEXT)
+};
+
+static labelStruct keypadIPhone40[] = {
+    LABEL(20, YO22(221), 64, 66, 15, "1"),
+    LABEL(92, YO22(221), 64, 66, 15, "2"),
+    LABEL(164, YO22(221), 64, 66, 15, "3"),
+    LABEL(236, YO22(221), 64, 66, 15, CLR),
+    LABEL(20, YO22(294), 64, 66, 15, "4"),
+    LABEL(92, YO22(294), 64, 66, 15, "5"),
+    LABEL(164, YO22(294), 64, 66, 15, "6"),
+    LABEL(236, YO22(294), 64, 66, 15, STORE),
+    LABEL(20, YO22(367), 64, 66, 15, "7"),
+    LABEL(92, YO22(367), 64, 66, 15, "8"),
+    LABEL(164, YO22(367), 64, 66, 15, "9"),
+    LABEL(236, YO22(367), 64, 66, 15, DEL),
+    LABEL(20, YO22(440), 64, 66, 15, "."),
+    LABEL(92, YO22(440), 64, 66, 15, "0"),
+    LABEL(164, YO22(440), 136, 66, 15, NEXT)
+};
+
+static labelStruct keypadIPad[] = {
+    LABEL(20, YO23(430), 176, 128, 48, "1"),
+    LABEL(204, YO23(430), 176, 128, 48, "2"),
+    LABEL(388, YO23(430), 176, 128, 48, "3"),
+    LABEL(572, YO23(430), 176, 128, 48, CLR),
+    LABEL(20, YO23(565), 176, 128, 48, "4"),
+    LABEL(204, YO23(565), 176, 128, 48, "5"),
+    LABEL(388, YO23(565), 176, 128, 48, "6"),
+    LABEL(572, YO23(565), 176, 128, 36, STORE),
+    LABEL(20, YO23(700), 176, 128, 48, "7"),
+    LABEL(204, YO23(700), 176, 128, 48, "8"),
+    LABEL(388, YO23(700), 176, 128, 48, "9"),
+    LABEL(572, YO23(700), 176, 128, 48, DEL),
+    LABEL(20, YO23(835), 176, 128, 48, "."),
+    LABEL(204, YO23(835), 176, 128, 48, "0"),
+    LABEL(388, YO23(835), 360, 128, 48, NEXT)
+};
+
+static labelStruct *deviceKeys[] = {
+    keypadIPhone35, keypadIPhone40, keypadIPad
+};
 
 #if DEBUG==1
 static BOOL debug = YES;
@@ -80,12 +197,13 @@ static BOOL debug = NO;
 
 @implementation ViewController
 
-- (int)findIndex:(NSInteger)tag {
-    for(int i = 0; i < nInputFields; i++) {
+- (NSInteger)findIndex:(NSInteger)tag {
+    for(NSInteger i = 0; i < nInputFields; i++) {
         if (InputFields[i] == tag) {
             return i;
         }
     }
+    NSLog(@"Punt");
     return 0; // punt
 }
 
@@ -131,142 +249,35 @@ static BOOL debug = NO;
         [fieldValues addObject:@""];
     }
     curFieldIndex = 0;
-    [self updateFields];
+    [self updateFields:YES];
     [self setAdButtonState];
 }
 
-- (void)updateFields {
-    for (int tag = PriceA; tag <= Qty2BuyB; tag++) {
+- (void)updateFields:(BOOL)useDefaultValues {
+    for (int tag = ItemA; tag <= Savings; tag++) {
         NSInteger i = T2I(FTAG, tag);
         UITextField *t = (UITextField *)[self.view viewWithTag:tag];
-        t.text = fieldValues[i];
-        t.backgroundColor = (tag == InputFields[curFieldIndex]) ? curFieldColor : fieldColor;
+        if (tag ==  ItemA || tag == ItemB || tag == Savings) {
+            t.backgroundColor = [UIColor clearColor];
+            NSString *msg = useDefaultValues ? [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding] : fieldValues[i];
+            t.text = (msg.length == 0) ? [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding] : msg;
+        } else if (tag == BetterDealA || tag == BetterDealB) {
+            t.backgroundColor = [UIColor clearColor];
+            t.text = fieldValues[i];
+        } else {
+            t.backgroundColor = (tag == InputFields[curFieldIndex]) ? curFieldColor : fieldColor;
+            t.text = fieldValues[i];
+        }
     }
 }
 
-#define LABEL(x, y, w, h, f, t) { x, y, w, h, f, t}
-#define YO11(y) (y - 20)
-#define YO12(y) (y - 20)
-#define YO13(y) (y - 25)
-#define YO21(y) (y - 20)
-#define YO22(y) (y - 20)
-#define YO23(y) (y - 30)
-
 - (void)populateScreen {
-    labelStruct fieldsIPhone35[] = {
-        LABEL(1, YO11(21), 159, 156, 14, "Item A"),
-        LABEL(161, YO11(21), 158, 156, 14, "Item B"),
-        LABEL(0, YO11(146), 160, 30, 14, "Better Deal"),
-        LABEL(160, YO11(146), 160, 30, 14, "Better Deal"),
-		// A
-        LABEL(10, YO11(40), 136, 30, 17, "Price A"),
-		LABEL(10, YO11(78), 64, 30, 17, "Qty A"), LABEL(82, YO11(78), 64, 30, 17, "Size A"),
-		LABEL(38, YO11(116), 80, 30, 17, "Qty2BuyA"),
-		// B
-        LABEL(174, YO11(40), 136, 30, 17, "Price B"),
-		LABEL(174, YO11(78), 64, 30, 17, "Size B"), LABEL(246, YO11(78), 64, 30, 17, "Qty B"),
-		LABEL(202, YO11(116), 80, 30, 17, "Qty2BuyB"),
-        // Savings
-        LABEL(20, YO11(183), 280, 30, 17, "")
-    };
-    
-    labelStruct fieldsIPhone40[] = {
-		// A
-        LABEL(20, YO12(31), 136, 30, 17, "PriceA"),
-		LABEL(20, YO12(69), 64, 30, 17, ""), LABEL(92, YO12(69), 64, 30, 17, ""),
-		LABEL(20, YO12(107), 136, 30, 17, ""),
-        LABEL(20, YO12(145), 64, 30, 17, ""), LABEL(92, YO12(145), 64, 30, 17, ""),
-        LABEL(20, YO12(183), 136, 30, 17, ""),
-		// B
-        LABEL(164, YO12(31), 136, 30, 17, ""),
-		LABEL(164, YO12(69), 64, 30, 17, ""), LABEL(236, YO12(69), 64, 30, 17, ""),
-		LABEL(164, YO12(107), 136, 30, 17, ""),
-        LABEL(164, YO12(145), 64, 30, 17, ""), LABEL(236, YO12(145), 64, 30, 17, ""),
-        LABEL(164, YO12(183), 136, 30, 17, ""),
-    };
-    
-    labelStruct fieldsIPad[] = {
-		// A
-        LABEL(20, YO13(30), 360, 72, 48, ""),
-		LABEL(20, YO13(109), 176, 72, 48, ""), LABEL(204, YO13(109), 176, 72, 48, ""),
-		LABEL(20, YO13(188), 360, 72, 48, ""),
-        LABEL(20, YO13(267), 176, 72, 48, ""), LABEL(204, YO13(267), 176, 72, 48, ""),
-        LABEL(20, YO13(346), 360, 72, 48, ""),
-		// B
-        LABEL(388, YO13(30), 360, 72, 48, ""),
-		LABEL(388, YO13(109), 176, 72, 48, ""), LABEL(572, YO13(109), 176, 72, 48, ""),
-		LABEL(388, YO13(188), 360, 72, 48, ""),
-        LABEL(388, YO13(267), 176, 72, 48, ""), LABEL(572, YO13(267), 176, 72, 48, ""),
-        LABEL(388, YO13(346), 360, 72, 48, ""),
-    };
-    
-    labelStruct *deviceFields[] = {
-        fieldsIPhone35, fieldsIPhone40, fieldsIPad
-    };
     
     for (int i = 0; i < sizeof(fieldsIPhone35)/sizeof(labelStruct); i++) {
 //        [self makeButton:deviceFields[deviceType][i] tag:I2T(FTAG, i) isKey:NO];
         [self makeField:deviceFields[deviceType][i] tag:I2T(FTAG, i)];
     }
-        
-    labelStruct keypadIPhone35[] = {
-        LABEL(20, YO21(219), 64, 46, 15, "1"),
-        LABEL(92, YO21(219), 64, 46, 15, "2"),
-        LABEL(164, YO21(219), 64, 46, 15, "3"),
-        LABEL(236, YO21(219), 64, 46, 15, CLR),
-        LABEL(20, YO21(272), 64, 46, 15, "4"),
-        LABEL(92, YO21(272), 64, 46, 15, "5"),
-        LABEL(164, YO21(272), 64, 46, 15, "6"),
-        LABEL(236, YO21(272), 64, 46, 15, STORE),
-        LABEL(20, YO21(325), 64, 46, 15, "7"),
-        LABEL(92, YO21(325), 64, 46, 15, "8"),
-        LABEL(164, YO21(325), 64, 46, 15, "9"),
-        LABEL(236, YO21(325), 64, 46, 15, DEL),
-        LABEL(20, YO21(378), 64, 46, 15, "."),
-        LABEL(92, YO21(378), 64, 46, 15, "0"),
-        LABEL(164, YO21(378), 136, 46, 15, NEXT)
-    };
-    
-    labelStruct keypadIPhone40[] = {
-        LABEL(20, YO22(221), 64, 66, 15, "1"),
-        LABEL(92, YO22(221), 64, 66, 15, "2"),
-        LABEL(164, YO22(221), 64, 66, 15, "3"),
-        LABEL(236, YO22(221), 64, 66, 15, CLR),
-        LABEL(20, YO22(294), 64, 66, 15, "4"),
-        LABEL(92, YO22(294), 64, 66, 15, "5"),
-        LABEL(164, YO22(294), 64, 66, 15, "6"),
-        LABEL(236, YO22(294), 64, 66, 15, STORE),
-        LABEL(20, YO22(367), 64, 66, 15, "7"),
-        LABEL(92, YO22(367), 64, 66, 15, "8"),
-        LABEL(164, YO22(367), 64, 66, 15, "9"),
-        LABEL(236, YO22(367), 64, 66, 15, DEL),
-        LABEL(20, YO22(440), 64, 66, 15, "."),
-        LABEL(92, YO22(440), 64, 66, 15, "0"),
-        LABEL(164, YO22(440), 136, 66, 15, NEXT)
-    };
-    
-    labelStruct keypadIPad[] = {
-        LABEL(20, YO23(430), 176, 128, 48, "1"),
-        LABEL(204, YO23(430), 176, 128, 48, "2"),
-        LABEL(388, YO23(430), 176, 128, 48, "3"),
-        LABEL(572, YO23(430), 176, 128, 48, CLR),
-        LABEL(20, YO23(565), 176, 128, 48, "4"),
-        LABEL(204, YO23(565), 176, 128, 48, "5"),
-        LABEL(388, YO23(565), 176, 128, 48, "6"),
-        LABEL(572, YO23(565), 176, 128, 36, STORE),
-        LABEL(20, YO23(700), 176, 128, 48, "7"),
-        LABEL(204, YO23(700), 176, 128, 48, "8"),
-        LABEL(388, YO23(700), 176, 128, 48, "9"),
-        LABEL(572, YO23(700), 176, 128, 48, DEL),
-        LABEL(20, YO23(835), 176, 128, 48, "."),
-        LABEL(204, YO23(835), 176, 128, 48, "0"),
-        LABEL(388, YO23(835), 360, 128, 48, NEXT)
-    };
-    
-    labelStruct *deviceKeys[] = {
-        keypadIPhone35, keypadIPhone40, keypadIPad
-    };
-    
+
     for (int i = 0; i < sizeof(keypadIPhone35)/sizeof(labelStruct); i++) {
         [self makeButton:deviceKeys[deviceType][i] tag:I2T(KTAG, i) isKey:YES];
     }
@@ -414,6 +425,7 @@ static BOOL debug = NO;
         [b setBackgroundColor:curFieldColor];
         curFieldIndex = [self findIndex:sender.tag];
         directTap = YES;
+        [self showResult];
     } else  if (keyType == ResultKey) {
         [self showResult];
     } else {
@@ -427,11 +439,19 @@ static BOOL debug = NO;
             if (s.length > 0) {
                 s = [s substringToIndex:s.length - 1];
                 fieldValues[T2I(FTAG, InputFields[curFieldIndex])] = s;
+                NSInteger tag = InputFields[curFieldIndex];
+                if (s.length == 0 && tag == Qty2BuyA) {
+                    fieldValues[T2I(FTAG, Qty2BuyB)] = @"";
+                } else if (s.length == 0 && tag == Qty2BuyB) {
+                    fieldValues[T2I(FTAG, Qty2BuyA)] = @"";
+                }
+                [self calcResult];
             }
         } else if (keyType == ClearKey) {
             [self initGUI];
         } else if (keyType == NextKey) {
             curFieldIndex = (curFieldIndex + 1) % nInputFields;
+            [self showResult];
         } else if ([key isEqualToString:@STORE]) {
             if (!myStoreObserver.bought || debug) {
                 if ([SKPaymentQueue canMakePayments]) {
@@ -448,7 +468,7 @@ static BOOL debug = NO;
         } else {
             fieldValues[T2I(FTAG, InputFields[curFieldIndex])] = [s stringByAppendingString:key];
         }
-        [self updateFields];
+        [self updateFields:NO];
     }
 }
 
@@ -486,24 +506,22 @@ static BOOL debug = NO;
     t.tag = tag;
     t.backgroundColor = (tag == InputFields[curFieldIndex]) ? fieldColor : curFieldColor;
     t.delegate = self;
-    if (tag == ItemA || tag == ItemB || tag == BetterDealA || tag == BetterDealB) {
+    if (tag == ItemA || tag == ItemB || tag == BetterDealA || tag == BetterDealB || tag == Savings) {
         t.placeholder = @"";
         t.text = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
-        t.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+        t.contentVerticalAlignment = (tag == ItemA || tag == ItemB) ? UIControlContentVerticalAlignmentTop :UIControlContentVerticalAlignmentCenter;
         t.backgroundColor = [UIColor clearColor];
-        if (tag == BetterDealA || tag == BetterDealB) {
-            t.hidden = YES;
+        if (tag == ItemA || tag == ItemB) {
+            t.borderStyle = UITextBorderStyleLine;
+        } else {
+            // this does not appear to work
+            t.minimumFontSize = 6;
+            t.adjustsFontSizeToFitWidth = YES;
         }
     } else {
         t.text = @"";
         t.placeholder = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
         t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    }
-    if (tag == Savings) {
-        t.backgroundColor = [UIColor clearColor];
-    }
-    if (tag == ItemA || tag == ItemB) {
-        t.borderStyle = UITextBorderStyleLine;
     }
     [self.view addSubview:t];
 }
@@ -521,6 +539,74 @@ static BOOL debug = NO;
 }
 
 - (void)showResult {
+    if ([fieldValues[T2I(FTAG, Qty2BuyA)] length] == 0 && [fieldValues[T2I(FTAG, Qty2BuyB)] length] > 0) {
+        fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)];
+        [self calcResult];
+    } else if ([fieldValues[T2I(FTAG, Qty2BuyA)] length] > 0 && [fieldValues[T2I(FTAG, Qty2BuyB)] length] == 0) {
+        fieldValues[T2I(FTAG, Qty2BuyB)] = fieldValues[T2I(FTAG, Qty2BuyA)];
+        [self calcResult];
+    } else if ([fieldValues[T2I(FTAG, PriceA)] length] > 0 &&  [fieldValues[T2I(FTAG, QtyA)] length] > 0) {
+        if ([fieldValues[T2I(FTAG, SizeA)] length] == 0) {
+            fieldValues[T2I(FTAG, SizeA)] = @"1";
+        }
+        [self calcResult];
+    } else if ([fieldValues[T2I(FTAG, PriceB)] length] > 0 &&  [fieldValues[T2I(FTAG, QtyB)] length] > 0) {
+        if ([fieldValues[T2I(FTAG, SizeB)] length] == 0) {
+            fieldValues[T2I(FTAG, SizeB)] = @"1";
+        }
+        [self calcResult];
+    } else {
+        // no calcs to perform.
+    }
+    [self updateFields:NO];
+}
+
+- (void)calcResult {
+    float priceA = [fieldValues[T2I(FTAG, PriceA)] floatValue];
+    float qtyA = [fieldValues[T2I(FTAG, QtyA)] floatValue];
+    float sizeA = [fieldValues[T2I(FTAG, SizeA)] floatValue];
+    float eachA = 0.0;
+    float unitCostA = 0.0;
+    if (qtyA > 0 && sizeA > 0) {
+        eachA = priceA / qtyA;
+        unitCostA = eachA / sizeA;
+        fieldValues[T2I(FTAG, BetterDealA)] = [NSString stringWithFormat:@"$%.2f/item, $%.2f/unit", eachA, unitCostA];
+    }
+
+    float priceB = [fieldValues[T2I(FTAG, PriceB)] floatValue];
+    float qtyB = [fieldValues[T2I(FTAG, QtyB)] floatValue];
+    float sizeB = [fieldValues[T2I(FTAG, SizeB)] floatValue];
+    float eachB = 0.0;
+    float unitCostB = 0.0;
+    if (qtyB > 0 && sizeB > 0) {
+        eachB = priceB / qtyB;
+        unitCostB = eachB / sizeB;
+        fieldValues[T2I(FTAG, BetterDealB)] = [NSString stringWithFormat:@"$%.2f/item, $%.2f/unit", eachB, unitCostB];
+    }
+
+    fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
+    fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
+    if (unitCostA > 0 && unitCostB > 0) {
+        float diff = unitCostA - unitCostB;
+        if (diff < 0) {
+            fieldValues[T2I(FTAG, ItemA)] = @"A is a Better Deal";
+        } else if (diff > 0) {
+            fieldValues[T2I(FTAG, ItemB)] = @"B is a Better Deal";
+        }
+    }
+    
+    float qty2BuyA = [fieldValues[T2I(FTAG, Qty2BuyA)] floatValue];
+    float qty2BuyB = [fieldValues[T2I(FTAG, Qty2BuyB)] floatValue];
+    
+    if (qtyA > 0 && qtyB > 0 && sizeA > 0 && sizeB > 0) {
+        if (qty2BuyA > 0 && qty2BuyB > 0) {
+            fieldValues[T2I(FTAG, Savings)] = @"Calculate savings here.";
+        } else {
+            fieldValues[T2I(FTAG, Savings)] = @"Enter # to Buy to Calculate Savings";
+        }
+    } else {
+        fieldValues[T2I(FTAG, Savings)] = [NSString stringWithCString:deviceFields[deviceType][T2I(FTAG, Savings)].label encoding:NSASCIIStringEncoding];
+    }
 }
 
 - (void)removeAds {
