@@ -31,16 +31,26 @@
 #define K_STORE (KTAG + 7)
 
 typedef enum {
-    NumberOfItemsA = I2T(FTAG, 0), PriceA = I2T(FTAG, 1),
-    NumberOfItemsB = I2T(FTAG, 2), PriceB = I2T(FTAG, 3),
-    NumUnitsA = I2T(FTAG, 4), NumUnitsB = I2T(FTAG, 5),
-    Quantity = I2T(FTAG, 6),
-    UnitPriceA = I2T(FTAG, 7), UnitPriceB = I2T(FTAG, 8),
-    Result = I2T(FTAG, 9),
+    PriceA = I2T(FTAG, 0),
+    QtyA = I2T(FTAG, 1), SizeA = I2T(FTAG, 2),
+    BetterDealA = I2T(FTAG, 3),
+    NumberToBuyA = I2T(FTAG, 4), CostToBuyA = I2T(FTAG, 5),
+    SavingsA = I2T(FTAG, 6),
+    PriceB = I2T(FTAG, 7),
+    QtyB = I2T(FTAG, 8), SizeB = I2T(FTAG, 9),
+    BetterDealB = I2T(FTAG, 10),
+    NumberToBuyB = I2T(FTAG, 11), CostToBuyB = I2T(FTAG, 12),
+    SavingsB = I2T(FTAG, 13),
     Ad = 999
 } Field;
 
-#define nInputFields (Quantity - FTAG + 1)
+static int InputFields[] = {
+    PriceA, QtyA, SizeA,
+    PriceB, QtyB, SizeB,
+    NumberToBuyA, NumberToBuyB
+};
+
+#define nInputFields (sizeof(InputFields)/sizeof(int))
 
 typedef enum {
     iPhone4 = 0, iPhone5 = 1, iPad = 2
@@ -62,7 +72,7 @@ static BOOL debug = NO;
     NSMutableArray *fieldValues;
     UIColor *fieldColor, *curFieldColor;
     DeviceType deviceType;
-    NSInteger curField;
+    NSInteger curFieldIndex;
     BOOL directTap;
     MyStoreObserver *myStoreObserver;
 }
@@ -70,6 +80,15 @@ static BOOL debug = NO;
 @end
 
 @implementation ViewController
+
+- (int)findIndex:(NSInteger)tag {
+    for(int i = 0; i < nInputFields; i++) {
+        if (InputFields[i] == tag) {
+            return i;
+        }
+    }
+    return 0; // punt
+}
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
     NSLog(@"%s", __func__);
@@ -108,20 +127,20 @@ static BOOL debug = NO;
 - (void)initGUI {
     directTap = NO;
     fieldValues = [NSMutableArray array];
-    for (int i = NumberOfItemsA; i <= Result; i++) {
+    for (int i = PriceA; i <= SavingsB; i++) {
         [fieldValues addObject:@""];
     }
-    curField = FTAG;
+    curFieldIndex = 0;
     [self updateFields];
     [self setAdButtonState];
 }
 
 - (void)updateFields {
-    for (int tag = NumberOfItemsA; tag <= Result; tag++) {
+    for (int tag = PriceA; tag <= SavingsB; tag++) {
         NSInteger i = T2I(FTAG, tag);
         MyButton *b = (MyButton *)[self.view viewWithTag:tag];
         BTITLE(b, fieldValues[i]);
-        [b setBackgroundColor:(tag == curField) ? curFieldColor : fieldColor];
+        [b setBackgroundColor:(tag == InputFields[curFieldIndex]) ? curFieldColor : fieldColor];
     }
 }
 
@@ -322,50 +341,97 @@ static BOOL debug = NO;
 - (void)buttonPushed:(MyButton *)sender {
 //    NSLog(@"%s, %d", __func__, sender.tag);
 
-    if ((sender.tag >= FTAG) && (sender.tag <= Quantity)) {
-        MyButton *b = (MyButton *)[self.view viewWithTag:curField];
+    typedef enum {
+        InputKey, ResultKey, NumberKey, ClearKey, StoreKey, DelKey, NextKey, UnknownKey
+    } KeyType;
+    KeyType keyType;
+    
+    keyType = UnknownKey;
+    
+    if (sender.tag >= FTAG && sender.tag <= SavingsB) {
+        switch (sender.tag) {
+            case PriceA:
+            case PriceB:
+            case QtyA:
+            case QtyB:
+            case SizeA:
+            case SizeB:
+            case NumberToBuyA:
+            case NumberToBuyB:
+                keyType = InputKey;
+                break;
+            case BetterDealA:
+            case BetterDealB:
+            case CostToBuyA:
+            case CostToBuyB:
+            case SavingsA:
+            case SavingsB:
+                keyType = ResultKey;
+                break;
+            default:
+                keyType = UnknownKey;
+                break;
+        }
+    } else {
+        switch (sender.tag) {
+            case KTAG + 0:
+            case KTAG + 1:
+            case KTAG + 2:
+            case KTAG + 4:
+            case KTAG + 5:
+            case KTAG + 6:
+            case KTAG + 8:
+            case KTAG + 9:
+            case KTAG + 10:
+            case KTAG + 12:
+            case KTAG + 13:
+                keyType = NumberKey;
+                break;
+            case KTAG + 3:
+                keyType = ClearKey;
+                break;
+            case K_STORE:
+                keyType = StoreKey;
+                break;
+            case KTAG + 11:
+                keyType = DelKey;
+                break;
+            case KTAG + 14:
+                keyType = NextKey;
+                break;
+            default:
+                keyType = UnknownKey;
+                break;
+        }
+    }
+
+    if (keyType == UnknownKey) {
+        NSLog(@"Ooops");
+    } else if (keyType == InputKey) {
+        MyButton *b = (MyButton *)[self.view viewWithTag:InputFields[curFieldIndex]];
         [b setBackgroundColor:curFieldColor];
         b = (MyButton *)[self.view viewWithTag:sender.tag];
         [b setBackgroundColor:fieldColor];
-        curField = sender.tag;
+        curFieldIndex = [self findIndex:sender.tag];
         directTap = YES;
-    } else  if ((sender.tag >= UnitPriceA) && (sender.tag <= Result)) {
+    } else  if (keyType == ResultKey) {
         [self showResult];
-    } else if (sender.tag >= BTAG) {
+    } else {
         if (directTap) {
             directTap = NO;
-            fieldValues[T2I(FTAG, curField)] = @"";
+            fieldValues[T2I(FTAG, curFieldIndex)] = @"";
         }
-        NSString *s = fieldValues[T2I(FTAG, curField)];
+        NSString *s = fieldValues[T2I(FTAG, InputFields[curFieldIndex])];
         NSString *key = [self getKey:sender];
-        if ([key isEqualToString:@DEL]) {
+        if (keyType == DelKey) {
             if (s.length > 0) {
                 s = [s substringToIndex:s.length - 1];
-                fieldValues[T2I(FTAG, curField)] = s;
+                fieldValues[T2I(FTAG, InputFields[curFieldIndex])] = s;
             }
-        } else if ([key isEqualToString:@CLR]) {
+        } else if (keyType == ClearKey) {
             [self initGUI];
-        } else if ([key isEqualToString:@NEXT]) {
-            if (curField == PriceA && [fieldValues[T2I(FTAG, NumUnitsA)] length] == 0) {
-                fieldValues[T2I(FTAG, NumUnitsA)] = @"1";
-            } else if (curField == PriceB && [fieldValues[T2I(FTAG, NumUnitsB)] length] == 0) {
-                fieldValues[T2I(FTAG, NumUnitsB)] = @"1";
-            }
-            NSInteger i = T2I(FTAG, curField);
-            i = ((i + 1) % nInputFields);
-            curField = I2T(FTAG, i);
-
-            int nFilled = 0;
-            for (int i = 0; i < nInputFields; i++) {
-                if ([(NSString *)fieldValues[i] length] > 0) {
-                    nFilled++;
-                }
-            }
-            // allow Qty to be empty, calculate it
-            if ((nFilled == nInputFields) || ((nFilled == (nInputFields - 1)) && ([fieldValues[T2I(FTAG, Quantity)] length] == 0))) {
-                [self showResult];
-            }
-
+        } else if (keyType == NextKey) {
+            curFieldIndex = (curFieldIndex + 1) % nInputFields;
         } else if ([key isEqualToString:@STORE]) {
             if (!myStoreObserver.bought || debug) {
                 if ([SKPaymentQueue canMakePayments]) {
@@ -377,14 +443,12 @@ static BOOL debug = NO;
         } else if ([key isEqualToString:@"."]) {
             NSRange r = [s rangeOfString:@"."];
             if (r.location == NSNotFound) {
-                fieldValues[T2I(FTAG, curField)] = [s stringByAppendingString:key];
+                fieldValues[T2I(FTAG, InputFields[curFieldIndex])] = [s stringByAppendingString:key];
             }
         } else {
-            fieldValues[T2I(FTAG, curField)] = [s stringByAppendingString:key];
+            fieldValues[T2I(FTAG, InputFields[curFieldIndex])] = [s stringByAppendingString:key];
         }
         [self updateFields];
-    } else {
-        NSLog(@"Ooops");
     }
 }
 
@@ -403,7 +467,7 @@ static BOOL debug = NO;
         [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient.3png"] forState:UIControlStateSelected];
         BTITLE(b, [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding]);
     }
-    [b setBackgroundColor:(tag == curField) ? fieldColor : curFieldColor];
+    [b setBackgroundColor:(tag == InputFields[curFieldIndex]) ? fieldColor : curFieldColor];
     [self.view addSubview:b];
 }
 
@@ -433,47 +497,6 @@ static BOOL debug = NO;
 }
 
 - (void)showResult {
-    NSString *qString = fieldValues[T2I(FTAG, Quantity)];
-    float qty;
-    if (qString.length == 0) {
-        qty = 1;
-    } else {
-        qty = [qString floatValue];
-    }
-    float nItemsA = [fieldValues[T2I(FTAG, NumberOfItemsA)] floatValue];
-    [self fillBlank:NumberOfItemsA v:&nItemsA d:1.0];
-    float priceA = [fieldValues[T2I(FTAG, PriceA)] floatValue];
-    [self fillBlank:PriceA v:&priceA d:1.0];
-    float nUnitsA = [fieldValues[T2I(FTAG, NumUnitsA)] floatValue];
-    [self fillBlank:NumUnitsA v:&nUnitsA d:1.0];
-    float unitPriceA = priceA / (nUnitsA * nItemsA);
-    fieldValues[T2I(FTAG, UnitPriceA)] = [NSString stringWithFormat:@"%.2f", unitPriceA];
-    
-    float nItemsB = [fieldValues[T2I(FTAG, NumberOfItemsB)] floatValue];
-    [self fillBlank:NumberOfItemsB v:&nItemsB d:1.0];
-    float priceB = [fieldValues[T2I(FTAG, PriceB)] floatValue];
-    [self fillBlank:PriceB v:&priceB d:1.0];
-    float nUnitsB = [fieldValues[T2I(FTAG, NumUnitsB)] floatValue];
-    [self fillBlank:NumUnitsB v:&nUnitsB d:1.0];
-    float unitPriceB = priceB / (nUnitsB * nItemsB);
-    fieldValues[T2I(FTAG, UnitPriceB)] = [NSString stringWithFormat:@"%.2f", unitPriceB];
-    
-    NSString *result;
-    if (unitPriceA < unitPriceB || unitPriceA > unitPriceB) {
-        //=ABS(A8-C8)*B7
-        qString = fieldValues[T2I(FTAG, Quantity)];
-        if (qString.length != 0) {
-            qty = [qString floatValue];
-        } else {
-            qty = (unitPriceA < unitPriceB) ? nUnitsA : nUnitsB;
-        }
-        float savings = ABS(unitPriceA - unitPriceB) * qty;
-        result = [NSString stringWithFormat:@"%@ saves %.2f", (unitPriceA < unitPriceB) ? @"A" : @"B", savings];
-    } else {
-        result = @"A and B are equal";
-    }
-    fieldValues[T2I(FTAG, Result)] = result;
-    [self updateFields];
 }
 
 - (void)removeAds {
