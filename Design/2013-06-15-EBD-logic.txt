@@ -10,11 +10,11 @@ _,Price for,Qty,of Size,Qty to Buy,Saves
 A,     3.00,  2,    7.5,         4,    _
 B,     2.00,  1,    8.5,         _,    _
 
-The total amount of product A purchased:
-4*7.5 -> 30.0
-
 Total cost of purchase:
 3.00/2*4 -> 6.00
+
+The total amount of product A purchased:
+4*7.5 -> 30.0
 
 The same amount of money would buy:
 4*(2/1*1/8.5)*x = 4*(3/2*1/7.5)
