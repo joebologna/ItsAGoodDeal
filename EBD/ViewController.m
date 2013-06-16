@@ -112,7 +112,8 @@ static BOOL debug = NO;
     }
     
     fieldColor = UIColorFromRGB(0x86e4ae);
-    curFieldColor = UIColorFromRGB(0x86ffcf);
+//    curFieldColor = UIColorFromRGB(0x86ffcf);
+    curFieldColor = UIColorFromRGB(0xaaffcf);
 
     self.view.backgroundColor = [UIColor colorWithRed:0.326184 green:0.914025 blue:0.620324 alpha:1];
     [self populateScreen];
@@ -409,9 +410,9 @@ static BOOL debug = NO;
         NSLog(@"Ooops");
     } else if (keyType == InputKey) {
         MyButton *b = (MyButton *)[self.view viewWithTag:InputFields[curFieldIndex]];
-        [b setBackgroundColor:curFieldColor];
-        b = (MyButton *)[self.view viewWithTag:sender.tag];
         [b setBackgroundColor:fieldColor];
+        b = (MyButton *)[self.view viewWithTag:sender.tag];
+        [b setBackgroundColor:curFieldColor];
         curFieldIndex = [self findIndex:sender.tag];
         directTap = YES;
     } else  if (keyType == ResultKey) {
@@ -419,7 +420,7 @@ static BOOL debug = NO;
     } else {
         if (directTap) {
             directTap = NO;
-            fieldValues[T2I(FTAG, curFieldIndex)] = @"";
+            fieldValues[T2I(FTAG, InputFields[curFieldIndex])] = @"";
         }
         NSString *s = fieldValues[T2I(FTAG, InputFields[curFieldIndex])];
         NSString *key = [self getKey:sender];
