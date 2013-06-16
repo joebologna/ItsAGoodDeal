@@ -186,7 +186,7 @@ static BOOL debug = NO;
 
 @interface ViewController () <ADBannerViewDelegate, UIAlertViewDelegate> {
     NSMutableArray *fieldValues;
-    UIColor *fieldColor, *curFieldColor, *backgroundColor;
+    UIColor *fieldColor, *curFieldColor, *backgroundColor, *hilightColor;
     DeviceType deviceType;
     NSInteger curFieldIndex;
     BOOL directTap;
@@ -230,7 +230,9 @@ static BOOL debug = NO;
     
     fieldColor = UIColorFromRGB(0x86e4ae);
     curFieldColor = UIColorFromRGB(0xaaffcf);
-    backgroundColor = [UIColor colorWithRed:0.326184 green:0.914025 blue:0.620324 alpha:1];
+//    backgroundColor = [UIColor colorWithRed:0.326184 green:0.914025 blue:0.620324 alpha:1];
+    backgroundColor = UIColorFromRGB(0x53e99e);
+    hilightColor = UIColorFromRGB(0xd2fde8);
 
     self.view.backgroundColor = backgroundColor;
     [self populateScreen];
@@ -258,7 +260,11 @@ static BOOL debug = NO;
         NSInteger i = T2I(FTAG, tag);
         UITextField *t = (UITextField *)[self.view viewWithTag:tag];
         if (tag ==  ItemA || tag == ItemB || tag == Savings) {
-            t.backgroundColor = [UIColor clearColor];
+            if ((tag == ItemA || tag == ItemB) && [fieldValues[i] length] > 6) { // fix this later
+                t.backgroundColor = hilightColor;
+            } else {
+                t.backgroundColor = [UIColor clearColor];
+            }
             NSString *msg = useDefaultValues ? [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding] : fieldValues[i];
             t.text = (msg.length == 0) ? [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding] : msg;
         } else if (tag == BetterDealA || tag == BetterDealB) {
@@ -600,7 +606,18 @@ static BOOL debug = NO;
     
     if (qtyA > 0 && qtyB > 0 && sizeA > 0 && sizeB > 0) {
         if (qty2BuyA > 0 && qty2BuyB > 0) {
-            fieldValues[T2I(FTAG, Savings)] = @"Calculate savings here.";
+            float costA = unitCostA * qty2BuyA;
+            float costB = unitCostB * qty2BuyB;
+            float savings = ABS(costA - costB);
+            NSString *msg;
+            if (unitCostA < unitCostB) {
+                msg = [NSString stringWithFormat:@"Cost: %.2f, Savings: %.2f", costA, savings];
+            } else if (unitCostA > unitCostB) {
+                msg = [NSString stringWithFormat:@"Cost: %.2f, Savings: %.2f", costB, savings];
+            } else {
+                msg = [NSString stringWithFormat:@"Cost: %.2f, A and B cost the same", costA];
+            }
+            fieldValues[T2I(FTAG, Savings)] = msg;
         } else {
             fieldValues[T2I(FTAG, Savings)] = @"Enter # to Buy to Calculate Savings";
         }
