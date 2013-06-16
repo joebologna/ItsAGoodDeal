@@ -31,23 +31,22 @@
 #define K_STORE (KTAG + 7)
 
 typedef enum {
-    PriceA = I2T(FTAG, 0),
-    QtyA = I2T(FTAG, 1), SizeA = I2T(FTAG, 2),
-    BetterDealA = I2T(FTAG, 3),
-    NumberToBuyA = I2T(FTAG, 4), CostToBuyA = I2T(FTAG, 5),
-    SavingsA = I2T(FTAG, 6),
-    PriceB = I2T(FTAG, 7),
-    QtyB = I2T(FTAG, 8), SizeB = I2T(FTAG, 9),
-    BetterDealB = I2T(FTAG, 10),
-    NumberToBuyB = I2T(FTAG, 11), CostToBuyB = I2T(FTAG, 12),
-    SavingsB = I2T(FTAG, 13),
+    ItemA = I2T(FTAG, 0), ItemB = I2T(FTAG, 1),
+    BetterDealA = I2T(FTAG, 2), BetterDealB = I2T(FTAG, 3),
+    PriceA = I2T(FTAG, 4),
+    QtyA = I2T(FTAG, 5), SizeA = I2T(FTAG, 6),
+    Qty2BuyA = I2T(FTAG, 7),
+    PriceB = I2T(FTAG, 8),
+    SizeB = I2T(FTAG, 9), QtyB = I2T(FTAG, 10),
+    Qty2BuyB = I2T(FTAG, 11),
+    Savings = I2T(FTAG, 12),
     Ad = 999
 } Field;
 
 static int InputFields[] = {
     PriceA, QtyA, SizeA,
     PriceB, QtyB, SizeB,
-    NumberToBuyA, NumberToBuyB
+    Qty2BuyA, Qty2BuyB
 };
 
 #define nInputFields (sizeof(InputFields)/sizeof(int))
@@ -70,7 +69,7 @@ static BOOL debug = NO;
 
 @interface ViewController () <ADBannerViewDelegate, UIAlertViewDelegate> {
     NSMutableArray *fieldValues;
-    UIColor *fieldColor, *curFieldColor;
+    UIColor *fieldColor, *curFieldColor, *backgroundColor;
     DeviceType deviceType;
     NSInteger curFieldIndex;
     BOOL directTap;
@@ -112,10 +111,10 @@ static BOOL debug = NO;
     }
     
     fieldColor = UIColorFromRGB(0x86e4ae);
-//    curFieldColor = UIColorFromRGB(0x86ffcf);
     curFieldColor = UIColorFromRGB(0xaaffcf);
+    backgroundColor = [UIColor colorWithRed:0.326184 green:0.914025 blue:0.620324 alpha:1];
 
-    self.view.backgroundColor = [UIColor colorWithRed:0.326184 green:0.914025 blue:0.620324 alpha:1];
+    self.view.backgroundColor = backgroundColor;
     [self populateScreen];
     [self initGUI];
     
@@ -128,7 +127,7 @@ static BOOL debug = NO;
 - (void)initGUI {
     directTap = NO;
     fieldValues = [NSMutableArray array];
-    for (int i = PriceA; i <= SavingsB; i++) {
+    for (int i = ItemA; i <= Savings; i++) {
         [fieldValues addObject:@""];
     }
     curFieldIndex = 0;
@@ -137,7 +136,7 @@ static BOOL debug = NO;
 }
 
 - (void)updateFields {
-    for (int tag = PriceA; tag <= SavingsB; tag++) {
+    for (int tag = PriceA; tag <= Qty2BuyB; tag++) {
         NSInteger i = T2I(FTAG, tag);
         UITextField *t = (UITextField *)[self.view viewWithTag:tag];
         t.text = fieldValues[i];
@@ -155,18 +154,20 @@ static BOOL debug = NO;
 
 - (void)populateScreen {
     labelStruct fieldsIPhone35[] = {
+        LABEL(1, YO11(21), 159, 156, 14, "Item A"),
+        LABEL(161, YO11(21), 158, 156, 14, "Item B"),
+        LABEL(0, YO11(146), 160, 30, 14, "Better Deal"),
+        LABEL(160, YO11(146), 160, 30, 14, "Better Deal"),
 		// A
-        LABEL(20, YO11(29), 136, 30, 17, "PriceA"),
-		LABEL(20, YO11(67), 64, 30, 17, "QtyA"), LABEL(92, YO11(67), 64, 30, 17, "SizeA"),
-		LABEL(20, YO11(105), 136, 30, 17, "Better Deal A"),
-        LABEL(20, YO11(143), 64, 30, 17, "# to Buy A"), LABEL(92, YO11(143), 64, 30, 17, "Cost to Buy A"),
-        LABEL(20, YO11(181), 136, 30, 17, "Savings A"),
+        LABEL(10, YO11(40), 136, 30, 17, "Price A"),
+		LABEL(10, YO11(78), 64, 30, 17, "Qty A"), LABEL(82, YO11(78), 64, 30, 17, "Size A"),
+		LABEL(38, YO11(116), 80, 30, 17, "Qty2BuyA"),
 		// B
-        LABEL(164, YO11(29), 136, 30, 17, ""),
-		LABEL(164, YO11(67), 64, 30, 17, ""), LABEL(236, YO11(67), 64, 30, 17, ""),
-		LABEL(164, YO11(105), 136, 30, 17, ""),
-        LABEL(164, YO11(143), 64, 30, 17, ""), LABEL(236, YO11(143), 64, 30, 17, ""),
-        LABEL(164, YO11(181), 136, 30, 17, ""),
+        LABEL(174, YO11(40), 136, 30, 17, "Price B"),
+		LABEL(174, YO11(78), 64, 30, 17, "Size B"), LABEL(246, YO11(78), 64, 30, 17, "Qty B"),
+		LABEL(202, YO11(116), 80, 30, 17, "Qty2BuyB"),
+        // Savings
+        LABEL(20, YO11(183), 280, 30, 17, "")
     };
     
     labelStruct fieldsIPhone40[] = {
@@ -350,7 +351,7 @@ static BOOL debug = NO;
     
     keyType = UnknownKey;
     
-    if (sender.tag >= FTAG && sender.tag <= SavingsB) {
+    if (sender.tag >= FTAG && sender.tag <= Savings) {
         switch (sender.tag) {
             case PriceA:
             case PriceB:
@@ -358,16 +359,13 @@ static BOOL debug = NO;
             case QtyB:
             case SizeA:
             case SizeB:
-            case NumberToBuyA:
-            case NumberToBuyB:
+            case Qty2BuyA:
+            case Qty2BuyB:
                 keyType = InputKey;
                 break;
             case BetterDealA:
             case BetterDealB:
-            case CostToBuyA:
-            case CostToBuyB:
-            case SavingsA:
-            case SavingsB:
+            case Savings:
                 keyType = ResultKey;
                 break;
             default:
@@ -484,13 +482,29 @@ static BOOL debug = NO;
 - (void)makeField:(labelStruct)label tag:(NSInteger)tag {
     UITextField *t = [[UITextField alloc] initWithFrame:label.rect];
     t.font = [UIFont systemFontOfSize:label.f];
-    t.text = @"";
-    t.placeholder = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
     t.textAlignment = NSTextAlignmentCenter;
     t.tag = tag;
     t.backgroundColor = (tag == InputFields[curFieldIndex]) ? fieldColor : curFieldColor;
     t.delegate = self;
-    t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    if (tag == ItemA || tag == ItemB || tag == BetterDealA || tag == BetterDealB) {
+        t.placeholder = @"";
+        t.text = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
+        t.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+        t.backgroundColor = [UIColor clearColor];
+        if (tag == BetterDealA || tag == BetterDealB) {
+            t.hidden = YES;
+        }
+    } else {
+        t.text = @"";
+        t.placeholder = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
+        t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    }
+    if (tag == Savings) {
+        t.backgroundColor = [UIColor clearColor];
+    }
+    if (tag == ItemA || tag == ItemB) {
+        t.borderStyle = UITextBorderStyleLine;
+    }
     [self.view addSubview:t];
 }
 
