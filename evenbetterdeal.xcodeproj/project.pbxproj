@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3B312C0B17602A8F00AF12F9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B312C0A17602A8F00AF12F9 /* iAd.framework */; };
 		3B3A62F91761557700C7DD46 /* ButtonGradient3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B3A62F61761557700C7DD46 /* ButtonGradient3.png */; };
+		3B557537176F5AE5005EEB51 /* iPhone4B.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B557536176F5AE5005EEB51 /* iPhone4B.xib */; };
+		3B557539176F600D005EEB51 /* iPadB.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B557538176F600D005EEB51 /* iPadB.xib */; };
 		3B730725175EC9F500873194 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B730727175EC9F500873194 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
 		3B730729175EC9F500873194 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730728175EC9F500873194 /* CoreGraphics.framework */; };
@@ -40,6 +42,8 @@
 		3B47EFA0176955EB00A67A31 /* iPhone4A.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPhone4A.xib; sourceTree = "<group>"; };
 		3B47EFA21769635C00A67A31 /* iPhone3.5B.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPhone3.5B.xib; sourceTree = "<group>"; };
 		3B47EFA8176965B800A67A31 /* iPadA.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPadA.xib; sourceTree = "<group>"; };
+		3B557536176F5AE5005EEB51 /* iPhone4B.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPhone4B.xib; sourceTree = "<group>"; };
+		3B557538176F600D005EEB51 /* iPadB.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPadB.xib; sourceTree = "<group>"; };
 		3B730721175EC9F500873194 /* evenbetterdeal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = evenbetterdeal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B730724175EC9F500873194 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3B730726175EC9F500873194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -175,8 +179,10 @@
 				3B47EFA21769635C00A67A31 /* iPhone3.5B.xib */,
 				3BDB0CE817620AE1007AB586 /* iPhone4.xib */,
 				3B47EFA0176955EB00A67A31 /* iPhone4A.xib */,
+				3B557536176F5AE5005EEB51 /* iPhone4B.xib */,
 				3BDB0CEA17620DC1007AB586 /* iPad.xib */,
 				3B47EFA8176965B800A67A31 /* iPadA.xib */,
+				3B557538176F600D005EEB51 /* iPadB.xib */,
 			);
 			name = Templates;
 			sourceTree = "<group>";
@@ -243,6 +249,8 @@
 				3BD286701762EB0700A9AEE4 /* scale-72x72.png in Resources */,
 				3BD286721762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png in Resources */,
 				3BD286741762EFC000A9AEE4 /* Default-Portrait~ipad.png in Resources */,
+				3B557537176F5AE5005EEB51 /* iPhone4B.xib in Resources */,
+				3B557539176F600D005EEB51 /* iPadB.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

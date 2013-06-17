@@ -83,37 +83,41 @@ static labelStruct fieldsIPhone35[] = {
     LABEL(174, YO11(78), 64, 30, 17, "MinQty"), LABEL(246, YO11(78), 64, 30, 17, "Size"),
     LABEL(202, YO11(116), 80, 30, 17, "# to Buy"),
     // Savings
-    LABEL(20, YO11(183), 280, 30, 17, "Enter Price, Min Qty & Size of Items")
+    LABEL(1, YO11(178), 318, 40, 17, "Enter Price, Min Qty & Size of Items")
 };
 
 static labelStruct fieldsIPhone40[] = {
+    LABEL(1, YO11(21), 159, 156, 14, "Deal A"),
+    LABEL(161, YO11(21), 158, 156, 14, "Deal B"),
+    LABEL(10, YO11(146), 136, 30, 10, ""),
+    LABEL(174, YO11(146), 136, 30, 10, ""),
     // A
-    LABEL(20, YO12(31), 136, 30, 17, "PriceA"),
-    LABEL(20, YO12(69), 64, 30, 17, ""), LABEL(92, YO12(69), 64, 30, 17, ""),
-    LABEL(20, YO12(107), 136, 30, 17, ""),
-    LABEL(20, YO12(145), 64, 30, 17, ""), LABEL(92, YO12(145), 64, 30, 17, ""),
-    LABEL(20, YO12(183), 136, 30, 17, ""),
+    LABEL(10, YO11(40), 136, 30, 17, "Price A"),
+    LABEL(10, YO11(78), 64, 30, 17, "MinQty"), LABEL(82, YO11(78), 64, 30, 17, "Size"),
+    LABEL(38, YO11(116), 80, 30, 17, "# to Buy"),
     // B
-    LABEL(164, YO12(31), 136, 30, 17, ""),
-    LABEL(164, YO12(69), 64, 30, 17, ""), LABEL(236, YO12(69), 64, 30, 17, ""),
-    LABEL(164, YO12(107), 136, 30, 17, ""),
-    LABEL(164, YO12(145), 64, 30, 17, ""), LABEL(236, YO12(145), 64, 30, 17, ""),
-    LABEL(164, YO12(183), 136, 30, 17, ""),
+    LABEL(174, YO11(40), 136, 30, 17, "Price B"),
+    LABEL(174, YO11(78), 64, 30, 17, "MinQty"), LABEL(246, YO11(78), 64, 30, 17, "Size"),
+    LABEL(202, YO11(116), 80, 30, 17, "# to Buy"),
+    // Savings
+    LABEL(1, YO11(178), 318, 40, 17, "Enter Price, Min Qty & Size of Items")
 };
 
 static labelStruct fieldsIPad[] = {
+    LABEL(1, YO11(21), 383, 322, 14, "Deal A"),
+    LABEL(385, YO11(21), 383, 322, 14, "Deal B"),
+    LABEL(10, YO11(312), 384, 30, 10, ""),
+    LABEL(384, YO11(312), 384, 30, 10, ""),
     // A
-    LABEL(20, YO13(30), 360, 72, 48, ""),
-    LABEL(20, YO13(109), 176, 72, 48, ""), LABEL(204, YO13(109), 176, 72, 48, ""),
-    LABEL(20, YO13(188), 360, 72, 48, ""),
-    LABEL(20, YO13(267), 176, 72, 48, ""), LABEL(204, YO13(267), 176, 72, 48, ""),
-    LABEL(20, YO13(346), 360, 72, 48, ""),
+    LABEL(10, YO11(40), 366, 86, 17, "Price A"),
+    LABEL(10, YO11(133), 177, 86, 17, "MinQty"), LABEL(199, YO11(133), 177, 86, 17, "Size"),
+    LABEL(105, YO11(227), 177, 86, 17, "# to Buy"),
     // B
-    LABEL(388, YO13(30), 360, 72, 48, ""),
-    LABEL(388, YO13(109), 176, 72, 48, ""), LABEL(572, YO13(109), 176, 72, 48, ""),
-    LABEL(388, YO13(188), 360, 72, 48, ""),
-    LABEL(388, YO13(267), 176, 72, 48, ""), LABEL(572, YO13(267), 176, 72, 48, ""),
-    LABEL(388, YO13(346), 360, 72, 48, ""),
+    LABEL(393, YO11(40), 366, 86, 17, "Price B"),
+    LABEL(393, YO11(133), 177, 86, 17, "MinQty"), LABEL(582, YO11(133), 177, 86, 17, "Size"),
+    LABEL(488, YO11(227), 177, 86, 17, "# to Buy"),
+    // Savings
+    LABEL(1, YO11(344), 766, 75, 30, "Enter Price, Min Qty & Size of Items")
 };
 
 static labelStruct *deviceFields[] = {
@@ -139,21 +143,21 @@ static labelStruct keypadIPhone35[] = {
 };
 
 static labelStruct keypadIPhone40[] = {
-    LABEL(20, YO22(221), 64, 66, 15, "1"),
-    LABEL(92, YO22(221), 64, 66, 15, "2"),
-    LABEL(164, YO22(221), 64, 66, 15, "3"),
-    LABEL(236, YO22(221), 64, 66, 15, CLR),
-    LABEL(20, YO22(294), 64, 66, 15, "4"),
-    LABEL(92, YO22(294), 64, 66, 15, "5"),
-    LABEL(164, YO22(294), 64, 66, 15, "6"),
-    LABEL(236, YO22(294), 64, 66, 15, STORE),
-    LABEL(20, YO22(367), 64, 66, 15, "7"),
-    LABEL(92, YO22(367), 64, 66, 15, "8"),
-    LABEL(164, YO22(367), 64, 66, 15, "9"),
-    LABEL(236, YO22(367), 64, 66, 15, DEL),
-    LABEL(20, YO22(440), 64, 66, 15, "."),
-    LABEL(92, YO22(440), 64, 66, 15, "0"),
-    LABEL(164, YO22(440), 136, 66, 15, NEXT)
+    LABEL(20, YO21(221), 64, 66, 15, "1"),
+    LABEL(92, YO21(221), 64, 66, 15, "2"),
+    LABEL(164, YO21(221), 64, 66, 15, "3"),
+    LABEL(236, YO21(221), 64, 66, 15, CLR),
+    LABEL(20, YO21(295), 64, 66, 15, "4"),
+    LABEL(92, YO21(295), 64, 66, 15, "5"),
+    LABEL(164, YO21(295), 64, 66, 15, "6"),
+    LABEL(236, YO21(295), 64, 66, 15, STORE),
+    LABEL(20, YO21(369), 64, 66, 15, "7"),
+    LABEL(92, YO21(369), 64, 66, 15, "8"),
+    LABEL(164, YO21(369), 64, 66, 15, "9"),
+    LABEL(236, YO21(369), 64, 66, 15, DEL),
+    LABEL(20, YO21(442), 64, 66, 15, "."),
+    LABEL(92, YO21(442), 64, 66, 15, "0"),
+    LABEL(164, YO21(442), 136, 66, 15, NEXT)
 };
 
 static labelStruct keypadIPad[] = {
@@ -331,12 +335,13 @@ static Test testToRun = NotTesting;
         NSInteger i = T2I(FTAG, tag);
         UITextField *t = (UITextField *)[self.view viewWithTag:tag];
         if (tag ==  ItemA || tag == ItemB || tag == Savings) {
+            t.borderStyle = UITextBorderStyleLine;
             if ((tag == ItemA || tag == ItemB) && [fieldValues[i] length] > 6) { // fix this later
                 t.backgroundColor = highlightColor;
                 t.borderStyle = UITextBorderStyleLine;
             } else {
                 t.backgroundColor = [UIColor clearColor];
-                t.borderStyle = UITextBorderStyleNone;
+                t.borderStyle = UITextBorderStyleLine;
             }
             NSString *msg = useDefaultValues ? [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding] : fieldValues[i];
             t.text = (msg.length == 0) ? [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding] : msg;
@@ -583,7 +588,7 @@ static Test testToRun = NotTesting;
     b.tag = tag;
     if (isKey) {
         [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient3.png"] forState:UIControlStateNormal];
-        [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient.3png"] forState:UIControlStateSelected];
+        [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient3.png"] forState:UIControlStateSelected];
         BTITLE(b, [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding]);
     }
     [b setBackgroundColor:(tag == InputFields[curFieldIndex]) ? fieldColor : curFieldColor];
