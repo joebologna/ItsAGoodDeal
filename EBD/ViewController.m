@@ -76,11 +76,11 @@ static labelStruct fieldsIPhone35[] = {
     LABEL(174, YO11(146), 136, 30, 10, ""),
     // A
     LABEL(10, YO11(40), 136, 30, 17, "Price A"),
-    LABEL(10, YO11(78), 64, 30, 17, "MinQtyA"), LABEL(82, YO11(78), 64, 30, 17, "Size A"),
+    LABEL(10, YO11(78), 64, 30, 17, "MinQty"), LABEL(82, YO11(78), 64, 30, 17, "Size"),
     LABEL(38, YO11(116), 80, 30, 17, "# to Buy"),
     // B
     LABEL(174, YO11(40), 136, 30, 17, "Price B"),
-    LABEL(174, YO11(78), 64, 30, 17, "MinQtyB"), LABEL(246, YO11(78), 64, 30, 17, "Size B"),
+    LABEL(174, YO11(78), 64, 30, 17, "MinQty"), LABEL(246, YO11(78), 64, 30, 17, "Size"),
     LABEL(202, YO11(116), 80, 30, 17, "# to Buy"),
     // Savings
     LABEL(20, YO11(183), 280, 30, 17, "Enter Price, Min Qty & Size of Items")
@@ -232,8 +232,8 @@ static Test testToRun = NotTesting;
         deviceType = iPad;
     }
     
-    fieldColor = UIColorFromRGB(0x86e4ae);
-    curFieldColor = UIColorFromRGB(0xaaffcf);
+    curFieldColor = UIColorFromRGB(0x86e4ae);
+    fieldColor = UIColorFromRGB(0xaaffcf);
     backgroundColor = UIColorFromRGB(0x53e99e);
     highlightColor = UIColorFromRGB(0xd2fde8);
 
@@ -302,6 +302,11 @@ static Test testToRun = NotTesting;
 
 - (void)highLight:(Field)tag {
     UITextField *t = (UITextField *)[self.view viewWithTag:tag];
+    if (tag == ItemA || tag == ItemB) {
+        // do nothing
+    } else {
+        t.borderStyle = (tag == InputFields[curFieldIndex]) ? UITextBorderStyleLine : UITextBorderStyleNone;
+    }
     t.backgroundColor = highlightColor;
 }
 
@@ -328,16 +333,20 @@ static Test testToRun = NotTesting;
         if (tag ==  ItemA || tag == ItemB || tag == Savings) {
             if ((tag == ItemA || tag == ItemB) && [fieldValues[i] length] > 6) { // fix this later
                 t.backgroundColor = highlightColor;
+                t.borderStyle = UITextBorderStyleLine;
             } else {
                 t.backgroundColor = [UIColor clearColor];
+                t.borderStyle = UITextBorderStyleNone;
             }
             NSString *msg = useDefaultValues ? [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding] : fieldValues[i];
             t.text = (msg.length == 0) ? [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding] : msg;
         } else if (tag == BetterDealA || tag == BetterDealB) {
             t.backgroundColor = [UIColor clearColor];
+            t.borderStyle = UITextBorderStyleNone;
             t.text = fieldValues[i];
         } else {
             t.backgroundColor = (tag == InputFields[curFieldIndex]) ? curFieldColor : fieldColor;
+            t.borderStyle = (tag == InputFields[curFieldIndex]) ? UITextBorderStyleLine : UITextBorderStyleNone;
             t.text = fieldValues[i];
         }
     }
@@ -504,8 +513,10 @@ static Test testToRun = NotTesting;
         [self showResult];
     } else {
         if (directTap) {
+            if (keyType != NextKey) {
+                fieldValues[T2I(FTAG, tag)] = @"";
+            }
             directTap = NO;
-            fieldValues[T2I(FTAG, tag)] = @"";
         }
         NSString *s = fieldValues[T2I(FTAG, tag)];
         NSString *key = [self getKey:sender];
@@ -594,12 +605,14 @@ static Test testToRun = NotTesting;
     t.textAlignment = NSTextAlignmentCenter;
     t.tag = tag;
     t.backgroundColor = (tag == InputFields[curFieldIndex]) ? fieldColor : curFieldColor;
+    t.borderStyle = (tag == InputFields[curFieldIndex]) ? UITextBorderStyleLine : UITextBorderStyleNone;
     t.delegate = self;
     if (tag == ItemA || tag == ItemB || tag == BetterDealA || tag == BetterDealB || tag == Savings) {
         t.placeholder = @"";
         t.text = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
         t.contentVerticalAlignment = (tag == ItemA || tag == ItemB) ? UIControlContentVerticalAlignmentTop :UIControlContentVerticalAlignmentCenter;
         t.backgroundColor = [UIColor clearColor];
+        t.borderStyle = UITextBorderStyleNone;
         if (tag == ItemA || tag == ItemB) {
             t.borderStyle = UITextBorderStyleLine;
         } else {
