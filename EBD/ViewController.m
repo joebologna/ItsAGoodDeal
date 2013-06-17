@@ -182,11 +182,11 @@ static labelStruct *deviceKeys[] = {
     keypadIPhone35, keypadIPhone40, keypadIPad
 };
 
-typedef enum { AisBetter, BisBetter, Same, NotTesting } Test;
+typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 
 #if DEBUG==1
 static BOOL debug = YES;
-static Test testToRun = AisBetter;
+static Test testToRun = AisBigger;
 #else
 static BOOL debug = NO;
 static Test testToRun = NotTesting;
@@ -261,6 +261,17 @@ static Test testToRun = NotTesting;
     [self updateFields:YES];
     
     switch (testToRun) {
+        case AisBigger:
+            fieldValues[T2I(FTAG, PriceA)] = @"1999";
+            fieldValues[T2I(FTAG, PriceB)] = @"1";
+            fieldValues[T2I(FTAG, QtyA)] = @"2";
+            fieldValues[T2I(FTAG, QtyB)] = @"1";
+            fieldValues[T2I(FTAG, SizeA)] = @"1";
+            fieldValues[T2I(FTAG, SizeB)] = @"2";
+            fieldValues[T2I(FTAG, Qty2BuyA)] = @"2";
+            fieldValues[T2I(FTAG, Qty2BuyB)] = @"2";
+            testToRun = AisBetter;
+            break;
         case AisBetter:
             fieldValues[T2I(FTAG, PriceA)] = @"1";
             fieldValues[T2I(FTAG, PriceB)] = @"1";
@@ -748,7 +759,7 @@ static Test testToRun = NotTesting;
                 [self highLight:ItemA];
             } else if (unitsPurchB < unitsPurchA) {
                 float realSavings = (minPurchCostA - minPurchCostB) * percentOfMaxB;
-                msg = [NSString stringWithFormat:@"Cost: %.2f, Savings: %.2f", minPurchCostB, realSavings];
+                msg = [NSString stringWithFormat:@"Cost %.2f, Save %.2f, %.0f%% More Units", minPurchCostB, realSavings, percentOfMaxB*100];
                 fieldValues[T2I(FTAG, ItemB)] = @"B is a Better Deal";
                 fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
                 [self clrHighLight];
