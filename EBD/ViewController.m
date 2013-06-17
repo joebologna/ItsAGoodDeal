@@ -230,7 +230,6 @@ static BOOL debug = NO;
     
     fieldColor = UIColorFromRGB(0x86e4ae);
     curFieldColor = UIColorFromRGB(0xaaffcf);
-//    backgroundColor = [UIColor colorWithRed:0.326184 green:0.914025 blue:0.620324 alpha:1];
     backgroundColor = UIColorFromRGB(0x53e99e);
     hilightColor = UIColorFromRGB(0xd2fde8);
 
@@ -252,6 +251,17 @@ static BOOL debug = NO;
     }
     curFieldIndex = 0;
     [self updateFields:YES];
+
+    fieldValues[T2I(FTAG, PriceA)] = @"2.99";
+    fieldValues[T2I(FTAG, PriceB)] = @"1.99";
+    fieldValues[T2I(FTAG, QtyA)] = @"2";
+    fieldValues[T2I(FTAG, QtyB)] = @"1";
+    fieldValues[T2I(FTAG, SizeA)] = @"7.5";
+    fieldValues[T2I(FTAG, SizeB)] = @"8.5";
+    fieldValues[T2I(FTAG, Qty2BuyA)] = @"2";
+    fieldValues[T2I(FTAG, Qty2BuyB)] = @"2";
+    [self showResult];
+    
     [self setAdButtonState];
 }
 
@@ -421,15 +431,17 @@ static BOOL debug = NO;
                 break;
         }
     }
-
+    
+    NSInteger tag = InputFields[curFieldIndex];
     if (keyType == UnknownKey) {
         NSLog(@"Ooops");
     } else if (keyType == InputKey) {
-        MyButton *b = (MyButton *)[self.view viewWithTag:InputFields[curFieldIndex]];
+        MyButton *b = (MyButton *)[self.view viewWithTag:tag];
         [b setBackgroundColor:fieldColor];
         b = (MyButton *)[self.view viewWithTag:sender.tag];
         [b setBackgroundColor:curFieldColor];
         curFieldIndex = [self findIndex:sender.tag];
+        tag = InputFields[curFieldIndex];
         directTap = YES;
         [self showResult];
     } else  if (keyType == ResultKey) {
@@ -437,19 +449,18 @@ static BOOL debug = NO;
     } else {
         if (directTap) {
             directTap = NO;
-            fieldValues[T2I(FTAG, InputFields[curFieldIndex])] = @"";
+            fieldValues[T2I(FTAG, tag)] = @"";
         }
-        NSString *s = fieldValues[T2I(FTAG, InputFields[curFieldIndex])];
+        NSString *s = fieldValues[T2I(FTAG, tag)];
         NSString *key = [self getKey:sender];
         if (keyType == DelKey) {
             if (s.length > 0) {
                 s = [s substringToIndex:s.length - 1];
-                fieldValues[T2I(FTAG, InputFields[curFieldIndex])] = s;
-                NSInteger tag = InputFields[curFieldIndex];
-                if (s.length == 0 && tag == Qty2BuyA) {
-                    fieldValues[T2I(FTAG, Qty2BuyB)] = @"";
-                } else if (s.length == 0 && tag == Qty2BuyB) {
-                    fieldValues[T2I(FTAG, Qty2BuyA)] = @"";
+                fieldValues[T2I(FTAG, tag)] = s;
+                if (tag == Qty2BuyA) {
+                    fieldValues[T2I(FTAG, Qty2BuyB)] = fieldValues[T2I(FTAG, Qty2BuyA)];
+                } else if (tag == Qty2BuyB) {
+                    fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)];
                 }
                 [self calcResult];
             }
@@ -457,6 +468,7 @@ static BOOL debug = NO;
             [self initGUI];
         } else if (keyType == NextKey) {
             curFieldIndex = (curFieldIndex + 1) % nInputFields;
+            tag = InputFields[curFieldIndex];
             [self showResult];
         } else if ([key isEqualToString:@STORE]) {
             if (!myStoreObserver.bought || debug) {
@@ -469,10 +481,20 @@ static BOOL debug = NO;
         } else if ([key isEqualToString:@"."]) {
             NSRange r = [s rangeOfString:@"."];
             if (r.location == NSNotFound) {
-                fieldValues[T2I(FTAG, InputFields[curFieldIndex])] = [s stringByAppendingString:key];
+                fieldValues[T2I(FTAG, tag)] = [s stringByAppendingString:key];
+                if (tag == Qty2BuyA) {
+                    fieldValues[T2I(FTAG, Qty2BuyB)] = fieldValues[T2I(FTAG, Qty2BuyA)];
+                } else if (tag == Qty2BuyB) {
+                    fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)];
+                }
             }
         } else {
-            fieldValues[T2I(FTAG, InputFields[curFieldIndex])] = [s stringByAppendingString:key];
+            fieldValues[T2I(FTAG, tag)] = [s stringByAppendingString:key];
+            if (tag == Qty2BuyA) {
+                fieldValues[T2I(FTAG, Qty2BuyB)] = fieldValues[T2I(FTAG, Qty2BuyA)];
+            } else if (tag == Qty2BuyB) {
+                fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)];
+            }
         }
         [self updateFields:NO];
     }
@@ -606,8 +628,8 @@ static BOOL debug = NO;
     
     if (qtyA > 0 && qtyB > 0 && sizeA > 0 && sizeB > 0) {
         if (qty2BuyA > 0 && qty2BuyB > 0) {
-            float costA = unitCostA * qty2BuyA;
-            float costB = unitCostB * qty2BuyB;
+            float costA = priceA / qtyA * qty2BuyA;
+            float costB = priceB / qtyB * qty2BuyB;
             float savings = ABS(costA - costB);
             NSString *msg;
             if (unitCostA < unitCostB) {
