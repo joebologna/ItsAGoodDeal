@@ -252,6 +252,15 @@ static BOOL debug = NO;
     curFieldIndex = 0;
     [self updateFields:YES];
 
+    fieldValues[T2I(FTAG, PriceA)] = @"1";
+    fieldValues[T2I(FTAG, PriceB)] = @"1";
+    fieldValues[T2I(FTAG, QtyA)] = @"2";
+    fieldValues[T2I(FTAG, QtyB)] = @"1";
+    fieldValues[T2I(FTAG, SizeA)] = @"1";
+    fieldValues[T2I(FTAG, SizeB)] = @"2";
+    fieldValues[T2I(FTAG, Qty2BuyA)] = @"2";
+    fieldValues[T2I(FTAG, Qty2BuyB)] = @"2";
+/*
     fieldValues[T2I(FTAG, PriceA)] = @"2.99";
     fieldValues[T2I(FTAG, PriceB)] = @"1.99";
     fieldValues[T2I(FTAG, QtyA)] = @"2";
@@ -260,6 +269,7 @@ static BOOL debug = NO;
     fieldValues[T2I(FTAG, SizeB)] = @"8.5";
     fieldValues[T2I(FTAG, Qty2BuyA)] = @"2";
     fieldValues[T2I(FTAG, Qty2BuyB)] = @"2";
+*/
     [self showResult];
     
     [self setAdButtonState];
@@ -628,14 +638,20 @@ static BOOL debug = NO;
     
     if (qtyA > 0 && qtyB > 0 && sizeA > 0 && sizeB > 0) {
         if (qty2BuyA > 0 && qty2BuyB > 0) {
-            float costA = priceA / qtyA * qty2BuyA;
-            float costB = priceB / qtyB * qty2BuyB;
+            float purchSizeA = sizeA * qty2BuyA;
+            float purchSizeB = sizeB * qty2BuyB;
+            float costA = purchSizeA * unitCostA;
+            float costB = purchSizeB * unitCostB;
             float savings = ABS(costA - costB);
             NSString *msg;
             if (unitCostA < unitCostB) {
-                msg = [NSString stringWithFormat:@"Cost: %.2f, Savings: %.2f", costA, savings];
+                float ratio = purchSizeA / MAX(purchSizeA, purchSizeB);
+                float realSavings = savings * ratio;
+                msg = [NSString stringWithFormat:@"Cost: %.2f, Savings: %.2f", costA, realSavings];
             } else if (unitCostA > unitCostB) {
-                msg = [NSString stringWithFormat:@"Cost: %.2f, Savings: %.2f", costB, savings];
+                float ratio = purchSizeA / MAX(purchSizeA, purchSizeB);
+                float realSavings = savings * ratio;
+                msg = [NSString stringWithFormat:@"Cost: %.2f, Savings: %.2f", costB, realSavings];
             } else {
                 msg = [NSString stringWithFormat:@"Cost: %.2f, A and B cost the same", costA];
             }
