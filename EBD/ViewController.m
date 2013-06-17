@@ -72,8 +72,8 @@ typedef struct {
 static labelStruct fieldsIPhone35[] = {
     LABEL(1, YO11(21), 159, 156, 14, "Deal A"),
     LABEL(161, YO11(21), 158, 156, 14, "Deal B"),
-    LABEL(10, YO11(146), 136, 30, 10, ""),
-    LABEL(174, YO11(146), 136, 30, 10, ""),
+    LABEL(10, YO11(146), 136, 30, 8, ""),
+    LABEL(174, YO11(146), 136, 30, 8, ""),
     // A
     LABEL(10, YO11(40), 136, 30, 17, "Price A"),
     LABEL(10, YO11(78), 64, 30, 17, "MinQty"), LABEL(82, YO11(78), 64, 30, 17, "Size"),
@@ -89,8 +89,8 @@ static labelStruct fieldsIPhone35[] = {
 static labelStruct fieldsIPhone40[] = {
     LABEL(1, YO11(21), 159, 156, 14, "Deal A"),
     LABEL(161, YO11(21), 158, 156, 14, "Deal B"),
-    LABEL(10, YO11(146), 136, 30, 10, ""),
-    LABEL(174, YO11(146), 136, 30, 10, ""),
+    LABEL(10, YO11(146), 136, 30, 8, ""),
+    LABEL(174, YO11(146), 136, 30, 8, ""),
     // A
     LABEL(10, YO11(40), 136, 30, 17, "Price A"),
     LABEL(10, YO11(78), 64, 30, 17, "MinQty"), LABEL(82, YO11(78), 64, 30, 17, "Size"),
@@ -319,9 +319,9 @@ static Test testToRun = NotTesting;
     NSInteger nTags = sizeof(tags)/sizeof(NSInteger);
     for (NSInteger i = 0; i < nTags; i++) {
         NSInteger tag = tags[i];
-        NSInteger i = T2I(FTAG, tag);
+        //NSInteger i = T2I(FTAG, tag);
         UITextField *t = (UITextField *)[self.view viewWithTag:tag];
-        fieldValues[T2I(FTAG, tag)] = [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding];
+        //fieldValues[T2I(FTAG, tag)] = [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding];
         if (tag == ItemA && [fieldValues[T2I(FTAG, tag)] length] > 6) { // fix this later
             t.backgroundColor = highlightColor;
         } else if (tag == ItemB && [fieldValues[T2I(FTAG, tag)] length] > 6) { // fix this later
@@ -341,7 +341,7 @@ static Test testToRun = NotTesting;
                 t.borderStyle = UITextBorderStyleLine;
             } else {
                 t.backgroundColor = [UIColor clearColor];
-                t.borderStyle = UITextBorderStyleLine;
+                t.borderStyle = UITextBorderStyleNone;
             }
             NSString *msg = useDefaultValues ? [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding] : fieldValues[i];
             t.text = (msg.length == 0) ? [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding] : msg;
@@ -620,6 +620,7 @@ static Test testToRun = NotTesting;
         t.borderStyle = UITextBorderStyleNone;
         if (tag == ItemA || tag == ItemB) {
             t.borderStyle = UITextBorderStyleLine;
+        } else if (tag == BetterDealA || tag == BetterDealB) {
         } else {
             // this does not appear to work
             t.minimumFontSize = 6;
@@ -677,7 +678,7 @@ static Test testToRun = NotTesting;
     if (qtyA > 0 && sizeA > 0) {
         eachA = priceA / qtyA;
         unitCostA = eachA / sizeA;
-        fieldValues[T2I(FTAG, BetterDealA)] = [NSString stringWithFormat:@"$%.2f/item, $%.2f/unit", eachA, unitCostA];
+        fieldValues[T2I(FTAG, BetterDealA)] = [NSString stringWithFormat:@"%.2f/purch, %.2f/unit", priceA, unitCostA];
     }
 
     float priceB = [fieldValues[T2I(FTAG, PriceB)] floatValue];
@@ -688,7 +689,7 @@ static Test testToRun = NotTesting;
     if (qtyB > 0 && sizeB > 0) {
         eachB = priceB / qtyB;
         unitCostB = eachB / sizeB;
-        fieldValues[T2I(FTAG, BetterDealB)] = [NSString stringWithFormat:@"$%.2f/item, $%.2f/unit", eachB, unitCostB];
+        fieldValues[T2I(FTAG, BetterDealB)] = [NSString stringWithFormat:@"%.2f/purch, %.2f/unit", priceB, unitCostB];
     }
 
     fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
@@ -714,16 +715,44 @@ static Test testToRun = NotTesting;
             float unitsPurchB = sizeB * qty2BuyB;
             float percentOfMaxA = unitsPurchA / MAX(unitsPurchA, unitsPurchB);
             float percentOfMaxB = unitsPurchB / MAX(unitsPurchA, unitsPurchB);
-            if (minPurchCostA < minPurchCostB) {
+            fieldValues[T2I(FTAG, BetterDealA)] = [NSString stringWithFormat:@"%.2f/purch, %.2f/unit, %.1funits", priceA, unitCostA, unitsPurchA];
+            fieldValues[T2I(FTAG, BetterDealB)] = [NSString stringWithFormat:@"%.2f/purch, %.2f/unit, %.1funits", priceB, unitCostB, unitsPurchB];
+            NSLog(@"%s, %d", __func__, [fieldValues[T2I(FTAG, BetterDealA)] length]);
+            if ([fieldValues[T2I(FTAG, BetterDealA)] length] < 34) {
+                NSInteger tags[] = {BetterDealA, BetterDealB};
+                NSInteger nTags = sizeof(tags)/sizeof(NSInteger);
+                for (NSInteger i = 0; i < nTags; i++) {
+                    NSInteger tag = tags[i];
+                    NSInteger j = T2I(FTAG, tag);
+                    UITextField *t = (UITextField *)[self.view viewWithTag:tag];
+                    float x = deviceFields[deviceType][j].f * 1.2;
+                    t.font = [UIFont systemFontOfSize:x];
+                }
+            } else {
+                NSInteger tags[] = {BetterDealA, BetterDealB};
+                NSInteger nTags = sizeof(tags)/sizeof(NSInteger);
+                for (NSInteger i = 0; i < nTags; i++) {
+                    NSInteger tag = tags[i];
+                    NSInteger j = T2I(FTAG, tag);
+                    UITextField *t = (UITextField *)[self.view viewWithTag:tag];
+                    float x = deviceFields[deviceType][j].f * 1.0;
+                    t.font = [UIFont systemFontOfSize:x];
+                }
+            }
+            if (unitsPurchA < unitsPurchB) {
                 float realSavings = (minPurchCostB - minPurchCostA) * percentOfMaxA;
-                msg = [NSString stringWithFormat:@"Cost: %.2f, Savings: %.2f", minPurchCostA, realSavings];
+                msg = [NSString stringWithFormat:@"Cost %.2f, Save %.2f, %.0f%% More Units", minPurchCostA, realSavings, percentOfMaxA*100];
                 fieldValues[T2I(FTAG, ItemA)] = @"A is a Better Deal";
+                fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
+                [self clrHighLight];
                 [self highLight:ItemA];
-            } else if (minPurchCostB < minPurchCostA) {
+            } else if (unitsPurchB < unitsPurchA) {
                 float realSavings = (minPurchCostA - minPurchCostB) * percentOfMaxB;
                 msg = [NSString stringWithFormat:@"Cost: %.2f, Savings: %.2f", minPurchCostB, realSavings];
                 fieldValues[T2I(FTAG, ItemB)] = @"B is a Better Deal";
-                [self highLight:ItemB];
+                fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
+                [self clrHighLight];
+                [self highLight:ItemA];
             } else {
                 msg = [NSString stringWithFormat:@"Cost: %.2f, A and B cost the same", minPurchCostA];
                 fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
