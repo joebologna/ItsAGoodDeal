@@ -263,7 +263,7 @@ static Test testToRun = NotTesting;
     
     switch (testToRun) {
         case AisBigger:
-            fieldValues[T2I(FTAG, PriceA)] = @"1999";
+            fieldValues[T2I(FTAG, PriceA)] = @"999";
             fieldValues[T2I(FTAG, PriceB)] = @"1";
             fieldValues[T2I(FTAG, QtyA)] = @"2";
             fieldValues[T2I(FTAG, QtyB)] = @"1";

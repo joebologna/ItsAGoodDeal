@@ -66,6 +66,9 @@
 		3B557555176FB65F005EEB51 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = EBDUnitTests/Item.m; sourceTree = SOURCE_ROOT; };
 		3B557557176FB69B005EEB51 /* NSObject+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Formatter.h"; path = "EBDUnitTests/NSObject+Formatter.h"; sourceTree = SOURCE_ROOT; };
 		3B557558176FB69B005EEB51 /* NSObject+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Formatter.m"; path = "EBDUnitTests/NSObject+Formatter.m"; sourceTree = SOURCE_ROOT; };
+		3B55755E1770920D005EEB51 /* iPhone3.5C.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPhone3.5C.xib; sourceTree = "<group>"; };
+		3B55755F17709252005EEB51 /* iPhone4C.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPhone4C.xib; sourceTree = "<group>"; };
+		3B55756017709289005EEB51 /* iPadC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPadC.xib; sourceTree = "<group>"; };
 		3B730721175EC9F500873194 /* EvenBetterDeal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EvenBetterDeal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B730724175EC9F500873194 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3B730726175EC9F500873194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -246,12 +249,15 @@
 				3BDB0CE61762032E007AB586 /* iPhone3.5.xib */,
 				3BB3DF61176DF35400E6EF26 /* iPhone3.5A.xib */,
 				3B47EFA21769635C00A67A31 /* iPhone3.5B.xib */,
+				3B55755E1770920D005EEB51 /* iPhone3.5C.xib */,
 				3BDB0CE817620AE1007AB586 /* iPhone4.xib */,
 				3B47EFA0176955EB00A67A31 /* iPhone4A.xib */,
 				3B557536176F5AE5005EEB51 /* iPhone4B.xib */,
+				3B55755F17709252005EEB51 /* iPhone4C.xib */,
 				3BDB0CEA17620DC1007AB586 /* iPad.xib */,
 				3B47EFA8176965B800A67A31 /* iPadA.xib */,
 				3B557538176F600D005EEB51 /* iPadB.xib */,
+				3B55756017709289005EEB51 /* iPadC.xib */,
 			);
 			name = Templates;
 			sourceTree = "<group>";
