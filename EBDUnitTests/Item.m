@@ -12,7 +12,7 @@
 
 @synthesize toString = _toString;
 - (NSString *)toString {
-    return [NSString stringWithFormat:@"%@ {.price: %.2f, .qty: %.2f, .size: %.2f, .qty2Buy: %.2f, .unitCost: %.2f}", self.name, self.price, self.qty, self.size, self.qty2Buy, self.unitCost];
+    return [NSString stringWithFormat:@"%@ {.price: %.2f, .qty: %.2f, .size: %.2f, .qty2Buy: %.2f, .unitCost: %.2f, .pricePerItem: %.2f}", self.name, self.price, self.qty, self.size, self.qty2Buy, self.unitCost, self.pricePerItem];
 }
 
 - (id)init {
@@ -24,6 +24,7 @@
         self.qty = 0;
         self.size = 0;
         self.unitCost = 0;
+        self.pricePerItem = 0;
     }
     return self;
 }
@@ -39,7 +40,8 @@
     item.qty = qty;
     item.size = size;
     item.qty2Buy = qty2Buy;
-    item.unitCost = price / qty / size;
+    item.pricePerItem = price / qty;
+    item.unitCost = item.pricePerItem / size;
     return item;
 }
 

@@ -13,7 +13,7 @@
 
 
 @property (copy, nonatomic) NSString *name;
-@property (unsafe_unretained, nonatomic) float price, qty, size, unitCost, qty2Buy;
+@property (unsafe_unretained, nonatomic) float price, qty, size, unitCost, pricePerItem, qty2Buy;
 
 @property (strong, nonatomic) NSString *toString;
 
