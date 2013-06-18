@@ -17,6 +17,9 @@
 		3B557553176FAB94005EEB51 /* Savings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557552176FAB94005EEB51 /* Savings.m */; };
 		3B557556176FB65F005EEB51 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557555176FB65F005EEB51 /* Item.m */; };
 		3B557559176FB69B005EEB51 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557558176FB69B005EEB51 /* NSObject+Formatter.m */; };
+		3B55755B17700A82005EEB51 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557558176FB69B005EEB51 /* NSObject+Formatter.m */; };
+		3B55755C17700A82005EEB51 /* Savings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557552176FAB94005EEB51 /* Savings.m */; };
+		3B55755D17700A82005EEB51 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557555176FB65F005EEB51 /* Item.m */; };
 		3B730725175EC9F500873194 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B730727175EC9F500873194 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
 		3B730729175EC9F500873194 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730728175EC9F500873194 /* CoreGraphics.framework */; };
@@ -57,12 +60,12 @@
 		3B55754A176FAADA005EEB51 /* EBDUnitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EBDUnitTests.h; sourceTree = "<group>"; };
 		3B55754B176FAADA005EEB51 /* EBDUnitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EBDUnitTests.m; sourceTree = "<group>"; };
 		3B55754D176FAADA005EEB51 /* EBDUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EBDUnitTests-Prefix.pch"; sourceTree = "<group>"; };
-		3B557551176FAB94005EEB51 /* Savings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Savings.h; sourceTree = "<group>"; };
-		3B557552176FAB94005EEB51 /* Savings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Savings.m; sourceTree = "<group>"; };
-		3B557554176FB65F005EEB51 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
-		3B557555176FB65F005EEB51 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
-		3B557557176FB69B005EEB51 /* NSObject+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Formatter.h"; sourceTree = "<group>"; };
-		3B557558176FB69B005EEB51 /* NSObject+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Formatter.m"; sourceTree = "<group>"; };
+		3B557551176FAB94005EEB51 /* Savings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Savings.h; path = EBDUnitTests/Savings.h; sourceTree = SOURCE_ROOT; };
+		3B557552176FAB94005EEB51 /* Savings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Savings.m; path = EBDUnitTests/Savings.m; sourceTree = SOURCE_ROOT; };
+		3B557554176FB65F005EEB51 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item.h; path = EBDUnitTests/Item.h; sourceTree = SOURCE_ROOT; };
+		3B557555176FB65F005EEB51 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = EBDUnitTests/Item.m; sourceTree = SOURCE_ROOT; };
+		3B557557176FB69B005EEB51 /* NSObject+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Formatter.h"; path = "EBDUnitTests/NSObject+Formatter.h"; sourceTree = SOURCE_ROOT; };
+		3B557558176FB69B005EEB51 /* NSObject+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Formatter.m"; path = "EBDUnitTests/NSObject+Formatter.m"; sourceTree = SOURCE_ROOT; };
 		3B730721175EC9F500873194 /* EvenBetterDeal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EvenBetterDeal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B730724175EC9F500873194 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3B730726175EC9F500873194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -132,12 +135,6 @@
 				3B55754A176FAADA005EEB51 /* EBDUnitTests.h */,
 				3B55754B176FAADA005EEB51 /* EBDUnitTests.m */,
 				3B557545176FAADA005EEB51 /* Supporting Files */,
-				3B557551176FAB94005EEB51 /* Savings.h */,
-				3B557552176FAB94005EEB51 /* Savings.m */,
-				3B557554176FB65F005EEB51 /* Item.h */,
-				3B557555176FB65F005EEB51 /* Item.m */,
-				3B557557176FB69B005EEB51 /* NSObject+Formatter.h */,
-				3B557558176FB69B005EEB51 /* NSObject+Formatter.m */,
 			);
 			path = EBDUnitTests;
 			sourceTree = "<group>";
@@ -150,6 +147,19 @@
 				3B55754D176FAADA005EEB51 /* EBDUnitTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3B55755A177009C7005EEB51 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				3B557557176FB69B005EEB51 /* NSObject+Formatter.h */,
+				3B557558176FB69B005EEB51 /* NSObject+Formatter.m */,
+				3B557551176FAB94005EEB51 /* Savings.h */,
+				3B557552176FAB94005EEB51 /* Savings.m */,
+				3B557554176FB65F005EEB51 /* Item.h */,
+				3B557555176FB65F005EEB51 /* Item.m */,
+			);
+			name = DataModel;
 			sourceTree = "<group>";
 		};
 		3B730718175EC9F400873194 = {
@@ -206,12 +216,9 @@
 				3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */,
 				3B730742175EC9F500873194 /* ViewController.h */,
 				3B730743175EC9F500873194 /* ViewController.m */,
-				3BDF4FA41760175000964B0E /* ButtonGradient.png */,
-				3B3A62F51761557700C7DD46 /* ButtonGradient2.png */,
-				3B3A62F61761557700C7DD46 /* ButtonGradient3.png */,
-				3B3A62F71761557700C7DD46 /* ButtonGradient4.png */,
 				3BDF4FA6176019D800964B0E /* MyButton.h */,
 				3BDF4FA7176019D800964B0E /* MyButton.m */,
+				3B55755A177009C7005EEB51 /* DataModel */,
 				3B73072B175EC9F500873194 /* Supporting Files */,
 				3BDB0CEC17621F14007AB586 /* Templates */,
 			);
@@ -221,6 +228,10 @@
 		3B73072B175EC9F500873194 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3BDF4FA41760175000964B0E /* ButtonGradient.png */,
+				3B3A62F51761557700C7DD46 /* ButtonGradient2.png */,
+				3B3A62F61761557700C7DD46 /* ButtonGradient3.png */,
+				3B3A62F71761557700C7DD46 /* ButtonGradient4.png */,
 				3B73072C175EC9F500873194 /* EvenBetterDeal-Info.plist */,
 				3B73072D175EC9F500873194 /* InfoPlist.strings */,
 				3B730730175EC9F500873194 /* main.m */,
@@ -371,6 +382,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B55755B17700A82005EEB51 /* NSObject+Formatter.m in Sources */,
+				3B55755C17700A82005EEB51 /* Savings.m in Sources */,
+				3B55755D17700A82005EEB51 /* Item.m in Sources */,
 				3B730731175EC9F500873194 /* main.m in Sources */,
 				3B730735175EC9F500873194 /* AppDelegate.m in Sources */,
 				3B730744175EC9F500873194 /* ViewController.m in Sources */,

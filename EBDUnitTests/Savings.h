@@ -14,6 +14,8 @@
 @property (strong, nonatomic) Item *itemA, *itemB;
 @property (unsafe_unretained, nonatomic) float moneySaved;
 @property (unsafe_unretained, nonatomic) float sizeDiff;
+@property (unsafe_unretained, nonatomic) float percentFewerUnits;
+@property (unsafe_unretained, nonatomic) float adjMoneySaved;
 
 @property (strong, nonatomic) NSString *toString;
 @property (readonly, nonatomic) NSArray *dictionaryFormat;

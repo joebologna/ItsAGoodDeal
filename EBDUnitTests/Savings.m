@@ -13,7 +13,7 @@
 
 @synthesize toString = _toString;
 - (NSString *)toString {
-    return [NSString stringWithFormat:@"Savings: {\n\t.itemA: %@,\n\t.itemB: %@\n},\nmoneySaved: %.2f, sizeDiff: %.2f", self.itemA.toString, self.itemB.toString, self.moneySaved, self.sizeDiff];
+    return [NSString stringWithFormat:@"Savings: {\n\t.itemA: %@,\n\t.itemB: %@\n},\nmoneySaved: %.2f, sizeDiff: %.2f, percentFewerUnits: %.2f, adjMoneySaved: %.2f", self.itemA.toString, self.itemB.toString, self.moneySaved, self.sizeDiff, self.percentFewerUnits, self.adjMoneySaved];
 }
 
 - (id)init {
@@ -24,6 +24,8 @@
         self.itemB = [Item theItemWithName:@"Item B" price:0 qty:0 size:0 qty2Buy:0];
         self.moneySaved = 0;
         self.sizeDiff = 0;
+        self.percentFewerUnits = 0;
+        self.adjMoneySaved = 0;
     }
     return self;
 }
@@ -60,8 +62,9 @@
     Item *best = self.getBest;
     Item *worst = self.getWorst;
     self.moneySaved = (worst.pricePerItem - best.pricePerItem) * best.qty2Buy;
-    
-    self.sizeDiff = best.size - worst.size;
+    self.sizeDiff = best.sizeBought - worst.sizeBought;
+    self.percentFewerUnits = (1 - (best.sizeBought / worst.sizeBought)) * 100;
+    self.adjMoneySaved = self.moneySaved * (best.sizeBought / worst.sizeBought);
     [self logSelf:self];
 }
 

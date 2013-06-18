@@ -162,17 +162,63 @@
 - (void)test05SavingsClass {
     Savings *savings = [Savings theSavings];
     
-    // same price
+    // same price, 2 more units
     savings.itemA = [Item theItemWithName:@"A" price:5 qty:2 size:1 qty2Buy:2];
     savings.itemB = [Item theItemWithName:@"B" price:5 qty:2 size:2 qty2Buy:2];
     [savings calcSavings];
     STAssertEqualObjects(
+                         savings.getBest.name,
+                         @"B",
+                         @"");
+    STAssertEqualObjects(
                          [NSNumber numberWithFloat:savings.moneySaved],
                          [NSNumber numberWithFloat:0],
-                         [NSString stringWithFormat:@"Should be %.2f", 1.0]);
+                         @"");
     STAssertEqualObjects(
                          [NSNumber numberWithFloat:savings.sizeDiff],
+                         [NSNumber numberWithFloat:2],
+                         @"");
+    
+    // same price, 2 more units
+    savings.itemA = [Item theItemWithName:@"A" price:5 qty:2 size:2 qty2Buy:2];
+    savings.itemB = [Item theItemWithName:@"B" price:5 qty:2 size:1 qty2Buy:2];
+    [savings calcSavings];
+    STAssertEqualObjects(
+                         savings.getBest.name,
+                         @"A",
+                         @"");
+    STAssertEqualObjects(
+                         [NSNumber numberWithFloat:savings.moneySaved],
+                         [NSNumber numberWithFloat:0],
+                         @"");
+    STAssertEqualObjects(
+                         [NSNumber numberWithFloat:savings.sizeDiff],
+                         [NSNumber numberWithFloat:2],
+                         @"");
+}
+
+// test with different price, different sizes & same qty2Buy for each, determine how much more/less product you get
+- (void)test06SavingsClass {
+    Savings *savings = [Savings theSavings];
+    
+    savings.itemA = [Item theItemWithName:@"A" price:3 qty:2 size:7.5 qty2Buy:2];
+    savings.itemB = [Item theItemWithName:@"B" price:2 qty:1 size:8.5 qty2Buy:2];
+    [savings calcSavings];
+    STAssertEqualObjects(
+                         savings.getBest.name,
+                         @"A",
+                         @"");
+    STAssertEqualObjects(
+                         [NSNumber numberWithFloat:savings.moneySaved],
                          [NSNumber numberWithFloat:1],
-                         [NSString stringWithFormat:@"Should be %.2f", 1.0]);
+                         @"");
+    STAssertEqualObjects(
+                         [NSNumber numberWithFloat:savings.sizeDiff],
+                         [NSNumber numberWithFloat:-2],
+                         @"");
+    BOOL test = ABS(savings.percentFewerUnits - 11.76) < 0.25;
+    STAssertTrue(test, @"");
+    test = ABS((savings.moneySaved - savings.adjMoneySaved)) < 0.12;
+    STAssertTrue(test, @"");
 }
 @end
