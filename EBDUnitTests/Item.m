@@ -15,6 +15,20 @@
     return [NSString stringWithFormat:@"%@ {.price: %.2f, .qty: %.2f, .size: %.2f, .qty2Buy: %.2f, .unitCost: %.2f, .pricePerItem: %.2f, .sizeBought: %.2f}", self.name, self.price, self.qty, self.size, self.qty2Buy, self.unitCost, self.pricePerItem, self.sizeBought];
 }
 
+/*
+ @synthesize sizeBought = _sizeBought;
+- (void)setSizeBought:(float)newSize {
+    _sizeBought = newSize;
+}
+
+- (float)sizeBought {
+    if (_size > 0) {
+        return _sizeBought;
+    }
+    return 0;
+}
+*/
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -42,6 +56,7 @@
     item.qty = qty;
     item.size = size;
     item.qty2Buy = qty2Buy;
+    // this is wrong, need to check for divide by 0 & update when price, qty, size or qty2Buy is updated
     item.pricePerItem = price / qty;
     item.unitCost = item.pricePerItem / size;
     item.sizeBought = size * qty2Buy;

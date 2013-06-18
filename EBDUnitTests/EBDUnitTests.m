@@ -28,69 +28,89 @@
     Savings *savings = [Savings theSavings];
 
     [self log:@""];
+    savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:NO_QTY size:1 qty2Buy:NO_QTY];
+    savings.itemB = [Item theItemWithName:@"B" price:1 qty:2 size:1 qty2Buy:0];
+    STAssertTrue([savings calcSavings] == CalcIncomplete, @"Incomplete Qty Test Failed.");
+    
+    [self log:@""];
+    savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:2 size:1 qty2Buy:NO_QTY];
+    savings.itemB = [Item theItemWithName:@"B" price:1 qty:2 size:1 qty2Buy:0];
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Incomplete Qty Test Failed.");
+
+    [self log:@""];
+    savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:2 size:1 qty2Buy:0];
+    savings.itemB = [Item theItemWithName:@"B" price:1 qty:2 size:1 qty2Buy:NO_QTY];
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Incomplete Qty Test Failed.");
+    
+    [self log:@""];
+    savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:2 size:1 qty2Buy:NO_QTY];
+    savings.itemB = [Item theItemWithName:@"B" price:1 qty:2 size:1 qty2Buy:NO_QTY];
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Incomplete Qty Test Failed.");
+    
+    [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:2 size:1 qty2Buy:0];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:2 size:1 qty2Buy:0];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception");
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
 
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:2 size:1 qty2Buy:1];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:2 size:1 qty2Buy:0];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception");
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
 
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:2 size:1 qty2Buy:0];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:2 size:1 qty2Buy:1];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception");
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
 
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:2 size:1 qty2Buy:1];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:2 size:1 qty2Buy:1];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception");
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
     
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:2 size:1 qty2Buy:2];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:2 size:1 qty2Buy:1];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception");
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
     
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:0 size:1 qty2Buy:2];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:2 size:1 qty2Buy:2];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception");
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
     
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:2 size:1 qty2Buy:2];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:0 size:1 qty2Buy:2];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception");
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
     
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:0 size:1 qty2Buy:2];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:0 size:1 qty2Buy:2];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception");
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
     
     [self log:@""];
-    savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:-1 size:1 qty2Buy:2];
+    savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:NO_QTY size:1 qty2Buy:2];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:0 size:1 qty2Buy:2];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception");
+    STAssertTrue([savings calcSavings] == CalcIncomplete, @"Qty Test Failed.");
     
     [self log:@""];
-    savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:-1 size:1 qty2Buy:2];
-    savings.itemB = [Item theItemWithName:@"B" price:1 qty:-1 size:1 qty2Buy:2];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception");
+    savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:NO_QTY size:1 qty2Buy:2];
+    savings.itemB = [Item theItemWithName:@"B" price:1 qty:NO_QTY size:1 qty2Buy:2];
+    STAssertTrue([savings calcSavings] == CalcIncomplete, @"Qty Test Failed.");
     
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:1 size:1 qty2Buy:-1];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:1 size:1 qty2Buy:2];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception");
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
     
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:1 size:1 qty2Buy:-1];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:1 size:1 qty2Buy:-1];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception");
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
 
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:1 size:1 qty2Buy:1];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:1 size:1 qty2Buy:2];
-    STAssertThrows([savings calcSavings], @"Expected qty2Buy exception (they should be equal)");
+    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
 }
 
 // test with same size & same qty2Buy for each
@@ -102,13 +122,13 @@
         // same price
         savings.itemA = [Item theItemWithName:@"A" price:1 qty:1 size:1 qty2Buy:i];
         savings.itemB = [Item theItemWithName:@"B" price:1 qty:1 size:1 qty2Buy:i];
-        [savings calcSavings];
+        STAssertTrue([savings calcSavings] == CalcComplete, @"Qty Test Failed.");
         STAssertEqualObjects([NSNumber numberWithFloat:savings.moneySaved], zero, @"Should be 0");
         
         // A is cheaper
         savings.itemA = [Item theItemWithName:@"A" price:0.5 qty:1 size:1 qty2Buy:i];
         savings.itemB = [Item theItemWithName:@"B" price:1 qty:1 size:1 qty2Buy:i];
-        [savings calcSavings];
+        STAssertTrue([savings calcSavings] == CalcComplete, @"Qty Test Failed.");
         STAssertEqualObjects(
                              [NSNumber numberWithFloat:savings.moneySaved],
                              [NSNumber numberWithFloat:0.5 * i],
@@ -117,7 +137,7 @@
         // B is cheaper
         savings.itemA = [Item theItemWithName:@"A" price:1 qty:1 size:1 qty2Buy:i];
         savings.itemB = [Item theItemWithName:@"B" price:0.5 qty:1 size:1 qty2Buy:i];
-        [savings calcSavings];
+        STAssertTrue([savings calcSavings] == CalcComplete, @"Qty Test Failed.");
         STAssertEqualObjects(
                              [NSNumber numberWithFloat:savings.moneySaved],
                              [NSNumber numberWithFloat:0.5 * i],
@@ -133,7 +153,7 @@
         // same price
         savings.itemA = [Item theItemWithName:@"A" price:1 qty:1 size:1 qty2Buy:i];
         savings.itemB = [Item theItemWithName:@"B" price:1 qty:1 size:2 qty2Buy:i];
-        [savings calcSavings];
+        STAssertTrue([savings calcSavings] == CalcComplete, @"Qty Test Failed.");
         STAssertEqualObjects([NSNumber numberWithFloat:savings.moneySaved],
                              [NSNumber numberWithFloat:0 * i],
                              [NSString stringWithFormat:@"(%d)", i]);
@@ -141,7 +161,7 @@
         // A is cheaper
         savings.itemA = [Item theItemWithName:@"A" price:0.5 qty:1 size:1 qty2Buy:i];
         savings.itemB = [Item theItemWithName:@"B" price:1 qty:1 size:2 qty2Buy:i];
-        [savings calcSavings];
+        STAssertTrue([savings calcSavings] == CalcComplete, @"Qty Test Failed.");
         STAssertEqualObjects(
                              [NSNumber numberWithFloat:savings.moneySaved],
                              [NSNumber numberWithFloat:0 * i],
@@ -150,7 +170,7 @@
         // B is cheaper
         savings.itemA = [Item theItemWithName:@"A" price:1 qty:1 size:1 qty2Buy:i];
         savings.itemB = [Item theItemWithName:@"B" price:0.5 qty:1 size:2 qty2Buy:i];
-        [savings calcSavings];
+        STAssertTrue([savings calcSavings] == CalcComplete, @"Qty Test Failed.");
         STAssertEqualObjects(
                              [NSNumber numberWithFloat:savings.moneySaved],
                              [NSNumber numberWithFloat:0.5 * i],
@@ -165,7 +185,7 @@
     // same price, 2 more units
     savings.itemA = [Item theItemWithName:@"A" price:5 qty:2 size:1 qty2Buy:2];
     savings.itemB = [Item theItemWithName:@"B" price:5 qty:2 size:2 qty2Buy:2];
-    [savings calcSavings];
+    STAssertTrue([savings calcSavings] == CalcComplete, @"Qty Test Failed.");
     STAssertEqualObjects(
                          savings.getBest.name,
                          @"B",
@@ -182,7 +202,7 @@
     // same price, 2 more units
     savings.itemA = [Item theItemWithName:@"A" price:5 qty:2 size:2 qty2Buy:2];
     savings.itemB = [Item theItemWithName:@"B" price:5 qty:2 size:1 qty2Buy:2];
-    [savings calcSavings];
+    STAssertTrue([savings calcSavings] == CalcComplete, @"Qty Test Failed.");
     STAssertEqualObjects(
                          savings.getBest.name,
                          @"A",
@@ -203,7 +223,7 @@
     
     savings.itemA = [Item theItemWithName:@"A" price:3 qty:2 size:7.5 qty2Buy:2];
     savings.itemB = [Item theItemWithName:@"B" price:2 qty:1 size:8.5 qty2Buy:2];
-    [savings calcSavings];
+    STAssertTrue([savings calcSavings] == CalcComplete, @"Qty Test Failed.");
     STAssertEqualObjects(
                          savings.getBest.name,
                          @"A",

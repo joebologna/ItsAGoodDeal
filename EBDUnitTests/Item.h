@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "NSObject+Formatter.h"
 
+#define NO_QTY -1
+
 @interface Item : NSObject <Logging>
 
 

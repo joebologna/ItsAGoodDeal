@@ -682,6 +682,7 @@ static Test testToRun = NotTesting;
 }
 
 - (void)calcResult {
+    CalcResult r;
     float priceA = [fieldValues[T2I(FTAG, PriceA)] floatValue];
     float qtyA = [fieldValues[T2I(FTAG, QtyA)] floatValue];
     float sizeA = [fieldValues[T2I(FTAG, SizeA)] floatValue];
@@ -694,8 +695,8 @@ static Test testToRun = NotTesting;
     Item *itemB = [Item theItemWithName:@"B" price:priceB qty:qtyB size:sizeB qty2Buy:qty2BuyB];
     Savings *savings = [Savings theSavingsWithItemA:itemA itemB:itemB];
     
-    @try {
-        [savings calcSavings];
+    r = [savings calcSavings];
+    if (r == CalcComplete) {
         fieldValues[T2I(FTAG, BetterDealA)] = [NSString stringWithFormat:@"%.2f/item, %.2f/unit", savings.itemA.pricePerItem, savings.itemA.unitCost];
         fieldValues[T2I(FTAG, BetterDealB)] = [NSString stringWithFormat:@"%.2f/item, %.2f/unit", savings.itemB.pricePerItem, savings.itemB.unitCost];
         if (savings.sizeDiff == 0 && savings.moneySaved == 0) {
@@ -713,14 +714,15 @@ static Test testToRun = NotTesting;
             [self clrHighLight];
             [self highLight:ItemB];
         }
-    } @catch (NSException *e) {
-        // prompt for more data
+        fieldValues[T2I(FTAG, SavingsTag)] = [savings getResult];
+    } else if (r == NeedQty2Buy) {
         [self clrHighLight];
-        if (savings.itemA.qty2Buy == 0 || savings.itemB.qty2Buy == 0) {
-            fieldValues[T2I(FTAG, SavingsTag)] = @"Enter # to Buy to Calculate Savings";
-        } else {
-            fieldValues[T2I(FTAG, SavingsTag)] = [NSString stringWithCString:deviceFields[deviceType][T2I(FTAG, SavingsTag)].label encoding:NSASCIIStringEncoding];
-        }
+        fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)] = @"";
+        float minQty = MAX(savings.itemA.qty, savings.itemB.qty);
+        fieldValues[T2I(FTAG, SavingsTag)] = [NSString stringWithFormat:@"Enter at least %.2f for Qty to Buy", minQty];
+    } else {
+        [self clrHighLight];
+        fieldValues[T2I(FTAG, SavingsTag)] = [NSString stringWithCString:deviceFields[deviceType][T2I(FTAG, SavingsTag)].label encoding:NSASCIIStringEncoding];
     }
 }
 

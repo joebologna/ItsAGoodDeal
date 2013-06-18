@@ -9,13 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "Item.h"
 
+typedef enum {
+    CalcIncomplete, NeedQty2Buy, CalcComplete
+} CalcResult;
+
 @interface Savings : NSObject <Logging>
 
 @property (strong, nonatomic) Item *itemA, *itemB;
 @property (unsafe_unretained, nonatomic) float moneySaved;
 @property (unsafe_unretained, nonatomic) float sizeDiff;
 @property (unsafe_unretained, nonatomic) float percentFewerUnits;
+@property (unsafe_unretained, nonatomic) float percentMoreProduct;
 @property (unsafe_unretained, nonatomic) float adjMoneySaved;
+@property (unsafe_unretained, nonatomic) float cost;
+@property (unsafe_unretained, nonatomic) CalcResult calcResult;
 
 @property (strong, nonatomic) NSString *toString;
 @property (readonly, nonatomic) NSArray *dictionaryFormat;
@@ -24,6 +31,7 @@
 + (Savings *)theSavingsWithItemA:(Item *)itemA itemB:(Item *)itemB;
 - (Item *)getBest;
 - (Item *)getWorst;
-- (void)calcSavings;
+- (CalcResult)calcSavings;
+- (NSString *)getResult;
 
 @end
