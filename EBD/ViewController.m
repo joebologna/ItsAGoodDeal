@@ -32,6 +32,11 @@
 #define K_STORE (KTAG + 7)
 
 typedef enum {
+    MessageMode,
+    ResultsMode
+} MessageModes;
+
+typedef enum {
     ItemA = I2T(FTAG, 0), ItemB = I2T(FTAG, 1),
     BetterDealA = I2T(FTAG, 2), BetterDealB = I2T(FTAG, 3),
     PriceA = I2T(FTAG, 4),
@@ -40,7 +45,9 @@ typedef enum {
     PriceB = I2T(FTAG, 8),
     QtyB = I2T(FTAG, 9), SizeB = I2T(FTAG, 10),
     Qty2BuyB = I2T(FTAG, 11),
-    SavingsTag = I2T(FTAG, 12),
+    Message = I2T(FTAG, 12),
+    CostField = I2T(FTAG, 13), SavingsField = I2T(FTAG, 14), MoreField = I2T(FTAG, 15),
+    CostLabel = I2T(FTAG, 16), SavingsLabel = I2T(FTAG, 17), MoreLabel = I2T(FTAG, 18),
     Ad = 999
 } Field;
 
@@ -83,8 +90,14 @@ static labelStruct fieldsIPhone35[] = {
     LABEL(174, YO11(40), 136, 30, 17, "Price B"),
     LABEL(174, YO11(78), 64, 30, 17, "MinQty"), LABEL(246, YO11(78), 64, 30, 17, "Size"),
     LABEL(202, YO11(116), 80, 30, 17, "# to Buy"),
-    // SavingsTag
-    LABEL(1, YO11(178), 318, 40, 17, "Enter Price, Min Qty & Size of Items")
+    // Savings & Messages
+    LABEL(1, YO11(178), 318, 40, 17, "Enter Price, Min Qty & Size of Items"),
+    LABEL(1, YO11(178), 106, 30, 15, "Cost Field"),
+    LABEL(106, YO11(178), 107, 30, 15, "Savings Field"),
+    LABEL(212, YO11(178), 106, 30, 15, "More Field"),
+    LABEL(1, YO11(206), 106, 10, 9, "Cost"),
+    LABEL(106, YO11(206), 107, 10, 9, "Savings"),
+    LABEL(212, YO11(206), 106, 10, 9, "More Product")
 };
 
 static labelStruct fieldsIPhone40[] = {
@@ -100,8 +113,14 @@ static labelStruct fieldsIPhone40[] = {
     LABEL(174, YO11(40), 136, 30, 17, "Price B"),
     LABEL(174, YO11(78), 64, 30, 17, "MinQty"), LABEL(246, YO11(78), 64, 30, 17, "Size"),
     LABEL(202, YO11(116), 80, 30, 17, "# to Buy"),
-    // SavingsTag
-    LABEL(1, YO11(178), 318, 40, 17, "Enter Price, Min Qty & Size of Items")
+    // Savings & Messages
+    LABEL(1, YO11(178), 318, 40, 17, "Enter Price, Min Qty & Size of Items"),
+    LABEL(1, YO11(178), 106, 30, 17, "Cost Field"),
+    LABEL(106, YO11(178), 107, 30, 17, "Savings Field"),
+    LABEL(212, YO11(178), 106, 30, 17, "More Field"),
+    LABEL(1, YO11(206), 106, 10, 9, "Cost"),
+    LABEL(106, YO11(206), 107, 10, 9, "Savings"),
+    LABEL(212, YO11(206), 106, 10, 9, "More")
 };
 
 static labelStruct fieldsIPad[] = {
@@ -117,8 +136,22 @@ static labelStruct fieldsIPad[] = {
     LABEL(393, YO11(40), 366, 86, 17, "Price B"),
     LABEL(393, YO11(133), 177, 86, 17, "MinQty"), LABEL(582, YO11(133), 177, 86, 17, "Size"),
     LABEL(488, YO11(227), 177, 86, 17, "# to Buy"),
-    // SavingsTag
-    LABEL(1, YO11(344), 766, 75, 30, "Enter Price, Min Qty & Size of Items")
+    // Savings & Messages
+    LABEL(1, YO11(344), 766, 75, 30, "Enter Price, Min Qty & Size of Items"),
+    /*
+     {{1, 343}, {256, 67}}   Cost
+     {{256, 343}, {257, 67}} Savings
+     {{512, 343}, {255, 67}} More
+     {{1, 409}, {256, 20}}   Cost
+     {{256, 409}, {257, 20}} Savings
+     {{512, 409}, {256, 20}} More
+     */
+    LABEL(1, YO11(343), 256, 67, 30, "Cost Field"),
+    LABEL(256, YO11(343), 257, 67, 30, "Savings Field"),
+    LABEL(512, YO11(343), 255, 67, 30, "More Field"),
+    LABEL(1, YO11(400), 256, 20, 12, "Cost"),
+    LABEL(256, YO11(400), 257, 20, 12, "Savings"),
+    LABEL(512, YO11(400), 255, 20, 12, "More")
 };
 
 static labelStruct *deviceFields[] = {
@@ -255,7 +288,7 @@ static Test testToRun = NotTesting;
 - (void)initGUI {
     directTap = NO;
     fieldValues = [NSMutableArray array];
-    for (int i = ItemA; i <= SavingsTag; i++) {
+    for (int i = ItemA; i <= MoreLabel; i++) {
         [fieldValues addObject:@""];
     }
     curFieldIndex = 0;
@@ -327,7 +360,7 @@ static Test testToRun = NotTesting;
 }
 
 - (void)clrHighLight {
-    NSInteger tags[] = {ItemA, ItemB, SavingsTag};
+    NSInteger tags[] = {ItemA, ItemB, Message};
     NSInteger nTags = sizeof(tags)/sizeof(NSInteger);
     for (NSInteger i = 0; i < nTags; i++) {
         NSInteger tag = tags[i];
@@ -343,10 +376,10 @@ static Test testToRun = NotTesting;
 }
 
 - (void)updateFields:(BOOL)useDefaultValues {
-    for (int tag = ItemA; tag <= SavingsTag; tag++) {
+    for (int tag = ItemA; tag <= MoreField; tag++) {
         NSInteger i = T2I(FTAG, tag);
         UITextField *t = (UITextField *)[self.view viewWithTag:tag];
-        if (tag ==  ItemA || tag == ItemB || tag == SavingsTag) {
+        if (tag ==  ItemA || tag == ItemB || tag == Message) {
             t.borderStyle = UITextBorderStyleLine;
             if ((tag == ItemA || tag == ItemB) && [fieldValues[i] length] > 6) { // fix this later
                 t.backgroundColor = highlightColor;
@@ -362,23 +395,53 @@ static Test testToRun = NotTesting;
             t.borderStyle = UITextBorderStyleNone;
             t.text = fieldValues[i];
         } else {
-            t.backgroundColor = (tag == InputFields[curFieldIndex]) ? curFieldColor : fieldColor;
+            if (tag >= CostField && tag <= MoreLabel) {
+                t.backgroundColor = [UIColor clearColor];
+            } else {
+                t.backgroundColor = (tag == InputFields[curFieldIndex]) ? curFieldColor : fieldColor;
+            }
             t.borderStyle = (tag == InputFields[curFieldIndex]) ? UITextBorderStyleLine : UITextBorderStyleNone;
             t.text = fieldValues[i];
         }
     }
 }
 
+- (void)setMessageMode:(MessageModes)mode {
+    Field fields[] = { Message, CostField, SavingsField, MoreField };
+    NSInteger nTags = sizeof(fields)/sizeof(NSInteger);
+    for (NSInteger i = 0; i < nTags; i++) {
+        NSInteger tag = fields[i];
+        UITextField *t = (UITextField *)[self.view viewWithTag:tag];
+        if (tag == Message) {
+            t.hidden = (mode != MessageMode);
+        } else {
+            t.hidden = (mode == MessageMode);
+            t.placeholder = @"";
+        }
+    }
+    Field labels[] = { CostLabel, SavingsLabel, MoreLabel };
+    nTags = sizeof(labels)/sizeof(NSInteger);
+    for (NSInteger i = 0; i < nTags; i++) {
+        NSInteger tag = labels[i];
+        UITextField *t = (UITextField *)[self.view viewWithTag:tag];
+        t.hidden = (mode == MessageMode);
+        t.placeholder = @"";
+        NSInteger i = T2I(FTAG, tag);
+        t.text = [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding];
+    }
+}
+
 - (void)populateScreen {
     
     for (int i = 0; i < sizeof(fieldsIPhone35)/sizeof(labelStruct); i++) {
-//        [self makeButton:deviceFields[deviceType][i] tag:I2T(FTAG, i) isKey:NO];
         [self makeField:deviceFields[deviceType][i] tag:I2T(FTAG, i)];
     }
 
     for (int i = 0; i < sizeof(keypadIPhone35)/sizeof(labelStruct); i++) {
         [self makeButton:deviceKeys[deviceType][i] tag:I2T(KTAG, i) isKey:YES];
     }
+    
+    [self setMessageMode:MessageMode];
 }
 
 - (NSString *)getKey:(MyButton *)sender {
@@ -460,7 +523,7 @@ static Test testToRun = NotTesting;
     
     keyType = UnknownKey;
     
-    if (sender.tag >= FTAG && sender.tag <= SavingsTag) {
+    if (sender.tag >= FTAG && sender.tag <= Message) {
         switch (sender.tag) {
             case PriceA:
             case PriceB:
@@ -474,7 +537,7 @@ static Test testToRun = NotTesting;
                 break;
             case BetterDealA:
             case BetterDealB:
-            case SavingsTag:
+            case Message:
                 keyType = ResultKey;
                 break;
             default:
@@ -621,10 +684,14 @@ static Test testToRun = NotTesting;
     t.font = [UIFont systemFontOfSize:label.f];
     t.textAlignment = NSTextAlignmentCenter;
     t.tag = tag;
-    t.backgroundColor = (tag == InputFields[curFieldIndex]) ? fieldColor : curFieldColor;
+    if (tag >= CostLabel && tag <= MoreLabel) {
+        t.backgroundColor = [UIColor clearColor];
+    } else {
+        t.backgroundColor = (tag == InputFields[curFieldIndex]) ? fieldColor : curFieldColor;
+    }
     t.borderStyle = (tag == InputFields[curFieldIndex]) ? UITextBorderStyleLine : UITextBorderStyleNone;
     t.delegate = self;
-    if (tag == ItemA || tag == ItemB || tag == BetterDealA || tag == BetterDealB || tag == SavingsTag) {
+    if (tag == ItemA || tag == ItemB || tag == BetterDealA || tag == BetterDealB || tag == Message) {
         t.placeholder = @"";
         t.text = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
         t.contentVerticalAlignment = (tag == ItemA || tag == ItemB) ? UIControlContentVerticalAlignmentTop :UIControlContentVerticalAlignmentCenter;
@@ -681,6 +748,14 @@ static Test testToRun = NotTesting;
     [self updateFields:NO];
 }
 
+- (void)setResult:(Savings *)savings {
+    [self setMessageMode:ResultsMode];
+    NSDictionary *results = [savings getResults];
+    fieldValues[T2I(FTAG, CostField)] = [results objectForKey:kCost];
+    fieldValues[T2I(FTAG, SavingsField)] = [results objectForKey:kSavings];
+    fieldValues[T2I(FTAG, MoreField)] = [results objectForKey:kMore];
+}
+
 - (void)calcResult {
     CalcResult r;
     float priceA = [fieldValues[T2I(FTAG, PriceA)] floatValue];
@@ -714,15 +789,17 @@ static Test testToRun = NotTesting;
             [self clrHighLight];
             [self highLight:ItemB];
         }
-        fieldValues[T2I(FTAG, SavingsTag)] = [savings getResult];
+        [self setResult:savings];
     } else if (r == NeedQty2Buy) {
         [self clrHighLight];
         fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)] = @"";
         float minQty = MAX(savings.itemA.qty, savings.itemB.qty);
-        fieldValues[T2I(FTAG, SavingsTag)] = [NSString stringWithFormat:@"Enter at least %.2f for Qty to Buy", minQty];
+        [self setMessageMode:MessageMode];
+        fieldValues[T2I(FTAG, Message)] = [NSString stringWithFormat:@"Enter at least %.2f for Qty to Buy", minQty];
     } else {
         [self clrHighLight];
-        fieldValues[T2I(FTAG, SavingsTag)] = [NSString stringWithCString:deviceFields[deviceType][T2I(FTAG, SavingsTag)].label encoding:NSASCIIStringEncoding];
+        [self setMessageMode:MessageMode];
+        fieldValues[T2I(FTAG, Message)] = [NSString stringWithCString:deviceFields[deviceType][T2I(FTAG, Message)].label encoding:NSASCIIStringEncoding];
     }
 }
 
@@ -816,14 +893,14 @@ static Test testToRun = NotTesting;
                 fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
                 [self clrHighLight];
             }
-            fieldValues[T2I(FTAG, SavingsTag)] = msg;
+            fieldValues[T2I(FTAG, Message)] = msg;
         } else {
-            fieldValues[T2I(FTAG, SavingsTag)] = @"Enter # to Buy to Calculate Savings";
+            fieldValues[T2I(FTAG, Message)] = @"Enter # to Buy to Calculate Savings";
             [self clrHighLight];
         }
     } else {
         // prompt for more data
-        fieldValues[T2I(FTAG, SavingsTag)] = [NSString stringWithCString:deviceFields[deviceType][T2I(FTAG, SavingsTag)].label encoding:NSASCIIStringEncoding];
+        fieldValues[T2I(FTAG, Message)] = [NSString stringWithCString:deviceFields[deviceType][T2I(FTAG, Message)].label encoding:NSASCIIStringEncoding];
         [self clrHighLight];
     }
 }

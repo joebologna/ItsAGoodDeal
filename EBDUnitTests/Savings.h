@@ -13,6 +13,10 @@ typedef enum {
     CalcIncomplete, NeedQty2Buy, CalcComplete
 } CalcResult;
 
+#define kCost @"cost"
+#define kSavings @"savings"
+#define kMore @"more"
+
 @interface Savings : NSObject <Logging>
 
 @property (strong, nonatomic) Item *itemA, *itemB;
@@ -32,6 +36,6 @@ typedef enum {
 - (Item *)getBest;
 - (Item *)getWorst;
 - (CalcResult)calcSavings;
-- (NSString *)getResult;
+- (NSDictionary *)getResults;
 
 @end

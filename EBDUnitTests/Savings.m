@@ -89,18 +89,33 @@
     return self.calcResult;
 }
 
-- (NSString *)getResult {
-    NSString *result = @"No result yet";
+- (NSDictionary *)getResults {
+    NSDictionary *result = [NSDictionary dictionaryWithObjectsAndKeys:
+              @"", kCost,
+              @"not results yet", kSavings,
+              @"", kMore, nil];
     if (self.moneySaved >= 0.001) {
-        result = [NSString stringWithFormat:@"%@ is Better, Cost %.2f, Savings %.2f", self.getBest.name, self.cost, self.moneySaved];
+        result = [NSDictionary dictionaryWithObjectsAndKeys:
+                  [NSString stringWithFormat:@"%.2f", self.cost], kCost,
+                  [NSString stringWithFormat:@"%.2f", self.moneySaved], kSavings,
+                  [NSString stringWithFormat:@"%.0f%%", self.percentMoreProduct], kMore, nil];
     } else {
         if (self.percentMoreProduct >= 1) {
-            result = [NSString stringWithFormat:@"A = B, Cost %.2f, %.0f%% More Product", self.cost, self.percentMoreProduct];
+            result = [NSDictionary dictionaryWithObjectsAndKeys:
+                      [NSString stringWithFormat:@"%.2f", self.cost], kCost,
+                      [NSString stringWithFormat:@"%.2f", self.moneySaved], kSavings,
+                      [NSString stringWithFormat:@"%.0f%%", self.percentMoreProduct], kMore, nil];
         } else if (self.percentMoreProduct <= -1) {
             // this may never happen
-            result = [NSString stringWithFormat:@"A = B, Cost %.2f, %.0f%% Less Product", self.cost, -self.percentMoreProduct];
+            result = [NSDictionary dictionaryWithObjectsAndKeys:
+                      [NSString stringWithFormat:@"%.2f", self.cost], kCost,
+                      [NSString stringWithFormat:@"%.2f", self.moneySaved], kSavings,
+                      [NSString stringWithFormat:@"%.0f%%", self.percentMoreProduct], kMore, nil];
         } else {
-            result = [NSString stringWithFormat:@"Same Deal, Cost %.2f", self.cost];
+            result = [NSDictionary dictionaryWithObjectsAndKeys:
+                      [NSString stringWithFormat:@"%.2f", self.cost], kCost,
+                      [NSString stringWithFormat:@"%.2f", self.moneySaved], kSavings,
+                      @"Same amount", kMore, nil];
         }
     }
     return result;
