@@ -69,14 +69,14 @@
 		3B55755E1770920D005EEB51 /* iPhone3.5C.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPhone3.5C.xib; sourceTree = "<group>"; };
 		3B55755F17709252005EEB51 /* iPhone4C.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPhone4C.xib; sourceTree = "<group>"; };
 		3B55756017709289005EEB51 /* iPadC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPadC.xib; sourceTree = "<group>"; };
-		3B730721175EC9F500873194 /* EvenBetterDeal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EvenBetterDeal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B730721175EC9F500873194 /* evenbetterdeal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = evenbetterdeal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B730724175EC9F500873194 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3B730726175EC9F500873194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3B730728175EC9F500873194 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		3B73072C175EC9F500873194 /* EvenBetterDeal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EvenBetterDeal-Info.plist"; sourceTree = "<group>"; };
+		3B73072C175EC9F500873194 /* evenbetterdeal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "evenbetterdeal-Info.plist"; sourceTree = "<group>"; };
 		3B73072E175EC9F500873194 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3B730730175EC9F500873194 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3B730732175EC9F500873194 /* EvenBetterDeal-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EvenBetterDeal-Prefix.pch"; sourceTree = "<group>"; };
+		3B730732175EC9F500873194 /* evenbetterdeal-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "evenbetterdeal-Prefix.pch"; sourceTree = "<group>"; };
 		3B730733175EC9F500873194 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3B730734175EC9F500873194 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3B73073D175EC9F500873194 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 		3B730722175EC9F500873194 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3B730721175EC9F500873194 /* EvenBetterDeal.app */,
+				3B730721175EC9F500873194 /* evenbetterdeal.app */,
 				3B55753F176FAADA005EEB51 /* EBDUnitTests.octest */,
 			);
 			name = Products;
@@ -235,10 +235,10 @@
 				3B3A62F51761557700C7DD46 /* ButtonGradient2.png */,
 				3B3A62F61761557700C7DD46 /* ButtonGradient3.png */,
 				3B3A62F71761557700C7DD46 /* ButtonGradient4.png */,
-				3B73072C175EC9F500873194 /* EvenBetterDeal-Info.plist */,
+				3B73072C175EC9F500873194 /* evenbetterdeal-Info.plist */,
 				3B73072D175EC9F500873194 /* InfoPlist.strings */,
 				3B730730175EC9F500873194 /* main.m */,
-				3B730732175EC9F500873194 /* EvenBetterDeal-Prefix.pch */,
+				3B730732175EC9F500873194 /* evenbetterdeal-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -283,9 +283,9 @@
 			productReference = 3B55753F176FAADA005EEB51 /* EBDUnitTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		3B730720175EC9F500873194 /* EvenBetterDeal */ = {
+		3B730720175EC9F500873194 /* evenbetterdeal */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3B730747175EC9F500873194 /* Build configuration list for PBXNativeTarget "EvenBetterDeal" */;
+			buildConfigurationList = 3B730747175EC9F500873194 /* Build configuration list for PBXNativeTarget "evenbetterdeal" */;
 			buildPhases = (
 				3B73071D175EC9F500873194 /* Sources */,
 				3B73071E175EC9F500873194 /* Frameworks */,
@@ -295,9 +295,9 @@
 			);
 			dependencies = (
 			);
-			name = EvenBetterDeal;
+			name = evenbetterdeal;
 			productName = EBD;
-			productReference = 3B730721175EC9F500873194 /* EvenBetterDeal.app */;
+			productReference = 3B730721175EC9F500873194 /* evenbetterdeal.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -321,7 +321,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3B730720175EC9F500873194 /* EvenBetterDeal */,
+				3B730720175EC9F500873194 /* evenbetterdeal */,
 				3B55753E176FAADA005EEB51 /* EBDUnitTests */,
 			);
 		};
@@ -533,12 +533,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = evenbetterdeal.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Focused for Success, Inc. (2GC862GT48)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "EBD/EvenBetterDeal-Prefix.pch";
-				INFOPLIST_FILE = "EBD/EvenBetterDeal-Info.plist";
-				PRODUCT_NAME = EvenBetterDeal;
+				GCC_PREFIX_HEADER = "EBD/evenbetterdeal-Prefix.pch";
+				INFOPLIST_FILE = "EBD/evenbetterdeal-Info.plist";
+				PRODUCT_NAME = evenbetterdeal;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
@@ -549,12 +549,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = evenbetterdeal.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Focused for Success, Inc. (2GC862GT48)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "EBD/EvenBetterDeal-Prefix.pch";
-				INFOPLIST_FILE = "EBD/EvenBetterDeal-Info.plist";
-				PRODUCT_NAME = EvenBetterDeal;
+				GCC_PREFIX_HEADER = "EBD/evenbetterdeal-Prefix.pch";
+				INFOPLIST_FILE = "EBD/evenbetterdeal-Info.plist";
+				PRODUCT_NAME = evenbetterdeal;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
@@ -571,6 +571,7 @@
 				3B55754F176FAADA005EEB51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3B73071C175EC9F400873194 /* Build configuration list for PBXProject "EvenBetterDeal" */ = {
 			isa = XCConfigurationList;
@@ -581,7 +582,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3B730747175EC9F500873194 /* Build configuration list for PBXNativeTarget "EvenBetterDeal" */ = {
+		3B730747175EC9F500873194 /* Build configuration list for PBXNativeTarget "evenbetterdeal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3B730748175EC9F500873194 /* Debug */,

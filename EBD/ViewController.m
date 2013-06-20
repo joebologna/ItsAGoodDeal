@@ -129,23 +129,15 @@ static labelStruct fieldsIPad[] = {
     LABEL(10, YO11(312), 384, 30, 10, ""),
     LABEL(384, YO11(312), 384, 30, 10, ""),
     // A
-    LABEL(10, YO11(40), 366, 86, 17, "Price A"),
-    LABEL(10, YO11(133), 177, 86, 17, "MinQty"), LABEL(199, YO11(133), 177, 86, 17, "Size"),
-    LABEL(105, YO11(227), 177, 86, 17, "# to Buy"),
+    LABEL(10, YO11(40), 366, 86, 48, "Price A"),
+    LABEL(10, YO11(133), 177, 86, 48, "MinQty"), LABEL(199, YO11(133), 177, 86, 48, "Size"),
+    LABEL(105, YO11(227), 177, 86, 48, "# to Buy"),
     // B
-    LABEL(393, YO11(40), 366, 86, 17, "Price B"),
-    LABEL(393, YO11(133), 177, 86, 17, "MinQty"), LABEL(582, YO11(133), 177, 86, 17, "Size"),
-    LABEL(488, YO11(227), 177, 86, 17, "# to Buy"),
+    LABEL(393, YO11(40), 366, 86, 48, "Price B"),
+    LABEL(393, YO11(133), 177, 86, 48, "MinQty"), LABEL(582, YO11(133), 177, 86, 48, "Size"),
+    LABEL(488, YO11(227), 177, 86, 48, "# to Buy"),
     // Savings & Messages
     LABEL(1, YO11(344), 766, 75, 30, "Enter Price, Min Qty & Size of Items"),
-    /*
-     {{1, 343}, {256, 67}}   Cost
-     {{256, 343}, {257, 67}} Savings
-     {{512, 343}, {255, 67}} More
-     {{1, 409}, {256, 20}}   Cost
-     {{256, 409}, {257, 20}} Savings
-     {{512, 409}, {256, 20}} More
-     */
     LABEL(1, YO11(343), 256, 67, 30, "Cost Field"),
     LABEL(256, YO11(343), 257, 67, 30, "Savings Field"),
     LABEL(512, YO11(343), 255, 67, 30, "More Field"),
@@ -836,7 +828,6 @@ static Test testToRun = NotTesting;
     } else if (r == NeedValidQty2Buy) {
         [self clrHighLight];
         fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)] = @"";
-        float minQty = MAX(savings.itemA.qty, savings.itemB.qty);
         [self setMessageMode:MessageMode];
         fieldValues[T2I(FTAG, Message)] = [NSString stringWithFormat:@"Enter a multiple of %.2f for Qty to Buy", savings.itemA.qty];
     } else {
