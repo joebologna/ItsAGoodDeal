@@ -75,17 +75,17 @@
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:0 size:1 qty2Buy:2];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:2 size:1 qty2Buy:2];
-    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
+    STAssertTrue([savings calcSavings] == CalcIncomplete, @"Qty Test Failed.");
     
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:2 size:1 qty2Buy:2];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:0 size:1 qty2Buy:2];
-    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
+    STAssertTrue([savings calcSavings] == CalcIncomplete, @"Qty Test Failed.");
     
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:0 size:1 qty2Buy:2];
     savings.itemB = [Item theItemWithName:@"B" price:1 qty:0 size:1 qty2Buy:2];
-    STAssertTrue([savings calcSavings] == NeedQty2Buy, @"Qty Test Failed.");
+    STAssertTrue([savings calcSavings] == CalcIncomplete, @"Qty Test Failed.");
     
     [self log:@""];
     savings.itemA = [Item theItemWithName:@"A" price:1.5 qty:NO_QTY size:1 qty2Buy:2];
@@ -236,9 +236,22 @@
                          [NSNumber numberWithFloat:savings.sizeDiff],
                          [NSNumber numberWithFloat:-2],
                          @"");
-    BOOL test = ABS(savings.percentFewerUnits - 11.76) < 0.25;
+    BOOL test = savings.percentFewerUnits < 0;
     STAssertTrue(test, @"");
     test = ABS((savings.moneySaved - savings.adjMoneySaved)) < 0.12;
     STAssertTrue(test, @"");
+}
+
+// test requiring qty2Buy, multiple of qty required
+- (void)test07SavingsClass {
+    Savings *savings = [Savings theSavings];
+    
+    savings.itemA = [Item theItemWithName:@"A" price:3 qty:2 size:7.5 qty2Buy:3];
+    savings.itemB = [Item theItemWithName:@"B" price:2 qty:1 size:8.5 qty2Buy:2];
+    CalcResult r = [savings calcSavings];
+    STAssertTrue(r == NeedQty2Buy, @"Valid Qty2Buy Test Failed.");
+    savings.itemB = [Item theItemWithName:@"B" price:2 qty:2 size:8.5 qty2Buy:3];
+    r = [savings calcSavings];
+    STAssertTrue(r == NeedValidQty2Buy, @"Valid Qty2Buy Test Failed.");
 }
 @end

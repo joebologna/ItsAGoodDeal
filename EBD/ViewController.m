@@ -317,14 +317,17 @@ static Test testToRun = NotTesting;
             fieldValues[T2I(FTAG, Qty2BuyA)] = @"9";
             fieldValues[T2I(FTAG, Qty2BuyB)] = @"9";
              */
-            fieldValues[T2I(FTAG, PriceA)] = @"9";
-            fieldValues[T2I(FTAG, PriceB)] = @"9";
-            fieldValues[T2I(FTAG, QtyA)] = @"9";
-            fieldValues[T2I(FTAG, QtyB)] = @"9";
-            fieldValues[T2I(FTAG, SizeA)] = @"9";
-            fieldValues[T2I(FTAG, SizeB)] = @"9";
-            fieldValues[T2I(FTAG, Qty2BuyA)] = @"9";
-            fieldValues[T2I(FTAG, Qty2BuyB)] = @"9";
+            /*
+             */
+            fieldValues[T2I(FTAG, PriceA)] = @"3";
+            fieldValues[T2I(FTAG, PriceB)] = @"2";
+            fieldValues[T2I(FTAG, QtyA)] = @"2";
+            fieldValues[T2I(FTAG, QtyB)] = @"1";
+            fieldValues[T2I(FTAG, SizeA)] = @"7.5";
+            fieldValues[T2I(FTAG, SizeB)] = @"8.5";
+            fieldValues[T2I(FTAG, Qty2BuyA)] = @"3";
+            fieldValues[T2I(FTAG, Qty2BuyB)] = @"3";
+            
             testToRun = AisBetter;
             break;
         case AisBetter:
@@ -775,7 +778,7 @@ static Test testToRun = NotTesting;
     [self setMessageMode:ResultsMode];
     NSDictionary *results = [savings getResults];
     fieldValues[T2I(FTAG, CostField)] = [results objectForKey:kCost];
-    fieldValues[T2I(FTAG, SavingsField)] = ([[results objectForKey:kSavings] floatValue] <= 0) ? @"Deal A = Deal B" : [results objectForKey:kSavings];
+    fieldValues[T2I(FTAG, SavingsField)] = ([[results objectForKey:kSavings] floatValue] <= 0) ? @"A=B" : [results objectForKey:kSavings];
     fieldValues[T2I(FTAG, MoreField)] = ([[results objectForKey:kMore] floatValue] <= 0) ? @"No" : [results objectForKey:kMore];
 }
 
@@ -830,6 +833,12 @@ static Test testToRun = NotTesting;
         float minQty = MAX(savings.itemA.qty, savings.itemB.qty);
         [self setMessageMode:MessageMode];
         fieldValues[T2I(FTAG, Message)] = [NSString stringWithFormat:@"Enter at least %.2f for Qty to Buy", minQty];
+    } else if (r == NeedValidQty2Buy) {
+        [self clrHighLight];
+        fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)] = @"";
+        float minQty = MAX(savings.itemA.qty, savings.itemB.qty);
+        [self setMessageMode:MessageMode];
+        fieldValues[T2I(FTAG, Message)] = [NSString stringWithFormat:@"Enter a multiple of %.2f for Qty to Buy", savings.itemA.qty];
     } else {
         [self clrHighLight];
         [self setMessageMode:MessageMode];

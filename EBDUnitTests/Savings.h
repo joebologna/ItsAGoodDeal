@@ -10,7 +10,7 @@
 #import "Item.h"
 
 typedef enum {
-    CalcIncomplete, NeedQty2Buy, CalcComplete
+    CalcIncomplete, NeedQty2Buy, NeedValidQty2Buy, CalcComplete
 } CalcResult;
 
 #define kCost @"cost"
