@@ -69,7 +69,8 @@
     NSLog(@"%s", __func__);
     float minQty = MAX(self.itemA.qty, self.itemB.qty);
     
-    if (self.itemA.qty == NO_QTY || self.itemB.qty == NO_QTY) {
+    if (self.itemA.price == 0 || self.itemA.qty == 0 || self.itemA.size == 0 || self.itemA.qty == NO_QTY ||
+        self.itemB.price == 0 || self.itemB.qty == 0 || self.itemB.size == 0 || self.itemB.qty == NO_QTY) {
         self.calcResult = CalcIncomplete;
     } else if (self.itemA.qty <= 0 || self.itemB.qty <= 0 || self.itemA.qty2Buy != self.itemB.qty2Buy || minQty <= 0 || self.itemA.qty2Buy < minQty || self.itemB.qty2Buy < minQty) {
         self.calcResult = NeedQty2Buy;
@@ -80,8 +81,8 @@
         // move cost to Item class, access savings via self.getBest.cost
         self.cost = best.pricePerItem * best.qty2Buy;
         self.sizeDiff = best.sizeBought - worst.sizeBought;
-        self.percentFewerUnits = (1 - (best.sizeBought / worst.sizeBought)) * 100;
-        self.percentMoreProduct = 100 - self.percentFewerUnits;
+        self.percentFewerUnits = (1 - (worst.sizeBought / best.sizeBought)) * 100;
+        self.percentMoreProduct = (1 - (best.sizeBought / worst.sizeBought)) * 100;
         self.adjMoneySaved = self.moneySaved * (best.sizeBought / worst.sizeBought);
         self.calcResult = CalcComplete;
         [self logSelf:self];
@@ -115,7 +116,7 @@
             result = [NSDictionary dictionaryWithObjectsAndKeys:
                       [NSString stringWithFormat:@"%.2f", self.cost], kCost,
                       [NSString stringWithFormat:@"%.2f", self.moneySaved], kSavings,
-                      @"Same amount", kMore, nil];
+                      0, kMore, nil];
         }
     }
     return result;

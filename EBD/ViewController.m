@@ -292,10 +292,12 @@ static Test testToRun = NotTesting;
         [fieldValues addObject:@""];
     }
     curFieldIndex = 0;
+    [self setMessageMode:MessageMode];
     [self updateFields:YES];
     
     switch (testToRun) {
         case AisBigger:
+            /*
             fieldValues[T2I(FTAG, PriceA)] = @"999";
             fieldValues[T2I(FTAG, PriceB)] = @"1";
             fieldValues[T2I(FTAG, QtyA)] = @"2";
@@ -304,6 +306,25 @@ static Test testToRun = NotTesting;
             fieldValues[T2I(FTAG, SizeB)] = @"2";
             fieldValues[T2I(FTAG, Qty2BuyA)] = @"2";
             fieldValues[T2I(FTAG, Qty2BuyB)] = @"2";
+             */
+            /*
+            fieldValues[T2I(FTAG, PriceA)] = @"1";
+            fieldValues[T2I(FTAG, PriceB)] = @"9";
+            fieldValues[T2I(FTAG, QtyA)] = @"3";
+            fieldValues[T2I(FTAG, QtyB)] = @"9";
+            fieldValues[T2I(FTAG, SizeA)] = @"1";
+            fieldValues[T2I(FTAG, SizeB)] = @"9";
+            fieldValues[T2I(FTAG, Qty2BuyA)] = @"9";
+            fieldValues[T2I(FTAG, Qty2BuyB)] = @"9";
+             */
+            fieldValues[T2I(FTAG, PriceA)] = @"9";
+            fieldValues[T2I(FTAG, PriceB)] = @"9";
+            fieldValues[T2I(FTAG, QtyA)] = @"9";
+            fieldValues[T2I(FTAG, QtyB)] = @"9";
+            fieldValues[T2I(FTAG, SizeA)] = @"9";
+            fieldValues[T2I(FTAG, SizeB)] = @"9";
+            fieldValues[T2I(FTAG, Qty2BuyA)] = @"9";
+            fieldValues[T2I(FTAG, Qty2BuyB)] = @"9";
             testToRun = AisBetter;
             break;
         case AisBetter:
@@ -735,10 +756,12 @@ static Test testToRun = NotTesting;
     } else if ([fieldValues[T2I(FTAG, PriceA)] length] > 0 &&  [fieldValues[T2I(FTAG, QtyA)] length] > 0) {
         if ([fieldValues[T2I(FTAG, SizeA)] length] == 0) {
             fieldValues[T2I(FTAG, SizeA)] = @"1";
+            directTap = YES;
         }
         [self calcResult];
     } else if ([fieldValues[T2I(FTAG, PriceB)] length] > 0 &&  [fieldValues[T2I(FTAG, QtyB)] length] > 0) {
         if ([fieldValues[T2I(FTAG, SizeB)] length] == 0) {
+            directTap = YES;
             fieldValues[T2I(FTAG, SizeB)] = @"1";
         }
         [self calcResult];
@@ -752,8 +775,8 @@ static Test testToRun = NotTesting;
     [self setMessageMode:ResultsMode];
     NSDictionary *results = [savings getResults];
     fieldValues[T2I(FTAG, CostField)] = [results objectForKey:kCost];
-    fieldValues[T2I(FTAG, SavingsField)] = [results objectForKey:kSavings];
-    fieldValues[T2I(FTAG, MoreField)] = [results objectForKey:kMore];
+    fieldValues[T2I(FTAG, SavingsField)] = ([[results objectForKey:kSavings] floatValue] <= 0) ? @"Deal A = Deal B" : [results objectForKey:kSavings];
+    fieldValues[T2I(FTAG, MoreField)] = ([[results objectForKey:kMore] floatValue] <= 0) ? @"No" : [results objectForKey:kMore];
 }
 
 - (void)calcResult {
@@ -774,10 +797,21 @@ static Test testToRun = NotTesting;
     if (r == CalcComplete) {
         fieldValues[T2I(FTAG, BetterDealA)] = [NSString stringWithFormat:@"%.2f/item, %.2f/unit", savings.itemA.pricePerItem, savings.itemA.unitCost];
         fieldValues[T2I(FTAG, BetterDealB)] = [NSString stringWithFormat:@"%.2f/item, %.2f/unit", savings.itemB.pricePerItem, savings.itemB.unitCost];
-        if (savings.sizeDiff == 0 && savings.moneySaved == 0) {
+        if (savings.sizeDiff == 0 && savings.moneySaved == 0 && savings.percentMoreProduct == 0) {
             fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
             fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
             [self clrHighLight];
+        } else if (savings.percentMoreProduct > 0) {
+            Item *best = savings.getBest;
+            if ([best.name isEqual:@"A"]) {
+                fieldValues[T2I(FTAG, ItemA)] = @"A is a Better Deal";
+                [self highLight:ItemB];
+                fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
+            } else {
+                [self highLight:ItemB];
+                fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
+                fieldValues[T2I(FTAG, ItemB)] = @"B is a Better Deal";
+            }
         } else if ([savings.getBest.name isEqualToString:@"A"]) {
             fieldValues[T2I(FTAG, ItemA)] = @"A is a Better Deal";
             fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
