@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  EBD
+//  IGD
 //
 //  Created by Joe Bologna on 6/4/13.
 //  Copyright (c) 2013 Joe Bologna. All rights reserved.
@@ -23,7 +23,7 @@
 
 - (void) requestProductData
 {
-    SKProductsRequest *request= [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:@"com.focusedforsuccess.evenbetterdeal.noads"]];
+    SKProductsRequest *request= [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:@"com.focusedforsuccess.ItsAGoodDeal.noads"]];
     request.delegate = self;
     [request start];
 }

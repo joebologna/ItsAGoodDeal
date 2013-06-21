@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'IGDUnitTests' target in the 'IGDUnitTests' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif

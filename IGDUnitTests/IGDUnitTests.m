@@ -1,19 +1,19 @@
 //
-//  EBDUnitTests.m
-//  EBDUnitTests
+//  IGDUnitTests.m
+//  IGDUnitTests
 //
 //  Created by Joe Bologna on 6/17/13.
 //  Copyright (c) 2013 Joe Bologna. All rights reserved.
 //
 
-#import "EBDUnitTests.h"
+#import "IGDUnitTests.h"
 #import "Savings.h"
 
-@interface EBDUnitTests () {
+@interface IGDUnitTests () {
 };
 @end;
 
-@implementation EBDUnitTests
+@implementation IGDUnitTests
 
 - (void)setUp {
     [super setUp];
