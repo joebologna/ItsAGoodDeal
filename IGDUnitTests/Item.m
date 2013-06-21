@@ -32,7 +32,9 @@
 - (id)init {
     self = [super init];
     if (self) {
+#ifdef DEBUG
         NSLog(@"%s", __func__);
+#endif
         self.name = @"Item";
         self.price = 0;
         self.qty = 0;

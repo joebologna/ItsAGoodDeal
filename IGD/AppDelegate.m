@@ -23,19 +23,23 @@
 
 - (void) requestProductData
 {
-    SKProductsRequest *request= [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:@"com.focusedforsuccess.ItsAGoodDeal.noads"]];
+    SKProductsRequest *request= [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:@"com.focusedforsuccess.ItsAGoodDeal.removeads"]];
     request.delegate = self;
     [request start];
 }
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
+#ifdef DEBUG
     NSLog(@"valid: %@", response.products);
     NSLog(@"invalid: %@", response.invalidProductIdentifiers);
+#endif
     self.myStoreObserver.myProducts = response.products;
     // Populate your UI from the products list.
     // Save a reference to the products list.
+#ifdef DEBUG
     NSLog(@"%s, %@", __func__, self.myStoreObserver.myProducts);
+#endif
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

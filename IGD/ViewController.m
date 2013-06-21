@@ -237,12 +237,16 @@ static Test testToRun = NotTesting;
             return i;
         }
     }
+#ifdef DEBUG
     NSLog(@"Punt");
+#endif
     return 0; // punt
 }
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
+#ifdef DEBUG
     NSLog(@"%s", __func__);
+#endif
     [banner setHidden:myStoreObserver.bought];
 }
 
@@ -274,7 +278,9 @@ static Test testToRun = NotTesting;
     myStoreObserver = [MyStoreObserver myStoreObserver];
     myStoreObserver.delegate = self;
     
+#ifdef DEBUG
     NSLog(@"%s, %@", __func__, myStoreObserver);
+#endif
 }
 
 - (void)initGUI {
@@ -595,7 +601,9 @@ static Test testToRun = NotTesting;
     
     NSInteger tag = InputFields[curFieldIndex];
     if (keyType == UnknownKey) {
+#ifdef DEBUG
         NSLog(@"Ooops");
+#endif
     } else if (keyType == InputKey) {
         MyButton *b = (MyButton *)[self.view viewWithTag:tag];
         [b setBackgroundColor:fieldColor];
@@ -885,7 +893,9 @@ static Test testToRun = NotTesting;
             float percentOfMaxB = unitsPurchB / MAX(unitsPurchA, unitsPurchB);
             fieldValues[T2I(FTAG, BetterDealA)] = [NSString stringWithFormat:@"%.2f/purch, %.2f/unit, %.1funits", priceA, unitCostA, unitsPurchA];
             fieldValues[T2I(FTAG, BetterDealB)] = [NSString stringWithFormat:@"%.2f/purch, %.2f/unit, %.1funits", priceB, unitCostB, unitsPurchB];
+#ifdef DEBUG
             NSLog(@"%s, %d", __func__, [fieldValues[T2I(FTAG, BetterDealA)] length]);
+#endif
             if ([fieldValues[T2I(FTAG, BetterDealA)] length] < 34) {
                 NSInteger tags[] = {BetterDealA, BetterDealB};
                 NSInteger nTags = sizeof(tags)/sizeof(NSInteger);
@@ -948,7 +958,9 @@ static Test testToRun = NotTesting;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (![[alertView title] isEqualToString:@"Payments Disabled"]) {
         if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
+#ifdef DEBUG
             NSLog(@"Buy it here");
+#endif
 //            self.bought = YES;
             [self doPayment];
         } else {
@@ -956,7 +968,9 @@ static Test testToRun = NotTesting;
                 myStoreObserver.bought = NO;
                 [self setAdButtonState];
             } else {
+#ifdef DEBUG
                 NSLog(@"Dont do anything");
+#endif
             }
         }
 //        [self setAdButtonState];
@@ -970,12 +984,16 @@ static Test testToRun = NotTesting;
         SKPayment *payment = [SKPayment paymentWithProduct:selectedProduct];
         [[SKPaymentQueue defaultQueue] addPayment:payment];
     } else {
+#ifdef DEBUG
         NSLog(@"no products found");
+#endif
     }
 }
 
 - (void)setAdButtonState {
+#ifdef DEBUG
     NSLog(@"%s", __func__);
+#endif
     ADBannerView *a = (ADBannerView *)[self.view viewWithTag:Ad];
     MyButton *b = (MyButton *)[self.view viewWithTag:(K_STORE)];
     [a setHidden:myStoreObserver.bought];
@@ -983,17 +1001,23 @@ static Test testToRun = NotTesting;
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+#ifdef DEBUG
     NSLog(@"%s", __func__);
+#endif
     [banner setHidden:YES];
 }
 
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
+#ifdef DEBUG
     NSLog(@"%s, Nothing to do", __func__);
+#endif
     return YES;
 }
 
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
+#ifdef DEBUG
     NSLog(@"%s, Nothing to do", __func__);
+#endif
 }
 
 - (void)didReceiveMemoryWarning {
@@ -1002,7 +1026,9 @@ static Test testToRun = NotTesting;
 }
 
 - (void)processCompleted {
+#ifdef DEBUG
     NSLog(@"%s", __func__);
+#endif
     [self setAdButtonState];
 }
 

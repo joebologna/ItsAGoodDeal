@@ -19,7 +19,9 @@
 - (id)init {
     self = [super init];
     if (self) {
+#ifdef DEBUG
         NSLog(@"%s", __func__);
+#endif
         self.itemA = [Item theItemWithName:@"Item A" price:0 qty:0 size:0 qty2Buy:NO_QTY];
         self.itemB = [Item theItemWithName:@"Item B" price:0 qty:0 size:0 qty2Buy:NO_QTY];
         self.moneySaved = 0;
@@ -45,12 +47,16 @@
 }
 
 - (Item *)getBest {
+#ifdef DEBUG
     NSLog(@"%s", __func__);
+#endif
     return (self.itemA.unitCost <= self.itemB.unitCost) ? self.itemA : self.itemB;
 }
 
 - (Item *)getWorst {
+#ifdef DEBUG
     NSLog(@"%s", __func__);
+#endif
     return (self.itemA.unitCost >= self.itemB.unitCost) ? self.itemA : self.itemB;
 }
 
@@ -68,7 +74,9 @@
 }
 
 - (CalcResult)calcSavings {
+#ifdef DEBUG
     NSLog(@"%s", __func__);
+#endif
     float minQty = MAX(self.itemA.qty, self.itemB.qty);
     
     if (self.itemA.price == 0.0f || self.itemA.qty == 0.0f || self.itemA.size == 0.0f || self.itemA.qty == NO_QTY ||

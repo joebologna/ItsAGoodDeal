@@ -108,7 +108,9 @@ static MyStoreObserver *theSharedObject = nil;
 }
 
 - (void) provideContent:(NSString *)productIdentifier {
+#ifdef DEBUG
     NSLog(@"%s", __func__);
+#endif
     [self.delegate processCompleted];
 }
 
