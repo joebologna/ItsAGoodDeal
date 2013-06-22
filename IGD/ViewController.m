@@ -796,13 +796,13 @@ static Test testToRun = NotTesting;
     float priceA = [fieldValues[T2I(FTAG, PriceA)] floatValue];
     float minQtyA = [fieldValues[T2I(FTAG, QtyA)] floatValue];
     float unitsPerItemA = [fieldValues[T2I(FTAG, SizeA)] floatValue];
-    float qty2BuyA = [fieldValues[T2I(FTAG, Qty2BuyA)] floatValue];
+    float qty2PurchaseA = [fieldValues[T2I(FTAG, Qty2BuyA)] floatValue];
     float priceB = [fieldValues[T2I(FTAG, PriceB)] floatValue];
     float minQtyB = [fieldValues[T2I(FTAG, QtyB)] floatValue];
     float unitsPerItemB = [fieldValues[T2I(FTAG, SizeB)] floatValue];
-    float qty2BuyB = [fieldValues[T2I(FTAG, Qty2BuyB)] floatValue];
-    Item *itemA = [Item theItemWithName:@"A" price:priceA qty:minQtyA unitsPerItem:unitsPerItemA qty2Buy:qty2BuyA];
-    Item *itemB = [Item theItemWithName:@"B" price:priceB qty:minQtyB unitsPerItem:unitsPerItemB qty2Buy:qty2BuyB];
+    float qty2PurchaseB = [fieldValues[T2I(FTAG, Qty2BuyB)] floatValue];
+    Item *itemA = [Item theItemWithName:@"A" price:priceA qty:minQtyA unitsPerItem:unitsPerItemA];
+    Item *itemB = [Item theItemWithName:@"B" price:priceB qty:minQtyB unitsPerItem:unitsPerItemB];
     Savings *savings = [Savings theSavingsWithItemA:itemA itemB:itemB];
     
     r = [savings calcSavings];
@@ -888,16 +888,16 @@ static Test testToRun = NotTesting;
         }
     }
     
-    float qty2BuyA = [fieldValues[T2I(FTAG, Qty2BuyA)] floatValue];
-    float qty2BuyB = [fieldValues[T2I(FTAG, Qty2BuyB)] floatValue];
+    float qty2PurchaseA = [fieldValues[T2I(FTAG, Qty2BuyA)] floatValue];
+    float qty2PurchaseB = [fieldValues[T2I(FTAG, Qty2BuyB)] floatValue];
     
     if (minQtyA > 0 && minQtyB > 0 && unitsPerItemA > 0 && unitsPerItemB > 0) {
-        if (qty2BuyA > 0 && qty2BuyB > 0) {
+        if (qty2PurchaseA > 0 && qty2PurchaseB > 0) {
             NSString *msg;
-            float minPurchCostA = eachA * qty2BuyA;
-            float minPurchCostB = eachB * qty2BuyB;
-            float unitsPurchA = unitsPerItemA * qty2BuyA;
-            float unitsPurchB = unitsPerItemB * qty2BuyB;
+            float minPurchCostA = eachA * qty2PurchaseA;
+            float minPurchCostB = eachB * qty2PurchaseB;
+            float unitsPurchA = unitsPerItemA * qty2PurchaseA;
+            float unitsPurchB = unitsPerItemB * qty2PurchaseB;
             float percentOfMaxA = unitsPurchA / MAX(unitsPurchA, unitsPurchB);
             float percentOfMaxB = unitsPurchB / MAX(unitsPurchA, unitsPurchB);
             fieldValues[T2I(FTAG, BetterDealA)] = [NSString stringWithFormat:@"%.2f/purch, %.2f/unit, %.1funits", priceA, pricePerUnitA, unitsPurchA];

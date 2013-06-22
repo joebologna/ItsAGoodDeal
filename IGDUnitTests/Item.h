@@ -10,16 +10,24 @@
 #import "NSObject+Formatter.h"
 
 #define NO_QTY -1
+// thats close enough
+#define TCE(A, B, C) (((A) - (B)) < (C))
 
 @interface Item : NSObject <Logging>
 
 
 @property (copy, nonatomic) NSString *name;
-@property (unsafe_unretained, nonatomic) float price, minQty, unitsPerItem, pricePerUnit, pricePerItem, qty2Buy, amountPurchased;
+@property (unsafe_unretained, nonatomic) float price, minQty, unitsPerItem;
+@property (unsafe_unretained, nonatomic) float qty2Purchase;
+@property (unsafe_unretained, nonatomic, readonly) float pricePerUnit, pricePerItem, amountPurchased;
 
 @property (strong, nonatomic) NSString *toString;
 
 + (Item *)theItem;
-+ (Item *)theItemWithName:(NSString *)name price:(float)price minQty:(float)minQty unitsPerItem:(float)unitsPerItem qty2Buy:(float)qty2Buy;
++ (Item *)theItemWithName:(NSString *)name price:(float)price minQty:(float)minQty unitsPerItem:(float)unitsPerItem;
+
+- (BOOL)allInputsValid;
+- (BOOL)allOutputsValid;
+- (BOOL)qty2PurchaseValid;
 
 @end

@@ -22,15 +22,15 @@
 #ifdef DEBUG
         NSLog(@"%s", __func__);
 #endif
-        self.itemA = [Item theItemWithName:@"Item A" price:0 minQty:0 unitsPerItem:0 qty2Buy:NO_QTY];
-        self.itemB = [Item theItemWithName:@"Item B" price:0 minQty:0 unitsPerItem:0 qty2Buy:NO_QTY];
-        self.moneySaved = 0;
-        self.sizeDiff = 0;
-        self.percentFewerUnits = 0;
-        self.percentMoreProduct = 0;
-        self.adjMoneySaved = 0;
+        self.itemA = [Item theItemWithName:@"A" price:INFINITY minQty:INFINITY unitsPerItem:INFINITY];
+        self.itemB = [Item theItemWithName:@"B" price:INFINITY minQty:INFINITY unitsPerItem:INFINITY];
+        self.moneySaved = INFINITY;
+        self.sizeDiff = INFINITY;
+        self.percentFewerUnits = INFINITY;
+        self.percentMoreProduct = INFINITY;
+        self.adjMoneySaved = INFINITY;
         self.calcResult = CalcIncomplete;
-        self.cost = 0;
+        self.cost = INFINITY;
     }
     return self;
 }
@@ -77,24 +77,25 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    float minQty = MAX(self.itemA.minQty, self.itemB.minQty);
-    
-    if (self.itemA.price == 0.0f || self.itemA.minQty == 0.0f || self.itemA.unitsPerItem == 0.0f || self.itemA.minQty == NO_QTY ||
-        self.itemB.price == 0.0f || self.itemB.minQty == 0.0f || self.itemB.unitsPerItem == 0.0f || self.itemB.minQty == NO_QTY) {
+
+    BOOL ok = [self.itemA.name isEqualToString:@"A"] && ![self.itemA allInputsValid] && ![self.itemA allOutputsValid] &&  self.itemA.qty2Purchase == INFINITY;
+    ok = ok & [self.itemB.name isEqualToString:@"B"] && ![self.itemB allInputsValid] && ![self.itemB allOutputsValid] &&  self.itemB.qty2Purchase == INFINITY;
+
+    if (ok) {
         self.calcResult = CalcIncomplete;
-    } else if (self.itemA.minQty <= 0.0f || self.itemB.minQty <= 0.0f || self.itemA.qty2Buy != self.itemB.qty2Buy || minQty <= 0.0f || self.itemA.qty2Buy < minQty || self.itemB.qty2Buy < minQty) {
+    } else if (![self.itemA qty2PurchaseValid] || ![self.itemB qty2PurchaseValid]) {
         self.calcResult = NeedQty2Buy;
     } else {
-        float rA = remainderf(self.itemA.qty2Buy, self.itemA.minQty);
-        float rB = remainderf(self.itemB.qty2Buy, self.itemB.minQty);
+        float rA = remainderf(self.itemA.qty2Purchase, self.itemA.minQty);
+        float rB = remainderf(self.itemB.qty2Purchase, self.itemB.minQty);
         if (rA != 0.0f || rB != 0.0f) {
             self.calcResult = NeedValidQty2Buy;
         } else {
             Item *best = self.getBest;
             Item *worst = self.getWorst;
-            self.moneySaved = (worst.pricePerItem - best.pricePerItem) * best.qty2Buy;
+            self.moneySaved = (worst.pricePerItem - best.pricePerItem) * best.qty2Purchase;
             // move cost to Item class, access savings via self.getBest.cost
-            self.cost = best.pricePerItem * best.qty2Buy;
+            self.cost = best.pricePerItem * best.qty2Purchase;
             self.sizeDiff = best.amountPurchased - worst.amountPurchased;
             self.percentFewerUnits = (1 - (worst.amountPurchased / best.amountPurchased)) * 100.0f;
             self.percentMoreProduct = (1 - (best.amountPurchased / worst.amountPurchased)) * 100.0f;
