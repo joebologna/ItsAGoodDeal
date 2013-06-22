@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Item.h"
+#import "SavingsResults.h"
 
 typedef enum {
     CalcIncomplete, NeedQty2Buy, NeedValidQty2Buy, CalcComplete
@@ -27,6 +28,7 @@ typedef enum {
 @property (unsafe_unretained, nonatomic) float adjMoneySaved;
 @property (unsafe_unretained, nonatomic) float cost;
 @property (unsafe_unretained, nonatomic) CalcResult calcResult;
+@property (unsafe_unretained, nonatomic) SavingsResults *results;
 
 @property (strong, nonatomic) NSString *toString;
 @property (readonly, nonatomic) NSArray *dictionaryFormat;
@@ -36,6 +38,6 @@ typedef enum {
 - (Item *)getBest;
 - (Item *)getWorst;
 - (CalcResult)calcSavings;
-- (NSDictionary *)getResults;
+- (SavingsResults *)getResults;
 
 @end

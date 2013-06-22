@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B312C0B17602A8F00AF12F9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B312C0A17602A8F00AF12F9 /* iAd.framework */; };
+		3B38930317763021006678C4 /* SavingsResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B62942D1776100000857D7C /* SavingsResults.m */; };
 		3B3A62F91761557700C7DD46 /* ButtonGradient3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B3A62F61761557700C7DD46 /* ButtonGradient3.png */; };
 		3B557541176FAADA005EEB51 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B557540176FAADA005EEB51 /* SenTestingKit.framework */; };
 		3B557542176FAADA005EEB51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
@@ -20,6 +21,7 @@
 		3B55755B17700A82005EEB51 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557558176FB69B005EEB51 /* NSObject+Formatter.m */; };
 		3B55755C17700A82005EEB51 /* Savings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557552176FAB94005EEB51 /* Savings.m */; };
 		3B55755D17700A82005EEB51 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557555176FB65F005EEB51 /* Item.m */; };
+		3B62942E1776100000857D7C /* SavingsResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B62942D1776100000857D7C /* SavingsResults.m */; };
 		3B730725175EC9F500873194 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B730727175EC9F500873194 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
 		3B730729175EC9F500873194 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730728175EC9F500873194 /* CoreGraphics.framework */; };
@@ -67,6 +69,8 @@
 		3B55755E1770920D005EEB51 /* iPhone3.5C.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPhone3.5C.xib; sourceTree = "<group>"; };
 		3B55755F17709252005EEB51 /* iPhone4C.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPhone4C.xib; sourceTree = "<group>"; };
 		3B55756017709289005EEB51 /* iPadC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPadC.xib; sourceTree = "<group>"; };
+		3B62942C1776100000857D7C /* SavingsResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavingsResults.h; sourceTree = "<group>"; };
+		3B62942D1776100000857D7C /* SavingsResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavingsResults.m; sourceTree = "<group>"; };
 		3B730721175EC9F500873194 /* ItsAGoodDeal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ItsAGoodDeal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B730724175EC9F500873194 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3B730726175EC9F500873194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -161,6 +165,8 @@
 				3B557552176FAB94005EEB51 /* Savings.m */,
 				3B557554176FB65F005EEB51 /* Item.h */,
 				3B557555176FB65F005EEB51 /* Item.m */,
+				3B62942C1776100000857D7C /* SavingsResults.h */,
+				3B62942D1776100000857D7C /* SavingsResults.m */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -169,8 +175,8 @@
 			isa = PBXGroup;
 			children = (
 				3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */,
-				3BD286731762EFC000A9AEE4 /* Default-Portrait~ipad.png */,
 				3BD286711762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png */,
+				3BD286731762EFC000A9AEE4 /* Default-Portrait~ipad.png */,
 				3BD2866F1762EB0700A9AEE4 /* scale-72x72.png */,
 				3BD2866D1762EAAC00A9AEE4 /* scale-144x144.png */,
 				3BD2866B1762E97100A9AEE4 /* scale-57x57.png */,
@@ -236,8 +242,8 @@
 				3B3A62F61761557700C7DD46 /* ButtonGradient3.png */,
 				3B3A62F71761557700C7DD46 /* ButtonGradient4.png */,
 				3B73072C175EC9F500873194 /* ItsAGoodDeal-Info.plist */,
-				3B73072D175EC9F500873194 /* InfoPlist.strings */,
 				3B730730175EC9F500873194 /* main.m */,
+				3B73072D175EC9F500873194 /* InfoPlist.strings */,
 				3B730732175EC9F500873194 /* ItsAGoodDeal-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -377,6 +383,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B38930317763021006678C4 /* SavingsResults.m in Sources */,
 				3B55754C176FAADA005EEB51 /* IGDUnitTests.m in Sources */,
 				3B557553176FAB94005EEB51 /* Savings.m in Sources */,
 				3B557556176FB65F005EEB51 /* Item.m in Sources */,
@@ -396,6 +403,7 @@
 				3B730744175EC9F500873194 /* ViewController.m in Sources */,
 				3BDF4FA8176019D800964B0E /* MyButton.m in Sources */,
 				3BDB0D051762CCD9007AB586 /* MyStoreObserver.m in Sources */,
+				3B62942E1776100000857D7C /* SavingsResults.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

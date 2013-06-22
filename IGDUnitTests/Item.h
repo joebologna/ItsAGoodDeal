@@ -15,11 +15,11 @@
 
 
 @property (copy, nonatomic) NSString *name;
-@property (unsafe_unretained, nonatomic) float price, qty, size, unitCost, pricePerItem, qty2Buy, sizeBought;
+@property (unsafe_unretained, nonatomic) float price, minQty, unitsPerItem, pricePerUnit, pricePerItem, qty2Buy, amountPurchased;
 
 @property (strong, nonatomic) NSString *toString;
 
 + (Item *)theItem;
-+ (Item *)theItemWithName:(NSString *)name price:(float)price qty:(float)qty size:(float)size qty2Buy:(float)qty2Buy;
++ (Item *)theItemWithName:(NSString *)name price:(float)price minQty:(float)minQty unitsPerItem:(float)unitsPerItem qty2Buy:(float)qty2Buy;
 
 @end
