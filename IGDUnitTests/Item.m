@@ -101,4 +101,8 @@
     return [self allInputsValid] && [self allOutputsValid] && _qty2Purchase != INFINITY;
 }
 
+- (BOOL)isValid {
+    return [self qty2PurchaseValid];
+}
+
 @end

@@ -8,20 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		3B312C0B17602A8F00AF12F9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B312C0A17602A8F00AF12F9 /* iAd.framework */; };
-		3B38930317763021006678C4 /* SavingsResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B62942D1776100000857D7C /* SavingsResults.m */; };
+		3B38930317763021006678C4 /* NewSavings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B62942D1776100000857D7C /* NewSavings.m */; };
 		3B3A62F91761557700C7DD46 /* ButtonGradient3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B3A62F61761557700C7DD46 /* ButtonGradient3.png */; };
 		3B557541176FAADA005EEB51 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B557540176FAADA005EEB51 /* SenTestingKit.framework */; };
 		3B557542176FAADA005EEB51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B557543176FAADA005EEB51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
 		3B557549176FAADA005EEB51 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B557547176FAADA005EEB51 /* InfoPlist.strings */; };
 		3B55754C176FAADA005EEB51 /* IGDUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B55754B176FAADA005EEB51 /* IGDUnitTests.m */; };
-		3B557553176FAB94005EEB51 /* Savings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557552176FAB94005EEB51 /* Savings.m */; };
 		3B557556176FB65F005EEB51 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557555176FB65F005EEB51 /* Item.m */; };
 		3B557559176FB69B005EEB51 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557558176FB69B005EEB51 /* NSObject+Formatter.m */; };
 		3B55755B17700A82005EEB51 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557558176FB69B005EEB51 /* NSObject+Formatter.m */; };
 		3B55755C17700A82005EEB51 /* Savings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557552176FAB94005EEB51 /* Savings.m */; };
 		3B55755D17700A82005EEB51 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B557555176FB65F005EEB51 /* Item.m */; };
-		3B62942E1776100000857D7C /* SavingsResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B62942D1776100000857D7C /* SavingsResults.m */; };
+		3B62942E1776100000857D7C /* NewSavings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B62942D1776100000857D7C /* NewSavings.m */; };
 		3B730725175EC9F500873194 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B730727175EC9F500873194 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
 		3B730729175EC9F500873194 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730728175EC9F500873194 /* CoreGraphics.framework */; };
@@ -60,8 +59,8 @@
 		3B557548176FAADA005EEB51 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3B55754B176FAADA005EEB51 /* IGDUnitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGDUnitTests.m; sourceTree = "<group>"; };
 		3B55754D176FAADA005EEB51 /* IGDUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IGDUnitTests-Prefix.pch"; sourceTree = "<group>"; };
-		3B557551176FAB94005EEB51 /* Savings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Savings.h; path = IGDUnitTests/Savings.h; sourceTree = SOURCE_ROOT; };
-		3B557552176FAB94005EEB51 /* Savings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Savings.m; path = IGDUnitTests/Savings.m; sourceTree = SOURCE_ROOT; };
+		3B557551176FAB94005EEB51 /* Savings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = Savings.h; path = IGDUnitTests/Savings.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3B557552176FAB94005EEB51 /* Savings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = Savings.m; path = IGDUnitTests/Savings.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3B557554176FB65F005EEB51 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item.h; path = IGDUnitTests/Item.h; sourceTree = SOURCE_ROOT; };
 		3B557555176FB65F005EEB51 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = IGDUnitTests/Item.m; sourceTree = SOURCE_ROOT; };
 		3B557557176FB69B005EEB51 /* NSObject+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Formatter.h"; path = "IGDUnitTests/NSObject+Formatter.h"; sourceTree = SOURCE_ROOT; };
@@ -69,8 +68,8 @@
 		3B55755E1770920D005EEB51 /* iPhone3.5C.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPhone3.5C.xib; sourceTree = "<group>"; };
 		3B55755F17709252005EEB51 /* iPhone4C.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPhone4C.xib; sourceTree = "<group>"; };
 		3B55756017709289005EEB51 /* iPadC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPadC.xib; sourceTree = "<group>"; };
-		3B62942C1776100000857D7C /* SavingsResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavingsResults.h; sourceTree = "<group>"; };
-		3B62942D1776100000857D7C /* SavingsResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavingsResults.m; sourceTree = "<group>"; };
+		3B62942C1776100000857D7C /* NewSavings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewSavings.h; sourceTree = "<group>"; };
+		3B62942D1776100000857D7C /* NewSavings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewSavings.m; sourceTree = "<group>"; };
 		3B730721175EC9F500873194 /* ItsAGoodDeal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ItsAGoodDeal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B730724175EC9F500873194 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3B730726175EC9F500873194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -84,7 +83,7 @@
 		3B73073D175EC9F500873194 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		3B730740175EC9F500873194 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		3B730742175EC9F500873194 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3B730743175EC9F500873194 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; tabWidth = 4; };
+		3B730743175EC9F500873194 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; tabWidth = 4; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3BA69A621773D3E500AA23FB /* IGDUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGDUnitTests.h; sourceTree = "<group>"; };
 		3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ItsAGoodDeal.entitlements; sourceTree = "<group>"; };
 		3BB3DF61176DF35400E6EF26 /* iPhone3.5A.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPhone3.5A.xib; sourceTree = "<group>"; };
@@ -165,8 +164,8 @@
 				3B557552176FAB94005EEB51 /* Savings.m */,
 				3B557554176FB65F005EEB51 /* Item.h */,
 				3B557555176FB65F005EEB51 /* Item.m */,
-				3B62942C1776100000857D7C /* SavingsResults.h */,
-				3B62942D1776100000857D7C /* SavingsResults.m */,
+				3B62942C1776100000857D7C /* NewSavings.h */,
+				3B62942D1776100000857D7C /* NewSavings.m */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -383,9 +382,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B38930317763021006678C4 /* SavingsResults.m in Sources */,
+				3B38930317763021006678C4 /* NewSavings.m in Sources */,
 				3B55754C176FAADA005EEB51 /* IGDUnitTests.m in Sources */,
-				3B557553176FAB94005EEB51 /* Savings.m in Sources */,
 				3B557556176FB65F005EEB51 /* Item.m in Sources */,
 				3B557559176FB69B005EEB51 /* NSObject+Formatter.m in Sources */,
 			);
@@ -403,7 +401,7 @@
 				3B730744175EC9F500873194 /* ViewController.m in Sources */,
 				3BDF4FA8176019D800964B0E /* MyButton.m in Sources */,
 				3BDB0D051762CCD9007AB586 /* MyStoreObserver.m in Sources */,
-				3B62942E1776100000857D7C /* SavingsResults.m in Sources */,
+				3B62942E1776100000857D7C /* NewSavings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

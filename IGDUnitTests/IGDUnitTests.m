@@ -7,7 +7,7 @@
 //
 
 #import "IGDUnitTests.h"
-#import "Savings.h"
+#import "NewSavings.h"
 
 @interface IGDUnitTests () {
 };
@@ -81,13 +81,33 @@
     
 }
 
+- (void)test02NewSavingsClass {
+    NewSavings *s = [NewSavings theNewSavings];
+    STAssertTrue(s.notReady, @"Should be notReady");
+    
+    Item *itemA = [Item theItemWithName:@"A" price:1.0 minQty:1.0 unitsPerItem:1.0];
+    Item *itemB = [Item theItemWithName:@"B" price:2.0 minQty:1.0 unitsPerItem:1.0];
+    s = [NewSavings theNewSavingsWithItemA:itemA withItemB:itemB];
+    STAssertTrue(s.notReady, @"Should be notReady");
+    
+    s.qty2Purchase = 1.0;
+    STAssertTrue(s.notReady, @"Should be ready");
+    STAssertTrue(s.qty2Purchase == 1.0, @"!!");
+    STAssertTrue(s.totalCost == 1.0, @"!!");
+    STAssertTrue(s.totalCostA == 1.0, @"!!");
+    STAssertTrue(s.totalCostB == 2.0, @"!!");
+}
+
+/*
 - (void)test02SavingsClass {
     Savings *savings = [Savings theSavings];
     BOOL ok = [savings.itemA.name isEqualToString:@"A"] && ![savings.itemA allInputsValid] && ![savings.itemA allOutputsValid] &&  savings.itemA.qty2Purchase == INFINITY;
     STAssertTrue(ok, @"itemA defaults are wrong");
     ok = [savings.itemB.name isEqualToString:@"B"] && ![savings.itemB allInputsValid] && ![savings.itemB allOutputsValid] &&  savings.itemB.qty2Purchase == INFINITY;
     STAssertTrue(ok, @"itemB defaults are wrong");
-    
+
+    STAssertTrue(ok, @"savingsResults defaults are wrong");
+
     savings.itemA = [Item theItemWithName:@"A" price:17 minQty:1 unitsPerItem:100];
     savings.itemB = [Item theItemWithName:@"B" price:11 minQty:1 unitsPerItem:50];
     savings.itemA.qty2Purchase = MAX(savings.itemA.minQty, savings.itemB.minQty);
@@ -96,7 +116,6 @@
     NSLog(@"%@", savings.toString);
 }
 
-/*
 - (void)test03SavingsResultsClass {
     SavingsResults *s = [SavingsResults theSavingsResults];
     BOOL ok = s.betterPrice == 0.0 && s.normalizedMinQty == 0.0 && s.totalCost == 0.0 && s.savings == 0.0 && s.amountPurchased == 0.0 && s.percentSavings == 0.0;

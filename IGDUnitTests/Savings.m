@@ -64,10 +64,10 @@
     switch (self.calcResult) {
         case CalcIncomplete:
             return @"CalcIncomplete";
-        case NeedQty2Buy:
-            return @"NeedQty2Buy";
-        case NeedValidQty2Buy:
-            return @"NeedValidQty2Buy";
+        case NeedQty2Purchase:
+            return @"NeedQty2Purchase";
+        case NeedValidQty2Purchase:
+            return @"NeedValidQty2Purchase";
         case CalcComplete:
             return @"CalcComplete";
     }
@@ -84,12 +84,13 @@
     if (ok) {
         self.calcResult = CalcIncomplete;
     } else if (![self.itemA qty2PurchaseValid] || ![self.itemB qty2PurchaseValid]) {
-        self.calcResult = NeedQty2Buy;
+        self.calcResult = NeedQty2Purchase;
     } else {
+        // this code make sure the qty2Purchase is multiple of the minQty supplied
         float rA = remainderf(self.itemA.qty2Purchase, self.itemA.minQty);
         float rB = remainderf(self.itemB.qty2Purchase, self.itemB.minQty);
         if (rA != 0.0f || rB != 0.0f) {
-            self.calcResult = NeedValidQty2Buy;
+            self.calcResult = NeedValidQty2Purchase;
         } else {
             Item *best = self.getBest;
             Item *worst = self.getWorst;

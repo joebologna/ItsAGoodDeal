@@ -11,7 +11,7 @@
 #import "SavingsResults.h"
 
 typedef enum {
-    CalcIncomplete, NeedQty2Buy, NeedValidQty2Buy, CalcComplete
+    CalcIncomplete, NeedQty2Purchase, NeedValidQty2Purchase, CalcComplete
 } CalcResult;
 
 #define kCost @"cost"

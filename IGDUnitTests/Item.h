@@ -29,5 +29,6 @@
 - (BOOL)allInputsValid;
 - (BOOL)allOutputsValid;
 - (BOOL)qty2PurchaseValid;
+- (BOOL)isValid;
 
 @end

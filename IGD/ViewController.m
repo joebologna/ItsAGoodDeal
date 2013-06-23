@@ -836,13 +836,13 @@ static Test testToRun = NotTesting;
             [self highLight:ItemB];
         }
         [self setResult:savings];
-    } else if (r == NeedQty2Buy) {
+    } else if (r == NeedQty2Purchase) {
         [self clrHighLight];
         fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)] = @"";
         float minQty = MAX(savings.itemA.minQty, savings.itemB.minQty);
         [self setMessageMode:MessageMode];
         fieldValues[T2I(FTAG, Message)] = [NSString stringWithFormat:@"Enter at least %.2f for Qty to Buy", minQty];
-    } else if (r == NeedValidQty2Buy) {
+    } else if (r == NeedValidQty2Purchase) {
         [self clrHighLight];
         fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)] = @"";
         [self setMessageMode:MessageMode];
