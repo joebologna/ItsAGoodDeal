@@ -84,9 +84,10 @@
     STAssertTrue(TCE(s.amountPurchased, 6.24), @"!!");
     STAssertTrue(TCE(s.amountPurchasedA, 6.24), @"!!");
     STAssertTrue(TCE(s.amountPurchasedB, 7.92), @"!!");
-    // calculate this properly in the spreadsheet
     STAssertTrue(TCE(s.percentSavings, 0.25), @"!!");
     STAssertTrue(TCE(s.percentSavingsA, 0.25), @"!!");
     STAssertTrue(TCE(s.percentSavingsB, 0.0), @"!!");
+    STAssertTrue(TCE(s.percentMoreA, -0.5), @"!!");
+    STAssertTrue(TCE(s.percentMoreB, 0.0), @"!!");
 }
 @end

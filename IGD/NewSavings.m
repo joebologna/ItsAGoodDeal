@@ -12,7 +12,7 @@
 
 @synthesize toString = _toString;
 - (NSString *)toString {
-	return [NSString stringWithFormat:@".qty2Purchase: %.2f, .betterPrice: %.2f, .normalizedMinQty: %.2f, .totalCost: %.2f, .totalCostA: %.2f, .totalCostB: %.2f, .savings: %.2f, .savingsA: %.2f, .savingsB: %.2f, .amountPurchased: %.2f, .amountPurchasedA: %.2f, .amountPurchasedB: %.2f, .percentSavings: %.2f, .percentSavingsA: %.2f, .percentSavingsB: %.2f, .itemA: %@, .itemB: %@, .calcState: %@", _qty2Purchase, self.betterPrice, self.normalizedMinQty, self.totalCost, self.totalCostA, self.totalCostB, self.savings, self.savingsA, self.savingsB, self.amountPurchased, self.amountPurchasedA, self.amountPurchasedB, self.percentSavings, self.percentSavingsA, self.percentSavingsB, self.itemA, self.itemB, [self getCalcStateString]];
+	return [NSString stringWithFormat:@".qty2Purchase: %.2f, .betterPrice: %.2f, .normalizedMinQty: %.2f, .totalCost: %.2f, .totalCostA: %.2f, .totalCostB: %.2f, .savings: %.2f, .savingsA: %.2f, .savingsB: %.2f, .amountPurchased: %.2f, .amountPurchasedA: %.2f, .amountPurchasedB: %.2f, .percentSavings: %.2f, .percentSavingsA: %.2f, .percentSavingsB: %.2f, .percentMoreA: %.0f%%, .percentMoreB: %.0f%%, .itemA: %@, .itemB: %@, .calcState: %@", _qty2Purchase, self.betterPrice, self.normalizedMinQty, self.totalCost, self.totalCostA, self.totalCostB, self.savings, self.savingsA, self.savingsB, self.amountPurchased, self.amountPurchasedA, self.amountPurchasedB, self.percentSavings, self.percentSavingsA, self.percentSavingsB, self.percentMoreA, self.percentMoreB, self.itemA.toString, self.itemB.toString, [self getCalcStateString]];
 }
 
 @synthesize isReady = _isReady;
@@ -171,6 +171,24 @@
         } else {
             return 1.0 - (self.savingsB / MAX(self.savingsA, self.savingsB));
         }
+    } else {
+        return INFINITY;
+    }
+}
+
+@dynamic percentMoreA;
+- (float)percentMoreA {
+    if (self.isReady) {
+        return (_itemA.pricePerUnit / MAX(_itemA.pricePerUnit, _itemB.pricePerUnit)) - 1.0;
+    } else {
+        return INFINITY;
+    }
+}
+
+@dynamic percentMoreB;
+- (float)percentMoreB {
+    if (self.isReady) {
+        return (_itemB.pricePerUnit / MAX(_itemA.pricePerUnit, _itemB.pricePerUnit)) - 1.0;
     } else {
         return INFINITY;
     }
