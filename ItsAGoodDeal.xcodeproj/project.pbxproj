@@ -32,9 +32,15 @@
 		3BDB0D001762A7FA007AB586 /* scale-114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */; };
 		3BDB0D021762C184007AB586 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDB0D011762C184007AB586 /* StoreKit.framework */; };
 		3BDF4FAA17601B3C00964B0E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF4FA917601B3C00964B0E /* QuartzCore.framework */; };
-		3BE052C917778D510041D6C0 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052C717778D500041D6C0 /* NSObject+Formatter.m */; };
-		3BE052CF17778D700041D6C0 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052CB17778D700041D6C0 /* Item.m */; };
-		3BE052D117778D700041D6C0 /* NewSavings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052CD17778D700041D6C0 /* NewSavings.m */; };
+		3BE052D617778EAC0041D6C0 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052D317778EAC0041D6C0 /* Item.m */; };
+		3BE052D717778EAC0041D6C0 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052D317778EAC0041D6C0 /* Item.m */; };
+		3BE052D817778EAC0041D6C0 /* NewSavings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052D517778EAC0041D6C0 /* NewSavings.m */; };
+		3BE052D917778EAC0041D6C0 /* NewSavings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052D517778EAC0041D6C0 /* NewSavings.m */; };
+		3BE052E117778EE00041D6C0 /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DC17778EE00041D6C0 /* MyButton.m */; };
+		3BE052E317778EE00041D6C0 /* MyStoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */; };
+		3BE052E517778EE00041D6C0 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Formatter.m */; };
+		3BE052E617778EE00041D6C0 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Formatter.m */; };
+		3BE052E917778F150041D6C0 /* Design in Resources */ = {isa = PBXBuildFile; fileRef = 3BE052E817778F150041D6C0 /* Design */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,8 +52,6 @@
 		3B557548176FAADA005EEB51 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3B55754B176FAADA005EEB51 /* IGDUnitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGDUnitTests.m; sourceTree = "<group>"; };
 		3B55754D176FAADA005EEB51 /* IGDUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IGDUnitTests-Prefix.pch"; sourceTree = "<group>"; };
-		3B557554176FB65F005EEB51 /* DataModel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = DataModel; path = IGD/DataModel; sourceTree = SOURCE_ROOT; };
-		3B55755E1770920D005EEB51 /* Design */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Design; path = ../Design; sourceTree = "<group>"; };
 		3B730721175EC9F500873194 /* ItsAGoodDeal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ItsAGoodDeal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B730724175EC9F500873194 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3B730726175EC9F500873194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -74,16 +78,18 @@
 		3BDB0CFB1762A7FA007AB586 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scale-114x114.png"; sourceTree = "<group>"; };
 		3BDB0D011762C184007AB586 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		3BDB0D031762CCD9007AB586 /* Lib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = Lib; sourceTree = "<group>"; };
 		3BDF4FA917601B3C00964B0E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		3BE052C217778CFB0041D6C0 /* Lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Lib; path = IGD/Lib; sourceTree = "<group>"; };
-		3BE052C417778D0D0041D6C0 /* DataModel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DataModel; path = IGD/DataModel; sourceTree = "<group>"; };
-		3BE052C617778D500041D6C0 /* NSObject+Formatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSObject+Formatter.h"; path = "IGD/Lib/NSObject+Formatter.h"; sourceTree = "<group>"; };
-		3BE052C717778D500041D6C0 /* NSObject+Formatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Formatter.m"; path = "IGD/Lib/NSObject+Formatter.m"; sourceTree = "<group>"; };
-		3BE052CA17778D700041D6C0 /* Item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Item.h; path = IGD/DataModel/Item.h; sourceTree = "<group>"; };
-		3BE052CB17778D700041D6C0 /* Item.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = IGD/DataModel/Item.m; sourceTree = "<group>"; };
-		3BE052CC17778D700041D6C0 /* NewSavings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NewSavings.h; path = IGD/DataModel/NewSavings.h; sourceTree = "<group>"; };
-		3BE052CD17778D700041D6C0 /* NewSavings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = NewSavings.m; path = IGD/DataModel/NewSavings.m; sourceTree = "<group>"; };
+		3BE052D217778EAC0041D6C0 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item.h; path = DataModel/Item.h; sourceTree = "<group>"; };
+		3BE052D317778EAC0041D6C0 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = DataModel/Item.m; sourceTree = "<group>"; };
+		3BE052D417778EAC0041D6C0 /* NewSavings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewSavings.h; path = DataModel/NewSavings.h; sourceTree = "<group>"; };
+		3BE052D517778EAC0041D6C0 /* NewSavings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewSavings.m; path = DataModel/NewSavings.m; sourceTree = "<group>"; };
+		3BE052DB17778EE00041D6C0 /* MyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyButton.h; path = Lib/MyButton.h; sourceTree = "<group>"; };
+		3BE052DC17778EE00041D6C0 /* MyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyButton.m; path = Lib/MyButton.m; sourceTree = "<group>"; };
+		3BE052DD17778EE00041D6C0 /* MyStoreObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyStoreObserver.h; path = Lib/MyStoreObserver.h; sourceTree = "<group>"; };
+		3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyStoreObserver.m; path = Lib/MyStoreObserver.m; sourceTree = "<group>"; };
+		3BE052DF17778EE00041D6C0 /* NSObject+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Formatter.h"; path = "Lib/NSObject+Formatter.h"; sourceTree = "<group>"; };
+		3BE052E017778EE00041D6C0 /* NSObject+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Formatter.m"; path = "Lib/NSObject+Formatter.m"; sourceTree = "<group>"; };
+		3BE052E817778F150041D6C0 /* Design */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Design; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,14 +142,6 @@
 		3B730718175EC9F400873194 = {
 			isa = PBXGroup;
 			children = (
-				3BE052CA17778D700041D6C0 /* Item.h */,
-				3BE052CB17778D700041D6C0 /* Item.m */,
-				3BE052CC17778D700041D6C0 /* NewSavings.h */,
-				3BE052CD17778D700041D6C0 /* NewSavings.m */,
-				3BE052C617778D500041D6C0 /* NSObject+Formatter.h */,
-				3BE052C717778D500041D6C0 /* NSObject+Formatter.m */,
-				3BE052C417778D0D0041D6C0 /* DataModel */,
-				3BE052C217778CFB0041D6C0 /* Lib */,
 				3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */,
 				3BD286711762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png */,
 				3BD286731762EFC000A9AEE4 /* Default-Portrait~ipad.png */,
@@ -154,6 +152,7 @@
 				3BDB0CFA1762A7FA007AB586 /* Default.png */,
 				3BDB0CFB1762A7FA007AB586 /* Default@2x.png */,
 				3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */,
+				3BE052E817778F150041D6C0 /* Design */,
 				3B73072A175EC9F500873194 /* IGD */,
 				3B557544176FAADA005EEB51 /* IGDUnitTests */,
 				3B730723175EC9F500873194 /* Frameworks */,
@@ -191,9 +190,8 @@
 				3B730734175EC9F500873194 /* AppDelegate.m */,
 				3B730742175EC9F500873194 /* ViewController.h */,
 				3B730743175EC9F500873194 /* ViewController.m */,
-				3B55755E1770920D005EEB51 /* Design */,
-				3B557554176FB65F005EEB51 /* DataModel */,
-				3BDB0D031762CCD9007AB586 /* Lib */,
+				3BE052E717778EE80041D6C0 /* Lib */,
+				3BE052DA17778EC30041D6C0 /* DataModel */,
 				3B73072B175EC9F500873194 /* Supporting Files */,
 			);
 			path = IGD;
@@ -211,6 +209,30 @@
 				3B730732175EC9F500873194 /* ItsAGoodDeal-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3BE052DA17778EC30041D6C0 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				3BE052D217778EAC0041D6C0 /* Item.h */,
+				3BE052D317778EAC0041D6C0 /* Item.m */,
+				3BE052D417778EAC0041D6C0 /* NewSavings.h */,
+				3BE052D517778EAC0041D6C0 /* NewSavings.m */,
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
+		3BE052E717778EE80041D6C0 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				3BE052DB17778EE00041D6C0 /* MyButton.h */,
+				3BE052DC17778EE00041D6C0 /* MyButton.m */,
+				3BE052DD17778EE00041D6C0 /* MyStoreObserver.h */,
+				3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */,
+				3BE052DF17778EE00041D6C0 /* NSObject+Formatter.h */,
+				3BE052E017778EE00041D6C0 /* NSObject+Formatter.m */,
+			);
+			name = Lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,6 +324,7 @@
 				3BD286701762EB0700A9AEE4 /* scale-72x72.png in Resources */,
 				3BD286721762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png in Resources */,
 				3BD286741762EFC000A9AEE4 /* Default-Portrait~ipad.png in Resources */,
+				3BE052E917778F150041D6C0 /* Design in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,10 +351,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BE052CF17778D700041D6C0 /* Item.m in Sources */,
-				3BE052D117778D700041D6C0 /* NewSavings.m in Sources */,
-				3BE052C917778D510041D6C0 /* NSObject+Formatter.m in Sources */,
 				3B55754C176FAADA005EEB51 /* IGDUnitTests.m in Sources */,
+				3BE052D717778EAC0041D6C0 /* Item.m in Sources */,
+				3BE052D917778EAC0041D6C0 /* NewSavings.m in Sources */,
+				3BE052E617778EE00041D6C0 /* NSObject+Formatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +365,11 @@
 				3B730731175EC9F500873194 /* main.m in Sources */,
 				3B730735175EC9F500873194 /* AppDelegate.m in Sources */,
 				3B730744175EC9F500873194 /* ViewController.m in Sources */,
+				3BE052D617778EAC0041D6C0 /* Item.m in Sources */,
+				3BE052D817778EAC0041D6C0 /* NewSavings.m in Sources */,
+				3BE052E117778EE00041D6C0 /* MyButton.m in Sources */,
+				3BE052E317778EE00041D6C0 /* MyStoreObserver.m in Sources */,
+				3BE052E517778EE00041D6C0 /* NSObject+Formatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
