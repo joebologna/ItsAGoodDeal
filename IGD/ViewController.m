@@ -9,12 +9,18 @@
 #import "ViewController.h"
 #import "MyButton.h"
 #import "MyStoreObserver.h"
-#import "Savings.h"
+#import "NewSavings.h"
 
 #import <iAd/iAd.h>
 #import <StoreKit/StoreKit.h>
 
+#pragma mark -
+#pragma mark Convenience Macros
+
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#pragma mark -
+#pragma mark Tags and Field Macros
 
 #define FTAG 100
 #define BTAG 200
@@ -30,6 +36,9 @@
 #define NEXT "Next"
 #define DEL "Del"
 #define K_STORE (KTAG + 7)
+
+#pragma mark -
+#pragma mark Tags and Fields Tables
 
 typedef enum {
     MessageMode,
@@ -208,6 +217,9 @@ static labelStruct *deviceKeys[] = {
     keypadIPhone35, keypadIPhone40, keypadIPad
 };
 
+#pragma mark -
+#pragma mark Debug Variables
+
 typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 
 #if DEBUG==1
@@ -217,6 +229,9 @@ static Test testToRun = AisBigger;
 static BOOL debug = NO;
 static Test testToRun = NotTesting;
 #endif
+
+#pragma mark -
+#pragma mark Instance Properties
 
 @interface ViewController () <ADBannerViewDelegate, UIAlertViewDelegate> {
     NSMutableArray *fieldValues;
@@ -229,26 +244,10 @@ static Test testToRun = NotTesting;
 
 @end
 
+#pragma mark -
+#pragma mark View Delegate
+
 @implementation ViewController
-
-- (NSInteger)findIndex:(NSInteger)tag {
-    for(NSInteger i = 0; i < nInputFields; i++) {
-        if (InputFields[i] == tag) {
-            return i;
-        }
-    }
-#ifdef DEBUG
-    NSLog(@"Punt");
-#endif
-    return 0; // punt
-}
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
-#ifdef DEBUG
-    NSLog(@"%s", __func__);
-#endif
-    [banner setHidden:myStoreObserver.bought];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -282,6 +281,14 @@ static Test testToRun = NotTesting;
     NSLog(@"%s, %@", __func__, myStoreObserver);
 #endif
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+#pragma mark Handle Screen
 
 - (void)initGUI {
     directTap = NO;
@@ -474,6 +481,9 @@ static Test testToRun = NotTesting;
     
     [self setMessageMode:MessageMode];
 }
+
+#pragma mark -
+#pragma mark Handle Input
 
 - (NSString *)getKey:(MyButton *)sender {
     NSString *key = @"";
@@ -685,77 +695,9 @@ static Test testToRun = NotTesting;
     }
 }
 
-- (void)makeButton:(labelStruct)label tag:(NSInteger)tag isKey:(BOOL)isKey {
-    MyButton *b = [[MyButton alloc] initWithFrame:label.rect];
-    [b addTarget:self action:@selector(buttonPushed:) forControlEvents:UIControlEventTouchUpInside];
-    [b setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor whiteColor], nil]];
-    [b setBackgroundColors:[NSArray arrayWithObjects:fieldColor, curFieldColor, [UIColor grayColor], nil]];
-    b.titleLabel.font = [UIFont systemFontOfSize:label.f];
-    b.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    b.titleLabel.textAlignment = NSTextAlignmentCenter;
-    b.tag = tag;
-    if (isKey) {
-        [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient3.png"] forState:UIControlStateNormal];
-        [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient3.png"] forState:UIControlStateSelected];
-        BTITLE(b, [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding]);
-    }
-    [b setBackgroundColor:(tag == InputFields[curFieldIndex]) ? fieldColor : curFieldColor];
-    [self.view addSubview:b];
-}
-
-- (void)makeLabel:(labelStruct)label tag:(NSInteger)tag  {
-    UILabel *l = [[UILabel alloc] initWithFrame:label.rect];
-    l.font = [UIFont systemFontOfSize:label.f];
-    l.text = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
-    l.textAlignment = NSTextAlignmentLeft;
-    l.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:l];
-}
-
-- (void)makeField:(labelStruct)label tag:(NSInteger)tag {
-    UITextField *t = [[UITextField alloc] initWithFrame:label.rect];
-    t.font = [UIFont systemFontOfSize:label.f];
-    t.textAlignment = NSTextAlignmentCenter;
-    t.tag = tag;
-    if (tag >= CostLabel && tag <= MoreLabel) {
-        t.backgroundColor = [UIColor clearColor];
-    } else {
-        t.backgroundColor = (tag == InputFields[curFieldIndex]) ? fieldColor : curFieldColor;
-    }
-    t.borderStyle = (tag == InputFields[curFieldIndex]) ? UITextBorderStyleLine : UITextBorderStyleNone;
-    t.delegate = self;
-    if (tag == ItemA || tag == ItemB || tag == BetterDealA || tag == BetterDealB || tag == Message) {
-        t.placeholder = @"";
-        t.text = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
-        t.contentVerticalAlignment = (tag == ItemA || tag == ItemB) ? UIControlContentVerticalAlignmentTop :UIControlContentVerticalAlignmentCenter;
-        t.backgroundColor = [UIColor clearColor];
-        t.borderStyle = UITextBorderStyleNone;
-        if (tag == ItemA || tag == ItemB) {
-            t.borderStyle = UITextBorderStyleLine;
-        } else if (tag == BetterDealA || tag == BetterDealB) {
-        } else {
-            // this does not appear to work
-            t.minimumFontSize = 6;
-            t.adjustsFontSizeToFitWidth = YES;
-        }
-    } else {
-        t.text = @"";
-        t.placeholder = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
-        t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    }
-    [self.view addSubview:t];
-}
-
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     [self performSelector:@selector(buttonPushed:) withObject:textField afterDelay:0.125];
     return NO;
-}
-
-- (void)fillBlank:(Field)f v:(float *)v d:(float)d {
-    if ([fieldValues[T2I(FTAG, f)] length] == 0) {
-        *v = d;
-        fieldValues[T2I(FTAG, f)] = [NSString stringWithFormat:@"%.2f", *v];
-    }
 }
 
 - (void)showResult {
@@ -958,11 +900,18 @@ static Test testToRun = NotTesting;
     }
 }
 
-- (void)removeAds {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@STORE message:@"Do you wish to remove Ads for $0.99" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
-    alert.delegate = self;
-    [alert show];
+#pragma mark -
+#pragma mark DataStore
+
+- (void)fillBlank:(Field)f v:(float *)v d:(float)d {
+    if ([fieldValues[T2I(FTAG, f)] length] == 0) {
+        *v = d;
+        fieldValues[T2I(FTAG, f)] = [NSString stringWithFormat:@"%.2f", *v];
+    }
 }
+
+#pragma mark -
+#pragma mark Ads
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (![[alertView title] isEqualToString:@"Payments Disabled"]) {
@@ -970,7 +919,7 @@ static Test testToRun = NotTesting;
 #ifdef DEBUG
             NSLog(@"Buy it here");
 #endif
-//            self.bought = YES;
+            //            self.bought = YES;
             [self doPayment];
         } else {
             if (debug) {
@@ -982,21 +931,9 @@ static Test testToRun = NotTesting;
 #endif
             }
         }
-//        [self setAdButtonState];
+        //        [self setAdButtonState];
     }
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
-}
-
-- (void)doPayment {
-    if (myStoreObserver.myProducts.count > 0) {
-        SKProduct *selectedProduct = myStoreObserver.myProducts[0];
-        SKPayment *payment = [SKPayment paymentWithProduct:selectedProduct];
-        [[SKPaymentQueue defaultQueue] addPayment:payment];
-    } else {
-#ifdef DEBUG
-        NSLog(@"no products found");
-#endif
-    }
 }
 
 - (void)setAdButtonState {
@@ -1007,6 +944,16 @@ static Test testToRun = NotTesting;
     MyButton *b = (MyButton *)[self.view viewWithTag:(K_STORE)];
     [a setHidden:myStoreObserver.bought];
     BTITLE(b, myStoreObserver.bought ? @THANKS : @STORE);
+}
+
+#pragma mark -
+#pragma mark Banner Delegate
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    [banner setHidden:myStoreObserver.bought];
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
@@ -1029,9 +976,19 @@ static Test testToRun = NotTesting;
 #endif
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark -
+#pragma mark Store
+
+- (void)doPayment {
+    if (myStoreObserver.myProducts.count > 0) {
+        SKProduct *selectedProduct = myStoreObserver.myProducts[0];
+        SKPayment *payment = [SKPayment paymentWithProduct:selectedProduct];
+        [[SKPaymentQueue defaultQueue] addPayment:payment];
+    } else {
+#ifdef DEBUG
+        NSLog(@"no products found");
+#endif
+    }
 }
 
 - (void)processCompleted {
@@ -1041,4 +998,85 @@ static Test testToRun = NotTesting;
     [self setAdButtonState];
 }
 
+- (void)removeAds {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@STORE message:@"Do you wish to remove Ads for $0.99" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+    alert.delegate = self;
+    [alert show];
+}
+
+#pragma mark -
+#pragma mark Utilities
+
+- (NSInteger)findIndex:(NSInteger)tag {
+    for(NSInteger i = 0; i < nInputFields; i++) {
+        if (InputFields[i] == tag) {
+            return i;
+        }
+    }
+#ifdef DEBUG
+    NSLog(@"Punt");
+#endif
+    return 0; // punt
+}
+
+- (void)makeButton:(labelStruct)label tag:(NSInteger)tag isKey:(BOOL)isKey {
+    MyButton *b = [[MyButton alloc] initWithFrame:label.rect];
+    [b addTarget:self action:@selector(buttonPushed:) forControlEvents:UIControlEventTouchUpInside];
+    [b setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor whiteColor], nil]];
+    [b setBackgroundColors:[NSArray arrayWithObjects:fieldColor, curFieldColor, [UIColor grayColor], nil]];
+    b.titleLabel.font = [UIFont systemFontOfSize:label.f];
+    b.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    b.titleLabel.textAlignment = NSTextAlignmentCenter;
+    b.tag = tag;
+    if (isKey) {
+        [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient3.png"] forState:UIControlStateNormal];
+        [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient3.png"] forState:UIControlStateSelected];
+        BTITLE(b, [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding]);
+    }
+    [b setBackgroundColor:(tag == InputFields[curFieldIndex]) ? fieldColor : curFieldColor];
+    [self.view addSubview:b];
+}
+
+- (void)makeLabel:(labelStruct)label tag:(NSInteger)tag  {
+    UILabel *l = [[UILabel alloc] initWithFrame:label.rect];
+    l.font = [UIFont systemFontOfSize:label.f];
+    l.text = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
+    l.textAlignment = NSTextAlignmentLeft;
+    l.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:l];
+}
+
+- (void)makeField:(labelStruct)label tag:(NSInteger)tag {
+    UITextField *t = [[UITextField alloc] initWithFrame:label.rect];
+    t.font = [UIFont systemFontOfSize:label.f];
+    t.textAlignment = NSTextAlignmentCenter;
+    t.tag = tag;
+    if (tag >= CostLabel && tag <= MoreLabel) {
+        t.backgroundColor = [UIColor clearColor];
+    } else {
+        t.backgroundColor = (tag == InputFields[curFieldIndex]) ? fieldColor : curFieldColor;
+    }
+    t.borderStyle = (tag == InputFields[curFieldIndex]) ? UITextBorderStyleLine : UITextBorderStyleNone;
+    t.delegate = self;
+    if (tag == ItemA || tag == ItemB || tag == BetterDealA || tag == BetterDealB || tag == Message) {
+        t.placeholder = @"";
+        t.text = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
+        t.contentVerticalAlignment = (tag == ItemA || tag == ItemB) ? UIControlContentVerticalAlignmentTop :UIControlContentVerticalAlignmentCenter;
+        t.backgroundColor = [UIColor clearColor];
+        t.borderStyle = UITextBorderStyleNone;
+        if (tag == ItemA || tag == ItemB) {
+            t.borderStyle = UITextBorderStyleLine;
+        } else if (tag == BetterDealA || tag == BetterDealB) {
+        } else {
+            // this does not appear to work
+            t.minimumFontSize = 6;
+            t.adjustsFontSizeToFitWidth = YES;
+        }
+    } else {
+        t.text = @"";
+        t.placeholder = [NSString stringWithCString:label.label encoding:NSASCIIStringEncoding];
+        t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    }
+    [self.view addSubview:t];
+}
 @end
