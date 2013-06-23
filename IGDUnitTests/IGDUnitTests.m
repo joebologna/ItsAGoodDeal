@@ -83,15 +83,15 @@
 
 - (void)test02NewSavingsClass {
     NewSavings *s = [NewSavings theNewSavings];
-    STAssertTrue(s.notReady, @"Should be notReady");
+    STAssertTrue(!s.isReady, @"Should be notReady");
     
     Item *itemA = [Item theItemWithName:@"A" price:1.0 minQty:1.0 unitsPerItem:1.0];
     Item *itemB = [Item theItemWithName:@"B" price:2.0 minQty:1.0 unitsPerItem:1.0];
     s = [NewSavings theNewSavingsWithItemA:itemA withItemB:itemB];
-    STAssertTrue(s.notReady, @"Should be notReady");
+    STAssertTrue(!s.isReady, @"Should be notReady");
     
     s.qty2Purchase = 1.0;
-    STAssertTrue(s.notReady, @"Should be ready");
+    STAssertTrue(s.isReady, @"Should be ready");
     STAssertTrue(s.qty2Purchase == 1.0, @"!!");
     STAssertTrue(s.totalCost == 1.0, @"!!");
     STAssertTrue(s.totalCostA == 1.0, @"!!");
