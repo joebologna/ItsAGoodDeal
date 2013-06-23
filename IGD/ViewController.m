@@ -271,6 +271,7 @@ static Test testToRun = NotTesting;
     highlightColor = UIColorFromRGB(0xd2fde8);
 
     self.view.backgroundColor = backgroundColor;
+    
     [self populateScreen];
     [self initGUI];
     
@@ -302,37 +303,6 @@ static Test testToRun = NotTesting;
     
     switch (testToRun) {
         case AisBigger:
-            /*
-            fieldValues[T2I(FTAG, PriceA)] = @"999";
-            fieldValues[T2I(FTAG, PriceB)] = @"1";
-            fieldValues[T2I(FTAG, QtyA)] = @"2";
-            fieldValues[T2I(FTAG, QtyB)] = @"1";
-            fieldValues[T2I(FTAG, SizeA)] = @"1";
-            fieldValues[T2I(FTAG, SizeB)] = @"2";
-            fieldValues[T2I(FTAG, Qty2BuyA)] = @"2";
-            fieldValues[T2I(FTAG, Qty2BuyB)] = @"2";
-             */
-            /*
-            fieldValues[T2I(FTAG, PriceA)] = @"1";
-            fieldValues[T2I(FTAG, PriceB)] = @"9";
-            fieldValues[T2I(FTAG, QtyA)] = @"3";
-            fieldValues[T2I(FTAG, QtyB)] = @"9";
-            fieldValues[T2I(FTAG, SizeA)] = @"1";
-            fieldValues[T2I(FTAG, SizeB)] = @"9";
-            fieldValues[T2I(FTAG, Qty2BuyA)] = @"9";
-            fieldValues[T2I(FTAG, Qty2BuyB)] = @"9";
-             */
-            /*
-            fieldValues[T2I(FTAG, PriceA)] = @"3";
-            fieldValues[T2I(FTAG, PriceB)] = @"2";
-            fieldValues[T2I(FTAG, QtyA)] = @"2";
-            fieldValues[T2I(FTAG, QtyB)] = @"1";
-            fieldValues[T2I(FTAG, SizeA)] = @"7.5";
-            fieldValues[T2I(FTAG, SizeB)] = @"8.5";
-            fieldValues[T2I(FTAG, Qty2BuyA)] = @"3";
-            fieldValues[T2I(FTAG, Qty2BuyB)] = @"3";
-             */
-
             fieldValues[T2I(FTAG, PriceA)] = @"17";
             fieldValues[T2I(FTAG, PriceB)] = @"11";
             fieldValues[T2I(FTAG, QtyA)] = @"1";
@@ -341,20 +311,21 @@ static Test testToRun = NotTesting;
             fieldValues[T2I(FTAG, SizeB)] = @"50";
             fieldValues[T2I(FTAG, Qty2BuyA)] = @"1";
             fieldValues[T2I(FTAG, Qty2BuyB)] = @"1";
-            
             testToRun = AisBetter;
             break;
+            
         case AisBetter:
-            fieldValues[T2I(FTAG, PriceA)] = @"1";
-            fieldValues[T2I(FTAG, PriceB)] = @"1";
-            fieldValues[T2I(FTAG, QtyA)] = @"2";
-            fieldValues[T2I(FTAG, QtyB)] = @"1";
-            fieldValues[T2I(FTAG, SizeA)] = @"1";
-            fieldValues[T2I(FTAG, SizeB)] = @"2";
-            fieldValues[T2I(FTAG, Qty2BuyA)] = @"2";
-            fieldValues[T2I(FTAG, Qty2BuyB)] = @"2";
+            fieldValues[T2I(FTAG, PriceA)] = @"3.00";
+            fieldValues[T2I(FTAG, PriceB)] = @"2.00";
+            fieldValues[T2I(FTAG, QtyA)] = @"2.00";
+            fieldValues[T2I(FTAG, QtyB)] = @"1.00";
+            fieldValues[T2I(FTAG, SizeA)] = @"1.56";
+            fieldValues[T2I(FTAG, SizeB)] = @"1.98";
+            fieldValues[T2I(FTAG, Qty2BuyA)] = @"4";
+            fieldValues[T2I(FTAG, Qty2BuyB)] = @"4";
             testToRun = BisBetter;
             break;
+        
         case BisBetter:
             fieldValues[T2I(FTAG, PriceA)] = @"1.99";
             fieldValues[T2I(FTAG, PriceB)] = @"2.99";
@@ -366,6 +337,7 @@ static Test testToRun = NotTesting;
             fieldValues[T2I(FTAG, Qty2BuyB)] = @"2";
             testToRun = Same;
             break;
+        
         case Same:
             fieldValues[T2I(FTAG, PriceA)] = @"2";
             fieldValues[T2I(FTAG, PriceB)] = @"1";
@@ -377,6 +349,7 @@ static Test testToRun = NotTesting;
             fieldValues[T2I(FTAG, Qty2BuyB)] = @"2";
             testToRun = NotTesting;
             break;
+        
         case NotTesting:
             break;
         default:
@@ -402,9 +375,7 @@ static Test testToRun = NotTesting;
     NSInteger nTags = sizeof(tags)/sizeof(NSInteger);
     for (NSInteger i = 0; i < nTags; i++) {
         NSInteger tag = tags[i];
-        //NSInteger i = T2I(FTAG, tag);
         UITextField *t = (UITextField *)[self.view viewWithTag:tag];
-        //fieldValues[T2I(FTAG, tag)] = [NSString stringWithCString:deviceFields[deviceType][i].label encoding:NSASCIIStringEncoding];
         if (tag == ItemA && [fieldValues[T2I(FTAG, tag)] length] > 6) { // fix this later
             t.backgroundColor = highlightColor;
         } else if (tag == ItemB && [fieldValues[T2I(FTAG, tag)] length] > 6) { // fix this later
@@ -725,178 +696,59 @@ static Test testToRun = NotTesting;
     [self updateFields:NO];
 }
 
-- (void)setResult:(Savings *)savings {
+- (void)setResult:(NewSavings *)savings {
     [self setMessageMode:ResultsMode];
-    SavingsResults *results = [savings getResults];
-    fieldValues[T2I(FTAG, CostField)] = results.cost;
-    fieldValues[T2I(FTAG, SavingsField)] = (results.savings <= 0) ? @"A=B" : [results objectForKey:kSavings];
+    fieldValues[T2I(FTAG, CostField)] = [NSString stringWithFormat:@"%.2f", savings.totalCost];
+    fieldValues[T2I(FTAG, SavingsField)] = [NSString stringWithFormat:@"%.2f", savings.savings];
     fieldValues[T2I(FTAG, MoreField)] = @"FIX THIS";
 }
 
 - (void)calcResult {
-    CalcResult r;
     float priceA = [fieldValues[T2I(FTAG, PriceA)] floatValue];
     float minQtyA = [fieldValues[T2I(FTAG, QtyA)] floatValue];
     float unitsPerItemA = [fieldValues[T2I(FTAG, SizeA)] floatValue];
-    float qty2PurchaseA = [fieldValues[T2I(FTAG, Qty2BuyA)] floatValue];
     float priceB = [fieldValues[T2I(FTAG, PriceB)] floatValue];
     float minQtyB = [fieldValues[T2I(FTAG, QtyB)] floatValue];
     float unitsPerItemB = [fieldValues[T2I(FTAG, SizeB)] floatValue];
-    float qty2PurchaseB = [fieldValues[T2I(FTAG, Qty2BuyB)] floatValue];
-    Item *itemA = [Item theItemWithName:@"A" price:priceA qty:minQtyA unitsPerItem:unitsPerItemA];
-    Item *itemB = [Item theItemWithName:@"B" price:priceB qty:minQtyB unitsPerItem:unitsPerItemB];
-    Savings *savings = [Savings theSavingsWithItemA:itemA itemB:itemB];
+    Item *itemA = [Item theItemWithName:@"A" price:priceA minQty:minQtyA unitsPerItem:unitsPerItemA];
+    Item *itemB = [Item theItemWithName:@"B" price:priceB minQty:minQtyB unitsPerItem:unitsPerItemB];
+    NewSavings *savings = [NewSavings theNewSavingsWithItemA:itemA withItemB:itemB];
+    NSString *q2buyA = fieldValues[T2I(FTAG, Qty2BuyA)];
+    if (q2buyA.length > 0) {
+        savings.itemA.qty2Purchase = [q2buyA floatValue];
+    }
+    NSString *q2buyB = fieldValues[T2I(FTAG, Qty2BuyB)];
+    if (q2buyB.length > 0) {
+        savings.itemB.qty2Purchase = [q2buyB floatValue];
+    }
     
-    r = [savings calcSavings];
-    if (r == CalcComplete) {
+    if (savings.calcState == CalcComplete || savings.calcState == NeedQty2Purchase) {
         fieldValues[T2I(FTAG, BetterDealA)] = [NSString stringWithFormat:@"%.2f/item, %.2f/unit", savings.itemA.pricePerItem, savings.itemA.pricePerUnit];
         fieldValues[T2I(FTAG, BetterDealB)] = [NSString stringWithFormat:@"%.2f/item, %.2f/unit", savings.itemB.pricePerItem, savings.itemB.pricePerUnit];
-        if (savings.sizeDiff == 0 && savings.moneySaved == 0 && savings.percentMoreProduct == 0) {
+    }
+    
+    [self clrHighLight];
+    if (savings.calcState == CalcComplete) {
+        if (TCE(savings.percentSavings, 0.0)) {
             fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
             fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
-            [self clrHighLight];
-        } else if (savings.percentMoreProduct > 0) {
-            Item *best = savings.getBest;
-            if ([best.name isEqual:@"A"]) {
-                fieldValues[T2I(FTAG, ItemA)] = @"A is a Better Deal";
-                [self highLight:ItemB];
-                fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
-            } else {
-                [self highLight:ItemB];
-                fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
-                fieldValues[T2I(FTAG, ItemB)] = @"B is a Better Deal";
-            }
-        } else if ([savings.getBest.name isEqualToString:@"A"]) {
+        } else if ([savings.betterItem.name isEqualToString:@"A"]) {
+            [self highLight:ItemA];
             fieldValues[T2I(FTAG, ItemA)] = @"A is a Better Deal";
             fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
-            [self clrHighLight];
-            [self highLight:ItemA];
-        } else if ([savings.getBest.name isEqualToString:@"B"]) {
-            fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
-            fieldValues[T2I(FTAG, ItemB)] = @"B is a Better Deal";
-            [self clrHighLight];
+        } else {
             [self highLight:ItemB];
+            fieldValues[T2I(FTAG, ItemA)] = @"A is a Better Deal";
+            fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
         }
         [self setResult:savings];
-    } else if (r == NeedQty2Purchase) {
-        [self clrHighLight];
-        fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)] = @"";
-        float minQty = MAX(savings.itemA.minQty, savings.itemB.minQty);
+    } else if (savings.calcState == NeedQty2Purchase) {
         [self setMessageMode:MessageMode];
-        fieldValues[T2I(FTAG, Message)] = [NSString stringWithFormat:@"Enter at least %.2f for Qty to Buy", minQty];
-    } else if (r == NeedValidQty2Purchase) {
-        [self clrHighLight];
         fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)] = @"";
-        [self setMessageMode:MessageMode];
-        fieldValues[T2I(FTAG, Message)] = [NSString stringWithFormat:@"Enter a multiple of %.2f for Qty to Buy", savings.itemA.minQty];
+        fieldValues[T2I(FTAG, Message)] = [NSString stringWithFormat:@"Enter at least %.2f for Qty to Buy", savings.normalizedMinQty];
     } else {
-        [self clrHighLight];
         [self setMessageMode:MessageMode];
         fieldValues[T2I(FTAG, Message)] = [NSString stringWithCString:deviceFields[deviceType][T2I(FTAG, Message)].label encoding:NSASCIIStringEncoding];
-    }
-}
-
-- (void)oldCalcResult {
-    float priceA = [fieldValues[T2I(FTAG, PriceA)] floatValue];
-    float minQtyA = [fieldValues[T2I(FTAG, QtyA)] floatValue];
-    float unitsPerItemA = [fieldValues[T2I(FTAG, SizeA)] floatValue];
-    float eachA = 0.0;
-    float pricePerUnitA = 0.0;
-    if (minQtyA > 0 && unitsPerItemA > 0) {
-        eachA = priceA / minQtyA;
-        pricePerUnitA = eachA / unitsPerItemA;
-        fieldValues[T2I(FTAG, BetterDealA)] = [NSString stringWithFormat:@"%.2f/purch, %.2f/unit", priceA, pricePerUnitA];
-    }
-
-    float priceB = [fieldValues[T2I(FTAG, PriceB)] floatValue];
-    float minQtyB = [fieldValues[T2I(FTAG, QtyB)] floatValue];
-    float unitsPerItemB = [fieldValues[T2I(FTAG, SizeB)] floatValue];
-    float eachB = 0.0;
-    float pricePerUnitB = 0.0;
-    if (minQtyB > 0 && unitsPerItemB > 0) {
-        eachB = priceB / minQtyB;
-        pricePerUnitB = eachB / unitsPerItemB;
-        fieldValues[T2I(FTAG, BetterDealB)] = [NSString stringWithFormat:@"%.2f/purch, %.2f/unit", priceB, pricePerUnitB];
-    }
-
-    fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
-    fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
-
-    if (pricePerUnitA > 0 && pricePerUnitB > 0) {
-        if (pricePerUnitA < pricePerUnitB) {
-            fieldValues[T2I(FTAG, ItemA)] = @"A is a Better Deal";
-        } else if (pricePerUnitB < pricePerUnitA) {
-            fieldValues[T2I(FTAG, ItemB)] = @"B is a Better Deal";
-        }
-    }
-    
-    float qty2PurchaseA = [fieldValues[T2I(FTAG, Qty2BuyA)] floatValue];
-    float qty2PurchaseB = [fieldValues[T2I(FTAG, Qty2BuyB)] floatValue];
-    
-    if (minQtyA > 0 && minQtyB > 0 && unitsPerItemA > 0 && unitsPerItemB > 0) {
-        if (qty2PurchaseA > 0 && qty2PurchaseB > 0) {
-            NSString *msg;
-            float minPurchCostA = eachA * qty2PurchaseA;
-            float minPurchCostB = eachB * qty2PurchaseB;
-            float unitsPurchA = unitsPerItemA * qty2PurchaseA;
-            float unitsPurchB = unitsPerItemB * qty2PurchaseB;
-            float percentOfMaxA = unitsPurchA / MAX(unitsPurchA, unitsPurchB);
-            float percentOfMaxB = unitsPurchB / MAX(unitsPurchA, unitsPurchB);
-            fieldValues[T2I(FTAG, BetterDealA)] = [NSString stringWithFormat:@"%.2f/purch, %.2f/unit, %.1funits", priceA, pricePerUnitA, unitsPurchA];
-            fieldValues[T2I(FTAG, BetterDealB)] = [NSString stringWithFormat:@"%.2f/purch, %.2f/unit, %.1funits", priceB, pricePerUnitB, unitsPurchB];
-#ifdef DEBUG
-            NSLog(@"%s, %d", __func__, [fieldValues[T2I(FTAG, BetterDealA)] length]);
-#endif
-            if ([fieldValues[T2I(FTAG, BetterDealA)] length] < 34) {
-                NSInteger tags[] = {BetterDealA, BetterDealB};
-                NSInteger nTags = sizeof(tags)/sizeof(NSInteger);
-                for (NSInteger i = 0; i < nTags; i++) {
-                    NSInteger tag = tags[i];
-                    NSInteger j = T2I(FTAG, tag);
-                    UITextField *t = (UITextField *)[self.view viewWithTag:tag];
-                    float x = deviceFields[deviceType][j].f * 1.2;
-                    t.font = [UIFont systemFontOfSize:x];
-                }
-            } else {
-                NSInteger tags[] = {BetterDealA, BetterDealB};
-                NSInteger nTags = sizeof(tags)/sizeof(NSInteger);
-                for (NSInteger i = 0; i < nTags; i++) {
-                    NSInteger tag = tags[i];
-                    NSInteger j = T2I(FTAG, tag);
-                    UITextField *t = (UITextField *)[self.view viewWithTag:tag];
-                    float x = deviceFields[deviceType][j].f * 1.0;
-                    t.font = [UIFont systemFontOfSize:x];
-                }
-            }
-            if (unitsPurchA < unitsPurchB) {
-                float realSavings = (minPurchCostB - minPurchCostA) * percentOfMaxA;
-                msg = [NSString stringWithFormat:@"Cost %.2f, Save %.2f, %.0f%% More Units", minPurchCostA, realSavings, percentOfMaxA*100];
-                fieldValues[T2I(FTAG, ItemA)] = @"A is a Better Deal";
-                fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
-                [self clrHighLight];
-                [self highLight:ItemA];
-            } else if (unitsPurchB < unitsPurchA) {
-                float realSavings = (minPurchCostA - minPurchCostB) * percentOfMaxB;
-                msg = [NSString stringWithFormat:@"Cost %.2f, Save %.2f, %.0f%% More Units", minPurchCostB, realSavings, percentOfMaxB*100];
-                fieldValues[T2I(FTAG, ItemB)] = @"B is a Better Deal";
-                fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
-                [self clrHighLight];
-                [self highLight:ItemA];
-            } else {
-                msg = [NSString stringWithFormat:@"Cost: %.2f, A and B cost the same", minPurchCostA];
-                fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
-                fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
-                [self clrHighLight];
-            }
-            fieldValues[T2I(FTAG, Message)] = msg;
-        } else {
-            fieldValues[T2I(FTAG, Message)] = @"Enter # to Buy to Calculate Savings";
-            [self clrHighLight];
-        }
-    } else {
-        // prompt for more data
-        fieldValues[T2I(FTAG, Message)] = [NSString stringWithCString:deviceFields[deviceType][T2I(FTAG, Message)].label encoding:NSASCIIStringEncoding];
-        [self clrHighLight];
     }
 }
 

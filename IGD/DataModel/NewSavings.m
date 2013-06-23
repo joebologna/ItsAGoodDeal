@@ -12,7 +12,7 @@
 
 @synthesize toString = _toString;
 - (NSString *)toString {
-	return [NSString stringWithFormat:@".qty2Purchase: %.2f, .betterPrice: %.2f, .normalizedMinQty: %.2f, .totalCost: %.2f, .totalCostA: %.2f, .totalCostB: %.2f, .savings: %.2f, .savingsA: %.2f, .savingsB: %.2f, .amountPurchased: %.2f, .amountPurchasedA: %.2f, .amountPurchasedB: %.2f, .percentSavings: %.2f, .percentSavingsA: %.2f, .percentSavingsB: %.2f, .percentMoreA: %.0f%%, .percentMoreB: %.0f%%, .itemA: %@, .itemB: %@, .calcState: %@", _qty2Purchase, self.betterPrice, self.normalizedMinQty, self.totalCost, self.totalCostA, self.totalCostB, self.savings, self.savingsA, self.savingsB, self.amountPurchased, self.amountPurchasedA, self.amountPurchasedB, self.percentSavings, self.percentSavingsA, self.percentSavingsB, self.percentMoreA, self.percentMoreB, self.itemA.toString, self.itemB.toString, [self getCalcStateString]];
+	return [NSString stringWithFormat:@".qty2Purchase: %.2f, .betterPrice: %.2f, .normalizedMinQty: %.2f, .totalCost: %.2f, .totalCostA: %.2f, .totalCostB: %.2f, .savings: %.2f, .savingsA: %.2f, .savingsB: %.2f, .amountPurchased: %.2f, .amountPurchasedA: %.2f, .amountPurchasedB: %.2f, .percentSavings: %.2f, .percentSavingsA: %.2f, .percentSavingsB: %.2f, .percentMoreA: %.0f%%, .percentMoreB: %.0f%%, .itemA: %@, .itemB: %@, .calcState: %@, .betterItem: %@", _qty2Purchase, self.betterPrice, self.normalizedMinQty, self.totalCost, self.totalCostA, self.totalCostB, self.savings, self.savingsA, self.savingsB, self.amountPurchased, self.amountPurchasedA, self.amountPurchasedB, self.percentSavings, self.percentSavingsA, self.percentSavingsB, self.percentMoreA, self.percentMoreB, self.itemA.toString, self.itemB.toString, self.betterItem, [self getCalcStateString]];
 }
 
 @synthesize isReady = _isReady;
@@ -63,9 +63,20 @@
     _itemB = itemB;
 }
 
+@dynamic betterItem;
+- (Item *)betterItem {
+    if (_itemA == nil || _itemB == nil || _itemA.pricePerUnit == INFINITY || _itemB.pricePerUnit == INFINITY) {
+        return nil;
+    } else if (_itemA.pricePerUnit <= _itemB.pricePerUnit) {
+        return _itemA;
+    } else {
+        return _itemB;
+    }
+}
+
 @synthesize betterPrice = _betterPrice;
 - (float)betterPrice {
-	return self.isReady ? MIN(_itemA.pricePerUnit, _itemB.pricePerUnit) : INFINITY;
+	return self.isReady ? self.betterItem.pricePerUnit : INFINITY;
 }
 
 @synthesize normalizedMinQty = _normalizedMinQty;

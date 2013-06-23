@@ -23,6 +23,7 @@ typedef enum {
 @property (strong, nonatomic) Item *itemA, *itemB;
 @property (unsafe_unretained, nonatomic, readonly) CalcState calcState;
 @property (unsafe_unretained, nonatomic, readonly) BOOL isReady;
+@property (strong, nonatomic, readonly) Item *betterItem;
 @property (strong, nonatomic) NSString *calcStateString;
 @property (strong, nonatomic) NSString *toString;
 
