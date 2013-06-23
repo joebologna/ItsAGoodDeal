@@ -152,12 +152,28 @@
 
 @dynamic percentSavingsA;
 - (float)percentSavingsA {
-    return self.isReady ? 1 - (self.amountPurchasedA / self.amountPurchased) : INFINITY;
+    if (self.isReady) {
+        if (TCE(self.savingsA, 0.0)) {
+            return 0.0;
+        } else {
+            return 1.0 - (self.savingsA / MAX(self.savingsA, self.savingsB));
+        }
+    } else {
+        return INFINITY;
+    }
 }
 
 @dynamic percentSavingsB;
 - (float)percentSavingsB {
-    return self.isReady ? 1 - (self.amountPurchasedB / self.amountPurchased) : INFINITY;
+    if (self.isReady) {
+        if (TCE(self.savingsB, 0.0)) {
+            return 0.0;
+        } else {
+            return 1.0 - (self.savingsB / MAX(self.savingsA, self.savingsB));
+        }
+    } else {
+        return INFINITY;
+    }
 }
 
 - (id)init {

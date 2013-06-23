@@ -11,7 +11,7 @@
 
 #define NO_QTY -1
 // thats close enough
-#define TCE(A, B, C) (((A) - (B)) < (C))
+#define TCE(A, B) ((truncf(A) * (100)) == (truncf(B) * (100)))
 
 @interface Item : NSObject <Logging>
 

@@ -35,50 +35,29 @@
     STAssertTrue(ok, @"Item defaults are incorrect");
     
     // set price
-    i.price = 1.0;
-    ok = [i.name isEqualToString:@"Item"] && i.price == 1.0 && i.minQty == INFINITY && i.unitsPerItem == INFINITY && ![i allOutputsValid] && i.qty2Purchase == INFINITY;
+    i.price = 3.0;
+    ok = [i.name isEqualToString:@"Item"] && TCE(i.price, i.price) && i.minQty == INFINITY && i.unitsPerItem == INFINITY && ![i allOutputsValid] && i.qty2Purchase == INFINITY;
 	STAssertTrue(ok, @"Setting price failed");
 
     // set minQty
-    i.minQty = 1.0;
-    ok = [i.name isEqualToString:@"Item"] && i.price == 1.0 && i.minQty == 1.0 && i.unitsPerItem == INFINITY && ![i allOutputsValid] && i.qty2Purchase == INFINITY;
+    i.minQty = 2.0;
+    ok = [i.name isEqualToString:@"Item"] && TCE(i.price, i.price) && TCE(i.minQty, i.minQty) && i.unitsPerItem == INFINITY && ![i allOutputsValid] && i.qty2Purchase == INFINITY;
 	STAssertTrue(ok, @"Setting minQty failed");
 
     // set unitsPerItem
-    i.unitsPerItem = 1.0;
-    ok = [i.name isEqualToString:@"Item"] && i.price == 1.0 && i.minQty == 1.0 && i.unitsPerItem == 1.0 && i.pricePerUnit == 1.0 && i.pricePerItem == 1.0 && i.qty2Purchase == INFINITY && i.amountPurchased == INFINITY;
+    i.unitsPerItem = 1.56;
+    ok = [i.name isEqualToString:@"Item"] &&  TCE(i.price, i.price) &&  TCE(i.minQty, i.minQty) &&  TCE(i.unitsPerItem, i.unitsPerItem) &&  TCE(i.pricePerUnit, (i.pricePerItem / i.unitsPerItem)) &&  TCE(i.pricePerItem, (i.price / i.minQty)) &&  i.qty2Purchase == INFINITY &&  i.amountPurchased == INFINITY;
 	STAssertTrue(ok, @"Setting unitsPerItem failed");
 
     // set qty2Purchase
-    i.qty2Purchase = 1.0;
-    ok = [i.name isEqualToString:@"Item"] && i.price == 1.0 && i.minQty == 1.0 && i.unitsPerItem == 1.0 && i.pricePerUnit == 1.0 && i.pricePerItem == 1.0 && i.qty2Purchase == 1.0 && i.amountPurchased == 1.0;
+	i.qty2Purchase = 4.0;
+	ok = [i.name isEqualToString:@"Item"] && TCE(i.price, i.price) && TCE(i.minQty, i.minQty) && TCE(i.unitsPerItem, i.unitsPerItem) && TCE(i.pricePerUnit, (i.pricePerItem / i.unitsPerItem)) && TCE(i.pricePerItem, (i.price / i.minQty)) && TCE(i.qty2Purchase, i.qty2Purchase) && TCE(i.amountPurchased, (i.unitsPerItem * i.qty2Purchase));
 	STAssertTrue(ok, @"Setting qty2Purchase failed");
     
     // check initializer
     i = [Item theItemWithName:@"Name" price:1.0 minQty:2.0 unitsPerItem:3.0];
-    ok = [i.name isEqualToString:@"Name"] && i.price == 1.0 && i.minQty == 2.0 && i.unitsPerItem == 3.0 && TCE(i.pricePerUnit, (1.0 / 3.0), 0.001) && i.pricePerItem == (1.0 / 2.0) && i.qty2Purchase == INFINITY && i.amountPurchased == INFINITY;
+    ok = [i.name isEqualToString:@"Name"]  && TCE(i.price, 1.0)  && TCE(i.minQty, 2.0)  && TCE(i.unitsPerItem, 3.0)  && TCE(i.pricePerUnit, (1.0 / 3.0))  && TCE(i.pricePerItem, (1.0 / 2.0))  && i.qty2Purchase == INFINITY  && i.amountPurchased == INFINITY;
 	STAssertTrue(ok, @"Item defaults are incorrect");
-    
-    // set price
-    i.price = 4.0;
-    ok = [i.name isEqualToString:@"Name"] && i.price == 4.0 && i.minQty == 2.0 && i.unitsPerItem == 3.0 && TCE(i.pricePerUnit, (4.0 / 3.0), 0.001) && i.pricePerItem == (4.0 / 2.0) && i.qty2Purchase == INFINITY && i.amountPurchased == INFINITY;
-	STAssertTrue(ok, @"Setting price failed");
-    
-    // set minQty
-    i.minQty = 5.0;
-    ok = [i.name isEqualToString:@"Name"] && i.price == 4.0 && i.minQty == 5.0 && i.unitsPerItem == 3.0 && TCE(i.pricePerUnit, (4.0 / 3.0), 0.001) && TCE(i.pricePerItem, (4.0 / 5.0), 0.001) && i.qty2Purchase == INFINITY && i.amountPurchased == INFINITY;
-	STAssertTrue(ok, @"Setting minQty failed");
-    
-    // set unitsPerItem
-    i.unitsPerItem = 6.0;
-    ok = [i.name isEqualToString:@"Name"] && i.price == 4.0 && i.minQty == 5.0 && i.unitsPerItem == 6.0 && TCE(i.pricePerUnit, (4.0 / 3.0), 0.001) && TCE(i.pricePerItem, (4.0 / 5.0), 0.001) && i.qty2Purchase == INFINITY && i.amountPurchased == INFINITY;
-	STAssertTrue(ok, @"Setting unitsPerItem failed");
-    
-    // set qty2Purchase
-    i.qty2Purchase = 7.0;
-    ok = [i.name isEqualToString:@"Name"] && i.price == 4.0 && i.minQty == 5.0 && i.unitsPerItem == 6.0 && TCE(i.pricePerUnit, (4.0 / 3.0), 0.001) && TCE(i.pricePerItem, (4.0 / 5.0), 0.001) && i.qty2Purchase == 7.0 && TCE(i.amountPurchased, (6.0 / 7.0), 0.001);
-	STAssertTrue(ok, @"Setting qty2Purchase failed");
-    
 }
 
 - (void)test02NewSavingsClass {
@@ -93,61 +72,21 @@
     s.qty2Purchase = 4.0;
     STAssertTrue(s.isReady, @"Should be ready");
     STAssertTrue(s.calcState == CalcComplete, @"!!");
-    STAssertTrue(s.qty2Purchase == 4.0, @"!!");
-    STAssertTrue(s.betterPrice == 0.96, @"!!");
-    STAssertTrue(s.normalizedMinQty == 2.0, @"!!");
-    STAssertTrue(s.totalCost == 6.0, @"!!");
-    STAssertTrue(s.totalCostA == 6.0, @"!!");
-    STAssertTrue(s.totalCostB == 8.0, @"!!");
-    STAssertTrue(s.savings == 2.0, @"!!");
-    STAssertTrue(s.savingsA == 2.0, @"!!");
-    STAssertTrue(s.savingsB == 0.0, @"!!");
-    STAssertTrue(s.amountPurchased == 6.24, @"!!");
-    STAssertTrue(s.amountPurchasedA == 6.24, @"!!");
-    STAssertTrue(s.amountPurchasedB == 7.92, @"!!");
+    STAssertTrue(TCE(s.qty2Purchase, 4.0), @"!!");
+    STAssertTrue(TCE(s.betterPrice, 0.96), @"!!");
+    STAssertTrue(TCE(s.normalizedMinQty, 2.0), @"!!");
+    STAssertTrue(TCE(s.totalCost, 6.0), @"!!");
+    STAssertTrue(TCE(s.totalCostA, 6.0), @"!!");
+    STAssertTrue(TCE(s.totalCostB, 8.0), @"!!");
+    STAssertTrue(TCE(s.savings, 2.0), @"!!");
+    STAssertTrue(TCE(s.savingsA, 2.0), @"!!");
+    STAssertTrue(TCE(s.savingsB, 0.0), @"!!");
+    STAssertTrue(TCE(s.amountPurchased, 6.24), @"!!");
+    STAssertTrue(TCE(s.amountPurchasedA, 6.24), @"!!");
+    STAssertTrue(TCE(s.amountPurchasedB, 7.92), @"!!");
     // calculate this properly in the spreadsheet
-    STAssertTrue(s.percentSavings == 1.0, @"!!");
-    STAssertTrue(s.percentSavingsA == 1.0, @"!!");
-    STAssertTrue(s.percentSavingsB == 0.0, @"!!");
+    STAssertTrue(TCE(s.percentSavings, 0.25), @"!!");
+    STAssertTrue(TCE(s.percentSavingsA, 0.25), @"!!");
+    STAssertTrue(TCE(s.percentSavingsB, 0.0), @"!!");
 }
-
-/*
-- (void)test02SavingsClass {
-    Savings *savings = [Savings theSavings];
-    BOOL ok = [savings.itemA.name isEqualToString:@"A"] && ![savings.itemA allInputsValid] && ![savings.itemA allOutputsValid] &&  savings.itemA.qty2Purchase == INFINITY;
-    STAssertTrue(ok, @"itemA defaults are wrong");
-    ok = [savings.itemB.name isEqualToString:@"B"] && ![savings.itemB allInputsValid] && ![savings.itemB allOutputsValid] &&  savings.itemB.qty2Purchase == INFINITY;
-    STAssertTrue(ok, @"itemB defaults are wrong");
-
-    STAssertTrue(ok, @"savingsResults defaults are wrong");
-
-    savings.itemA = [Item theItemWithName:@"A" price:17 minQty:1 unitsPerItem:100];
-    savings.itemB = [Item theItemWithName:@"B" price:11 minQty:1 unitsPerItem:50];
-    savings.itemA.qty2Purchase = MAX(savings.itemA.minQty, savings.itemB.minQty);
-    CalcResult r = [savings calcSavings];
-    STAssertTrue(r == CalcComplete, @"Valid Qty2Buy Test Failed.");
-    NSLog(@"%@", savings.toString);
-}
-
-- (void)test03SavingsResultsClass {
-    SavingsResults *s = [SavingsResults theSavingsResults];
-    BOOL ok = s.betterPrice == 0.0 && s.normalizedMinQty == 0.0 && s.totalCost == 0.0 && s.savings == 0.0 && s.amountPurchased == 0.0 && s.percentSavings == 0.0;
-    STAssertTrue(ok, @"should all be 0.0");
-}
-
-- (void)test04ItemClass {
-    Item *i = [Item theItem];
-    BOOL ok = [i.name isEqual:@"Item"] && i.price == 0.0 && i.minQty == 0.0 && i.unitsPerItem == 0.0 && i.qty2Purchase == 0.0 && i.pricePerUnit == 0.0 && i.pricePerItem == 0.0 && i.amountPurchased == 0.0;
-    STAssertTrue(ok, @"should all Item & 0.0 for the remainder");
-
-	NSString *name = @"A";
-	float price = 1.0, minQty = 1.0, unitsPerItem = 1.0, qty2Purchase = 1.0;
-	float pricePerItem = price / minQty, amountPurchased = unitsPerItem / qty2Purchase, pricePerUnit = pricePerItem / qty2Purchase;
-    i = [Item theItemWithName:name price:price minQty:minQty unitsPerItem:unitsPerItem];
-    ok = [i.name isEqual:name] && i.price == price && i.minQty == minQty && i.unitsPerItem == unitsPerItem && i.qty2Purchase == qty2Purchase && i.pricePerItem == pricePerItem && i.amountPurchased == amountPurchased && i.pricePerUnit == pricePerUnit;
-    STAssertTrue(ok, @"should all Item & 0.0 for the remainder");
-}
-
- */
-
 @end

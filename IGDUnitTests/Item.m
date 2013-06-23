@@ -39,11 +39,9 @@
 - (void)setPrice:(float)price {
     if (price > 0.0 && price != INFINITY) {
         _price = price;
-        if (_unitsPerItem > 0.0 && _unitsPerItem != INFINITY) {
-            _pricePerUnit = _price / _unitsPerItem;
-        }
-        if (_minQty > 0.0 && _minQty != INFINITY) {
+        if (_unitsPerItem > 0.0 && _unitsPerItem != INFINITY && _minQty > 0.0 && _minQty != INFINITY) {
             _pricePerItem = _price / _minQty;
+            _pricePerUnit = _pricePerItem / _unitsPerItem;
         }
     }
 }
@@ -70,7 +68,7 @@
     if (qty2Purchase > 0.0 && qty2Purchase != INFINITY) {
         if (_unitsPerItem > 0.0 && _unitsPerItem != INFINITY) {
             _qty2Purchase = qty2Purchase;
-            _amountPurchased = _unitsPerItem / _qty2Purchase;
+            _amountPurchased = _unitsPerItem * _qty2Purchase;
             [self setPrice:_price];
         }
     }
