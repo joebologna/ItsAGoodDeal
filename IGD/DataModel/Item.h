@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSObject+Formatter.h"
+#import "../Lib/NSObject+Formatter.h"
 
 #define NO_QTY -1
 // thats close enough

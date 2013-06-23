@@ -32,6 +32,9 @@
 		3BDB0D001762A7FA007AB586 /* scale-114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */; };
 		3BDB0D021762C184007AB586 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDB0D011762C184007AB586 /* StoreKit.framework */; };
 		3BDF4FAA17601B3C00964B0E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF4FA917601B3C00964B0E /* QuartzCore.framework */; };
+		3BE052C917778D510041D6C0 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052C717778D500041D6C0 /* NSObject+Formatter.m */; };
+		3BE052CF17778D700041D6C0 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052CB17778D700041D6C0 /* Item.m */; };
+		3BE052D117778D700041D6C0 /* NewSavings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052CD17778D700041D6C0 /* NewSavings.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +76,14 @@
 		3BDB0D011762C184007AB586 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3BDB0D031762CCD9007AB586 /* Lib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = Lib; sourceTree = "<group>"; };
 		3BDF4FA917601B3C00964B0E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3BE052C217778CFB0041D6C0 /* Lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Lib; path = IGD/Lib; sourceTree = "<group>"; };
+		3BE052C417778D0D0041D6C0 /* DataModel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DataModel; path = IGD/DataModel; sourceTree = "<group>"; };
+		3BE052C617778D500041D6C0 /* NSObject+Formatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSObject+Formatter.h"; path = "IGD/Lib/NSObject+Formatter.h"; sourceTree = "<group>"; };
+		3BE052C717778D500041D6C0 /* NSObject+Formatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Formatter.m"; path = "IGD/Lib/NSObject+Formatter.m"; sourceTree = "<group>"; };
+		3BE052CA17778D700041D6C0 /* Item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Item.h; path = IGD/DataModel/Item.h; sourceTree = "<group>"; };
+		3BE052CB17778D700041D6C0 /* Item.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = IGD/DataModel/Item.m; sourceTree = "<group>"; };
+		3BE052CC17778D700041D6C0 /* NewSavings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NewSavings.h; path = IGD/DataModel/NewSavings.h; sourceTree = "<group>"; };
+		3BE052CD17778D700041D6C0 /* NewSavings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = NewSavings.m; path = IGD/DataModel/NewSavings.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +136,14 @@
 		3B730718175EC9F400873194 = {
 			isa = PBXGroup;
 			children = (
+				3BE052CA17778D700041D6C0 /* Item.h */,
+				3BE052CB17778D700041D6C0 /* Item.m */,
+				3BE052CC17778D700041D6C0 /* NewSavings.h */,
+				3BE052CD17778D700041D6C0 /* NewSavings.m */,
+				3BE052C617778D500041D6C0 /* NSObject+Formatter.h */,
+				3BE052C717778D500041D6C0 /* NSObject+Formatter.m */,
+				3BE052C417778D0D0041D6C0 /* DataModel */,
+				3BE052C217778CFB0041D6C0 /* Lib */,
 				3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */,
 				3BD286711762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png */,
 				3BD286731762EFC000A9AEE4 /* Default-Portrait~ipad.png */,
@@ -168,15 +187,13 @@
 		3B73072A175EC9F500873194 /* IGD */ = {
 			isa = PBXGroup;
 			children = (
-				3B55755E1770920D005EEB51 /* Design */,
-				3B557554176FB65F005EEB51 /* DataModel */,
 				3B730733175EC9F500873194 /* AppDelegate.h */,
 				3B730734175EC9F500873194 /* AppDelegate.m */,
-				3BDB0D031762CCD9007AB586 /* Lib */,
-				3B73073C175EC9F500873194 /* MainStoryboard_iPhone.storyboard */,
-				3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */,
 				3B730742175EC9F500873194 /* ViewController.h */,
 				3B730743175EC9F500873194 /* ViewController.m */,
+				3B55755E1770920D005EEB51 /* Design */,
+				3B557554176FB65F005EEB51 /* DataModel */,
+				3BDB0D031762CCD9007AB586 /* Lib */,
 				3B73072B175EC9F500873194 /* Supporting Files */,
 			);
 			path = IGD;
@@ -185,6 +202,8 @@
 		3B73072B175EC9F500873194 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3B73073C175EC9F500873194 /* MainStoryboard_iPhone.storyboard */,
+				3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */,
 				3B3A62F61761557700C7DD46 /* ButtonGradient3.png */,
 				3B73072C175EC9F500873194 /* ItsAGoodDeal-Info.plist */,
 				3B730730175EC9F500873194 /* main.m */,
@@ -309,6 +328,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BE052CF17778D700041D6C0 /* Item.m in Sources */,
+				3BE052D117778D700041D6C0 /* NewSavings.m in Sources */,
+				3BE052C917778D510041D6C0 /* NSObject+Formatter.m in Sources */,
 				3B55754C176FAADA005EEB51 /* IGDUnitTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
