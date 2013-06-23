@@ -85,17 +85,30 @@
     NewSavings *s = [NewSavings theNewSavings];
     STAssertTrue(!s.isReady, @"Should be notReady");
     
-    Item *itemA = [Item theItemWithName:@"A" price:1.0 minQty:1.0 unitsPerItem:1.0];
-    Item *itemB = [Item theItemWithName:@"B" price:2.0 minQty:1.0 unitsPerItem:1.0];
+    Item *itemA = [Item theItemWithName:@"A" price:3.0 minQty:2.0 unitsPerItem:1.56];
+    Item *itemB = [Item theItemWithName:@"B" price:2.0 minQty:1.0 unitsPerItem:1.98];
     s = [NewSavings theNewSavingsWithItemA:itemA withItemB:itemB];
-    STAssertTrue(!s.isReady, @"Should be notReady");
+    STAssertTrue(s.calcState == NeedQty2Purchase, @"!!");
     
-    s.qty2Purchase = 1.0;
+    s.qty2Purchase = 4.0;
     STAssertTrue(s.isReady, @"Should be ready");
-    STAssertTrue(s.qty2Purchase == 1.0, @"!!");
-    STAssertTrue(s.totalCost == 1.0, @"!!");
-    STAssertTrue(s.totalCostA == 1.0, @"!!");
-    STAssertTrue(s.totalCostB == 2.0, @"!!");
+    STAssertTrue(s.calcState == CalcComplete, @"!!");
+    STAssertTrue(s.qty2Purchase == 4.0, @"!!");
+    STAssertTrue(s.betterPrice == 0.96, @"!!");
+    STAssertTrue(s.normalizedMinQty == 2.0, @"!!");
+    STAssertTrue(s.totalCost == 6.0, @"!!");
+    STAssertTrue(s.totalCostA == 6.0, @"!!");
+    STAssertTrue(s.totalCostB == 8.0, @"!!");
+    STAssertTrue(s.savings == 2.0, @"!!");
+    STAssertTrue(s.savingsA == 2.0, @"!!");
+    STAssertTrue(s.savingsB == 0.0, @"!!");
+    STAssertTrue(s.amountPurchased == 6.24, @"!!");
+    STAssertTrue(s.amountPurchasedA == 6.24, @"!!");
+    STAssertTrue(s.amountPurchasedB == 7.92, @"!!");
+    // calculate this properly in the spreadsheet
+    STAssertTrue(s.percentSavings == 1.0, @"!!");
+    STAssertTrue(s.percentSavingsA == 1.0, @"!!");
+    STAssertTrue(s.percentSavingsB == 0.0, @"!!");
 }
 
 /*

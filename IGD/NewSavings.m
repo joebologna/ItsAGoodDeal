@@ -15,11 +15,17 @@
 	return [NSString stringWithFormat:@".qty2Purchase: %.2f, .betterPrice: %.2f, .normalizedMinQty: %.2f, .totalCost: %.2f, .totalCostA: %.2f, .totalCostB: %.2f, .savings: %.2f, .savingsA: %.2f, .savingsB: %.2f, .amountPurchased: %.2f, .amountPurchasedA: %.2f, .amountPurchasedB: %.2f, .percentSavings: %.2f, .percentSavingsA: %.2f, .percentSavingsB: %.2f, .itemA: %@, .itemB: %@, .calcState: %@", _qty2Purchase, self.betterPrice, self.normalizedMinQty, self.totalCost, self.totalCostA, self.totalCostB, self.savings, self.savingsA, self.savingsB, self.amountPurchased, self.amountPurchasedA, self.amountPurchasedB, self.percentSavings, self.percentSavingsA, self.percentSavingsB, self.itemA, self.itemB, [self getCalcStateString]];
 }
 
-@dynamic isReady;
+@synthesize isReady = _isReady;
 - (BOOL)isReady {
+    _isReady = ([self getCalcState] == CalcComplete || _calcState == NeedQty2Purchase);
+    return _isReady;
+}
+
+@synthesize calcState = _calcState;
+- (CalcState)getCalcState {
     _calcState = NotReady;
     if (_itemA != nil && _itemB != nil) {
-        if ([_itemA isValid] && [_itemB isValid]) {
+        if ([_itemA allInputsValid] && [_itemB allInputsValid]) {
             if (_qty2Purchase != INFINITY) {
                 _calcState = CalcComplete;
             } else {
@@ -27,13 +33,6 @@
             }
         }
     }
-    return _calcState == CalcComplete;
-}
-
-@synthesize calcState = _calcState;
-- (CalcState)getCalcState {
-    // check and determine CalcState using isReady
-    [self isReady];
     return _calcState;
 }
 
@@ -167,8 +166,8 @@
 #ifdef DEBUG
         NSLog(@"%s", __func__);
 #endif
-        [self resetCalcs];
         _itemA = _itemB = nil;
+        [self resetCalcs];
     }
     return self;
 }
@@ -181,7 +180,7 @@
     NewSavings *newSavings = [[NewSavings alloc] init];
     newSavings.itemA = itemA;
     newSavings.itemB = itemB;
-    return newSavings;
+    return newSavings.isReady ? newSavings : nil;
 }
 
 @end
