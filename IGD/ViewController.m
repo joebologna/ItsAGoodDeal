@@ -692,6 +692,7 @@ static Test testToRun = NotTesting;
         }
     } else {
         // no calcs to perform.
+        [self updateFields:NO];
         return;
     }
     [self calcResult];
@@ -745,12 +746,12 @@ static Test testToRun = NotTesting;
             fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
         } else if ([savings.betterItem.name isEqualToString:@"A"]) {
             [self highLight:ItemA];
-            fieldValues[T2I(FTAG, ItemA)] = @"A is a Better Deal";
+            fieldValues[T2I(FTAG, ItemA)] = [NSString stringWithFormat:@"A is %.0f%% Cheaper", savings.percentSavings*100];
             fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
         } else if ([savings.betterItem.name isEqualToString:@"B"]) {
             [self highLight:ItemB];
             fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
-            fieldValues[T2I(FTAG, ItemB)] = @"B is a Better Deal";
+            fieldValues[T2I(FTAG, ItemB)] = [NSString stringWithFormat:@"B is %.0f%% Cheaper", savings.percentSavings*100];
         } else {
             NSLog(@"%s, This should not happen", __func__);
             fieldValues[T2I(FTAG, ItemA)] = @"Deal A";

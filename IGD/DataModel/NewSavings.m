@@ -152,7 +152,7 @@
 @dynamic percentSavingsA;
 - (float)percentSavingsA {
     if (self.isReady) {
-        return 1.0 - (self.savingsA / MAX(self.savingsA, self.savingsB));
+        return 1.0 - (self.totalCostA / MAX(self.totalCostA, self.totalCostB));
     }
     return INFINITY;
 }
@@ -160,7 +160,7 @@
 @dynamic percentSavingsB;
 - (float)percentSavingsB {
     if (self.isReady) {
-        return 1.0 - (self.savingsA / MAX(self.savingsA, self.savingsB));
+        return 1.0 - (self.totalCostB / MAX(self.totalCostA, self.totalCostB));
     }
     return INFINITY;
 }
