@@ -18,7 +18,7 @@ typedef enum {
 + (NewSavings *)theNewSavings;
 + (NewSavings *)theNewSavingsWithItemA:(Item *)itemA withItemB:(Item *)itemB;
 
-@property (unsafe_unretained, nonatomic, readonly) float betterPrice, normalizedMinQty, totalCost, totalCostA, totalCostB, savings, savingsA, savingsB, amountPurchased, amountPurchasedA, amountPurchasedB, percentSavings, percentSavingsA, percentSavingsB, percentMoreA, percentMoreB;
+@property (unsafe_unretained, nonatomic, readonly) float betterPricePerUnit, normalizedMinQty, totalCost, totalCostA, totalCostB, savings, savingsA, savingsB, amountPurchased, amountPurchasedA, amountPurchasedB, percentSavings, percentSavingsA, percentSavingsB, percentMoreProductA, percentMoreProductB;
 @property (unsafe_unretained, nonatomic) float qty2Purchase;
 @property (strong, nonatomic) Item *itemA, *itemB;
 @property (unsafe_unretained, nonatomic, readonly) CalcState calcState;

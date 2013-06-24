@@ -69,25 +69,25 @@
     s = [NewSavings theNewSavingsWithItemA:itemA withItemB:itemB];
     STAssertTrue(s.calcState == NeedQty2Purchase, @"!!");
     
-    s.qty2Purchase = 4.0;
+    s.qty2Purchase = 2.0;
     STAssertTrue(s.isReady, @"Should be ready");
     STAssertTrue(s.calcState == CalcComplete, @"!!");
-    STAssertTrue(TCE(s.qty2Purchase, 4.0), @"!!");
-    STAssertTrue(TCE(s.betterPrice, 0.96), @"!!");
+    STAssertTrue(TCE(s.qty2Purchase, 2.0), @"!!");
+    STAssertTrue(TCE(s.betterPricePerUnit, 0.96), @"!!");
     STAssertTrue(TCE(s.normalizedMinQty, 2.0), @"!!");
-    STAssertTrue(TCE(s.totalCost, 6.0), @"!!");
-    STAssertTrue(TCE(s.totalCostA, 6.0), @"!!");
-    STAssertTrue(TCE(s.totalCostB, 8.0), @"!!");
-    STAssertTrue(TCE(s.savings, 2.0), @"!!");
-    STAssertTrue(TCE(s.savingsA, 2.0), @"!!");
+    STAssertTrue(TCE(s.totalCost, 3.0), @"!!");
+    STAssertTrue(TCE(s.totalCostA, 3.0), @"!!");
+    STAssertTrue(TCE(s.totalCostB, 4.0), @"!!");
+    STAssertTrue(TCE(s.savings, 1.0), @"!!");
+    STAssertTrue(TCE(s.savingsA, 1.0), @"!!");
     STAssertTrue(TCE(s.savingsB, 0.0), @"!!");
-    STAssertTrue(TCE(s.amountPurchased, 6.24), @"!!");
-    STAssertTrue(TCE(s.amountPurchasedA, 6.24), @"!!");
-    STAssertTrue(TCE(s.amountPurchasedB, 7.92), @"!!");
     STAssertTrue(TCE(s.percentSavings, 0.25), @"!!");
     STAssertTrue(TCE(s.percentSavingsA, 0.25), @"!!");
     STAssertTrue(TCE(s.percentSavingsB, 0.0), @"!!");
-    STAssertTrue(TCE(s.percentMoreA, -0.5), @"!!");
-    STAssertTrue(TCE(s.percentMoreB, 0.0), @"!!");
+    STAssertTrue(TCE(s.amountPurchased, 3.12), @"!!");
+    STAssertTrue(TCE(s.amountPurchasedA, 3.12), @"!!");
+    STAssertTrue(TCE(s.amountPurchasedB, 3.96), @"!!");
+    STAssertTrue(TCE(s.percentMoreProductA*100, -21.0), @"!!");
+    STAssertTrue(TCE(s.percentMoreProductB*100, 0.0), @"!!");
 }
 @end

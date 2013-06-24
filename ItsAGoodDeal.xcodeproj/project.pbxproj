@@ -50,7 +50,7 @@
 		3B557540176FAADA005EEB51 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		3B557546176FAADA005EEB51 /* IGDUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IGDUnitTests-Info.plist"; sourceTree = "<group>"; };
 		3B557548176FAADA005EEB51 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3B55754B176FAADA005EEB51 /* IGDUnitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGDUnitTests.m; sourceTree = "<group>"; };
+		3B55754B176FAADA005EEB51 /* IGDUnitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IGDUnitTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3B55754D176FAADA005EEB51 /* IGDUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IGDUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		3B730721175EC9F500873194 /* ItsAGoodDeal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ItsAGoodDeal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B730724175EC9F500873194 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -81,8 +81,8 @@
 		3BDF4FA917601B3C00964B0E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3BE052D217778EAC0041D6C0 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item.h; path = DataModel/Item.h; sourceTree = "<group>"; };
 		3BE052D317778EAC0041D6C0 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = DataModel/Item.m; sourceTree = "<group>"; };
-		3BE052D417778EAC0041D6C0 /* NewSavings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewSavings.h; path = DataModel/NewSavings.h; sourceTree = "<group>"; };
-		3BE052D517778EAC0041D6C0 /* NewSavings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewSavings.m; path = DataModel/NewSavings.m; sourceTree = "<group>"; };
+		3BE052D417778EAC0041D6C0 /* NewSavings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = NewSavings.h; path = DataModel/NewSavings.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3BE052D517778EAC0041D6C0 /* NewSavings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = NewSavings.m; path = DataModel/NewSavings.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3BE052DB17778EE00041D6C0 /* MyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyButton.h; path = Lib/MyButton.h; sourceTree = "<group>"; };
 		3BE052DC17778EE00041D6C0 /* MyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyButton.m; path = Lib/MyButton.m; sourceTree = "<group>"; };
 		3BE052DD17778EE00041D6C0 /* MyStoreObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyStoreObserver.h; path = Lib/MyStoreObserver.h; sourceTree = "<group>"; };

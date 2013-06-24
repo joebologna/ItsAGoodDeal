@@ -106,7 +106,7 @@ static labelStruct fieldsIPhone35[] = {
     LABEL(212, YO11(178), 106, 30, 15, "More Field"),
     LABEL(1, YO11(206), 106, 10, 9, "Cost"),
     LABEL(106, YO11(206), 107, 10, 9, "Savings"),
-    LABEL(212, YO11(206), 106, 10, 9, "More Product")
+    LABEL(212, YO11(206), 106, 10, 9, "Product")
 };
 
 static labelStruct fieldsIPhone40[] = {
@@ -609,6 +609,8 @@ static Test testToRun = NotTesting;
         if (directTap) {
             if (keyType != NextKey) {
                 fieldValues[T2I(FTAG, tag)] = @"";
+            } else {
+                NSLog(@"%s, this shouldnt happen", __func__);
             }
             directTap = NO;
         }
@@ -623,7 +625,9 @@ static Test testToRun = NotTesting;
                 } else if (tag == Qty2BuyB) {
                     fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)];
                 }
-                [self calcResult];
+                [self showResult];
+            } else {
+                [self showResult];
             }
         } else if (keyType == ClearKey) {
             [self initGUI];
@@ -674,33 +678,40 @@ static Test testToRun = NotTesting;
 - (void)showResult {
     if ([fieldValues[T2I(FTAG, Qty2BuyA)] length] == 0 && [fieldValues[T2I(FTAG, Qty2BuyB)] length] > 0) {
         fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)];
-        [self calcResult];
     } else if ([fieldValues[T2I(FTAG, Qty2BuyA)] length] > 0 && [fieldValues[T2I(FTAG, Qty2BuyB)] length] == 0) {
         fieldValues[T2I(FTAG, Qty2BuyB)] = fieldValues[T2I(FTAG, Qty2BuyA)];
-        [self calcResult];
     } else if ([fieldValues[T2I(FTAG, PriceA)] length] > 0 &&  [fieldValues[T2I(FTAG, QtyA)] length] > 0) {
         if ([fieldValues[T2I(FTAG, SizeA)] length] == 0) {
             fieldValues[T2I(FTAG, SizeA)] = @"1";
             directTap = YES;
         }
-        [self calcResult];
     } else if ([fieldValues[T2I(FTAG, PriceB)] length] > 0 &&  [fieldValues[T2I(FTAG, QtyB)] length] > 0) {
         if ([fieldValues[T2I(FTAG, SizeB)] length] == 0) {
             directTap = YES;
             fieldValues[T2I(FTAG, SizeB)] = @"1";
         }
-        [self calcResult];
     } else {
         // no calcs to perform.
+        return;
     }
+    [self calcResult];
     [self updateFields:NO];
 }
 
 - (void)setResult:(NewSavings *)savings {
     [self setMessageMode:ResultsMode];
     fieldValues[T2I(FTAG, CostField)] = [NSString stringWithFormat:@"%.2f", savings.totalCost];
-    fieldValues[T2I(FTAG, SavingsField)] = [NSString stringWithFormat:@"%.2f", savings.savings];
-    fieldValues[T2I(FTAG, MoreField)] = @"FIX THIS";
+    if (savings.savings == 0.0) {
+        fieldValues[T2I(FTAG, SavingsField)] = @"Same Price";
+    } else {
+        fieldValues[T2I(FTAG, SavingsField)] = [NSString stringWithFormat:@"%.2f", savings.savings];
+    }
+    float percentDiff = [savings.betterItem isEqual:savings.itemA] ? savings.percentMoreProductA : savings.percentMoreProductB;
+    if (percentDiff < 0.0) {
+        fieldValues[T2I(FTAG, MoreField)] = [NSString stringWithFormat:@"%.0f%% Less", percentDiff * -100.0];
+    } else {
+        fieldValues[T2I(FTAG, MoreField)] = [NSString stringWithFormat:@"%.0f%% More", percentDiff * 100.0];
+    }
 }
 
 - (void)calcResult {
@@ -714,12 +725,11 @@ static Test testToRun = NotTesting;
     Item *itemB = [Item theItemWithName:@"B" price:priceB minQty:minQtyB unitsPerItem:unitsPerItemB];
     NewSavings *savings = [NewSavings theNewSavingsWithItemA:itemA withItemB:itemB];
     NSString *q2buyA = fieldValues[T2I(FTAG, Qty2BuyA)];
-    if (q2buyA.length > 0) {
-        savings.itemA.qty2Purchase = [q2buyA floatValue];
-    }
     NSString *q2buyB = fieldValues[T2I(FTAG, Qty2BuyB)];
-    if (q2buyB.length > 0) {
-        savings.itemB.qty2Purchase = [q2buyB floatValue];
+    if (q2buyA.length > 0 && [q2buyA isEqualToString:q2buyB]) {
+        savings.qty2Purchase = [q2buyA floatValue];
+    } else {
+        NSLog(@"%s, this shouldnt happen", __func__);
     }
     
     if (savings.calcState == CalcComplete || savings.calcState == NeedQty2Purchase) {
@@ -729,16 +739,20 @@ static Test testToRun = NotTesting;
     
     [self clrHighLight];
     if (savings.calcState == CalcComplete) {
-        if (TCE(savings.percentSavings, 0.0)) {
+        if (savings.savings == 0.0) {
             fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
             fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
         } else if ([savings.betterItem.name isEqualToString:@"A"]) {
             [self highLight:ItemA];
             fieldValues[T2I(FTAG, ItemA)] = @"A is a Better Deal";
             fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
-        } else {
+        } else if ([savings.betterItem.name isEqualToString:@"B"]) {
             [self highLight:ItemB];
-            fieldValues[T2I(FTAG, ItemA)] = @"A is a Better Deal";
+            fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
+            fieldValues[T2I(FTAG, ItemB)] = @"B is a Better Deal";
+        } else {
+            NSLog(@"%s, This should not happen", __func__);
+            fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
             fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
         }
         [self setResult:savings];

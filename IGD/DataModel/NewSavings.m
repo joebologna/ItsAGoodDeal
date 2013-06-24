@@ -12,7 +12,7 @@
 
 @synthesize toString = _toString;
 - (NSString *)toString {
-	return [NSString stringWithFormat:@".qty2Purchase: %.2f, .betterPrice: %.2f, .normalizedMinQty: %.2f, .totalCost: %.2f, .totalCostA: %.2f, .totalCostB: %.2f, .savings: %.2f, .savingsA: %.2f, .savingsB: %.2f, .amountPurchased: %.2f, .amountPurchasedA: %.2f, .amountPurchasedB: %.2f, .percentSavings: %.2f, .percentSavingsA: %.2f, .percentSavingsB: %.2f, .percentMoreA: %.0f%%, .percentMoreB: %.0f%%, .itemA: %@, .itemB: %@, .calcState: %@, .betterItem: %@", _qty2Purchase, self.betterPrice, self.normalizedMinQty, self.totalCost, self.totalCostA, self.totalCostB, self.savings, self.savingsA, self.savingsB, self.amountPurchased, self.amountPurchasedA, self.amountPurchasedB, self.percentSavings, self.percentSavingsA, self.percentSavingsB, self.percentMoreA, self.percentMoreB, self.itemA.toString, self.itemB.toString, self.betterItem, [self getCalcStateString]];
+	return [NSString stringWithFormat:@".qty2Purchase: %.2f, .betterPrice: %.2f, .normalizedMinQty: %.2f, .totalCost: %.2f, .totalCostA: %.2f, .totalCostB: %.2f, .savings: %.2f, .savingsA: %.2f, .savingsB: %.2f, .amountPurchased: %.2f, .amountPurchasedA: %.2f, .amountPurchasedB: %.2f, .percentSavings: %.2f, .percentSavingsA: %.2f, .percentSavingsB: %.2f, .percentMoreProductA: %.0f%%, .percentMoreProductB: %.0f%%, .itemA: %@, .itemB: %@, .betterItem: %@, .calcState: %@", _qty2Purchase, self.betterPricePerUnit, self.normalizedMinQty, self.totalCost, self.totalCostA, self.totalCostB, self.savings, self.savingsA, self.savingsB, self.amountPurchased, self.amountPurchasedA, self.amountPurchasedB, self.percentSavings*100.0, self.percentSavingsA*100.0, self.percentSavingsB*100.0, self.percentMoreProductA*100.0, self.percentMoreProductB*100.0, self.itemA.toString, self.itemB.toString, self.betterItem, [self getCalcStateString]];
 }
 
 @synthesize isReady = _isReady;
@@ -67,15 +67,15 @@
 - (Item *)betterItem {
     if (_itemA == nil || _itemB == nil || _itemA.pricePerUnit == INFINITY || _itemB.pricePerUnit == INFINITY) {
         return nil;
-    } else if (_itemA.pricePerUnit <= _itemB.pricePerUnit) {
+    } else if (_itemA.pricePerItem <= _itemB.pricePerItem) {
         return _itemA;
     } else {
         return _itemB;
     }
 }
 
-@synthesize betterPrice = _betterPrice;
-- (float)betterPrice {
+@synthesize betterPricePerUnit = _betterPrice;
+- (float)betterPricePerUnit {
 	return self.isReady ? self.betterItem.pricePerUnit : INFINITY;
 }
 
@@ -93,12 +93,7 @@
 
 @dynamic totalCost;
 - (float)totalCost {
-    // A has a better price because the unitPrice is less
-    if (_itemA.pricePerUnit < _itemB.pricePerUnit) {
-        return self.totalCostA;
-    } else {
-        return self.totalCostB;
-    }
+    return [_itemA isEqual:self.betterItem] ? self.totalCostA : self.totalCostB;
 }
 
 @dynamic totalCostA;
@@ -113,12 +108,10 @@
 
 @dynamic savings;
 - (float)savings {
-    // A has a better price because the unitPrice is less
-    if (_itemA.pricePerUnit < _itemB.pricePerUnit) {
-        return self.isReady ? self.savingsA : INFINITY;
-    } else {
-        return self.isReady ? self.savingsB : INFINITY;
+    if (self.isReady) {
+        return [_itemA isEqual:self.betterItem] ? self.savingsA : self.savingsB;
     }
+    return INFINITY;
 }
 
 @dynamic savingsA;
@@ -133,12 +126,7 @@
 
 @dynamic amountPurchased;
 - (float)amountPurchased {
-    // A has a better price because the unitPrice is less
-    if (_itemA.pricePerUnit < _itemB.pricePerUnit) {
-        return self.amountPurchasedA;
-    } else {
-        return self.amountPurchasedB;
-    }
+    return [_itemA isEqual:self.betterItem] ? self.amountPurchasedA : self.amountPurchasedB;
 }
 
 @dynamic amountPurchasedA;
@@ -153,53 +141,38 @@
 
 @dynamic percentSavings;
 -(float)percentSavings {
-    // A has a better price because the unitPrice is less
-    if (_itemA.pricePerUnit < _itemB.pricePerUnit) {
-        return self.percentSavingsA;
-    } else {
-        return self.percentSavingsB;
-    }
+    return [self.betterItem isEqual:_itemA] ? self.percentSavingsA : self.percentSavingsB;
 }
 
 @dynamic percentSavingsA;
 - (float)percentSavingsA {
     if (self.isReady) {
-        if (TCE(self.savingsA, 0.0)) {
-            return 0.0;
-        } else {
-            return 1.0 - (self.savingsA / MAX(self.savingsA, self.savingsB));
-        }
-    } else {
-        return INFINITY;
+        return 1.0 - (self.savingsA / MAX(self.savingsA, self.savingsB));
     }
+    return INFINITY;
 }
 
 @dynamic percentSavingsB;
 - (float)percentSavingsB {
     if (self.isReady) {
-        if (TCE(self.savingsB, 0.0)) {
-            return 0.0;
-        } else {
-            return 1.0 - (self.savingsB / MAX(self.savingsA, self.savingsB));
-        }
+        return 1.0 - (self.savingsA / MAX(self.savingsA, self.savingsB));
+    }
+    return INFINITY;
+}
+
+@dynamic percentMoreProductA;
+- (float)percentMoreProductA {
+    if (self.isReady) {
+        return (_itemA.amountPurchased / MAX(_itemA.amountPurchased, _itemB.amountPurchased)) - 1.0;
     } else {
         return INFINITY;
     }
 }
 
-@dynamic percentMoreA;
-- (float)percentMoreA {
+@dynamic percentMoreProductB;
+- (float)percentMoreProductB {
     if (self.isReady) {
-        return (_itemA.pricePerUnit / MAX(_itemA.pricePerUnit, _itemB.pricePerUnit)) - 1.0;
-    } else {
-        return INFINITY;
-    }
-}
-
-@dynamic percentMoreB;
-- (float)percentMoreB {
-    if (self.isReady) {
-        return (_itemB.pricePerUnit / MAX(_itemA.pricePerUnit, _itemB.pricePerUnit)) - 1.0;
+        return (_itemB.amountPurchased / MAX(_itemA.amountPurchased, _itemB.amountPurchased)) - 1.0;
     } else {
         return INFINITY;
     }
