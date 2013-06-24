@@ -27,7 +27,12 @@
     if (_itemA != nil && _itemB != nil) {
         if ([_itemA allInputsValid] && [_itemB allInputsValid]) {
             if (_qty2Purchase != INFINITY) {
-                _calcState = CalcComplete;
+                float r = remainderf(_qty2Purchase, MAX(_itemA.minQty, _itemB.minQty));
+                if (r == 0.0) {
+                    _calcState = CalcComplete;
+                } else {
+                    _calcState = NeedQty2Purchase;
+                }
             } else {
                 _calcState = NeedQty2Purchase;
             }

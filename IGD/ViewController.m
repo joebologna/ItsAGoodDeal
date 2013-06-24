@@ -728,6 +728,7 @@ static Test testToRun = NotTesting;
     NSString *q2buyB = fieldValues[T2I(FTAG, Qty2BuyB)];
     if (q2buyA.length > 0 && [q2buyA isEqualToString:q2buyB]) {
         savings.qty2Purchase = [q2buyA floatValue];
+//        NSLog(@"%@", savings.calcStateString);
     } else {
         NSLog(@"%s, this shouldnt happen", __func__);
     }
