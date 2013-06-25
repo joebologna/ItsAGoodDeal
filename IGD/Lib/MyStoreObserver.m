@@ -110,4 +110,18 @@ static MyStoreObserver *theSharedObject = nil;
     [self.delegate processCompleted];
 }
 
+- (void)showProductInfo {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+//    NSString *c = [numberFormatter currencySymbol];
+
+    for (int i = 0; i < self.myProducts.count; i++) {
+        NSLog(@"[%d]: localedDescription: %@", i, ((SKProduct *)self.myProducts[i]).localizedDescription);
+        NSLog(@"[%d]: localizedTitle: %@", i, ((SKProduct *)self.myProducts[i]).localizedTitle);
+        NSString *s = [NSNumberFormatter localizedStringFromNumber:((SKProduct *)self.myProducts[i]).price numberStyle:NSNumberFormatterCurrencyStyle];
+        NSLog(@"[%d]: price: %@; %@", i, ((SKProduct *)self.myProducts[i]).price, s);
+        NSLog(@"[%d]: priceLocale: %@", i, ((SKProduct *)self.myProducts[i]).priceLocale);
+        NSLog(@"[%d]: localizedTitle: %@", i, ((SKProduct *)self.myProducts[i]).localizedTitle);
+    }
+}
 @end

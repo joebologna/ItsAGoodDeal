@@ -25,6 +25,7 @@
 }
 
 + (MyStoreObserver *)myStoreObserver;
+- (void)showProductInfo;
 
 @property (unsafe_unretained, nonatomic) BOOL bought;
 @property (nonatomic, strong) NSArray *myProducts;

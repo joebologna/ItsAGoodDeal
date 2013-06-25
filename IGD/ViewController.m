@@ -295,7 +295,11 @@ static Test testToRun = NotTesting;
     directTap = NO;
     fieldValues = [NSMutableArray array];
     for (int i = ItemA; i <= MoreLabel; i++) {
-        [fieldValues addObject:@""];
+        if (i == PriceA || i == PriceB) {
+            [fieldValues addObject:[self fmtPrice:0.0]];
+        } else {
+            [fieldValues addObject:@""];
+        }
     }
     curFieldIndex = 0;
     [self setMessageMode:MessageMode];
@@ -303,8 +307,8 @@ static Test testToRun = NotTesting;
     
     switch (testToRun) {
         case AisBigger:
-            fieldValues[T2I(FTAG, PriceA)] = @"17";
-            fieldValues[T2I(FTAG, PriceB)] = @"11";
+            fieldValues[T2I(FTAG, PriceA)] = [self fmtPrice:17.0];
+            fieldValues[T2I(FTAG, PriceB)] = [self fmtPrice:11.0];
             fieldValues[T2I(FTAG, QtyA)] = @"1";
             fieldValues[T2I(FTAG, QtyB)] = @"1";
             fieldValues[T2I(FTAG, SizeA)] = @"100";
@@ -315,8 +319,8 @@ static Test testToRun = NotTesting;
             break;
             
         case AisBetter:
-            fieldValues[T2I(FTAG, PriceA)] = @"3.00";
-            fieldValues[T2I(FTAG, PriceB)] = @"2.00";
+            fieldValues[T2I(FTAG, PriceA)] = [self fmtPrice:3.0];
+            fieldValues[T2I(FTAG, PriceB)] = [self fmtPrice:2.0];
             fieldValues[T2I(FTAG, QtyA)] = @"2.00";
             fieldValues[T2I(FTAG, QtyB)] = @"1.00";
             fieldValues[T2I(FTAG, SizeA)] = @"1.56";
@@ -327,8 +331,8 @@ static Test testToRun = NotTesting;
             break;
         
         case BisBetter:
-            fieldValues[T2I(FTAG, PriceA)] = @"1.99";
-            fieldValues[T2I(FTAG, PriceB)] = @"2.99";
+            fieldValues[T2I(FTAG, PriceA)] = [self fmtPrice:1.99];
+            fieldValues[T2I(FTAG, PriceB)] = [self fmtPrice:2.99];
             fieldValues[T2I(FTAG, QtyA)] = @"1";
             fieldValues[T2I(FTAG, QtyB)] = @"2";
             fieldValues[T2I(FTAG, SizeA)] = @"8.5";
@@ -339,8 +343,8 @@ static Test testToRun = NotTesting;
             break;
         
         case Same:
-            fieldValues[T2I(FTAG, PriceA)] = @"2";
-            fieldValues[T2I(FTAG, PriceB)] = @"1";
+            fieldValues[T2I(FTAG, PriceA)] = [self fmtPrice:2];
+            fieldValues[T2I(FTAG, PriceB)] = [self fmtPrice:1];
             fieldValues[T2I(FTAG, QtyA)] = @"2";
             fieldValues[T2I(FTAG, QtyB)] = @"1";
             fieldValues[T2I(FTAG, SizeA)] = @"1";
@@ -664,7 +668,14 @@ static Test testToRun = NotTesting;
                 [self showResult];
             }
         } else {
-            fieldValues[T2I(FTAG, tag)] = [s stringByAppendingString:key];
+            if ((tag == PriceA || tag == PriceB) && s.length == 0) {
+                NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+                [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+                s = [numberFormatter currencySymbol];
+                fieldValues[T2I(FTAG, tag)] = [s stringByAppendingString:key];
+            } else {
+                fieldValues[T2I(FTAG, tag)] = [s stringByAppendingString:key];
+            }
             if (tag == Qty2BuyA) {
                 fieldValues[T2I(FTAG, Qty2BuyB)] = fieldValues[T2I(FTAG, Qty2BuyA)];
             } else if (tag == Qty2BuyB) {
@@ -707,11 +718,11 @@ static Test testToRun = NotTesting;
 
 - (void)setResult:(NewSavings *)savings {
     [self setMessageMode:ResultsMode];
-    fieldValues[T2I(FTAG, CostField)] = [NSString stringWithFormat:@"%.2f", savings.totalCost];
+    fieldValues[T2I(FTAG, CostField)] = [self fmtPrice:savings.totalCost];
     if (savings.savings == 0.0) {
         fieldValues[T2I(FTAG, SavingsField)] = @"Same Price";
     } else {
-        fieldValues[T2I(FTAG, SavingsField)] = [NSString stringWithFormat:@"%.2f", savings.savings];
+        fieldValues[T2I(FTAG, SavingsField)] = [self fmtPrice:savings.savings];
     }
     float percentDiff = [savings.betterItem isEqual:savings.itemA] ? savings.percentMoreProductA : savings.percentMoreProductB;
     if (percentDiff < 0.0) {
@@ -722,10 +733,14 @@ static Test testToRun = NotTesting;
 }
 
 - (void)calcResult {
-    float priceA = [fieldValues[T2I(FTAG, PriceA)] floatValue];
+    NSString *a = fieldValues[T2I(FTAG, PriceA)];
+    if (a.length > 0) a = [a substringFromIndex:1];
+    NSString *b = fieldValues[T2I(FTAG, PriceB)];
+    if (b.length > 0) b = [b substringFromIndex:1];
+    float priceA = [a floatValue];
     float minQtyA = [fieldValues[T2I(FTAG, QtyA)] floatValue];
     float unitsPerItemA = [fieldValues[T2I(FTAG, SizeA)] floatValue];
-    float priceB = [fieldValues[T2I(FTAG, PriceB)] floatValue];
+    float priceB = [b floatValue];
     float minQtyB = [fieldValues[T2I(FTAG, QtyB)] floatValue];
     float unitsPerItemB = [fieldValues[T2I(FTAG, SizeB)] floatValue];
     Item *itemA = [Item theItemWithName:@"A" price:priceA minQty:minQtyA unitsPerItem:unitsPerItemA];
@@ -737,7 +752,11 @@ static Test testToRun = NotTesting;
         // this causes the final calculation to run
         savings.qty2Purchase = [q2buyA floatValue];
 #ifdef DEBUG
-        NSLog(@"%@", savings.calcStateString);
+        @try {
+            NSLog(@"%@", savings.calcStateString);
+        } @catch (NSException *e) {
+            // ignore it.
+        }
 #endif
     } else {
 #ifdef DEBUG
@@ -884,7 +903,8 @@ static Test testToRun = NotTesting;
 }
 
 - (void)removeAds {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@STORE message:@"Do you wish to remove Ads for $0.99" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+    NSString *s = [NSString stringWithFormat:@"Do you wish to remove Ads for %@?", [NSNumberFormatter localizedStringFromNumber:((SKProduct *)[MyStoreObserver myStoreObserver].myProducts[0]).price numberStyle:NSNumberFormatterCurrencyStyle]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@STORE message:s delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
     alert.delegate = self;
     [alert show];
 }
@@ -963,5 +983,12 @@ static Test testToRun = NotTesting;
         t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     }
     [self.view addSubview:t];
+}
+
+- (NSString *)fmtPrice:(float)price {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    NSString *c = [numberFormatter currencySymbol];
+    return [NSString stringWithFormat:@"%@%.2f", c, price];
 }
 @end

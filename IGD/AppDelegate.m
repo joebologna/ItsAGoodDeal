@@ -39,6 +39,7 @@
     // Save a reference to the products list.
 #ifdef DEBUG
     NSLog(@"%s, %@", __func__, self.myStoreObserver.myProducts);
+    [self.myStoreObserver showProductInfo];
 #endif
 }
 
