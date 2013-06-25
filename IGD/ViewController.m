@@ -764,7 +764,11 @@ static Test testToRun = NotTesting;
     } else if (savings.calcState == NeedQty2Purchase) {
         [self setMessageMode:MessageMode];
         fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)] = @"";
+#ifdef REQUIRE_MULTIPLE
         fieldValues[T2I(FTAG, Message)] = [NSString stringWithFormat:@"Enter a Multiple of %.0f for # to Buy", savings.normalizedMinQty];
+#else
+        fieldValues[T2I(FTAG, Message)] = [NSString stringWithFormat:@"Enter # to Buy"];
+#endif
     } else {
         [self setMessageMode:MessageMode];
         fieldValues[T2I(FTAG, Message)] = [NSString stringWithCString:deviceFields[deviceType][T2I(FTAG, Message)].label encoding:NSASCIIStringEncoding];
