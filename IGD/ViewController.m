@@ -133,26 +133,26 @@ static labelStruct fieldsIPhone40[] = {
 };
 
 static labelStruct fieldsIPad[] = {
-    LABEL(1, YO11(21), 383, 322, 14, "Deal A"),
-    LABEL(385, YO11(21), 383, 322, 14, "Deal B"),
-    LABEL(10, YO11(312), 384, 30, 10, ""),
-    LABEL(384, YO11(312), 384, 30, 10, ""),
+    LABEL(1, YO11(21), 394, 334, 30, "Deal A"),
+    LABEL(385, YO11(21), 383, 334, 30, "Deal B"),
+    LABEL(10, YO11(312), 384, 30, 18, ""),
+    LABEL(384, YO11(312), 384, 30, 18, ""),
     // A
-    LABEL(10, YO11(40), 366, 86, 48, "Price A"),
-    LABEL(10, YO11(133), 177, 86, 48, "MinQty"), LABEL(199, YO11(133), 177, 86, 48, "Size"),
-    LABEL(105, YO11(227), 177, 86, 48, "# to Buy"),
+    LABEL(10, YO11(70), 366, 86, 48, "Price A"),
+    LABEL(10, YO11(164), 177, 86, 48, "MinQty"), LABEL(199, YO11(164), 177, 86, 48, "Size"),
+    LABEL(105, YO11(258), 177, 86, 48, "# to Buy"),
     // B
-    LABEL(393, YO11(40), 366, 86, 48, "Price B"),
-    LABEL(393, YO11(133), 177, 86, 48, "MinQty"), LABEL(582, YO11(133), 177, 86, 48, "Size"),
-    LABEL(488, YO11(227), 177, 86, 48, "# to Buy"),
+    LABEL(393, YO11(70), 366, 86, 48, "Price B"),
+    LABEL(393, YO11(164), 177, 86, 48, "MinQty"), LABEL(582, YO11(164), 177, 86, 48, "Size"),
+    LABEL(488, YO11(258), 177, 86, 48, "# to Buy"),
     // Savings & Messages
-    LABEL(1, YO11(344), 766, 75, 30, "Enter Price, Min Qty & Size of Items"),
-    LABEL(1, YO11(343), 256, 67, 30, "Cost Field"),
-    LABEL(256, YO11(343), 257, 67, 30, "Savings Field"),
-    LABEL(512, YO11(343), 255, 67, 30, "More Field"),
-    LABEL(1, YO11(400), 256, 20, 12, "Cost"),
-    LABEL(256, YO11(400), 257, 20, 12, "Savings"),
-    LABEL(512, YO11(400), 255, 20, 12, "More")
+    LABEL(1, YO11(423), 766, 75, 50, "Enter Price, Min Qty & Size of Items"),
+    LABEL(1, YO11(423), 256, 67, 40, "Cost Field"),
+    LABEL(256, YO11(423), 257, 67, 40, "Savings Field"),
+    LABEL(512, YO11(423), 255, 67, 40, "More Field"),
+    LABEL(1, YO11(480), 256, 28, 25, "Cost"),
+    LABEL(256, YO11(480), 257, 28, 25, "Savings"),
+    LABEL(512, YO11(480), 255, 28, 25, "More")
 };
 
 static labelStruct *deviceFields[] = {
@@ -196,21 +196,21 @@ static labelStruct keypadIPhone40[] = {
 };
 
 static labelStruct keypadIPad[] = {
-    LABEL(20, YO23(430), 176, 128, 48, "1"),
-    LABEL(204, YO23(430), 176, 128, 48, "2"),
-    LABEL(388, YO23(430), 176, 128, 48, "3"),
-    LABEL(572, YO23(430), 176, 128, 48, CLR),
-    LABEL(20, YO23(565), 176, 128, 48, "4"),
-    LABEL(204, YO23(565), 176, 128, 48, "5"),
-    LABEL(388, YO23(565), 176, 128, 48, "6"),
-    LABEL(572, YO23(565), 176, 128, 36, STORE),
-    LABEL(20, YO23(700), 176, 128, 48, "7"),
-    LABEL(204, YO23(700), 176, 128, 48, "8"),
-    LABEL(388, YO23(700), 176, 128, 48, "9"),
-    LABEL(572, YO23(700), 176, 128, 48, DEL),
-    LABEL(20, YO23(835), 176, 128, 48, "."),
-    LABEL(204, YO23(835), 176, 128, 48, "0"),
-    LABEL(388, YO23(835), 360, 128, 48, NEXT)
+    LABEL(20, YO23(576), 176, 92, 48, "1"),
+    LABEL(204, YO23(576), 176, 92, 48, "2"),
+    LABEL(388, YO23(576), 176, 92, 48, "3"),
+    LABEL(572, YO23(576), 176, 92, 48, CLR),
+    LABEL(20, YO23(674), 176, 92, 48, "4"),
+    LABEL(204, YO23(674), 176, 92, 48, "5"),
+    LABEL(388, YO23(674), 176, 92, 48, "6"),
+    LABEL(572, YO23(674), 176, 92, 36, STORE),
+    LABEL(20, YO23(772), 176, 92, 48, "7"),
+    LABEL(204, YO23(772), 176, 92, 48, "8"),
+    LABEL(388, YO23(772), 176, 92, 48, "9"),
+    LABEL(572, YO23(772), 176, 92, 48, DEL),
+    LABEL(20, YO23(870), 176, 92, 48, "."),
+    LABEL(204, YO23(870), 176, 92, 48, "0"),
+    LABEL(388, YO23(870), 360, 92, 48, NEXT)
 };
 
 static labelStruct *deviceKeys[] = {
