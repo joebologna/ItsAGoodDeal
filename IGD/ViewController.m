@@ -657,6 +657,7 @@ static Test testToRun = NotTesting;
                 } else if (tag == Qty2BuyB) {
                     fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)];
                 }
+                [self showResult];
             }
         } else {
             fieldValues[T2I(FTAG, tag)] = [s stringByAppendingString:key];
@@ -665,6 +666,7 @@ static Test testToRun = NotTesting;
             } else if (tag == Qty2BuyB) {
                 fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)];
             }
+            [self showResult];
         }
         [self updateFields:NO];
     }
@@ -728,6 +730,7 @@ static Test testToRun = NotTesting;
     NSString *q2buyA = fieldValues[T2I(FTAG, Qty2BuyA)];
     NSString *q2buyB = fieldValues[T2I(FTAG, Qty2BuyB)];
     if (q2buyA.length > 0 && [q2buyA isEqualToString:q2buyB]) {
+        // this causes the final calculation to run
         savings.qty2Purchase = [q2buyA floatValue];
 //        NSLog(@"%@", savings.calcStateString);
     } else {
@@ -761,7 +764,7 @@ static Test testToRun = NotTesting;
     } else if (savings.calcState == NeedQty2Purchase) {
         [self setMessageMode:MessageMode];
         fieldValues[T2I(FTAG, Qty2BuyA)] = fieldValues[T2I(FTAG, Qty2BuyB)] = @"";
-        fieldValues[T2I(FTAG, Message)] = [NSString stringWithFormat:@"Enter at least %.2f for Qty to Buy", savings.normalizedMinQty];
+        fieldValues[T2I(FTAG, Message)] = [NSString stringWithFormat:@"Enter a Multiple of %.0f for # to Buy", savings.normalizedMinQty];
     } else {
         [self setMessageMode:MessageMode];
         fieldValues[T2I(FTAG, Message)] = [NSString stringWithCString:deviceFields[deviceType][T2I(FTAG, Message)].label encoding:NSASCIIStringEncoding];

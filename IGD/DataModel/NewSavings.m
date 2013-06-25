@@ -91,9 +91,15 @@
 
 @synthesize qty2Purchase = _qty2Purchase;
 - (void)setQty2Purchase:(float)qty2Purchase {
-    _qty2Purchase = qty2Purchase;
-    _itemA.qty2Purchase = _itemB.qty2Purchase = _qty2Purchase;
-    _calcState = CalcComplete;
+    if (qty2Purchase != INFINITY && qty2Purchase != 0.0) {
+        if (remainderf(qty2Purchase, self.normalizedMinQty) == 0.0) {
+            _qty2Purchase = qty2Purchase;
+            _itemA.qty2Purchase = _itemB.qty2Purchase = _qty2Purchase;
+            _calcState = CalcComplete;
+        } else {
+            _calcState = NeedQty2Purchase;
+        }
+    }
 }
 
 @dynamic totalCost;
