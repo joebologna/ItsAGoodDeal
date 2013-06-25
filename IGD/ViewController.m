@@ -526,7 +526,9 @@ static Test testToRun = NotTesting;
 }
 
 - (void)buttonPushed:(MyButton *)sender {
-//    NSLog(@"%s, %d", __func__, sender.tag);
+#ifdef DEBUG
+	NSLog(@"%s, %d", __func__, sender.tag);
+#endif
 
     typedef enum {
         InputKey, ResultKey, NumberKey, ClearKey, StoreKey, DelKey, NextKey, UnknownKey
@@ -610,7 +612,9 @@ static Test testToRun = NotTesting;
             if (keyType != NextKey) {
                 fieldValues[T2I(FTAG, tag)] = @"";
             } else {
+#ifdef DEBUG
                 NSLog(@"%s, this shouldnt happen", __func__);
+#endif
             }
             directTap = NO;
         }
@@ -732,9 +736,13 @@ static Test testToRun = NotTesting;
     if (q2buyA.length > 0 && [q2buyA isEqualToString:q2buyB]) {
         // this causes the final calculation to run
         savings.qty2Purchase = [q2buyA floatValue];
-//        NSLog(@"%@", savings.calcStateString);
+#ifdef DEBUG
+        NSLog(@"%@", savings.calcStateString);
+#endif
     } else {
+#ifdef DEBUG
         NSLog(@"%s, this shouldnt happen", __func__);
+#endif
     }
     
     if (savings.calcState == CalcComplete || savings.calcState == NeedQty2Purchase) {
@@ -756,7 +764,9 @@ static Test testToRun = NotTesting;
             fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
             fieldValues[T2I(FTAG, ItemB)] = [NSString stringWithFormat:@"B is %.0f%% Cheaper", savings.percentSavings*100];
         } else {
+#ifdef DEBUG
             NSLog(@"%s, This should not happen", __func__);
+#endif
             fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
             fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
         }

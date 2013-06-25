@@ -19,7 +19,6 @@ static MyStoreObserver *theSharedObject = nil;
 
 // setters/getters
 - (void)setBought:(BOOL)newValue {
-    //    NSLog(@"%s, %@", __func__, newValue ? vYes : vNo);
     bought = newValue;
     
     // Set up the preference.
@@ -40,9 +39,6 @@ static MyStoreObserver *theSharedObject = nil;
     CFComparisonResult r = CFStringCompare(boughtStr, vYes, kCFCompareCaseInsensitive);
     bought = (r == kCFCompareEqualTo);
     
-    // When finished with value, you must release it
-    // CFRelease(boughtStr);
-    //    NSLog(@"%s, bought is: %@", __func__, bought ? vYes : vNo);
     return bought;
 }
 
