@@ -392,7 +392,13 @@ static Test testToRun = NotTesting;
     for (int tag = ItemA; tag <= MoreField; tag++) {
         NSInteger i = T2I(FTAG, tag);
         UITextField *t = (UITextField *)[self.view viewWithTag:tag];
-        if (tag ==  ItemA || tag == ItemB || tag == Message) {
+        if (tag ==  ItemA || tag == ItemB) {
+            if ([t.backgroundColor isEqual:[UIColor clearColor]]) {
+                t.borderStyle = UITextBorderStyleNone;
+            } else {
+                t.borderStyle = UITextBorderStyleLine;
+            }
+        } else if (tag == Message) {
             t.borderStyle = UITextBorderStyleLine;
             if ((tag == ItemA || tag == ItemB) && [fieldValues[i] length] > 6) { // fix this later
                 t.backgroundColor = highlightColor;
@@ -724,11 +730,23 @@ static Test testToRun = NotTesting;
     } else {
         fieldValues[T2I(FTAG, SavingsField)] = [self fmtPrice:savings.savings];
     }
-    float percentDiff = [savings.betterItem isEqual:savings.itemA] ? savings.percentMoreProductA : savings.percentMoreProductB;
+    float percentDiff = [savings.cheaperItem isEqual:savings.itemA] ? savings.percentMoreProductA : savings.percentMoreProductB;
     if (percentDiff < 0.0) {
         fieldValues[T2I(FTAG, MoreField)] = [NSString stringWithFormat:@"%.0f%% Less", percentDiff * -100.0];
     } else {
         fieldValues[T2I(FTAG, MoreField)] = [NSString stringWithFormat:@"%.0f%% More", percentDiff * 100.0];
+    }
+    if (savings.itemA.pricePerUnit < savings.itemB.pricePerUnit) {
+        [self highLight:ItemA];
+    } else if(savings.itemA.pricePerUnit < savings.itemB.pricePerUnit) {
+        [self highLight:ItemB];
+    } else {
+        // same price, use betterPricePerUnit
+        if ([savings.betterPricePerUnit isEqual:savings.itemA]) {
+            [self highLight:ItemA];
+        } else {
+            [self highLight:ItemB];
+        }
     }
 }
 
@@ -770,16 +788,16 @@ static Test testToRun = NotTesting;
     }
     
     [self clrHighLight];
+    // highlight based on unit cost, deal based on price, this is setting unit cost
     if (savings.calcState == CalcComplete) {
+        // same price, same unit cost
         if (savings.savings == 0.0) {
             fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
             fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
-        } else if ([savings.betterItem.name isEqualToString:@"A"]) {
-            [self highLight:ItemA];
+        } else if ([savings.cheaperItem.name isEqualToString:@"A"]) {
             fieldValues[T2I(FTAG, ItemA)] = [NSString stringWithFormat:@"A is %.0f%% Cheaper", savings.percentSavings*100];
             fieldValues[T2I(FTAG, ItemB)] = @"Deal B";
-        } else if ([savings.betterItem.name isEqualToString:@"B"]) {
-            [self highLight:ItemB];
+        } else if ([savings.cheaperItem.name isEqualToString:@"B"]) {
             fieldValues[T2I(FTAG, ItemA)] = @"Deal A";
             fieldValues[T2I(FTAG, ItemB)] = [NSString stringWithFormat:@"B is %.0f%% Cheaper", savings.percentSavings*100];
         } else {

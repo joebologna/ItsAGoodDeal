@@ -18,12 +18,12 @@ typedef enum {
 + (NewSavings *)theNewSavings;
 + (NewSavings *)theNewSavingsWithItemA:(Item *)itemA withItemB:(Item *)itemB;
 
-@property (unsafe_unretained, nonatomic, readonly) float betterPricePerUnit, normalizedMinQty, totalCost, totalCostA, totalCostB, savings, savingsA, savingsB, amountPurchased, amountPurchasedA, amountPurchasedB, percentSavings, percentSavingsA, percentSavingsB, percentMoreProductA, percentMoreProductB;
+@property (unsafe_unretained, nonatomic, readonly) float normalizedMinQty, totalCost, totalCostA, totalCostB, savings, savingsA, savingsB, amountPurchased, amountPurchasedA, amountPurchasedB, percentSavings, percentSavingsA, percentSavingsB, percentMoreProductA, percentMoreProductB;
 @property (unsafe_unretained, nonatomic) float qty2Purchase;
-@property (strong, nonatomic) Item *itemA, *itemB;
+@property (strong, nonatomic) Item *itemA, *itemB, *betterPricePerUnit;
 @property (unsafe_unretained, nonatomic, readonly) CalcState calcState;
 @property (unsafe_unretained, nonatomic, readonly) BOOL isReady;
-@property (strong, nonatomic, readonly) Item *betterItem;
+@property (strong, nonatomic, readonly) Item *cheaperItem;
 @property (strong, nonatomic) NSString *calcStateString;
 @property (strong, nonatomic) NSString *toString;
 
