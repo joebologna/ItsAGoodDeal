@@ -133,10 +133,10 @@ static labelStruct fieldsIPhone40[] = {
 };
 
 static labelStruct fieldsIPad[] = {
-    LABEL(1, YO11(21), 394, 334, 30, "Deal A"),
-    LABEL(385, YO11(21), 383, 334, 30, "Deal B"),
-    LABEL(10, YO11(312), 384, 30, 18, ""),
-    LABEL(384, YO11(312), 384, 30, 18, ""),
+    LABEL(1, YO11(21), 394, 352, 30, "Deal A"),
+    LABEL(385, YO11(21), 383, 352, 30, "Deal B"),
+    LABEL(10, YO11(344), 384, 30, 18, ""),
+    LABEL(384, YO11(344), 384, 30, 18, ""),
     // A
     LABEL(10, YO11(70), 366, 86, 48, "Price A"),
     LABEL(10, YO11(164), 177, 86, 48, "MinQty"), LABEL(199, YO11(164), 177, 86, 48, "Size"),
@@ -359,7 +359,7 @@ static Test testToRun = NotTesting;
         default:
             break;
     }
-    
+    [self clrHighLight];
     [self showResult];
     [self setAdButtonState];
 }
@@ -380,10 +380,10 @@ static Test testToRun = NotTesting;
     for (NSInteger i = 0; i < nTags; i++) {
         NSInteger tag = tags[i];
         UITextField *t = (UITextField *)[self.view viewWithTag:tag];
-        if (tag == ItemA && [fieldValues[T2I(FTAG, tag)] length] > 6) { // fix this later
-            t.backgroundColor = highlightColor;
-        } else if (tag == ItemB && [fieldValues[T2I(FTAG, tag)] length] > 6) { // fix this later
-            t.backgroundColor = highlightColor;
+        if (tag == ItemA) {
+            t.backgroundColor = backgroundColor;
+        } else if (tag == ItemB) {
+            t.backgroundColor = backgroundColor;
         }
     }
 }
@@ -400,7 +400,7 @@ static Test testToRun = NotTesting;
             }
         } else if (tag == Message) {
             t.borderStyle = UITextBorderStyleLine;
-            if ((tag == ItemA || tag == ItemB) && [fieldValues[i] length] > 6) { // fix this later
+            if (tag == ItemA || tag == ItemB) {
                 t.backgroundColor = highlightColor;
                 t.borderStyle = UITextBorderStyleLine;
             } else {
@@ -732,9 +732,14 @@ static Test testToRun = NotTesting;
     }
     float percentDiff = [savings.cheaperItem isEqual:savings.itemA] ? savings.percentMoreProductA : savings.percentMoreProductB;
     if (percentDiff < 0.0) {
-        fieldValues[T2I(FTAG, MoreField)] = [NSString stringWithFormat:@"%.0f%% Less", percentDiff * -100.0];
+        fieldValues[T2I(FTAG, MoreField)] = [NSString stringWithFormat:@"%.0f%%", percentDiff * -100.0];
+        fieldValues[T2I(FTAG, MoreLabel)] = @"Less Product";
+    } else if (percentDiff > 0.0) {
+        fieldValues[T2I(FTAG, MoreField)] = [NSString stringWithFormat:@"%.0f%%", percentDiff * 100.0];
+        fieldValues[T2I(FTAG, MoreLabel)] = @"More Product";
     } else {
-        fieldValues[T2I(FTAG, MoreField)] = [NSString stringWithFormat:@"%.0f%% More", percentDiff * 100.0];
+        fieldValues[T2I(FTAG, MoreField)] = @"Same Amt";
+        fieldValues[T2I(FTAG, MoreLabel)] = @"of Product";
     }
     if (savings.itemA.pricePerUnit < savings.itemB.pricePerUnit) {
         [self highLight:ItemA];
