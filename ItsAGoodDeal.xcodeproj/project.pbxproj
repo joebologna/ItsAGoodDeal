@@ -23,6 +23,12 @@
 		3B73073E175EC9F500873194 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073C175EC9F500873194 /* MainStoryboard_iPhone.storyboard */; };
 		3B730741175EC9F500873194 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */; };
 		3B730744175EC9F500873194 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B730743175EC9F500873194 /* ViewController.m */; };
+		3BC2893B1799F12B00D884BB /* Fields.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893A1799F12B00D884BB /* Fields.m */; };
+		3BC2893C1799F12B00D884BB /* Fields.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893A1799F12B00D884BB /* Fields.m */; };
+		3BC2893F1799F48300D884BB /* FieldsClassUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893E1799F48300D884BB /* FieldsClassUnitTests.m */; };
+		3BC289401799F48300D884BB /* FieldsClassUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893E1799F48300D884BB /* FieldsClassUnitTests.m */; };
+		3BC289431799FFDD00D884BB /* Field.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC289421799FFDD00D884BB /* Field.m */; };
+		3BC289441799FFDD00D884BB /* Field.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC289421799FFDD00D884BB /* Field.m */; };
 		3BD2866C1762E97100A9AEE4 /* scale-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BD2866B1762E97100A9AEE4 /* scale-57x57.png */; };
 		3BD2866E1762EAAC00A9AEE4 /* scale-144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BD2866D1762EAAC00A9AEE4 /* scale-144x144.png */; };
 		3BD286701762EB0700A9AEE4 /* scale-72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BD2866F1762EB0700A9AEE4 /* scale-72x72.png */; };
@@ -69,6 +75,12 @@
 		3BA69A621773D3E500AA23FB /* IGDUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGDUnitTests.h; sourceTree = "<group>"; };
 		3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ItsAGoodDeal.entitlements; sourceTree = "<group>"; };
 		3BC289381799E83500D884BB /* Refactor.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Refactor.rtf; sourceTree = "<group>"; };
+		3BC289391799F12B00D884BB /* Fields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fields.h; sourceTree = "<group>"; };
+		3BC2893A1799F12B00D884BB /* Fields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fields.m; sourceTree = "<group>"; };
+		3BC2893D1799F48300D884BB /* FieldsClassUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldsClassUnitTests.h; sourceTree = "<group>"; };
+		3BC2893E1799F48300D884BB /* FieldsClassUnitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldsClassUnitTests.m; sourceTree = "<group>"; };
+		3BC289411799FFDD00D884BB /* Field.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Field.h; sourceTree = "<group>"; };
+		3BC289421799FFDD00D884BB /* Field.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Field.m; sourceTree = "<group>"; };
 		3BD2866B1762E97100A9AEE4 /* scale-57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scale-57x57.png"; sourceTree = "<group>"; };
 		3BD2866D1762EAAC00A9AEE4 /* scale-144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scale-144x144.png"; sourceTree = "<group>"; };
 		3BD2866F1762EB0700A9AEE4 /* scale-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scale-72x72.png"; sourceTree = "<group>"; };
@@ -125,6 +137,8 @@
 			children = (
 				3BA69A621773D3E500AA23FB /* IGDUnitTests.h */,
 				3B55754B176FAADA005EEB51 /* IGDUnitTests.m */,
+				3BC2893D1799F48300D884BB /* FieldsClassUnitTests.h */,
+				3BC2893E1799F48300D884BB /* FieldsClassUnitTests.m */,
 				3B557545176FAADA005EEB51 /* Supporting Files */,
 			);
 			path = IGDUnitTests;
@@ -155,6 +169,7 @@
 				3BDB0CFB1762A7FA007AB586 /* Default@2x.png */,
 				3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */,
 				3BE052E817778F150041D6C0 /* Design */,
+				3BE052DA17778EC30041D6C0 /* DataModel */,
 				3B73072A175EC9F500873194 /* IGD */,
 				3B557544176FAADA005EEB51 /* IGDUnitTests */,
 				3B730723175EC9F500873194 /* Frameworks */,
@@ -193,7 +208,6 @@
 				3B730742175EC9F500873194 /* ViewController.h */,
 				3B730743175EC9F500873194 /* ViewController.m */,
 				3BE052E717778EE80041D6C0 /* Lib */,
-				3BE052DA17778EC30041D6C0 /* DataModel */,
 				3B73072B175EC9F500873194 /* Supporting Files */,
 			);
 			path = IGD;
@@ -220,8 +234,13 @@
 				3BE052D317778EAC0041D6C0 /* Item.m */,
 				3BE052D417778EAC0041D6C0 /* NewSavings.h */,
 				3BE052D517778EAC0041D6C0 /* NewSavings.m */,
+				3BC289391799F12B00D884BB /* Fields.h */,
+				3BC2893A1799F12B00D884BB /* Fields.m */,
+				3BC289411799FFDD00D884BB /* Field.h */,
+				3BC289421799FFDD00D884BB /* Field.m */,
 			);
 			name = DataModel;
+			path = IGD;
 			sourceTree = "<group>";
 		};
 		3BE052E717778EE80041D6C0 /* Lib */ = {
@@ -357,6 +376,9 @@
 				3BE052D717778EAC0041D6C0 /* Item.m in Sources */,
 				3BE052D917778EAC0041D6C0 /* NewSavings.m in Sources */,
 				3BE052E617778EE00041D6C0 /* NSObject+Formatter.m in Sources */,
+				3BC2893C1799F12B00D884BB /* Fields.m in Sources */,
+				3BC289401799F48300D884BB /* FieldsClassUnitTests.m in Sources */,
+				3BC289441799FFDD00D884BB /* Field.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +394,9 @@
 				3BE052E117778EE00041D6C0 /* MyButton.m in Sources */,
 				3BE052E317778EE00041D6C0 /* MyStoreObserver.m in Sources */,
 				3BE052E517778EE00041D6C0 /* NSObject+Formatter.m in Sources */,
+				3BC2893B1799F12B00D884BB /* Fields.m in Sources */,
+				3BC2893F1799F48300D884BB /* FieldsClassUnitTests.m in Sources */,
+				3BC289431799FFDD00D884BB /* Field.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
