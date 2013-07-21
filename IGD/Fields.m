@@ -163,7 +163,7 @@
     f.moreField = [Field allocFieldWithRect:CGRectMake(212, 158, 106, 30) andF:17 andValue:@"More Field" andTag:MoreField andType:LabelField andVC:f.vc];
     
     f.costLabel = [Field allocFieldWithRect:CGRectMake(1, 186, 106, 10) andF:9 andValue:@"Cost" andTag:CostLabel andType:LabelField andVC:f.vc];
-    f.savingsLabel = [Field allocFieldWithRect:CGRectMake(106, 186, 107, 30) andF:9 andValue:@"Savings" andTag:SavingsLabel andType:LabelField andVC:f.vc];
+    f.savingsLabel = [Field allocFieldWithRect:CGRectMake(106, 186, 107, 10) andF:9 andValue:@"Savings" andTag:SavingsLabel andType:LabelField andVC:f.vc];
     f.moreLabel = [Field allocFieldWithRect:CGRectMake(212, 186, 106, 10) andF:9 andValue:@"More" andTag:MoreLabel andType:LabelField andVC:f.vc];
     
     f.one = [Field allocFieldWithRect:CGRectMake(20, 201, 64, 66) andF:15 andValue:@"1" andTag:One andType:KeyType andVC:f.vc];
@@ -205,15 +205,15 @@
     f.sizeB = [Field allocFieldWithRect:CGRectMake(582, 144, 177, 86) andF:48 andValue:@"Size" andTag:SizeB andType:LabelField andVC:f.vc];
     f.qty2BuyB = [Field allocFieldWithRect:CGRectMake(488, 238, 177, 86) andF:48 andValue:@"# to Buy" andTag:Qty2BuyB andType:LabelField andVC:f.vc];
     
-    f.message = [Field allocFieldWithRect:CGRectMake(1, 403, 318, 40) andF:17 andValue:@"Enter Price, Min Qty & Size of Items" andTag:Message andType:LabelField andVC:f.vc];
+    f.message = [Field allocFieldWithRect:CGRectMake(1, 393, 766, 75) andF:17 andValue:@"Enter Price, Min Qty & Size of Items" andTag:Message andType:LabelField andVC:f.vc];
     
-    f.costField = [Field allocFieldWithRect:CGRectMake(1, 460, 766, 67) andF:40 andValue:@"Cost Field" andTag:CostField andType:LabelField andVC:f.vc];
-    f.savingsField = [Field allocFieldWithRect:CGRectMake(256, 460, 257, 67) andF:40 andValue:@"Savings Field" andTag:SavingsField andType:LabelField andVC:f.vc];
-    f.moreField = [Field allocFieldWithRect:CGRectMake(212, 460, 106, 30) andF:40 andValue:@"More Field" andTag:MoreField andType:LabelField andVC:f.vc];
+    f.costField = [Field allocFieldWithRect:   CGRectMake(1,   393, 256, 67) andF:40 andValue:@"Cost Field" andTag:CostField andType:LabelField andVC:f.vc];
+    f.savingsField = [Field allocFieldWithRect:CGRectMake(256, 393, 257, 67) andF:40 andValue:@"Savings Field" andTag:SavingsField andType:LabelField andVC:f.vc];
+    f.moreField = [Field allocFieldWithRect:   CGRectMake(512, 393, 255, 67) andF:40 andValue:@"More Field" andTag:MoreField andType:LabelField andVC:f.vc];
     
-    f.costLabel = [Field allocFieldWithRect:CGRectMake(1, 460, 256, 28) andF:25 andValue:@"Cost" andTag:CostLabel andType:LabelField andVC:f.vc];
-    f.savingsLabel = [Field allocFieldWithRect:CGRectMake(256, 460, 257, 28) andF:25 andValue:@"Savings" andTag:SavingsLabel andType:LabelField andVC:f.vc];
-    f.moreLabel = [Field allocFieldWithRect:CGRectMake(512, 460, 255, 28) andF:25 andValue:@"More" andTag:MoreLabel andType:LabelField andVC:f.vc];
+    f.costLabel = [Field allocFieldWithRect:   CGRectMake(1,   468, 256, 28) andF:25 andValue:@"Cost" andTag:CostLabel andType:LabelField andVC:f.vc];
+    f.savingsLabel = [Field allocFieldWithRect:CGRectMake(256, 468, 257, 28) andF:25 andValue:@"Savings" andTag:SavingsLabel andType:LabelField andVC:f.vc];
+    f.moreLabel = [Field allocFieldWithRect:   CGRectMake(512, 468, 255, 28) andF:25 andValue:@"More" andTag:MoreLabel andType:LabelField andVC:f.vc];
 
     f.one = [Field allocFieldWithRect:CGRectMake(20, 546, 176, 92) andF:48 andValue:@"1" andTag:One andType:KeyType andVC:f.vc];
     f.two = [Field allocFieldWithRect:CGRectMake(204, 546, 176, 92) andF:48 andValue:@"2" andTag:Two andType:KeyType andVC:f.vc];
