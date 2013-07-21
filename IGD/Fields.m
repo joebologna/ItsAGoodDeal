@@ -57,13 +57,17 @@
 }
 
 + (Fields *)allocFields {
-    return [[Fields alloc] init];
-}
-
-+ (Fields *)allocFieldsWithDeviceType:(DeviceType)d {
     Fields *f = [[Fields alloc] init];
-    f.deviceType = d;
-    switch (d) {
+    // iPhone 4 = 480, iPhone 5 = 568, iPad > 568
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    if (height <= 480) {
+        f.deviceType = iPhone4;
+    } else if (height > 480 && height <= 568) {
+        f.deviceType = iPhone5;
+    } else {
+        f.deviceType = iPad;
+    }
+    switch (f.deviceType) {
         case iPhone4:
             [self buildIPhone4:f];
             break;

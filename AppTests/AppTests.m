@@ -46,7 +46,7 @@
 
 - (void)test02MakeFields {
     NSLog(@"%s, %@", __func__, [vc description]);
-    Fields *f = [Fields allocFieldsWithDeviceType:iPhone4];
+    Fields *f = [Fields allocFields];
     f.vc = vc;
     [f populateScreen];
     STAssertTrue(TRUE, @"oops");

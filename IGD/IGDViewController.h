@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "MyStoreObserver.h"
+#import "Fields.h"
 #import "MyButton.h"
 
-@interface IGDViewController : UIViewController <UITextFieldDelegate, MyStoreObserverDelegate>
+@interface IGDViewController : UIViewController <MyStoreObserverDelegate>
 
 - (void)buttonPushed:(MyButton *)sender;
 

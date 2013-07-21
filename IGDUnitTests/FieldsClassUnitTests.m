@@ -28,17 +28,8 @@
     NSLog(@"\n\n%@\n\n", f.toString);
     STAssertEquals(f.deviceType, UnknownDeviceType, @"Should be UnknownDeviceType");
     
-    f = [Fields allocFieldsWithDeviceType:iPhone4];
+    f = [Fields allocFields];
     NSLog(@"\n\n%@\n\n", f.toString);
-    STAssertEquals(f.deviceType, iPhone4, @"Should be iPhone4");
-    
-    f = [Fields allocFieldsWithDeviceType:iPhone5];
-    NSLog(@"\n\n%@\n\n", f.toString);
-    STAssertEquals(f.deviceType, iPhone5, @"Should be iPhone5");
-    
-    f = [Fields allocFieldsWithDeviceType:iPad];
-    NSLog(@"\n\n%@\n\n", f.toString);
-    STAssertEquals(f.deviceType, iPad, @"Should be iPad");
 }
 
 - (void)test02FieldClass {
@@ -50,7 +41,7 @@
     STAssertEquals(f.rect.size.height, 0.0f, @"Should be Zero");
     STAssertEquals(f.f, [UIFont systemFontSize], @"Should be systemFontSize");
     STAssertTrue(f.value.length == 0, @"Should be 0");
-    f = [Field allocFieldWithRect:CGRectMake(1, 1, 1, 1) andF:20 andValue:@"TestMe" andTag:ItemA];
+    f = [Field allocFieldWithRect:CGRectMake(1, 1, 1, 1) andF:20 andValue:@"TestMe" andTag:ItemA andType:ButtonField andVC:nil];
     NSLog(@"\n\n%@\n\n", f.toString);
 }
 
