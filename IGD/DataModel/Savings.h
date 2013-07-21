@@ -13,10 +13,10 @@ typedef enum {
     NotReady, NeedQty2Purchase, CalcComplete
 } CalcState;
 
-@interface NewSavings : NSObject
+@interface Savings : NSObject
 
-+ (NewSavings *)theNewSavings;
-+ (NewSavings *)theNewSavingsWithItemA:(Item *)itemA withItemB:(Item *)itemB;
++ (Savings *)theNewSavings;
++ (Savings *)theNewSavingsWithItemA:(Item *)itemA withItemB:(Item *)itemB;
 - (NSString *)getCalcStateString;
 
 @property (unsafe_unretained, nonatomic, readonly) float normalizedMinQty, totalCost, totalCostA, totalCostB, savings, savingsA, savingsB, amountPurchased, amountPurchasedA, amountPurchasedB, percentSavings, percentSavingsA, percentSavingsB, percentMoreProductA, percentMoreProductB;

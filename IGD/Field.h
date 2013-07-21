@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MyButton.h"
 
 #define FTAG_BASE 100
 #define KTAG_BASE 400
@@ -53,15 +54,28 @@ typedef enum {
     Next
 } KTAG;
 
+typedef enum {
+    ButtonField,
+    LabelField,
+    KeyType
+} FieldType;
+
 @interface Field : NSObject
 
 + (Field *)allocField;
-+ (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andLabel:(NSString *)l andTag:(FTAG)tag;
++ (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t andVC:(UIViewController *)vc;
+
+- (void)makeButton;
+- (void)makeField;
+- (BOOL)isButton;
 
 @property (unsafe_unretained, nonatomic) CGRect rect;
 @property (unsafe_unretained, nonatomic) CGFloat f;
-@property (copy, nonatomic) NSString *label;
+@property (copy, nonatomic) NSString *value;
 @property (unsafe_unretained, nonatomic) FTAG tag;
+@property (unsafe_unretained, nonatomic) FieldType type;
+@property (strong, nonatomic) UIView *control;
+@property (unsafe_unretained, nonatomic) UIViewController *vc;
 
 @property (strong, nonatomic, readonly) NSString *toString, *tagToString, *rectToString, *fTagToString;
 

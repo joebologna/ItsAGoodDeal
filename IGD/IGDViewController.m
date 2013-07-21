@@ -1,12 +1,12 @@
 //
-//  ViewController.m
+//  IGDViewController.m
 //  IGD
 //
 //  Created by Joe Bologna on 6/4/13.
 //  Copyright (c) 2013 Joe Bologna. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "IGDViewController.h"
 #import "MyButton.h"
 #import "MyStoreObserver.h"
 #import "Savings.h"
@@ -233,7 +233,7 @@ static Test testToRun = NotTesting;
 #pragma mark -
 #pragma mark Instance Properties
 
-@interface ViewController () <ADBannerViewDelegate, UIAlertViewDelegate> {
+@interface IGDViewController () <ADBannerViewDelegate, UIAlertViewDelegate> {
     NSMutableArray *fieldValues;
     UIColor *fieldColor, *curFieldColor, *backgroundColor, *highlightColor;
     DeviceType deviceType;
@@ -247,7 +247,7 @@ static Test testToRun = NotTesting;
 #pragma mark -
 #pragma mark View Delegate
 
-@implementation ViewController
+@implementation IGDViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -545,8 +545,6 @@ static Test testToRun = NotTesting;
     } KeyType;
     KeyType keyType;
     
-    keyType = UnknownKey;
-    
     if (sender.tag >= FTAG && sender.tag <= Message) {
         switch (sender.tag) {
             case PriceA:
@@ -612,7 +610,6 @@ static Test testToRun = NotTesting;
         b = (MyButton *)[self.view viewWithTag:sender.tag];
         [b setBackgroundColor:curFieldColor];
         curFieldIndex = [self findIndex:sender.tag];
-        tag = InputFields[curFieldIndex];
         directTap = YES;
         [self showResult];
     } else  if (keyType == ResultKey) {
@@ -647,7 +644,6 @@ static Test testToRun = NotTesting;
             [self initGUI];
         } else if (keyType == NextKey) {
             curFieldIndex = (curFieldIndex + 1) % nInputFields;
-            tag = InputFields[curFieldIndex];
             [self showResult];
         } else if ([key isEqualToString:@STORE]) {
             if (!myStoreObserver.bought || debug) {

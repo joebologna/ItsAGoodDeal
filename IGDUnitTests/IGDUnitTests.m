@@ -7,7 +7,7 @@
 //
 
 #import "IGDUnitTests.h"
-#import "../IGD/DataModel/NewSavings.h"
+#import "../IGD/DataModel/Savings.h"
 
 @interface IGDUnitTests () {
 };

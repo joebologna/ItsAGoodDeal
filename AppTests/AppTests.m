@@ -7,10 +7,11 @@
 //
 
 #import "AppTests.h"
-#import "ViewController.h"
+#import "IGDViewController.h"
+#import "Fields.h"
 
 @interface AppTests () {
-    ViewController *vc;
+    IGDViewController *vc;
     MyButton *b;
 };
 @end;
@@ -21,7 +22,7 @@
 {
     [super setUp];
     
-    vc = (ViewController *)[[[[UIApplication sharedApplication] windows] objectAtIndex:0] rootViewController];
+    vc = ((IGDViewController *)[[[[UIApplication sharedApplication] windows] objectAtIndex:0] rootViewController]);
     b = [[MyButton alloc] init];
 }
 
@@ -32,13 +33,23 @@
     [super tearDown];
 }
 
-- (void)testExample
+/*
+ - (void)test01PushButtons
 {
     b.tag = 403;
     for(int i = 0; i < 3; i++) {
         [vc buttonPushed:b];
     }
-    STFail(@"Unit tests are not implemented yet in AppTests");
+    STAssertTrue(TRUE, @"oops");
+}
+ */
+
+- (void)test02MakeFields {
+    NSLog(@"%s, %@", __func__, [vc description]);
+    Fields *f = [Fields allocFieldsWithDeviceType:iPhone4];
+    f.vc = vc;
+    [f populateScreen];
+    STAssertTrue(TRUE, @"oops");
 }
 
 @end

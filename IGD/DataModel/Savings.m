@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Joe Bologna. All rights reserved.
 //
 
-#import "NewSavings.h"
+#import "Savings.h"
 
-@implementation NewSavings
+@implementation Savings
 
 @synthesize toString = _toString;
 - (NSString *)toString {
@@ -46,10 +46,13 @@
     switch (_calcState) {
         case  NotReady:
             s = @"NotReady";
+            break;
         case NeedQty2Purchase:
             s = @"NeetQty2Purchase";
+            break;
         case CalcComplete:
             s = @"CalcComplete";
+            break;
     }
     return s;
 }
@@ -219,12 +222,12 @@
     return self;
 }
 
-+ (NewSavings *)theNewSavings {
-    return [[NewSavings alloc] init];
++ (Savings *)theNewSavings {
+    return [[Savings alloc] init];
 }
 
-+ (NewSavings *)theNewSavingsWithItemA:(Item *)itemA withItemB:(Item *)itemB {
-    NewSavings *newSavings = [[NewSavings alloc] init];
++ (Savings *)theNewSavingsWithItemA:(Item *)itemA withItemB:(Item *)itemB {
+    Savings *newSavings = [[Savings alloc] init];
     newSavings.itemA = itemA;
     newSavings.itemB = itemB;
     return newSavings.isReady ? newSavings : nil;

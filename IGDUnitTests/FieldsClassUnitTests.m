@@ -8,7 +8,6 @@
 
 #import "FieldsClassUnitTests.h"
 #import "Fields.h"
-#import "Field.h"
 
 @interface FieldsClassUnitTests() {
 };
@@ -50,8 +49,8 @@
     STAssertEquals(f.rect.size.width, 0.0f, @"Should be Zero");
     STAssertEquals(f.rect.size.height, 0.0f, @"Should be Zero");
     STAssertEquals(f.f, [UIFont systemFontSize], @"Should be systemFontSize");
-    STAssertTrue(f.label.length == 0, @"Should be 0");
-    f = [Field allocFieldWithRect:CGRectMake(1, 1, 1, 1) andF:20 andLabel:@"TestMe" andTag:ItemA];
+    STAssertTrue(f.value.length == 0, @"Should be 0");
+    f = [Field allocFieldWithRect:CGRectMake(1, 1, 1, 1) andF:20 andValue:@"TestMe" andTag:ItemA];
     NSLog(@"\n\n%@\n\n", f.toString);
 }
 
