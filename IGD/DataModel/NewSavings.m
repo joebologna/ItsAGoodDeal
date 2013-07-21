@@ -12,7 +12,7 @@
 
 @synthesize toString = _toString;
 - (NSString *)toString {
-	return [NSString stringWithFormat:@".qty2Purchase: %.2f, .betterPrice: %.2f, .normalizedMinQty: %.2f, .totalCost: %.2f, .totalCostA: %.2f, .totalCostB: %.2f, .savings: %.2f, .savingsA: %.2f, .savingsB: %.2f, .amountPurchased: %.2f, .amountPurchasedA: %.2f, .amountPurchasedB: %.2f, .percentSavings: %.2f, .percentSavingsA: %.2f, .percentSavingsB: %.2f, .percentMoreProductA: %.0f%%, .percentMoreProductB: %.0f%%, .itemA: %@, .itemB: %@, .cheaperItem: %@, .calcState: %@", _qty2Purchase, self.betterPricePerUnit.pricePerUnit, self.normalizedMinQty, self.totalCost, self.totalCostA, self.totalCostB, self.savings, self.savingsA, self.savingsB, self.amountPurchased, self.amountPurchasedA, self.amountPurchasedB, self.percentSavings*100.0, self.percentSavingsA*100.0, self.percentSavingsB*100.0, self.percentMoreProductA*100.0, self.percentMoreProductB*100.0, self.itemA.toString, self.itemB.toString, self.cheaperItem, [self getNewCalcStateString]];
+	return [NSString stringWithFormat:@".qty2Purchase: %.2f, .betterPrice: %.2f, .normalizedMinQty: %.2f, .totalCost: %.2f, .totalCostA: %.2f, .totalCostB: %.2f, .savings: %.2f, .savingsA: %.2f, .savingsB: %.2f, .amountPurchased: %.2f, .amountPurchasedA: %.2f, .amountPurchasedB: %.2f, .percentSavings: %.2f, .percentSavingsA: %.2f, .percentSavingsB: %.2f, .percentMoreProductA: %.0f%%, .percentMoreProductB: %.0f%%, .itemA: %@, .itemB: %@, .cheaperItem: %@, .calcState: %@", _qty2Purchase, self.betterPricePerUnit.pricePerUnit, self.normalizedMinQty, self.totalCost, self.totalCostA, self.totalCostB, self.savings, self.savingsA, self.savingsB, self.amountPurchased, self.amountPurchasedA, self.amountPurchasedB, self.percentSavings*100.0, self.percentSavingsA*100.0, self.percentSavingsB*100.0, self.percentMoreProductA*100.0, self.percentMoreProductB*100.0, self.itemA.toString, self.itemB.toString, self.cheaperItem, [self getCalcStateString]];
 }
 
 @synthesize isReady = _isReady;
@@ -41,16 +41,17 @@
     return _calcState;
 }
 
-@dynamic calcStateString;
-- (NSString *)getNewCalcStateString {
+- (NSString *)getCalcStateString {
+    NSString *s = @"Dunno";
     switch (_calcState) {
         case  NotReady:
-            return @"NotReady";
+            s = @"NotReady";
         case NeedQty2Purchase:
-            return @"NeetQty2Purchase";
+            s = @"NeetQty2Purchase";
         case CalcComplete:
-            return @"CalcComplete";
+            s = @"CalcComplete";
     }
+    return s;
 }
 
 - (void)resetCalcs {

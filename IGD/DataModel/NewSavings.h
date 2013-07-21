@@ -17,6 +17,7 @@ typedef enum {
 
 + (NewSavings *)theNewSavings;
 + (NewSavings *)theNewSavingsWithItemA:(Item *)itemA withItemB:(Item *)itemB;
+- (NSString *)getCalcStateString;
 
 @property (unsafe_unretained, nonatomic, readonly) float normalizedMinQty, totalCost, totalCostA, totalCostB, savings, savingsA, savingsB, amountPurchased, amountPurchasedA, amountPurchasedB, percentSavings, percentSavingsA, percentSavingsB, percentMoreProductA, percentMoreProductB;
 @property (unsafe_unretained, nonatomic) float qty2Purchase;
@@ -24,7 +25,6 @@ typedef enum {
 @property (unsafe_unretained, nonatomic, readonly) CalcState calcState;
 @property (unsafe_unretained, nonatomic, readonly) BOOL isReady;
 @property (strong, nonatomic, readonly) Item *cheaperItem;
-@property (strong, nonatomic) NSString *calcStateString;
 @property (strong, nonatomic) NSString *toString;
 
 @end

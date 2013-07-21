@@ -117,16 +117,16 @@
     f.four = [Field allocFieldWithRect:CGRectMake(20, 272, 64, 46) andF:15 andLabel:@"4" andTag:Four];
     f.two = [Field allocFieldWithRect:CGRectMake(92, 272, 64, 46) andF:15 andLabel:@"5" andTag:Five];
     f.three = [Field allocFieldWithRect:CGRectMake(164, 272, 64, 46) andF:15 andLabel:@"6" andTag:Six];
-    f.clr = [Field allocFieldWithRect:CGRectMake(236, 272, 64, 46) andF:15 andLabel:CLR andTag:Store];
+    f.clr = [Field allocFieldWithRect:CGRectMake(236, 272, 64, 46) andF:15 andLabel:@CLR andTag:Store];
 
     f.four = [Field allocFieldWithRect:CGRectMake(20, 325, 64, 46) andF:15 andLabel:@"7" andTag:Seven];
     f.two = [Field allocFieldWithRect:CGRectMake(92, 325, 64, 46) andF:15 andLabel:@"8" andTag:Eight];
     f.three = [Field allocFieldWithRect:CGRectMake(164, 325, 64, 46) andF:15 andLabel:@"9" andTag:Nine];
-    f.clr = [Field allocFieldWithRect:CGRectMake(236, 325, 64, 46) andF:15 andLabel:DEL andTag:Del];
+    f.clr = [Field allocFieldWithRect:CGRectMake(236, 325, 64, 46) andF:15 andLabel:@DEL andTag:Del];
 
     f.period = [Field allocFieldWithRect:CGRectMake(20, 358, 64, 46) andF:15 andLabel:@"." andTag:Period];
     f.zero = [Field allocFieldWithRect:CGRectMake(92, 358, 64, 46) andF:15 andLabel:@"0" andTag:Zero];
-    f.next = [Field allocFieldWithRect:CGRectMake(164, 358, 136, 46) andF:15 andLabel:NEXT andTag:Next];
+    f.next = [Field allocFieldWithRect:CGRectMake(164, 358, 136, 46) andF:15 andLabel:@NEXT andTag:Next];
 }
 
 + (void)buildIPhone5:(Fields *)f {
@@ -166,16 +166,16 @@
     f.four = [Field allocFieldWithRect:CGRectMake(20, 275, 64, 66) andF:15 andLabel:@"4" andTag:Four];
     f.two = [Field allocFieldWithRect:CGRectMake(92, 275, 64, 66) andF:15 andLabel:@"5" andTag:Five];
     f.three = [Field allocFieldWithRect:CGRectMake(164, 275, 64, 66) andF:15 andLabel:@"6" andTag:Six];
-    f.clr = [Field allocFieldWithRect:CGRectMake(236, 275, 64, 66) andF:15 andLabel:CLR andTag:Store];
+    f.clr = [Field allocFieldWithRect:CGRectMake(236, 275, 64, 66) andF:15 andLabel:@CLR andTag:Store];
     
     f.four = [Field allocFieldWithRect:CGRectMake(20, 349, 64, 66) andF:15 andLabel:@"7" andTag:Seven];
     f.two = [Field allocFieldWithRect:CGRectMake(92, 349, 64, 66) andF:15 andLabel:@"8" andTag:Eight];
     f.three = [Field allocFieldWithRect:CGRectMake(164, 349, 64, 66) andF:15 andLabel:@"9" andTag:Nine];
-    f.clr = [Field allocFieldWithRect:CGRectMake(236, 349, 64, 66) andF:15 andLabel:DEL andTag:Del];
+    f.clr = [Field allocFieldWithRect:CGRectMake(236, 349, 64, 66) andF:15 andLabel:@DEL andTag:Del];
     
     f.period = [Field allocFieldWithRect:CGRectMake(20, 422, 64, 66) andF:15 andLabel:@"." andTag:Period];
     f.zero = [Field allocFieldWithRect:CGRectMake(92, 422, 64, 66) andF:15 andLabel:@"0" andTag:Zero];
-    f.next = [Field allocFieldWithRect:CGRectMake(164, 422, 136, 66) andF:15 andLabel:NEXT andTag:Next];
+    f.next = [Field allocFieldWithRect:CGRectMake(164, 422, 136, 66) andF:15 andLabel:@NEXT andTag:Next];
 }
 
 + (void)buildIPad:(Fields *)f {
@@ -215,16 +215,16 @@
     f.four = [Field allocFieldWithRect:CGRectMake(20, 634, 176, 92) andF:48 andLabel:@"4" andTag:Four];
     f.two = [Field allocFieldWithRect:CGRectMake(204, 634, 176, 92) andF:48 andLabel:@"5" andTag:Five];
     f.three = [Field allocFieldWithRect:CGRectMake(388, 634, 176, 92) andF:48 andLabel:@"6" andTag:Six];
-    f.clr = [Field allocFieldWithRect:CGRectMake(572, 634, 176, 92) andF:48 andLabel:CLR andTag:Store];
+    f.clr = [Field allocFieldWithRect:CGRectMake(572, 634, 176, 92) andF:48 andLabel:@CLR andTag:Store];
     
     f.four = [Field allocFieldWithRect:CGRectMake(20, 742, 176, 92) andF:48 andLabel:@"7" andTag:Seven];
     f.two = [Field allocFieldWithRect:CGRectMake(204, 742, 176, 92) andF:48 andLabel:@"8" andTag:Eight];
     f.three = [Field allocFieldWithRect:CGRectMake(388, 742, 176, 92) andF:48 andLabel:@"9" andTag:Nine];
-    f.clr = [Field allocFieldWithRect:CGRectMake(572, 742, 176, 92) andF:48 andLabel:DEL andTag:Del];
+    f.clr = [Field allocFieldWithRect:CGRectMake(572, 742, 176, 92) andF:48 andLabel:@DEL andTag:Del];
     
     f.period = [Field allocFieldWithRect:CGRectMake(20, 840, 176, 92) andF:48 andLabel:@"." andTag:Period];
     f.zero = [Field allocFieldWithRect:CGRectMake(204, 840, 176, 92) andF:48 andLabel:@"0" andTag:Zero];
-    f.next = [Field allocFieldWithRect:CGRectMake(388, 840, 136, 66) andF:48 andLabel:NEXT andTag:Next];
+    f.next = [Field allocFieldWithRect:CGRectMake(388, 840, 136, 66) andF:48 andLabel:@NEXT andTag:Next];
 }
 
 @end

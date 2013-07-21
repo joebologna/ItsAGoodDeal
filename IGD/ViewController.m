@@ -776,7 +776,7 @@ static Test testToRun = NotTesting;
         savings.qty2Purchase = [q2buyA floatValue];
 #ifdef DEBUG
         @try {
-            NSLog(@"%@", savings.calcStateString);
+            NSLog(@"%@", [savings getCalcStateString]);
         } @catch (NSException *e) {
             // ignore it.
         }
