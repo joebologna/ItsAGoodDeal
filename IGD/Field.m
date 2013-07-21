@@ -48,14 +48,14 @@
 	return [NSString stringWithFormat:@".rect:%@, f:%.2f, value:%@, tag:%@", self.rectToString, _f, _value, self.fTagToString];
 }
 
-@synthesize control = _view;
+@synthesize control = _control;
 @synthesize value = _value;
 - (void)setValue:(NSString *)v {
     _value = v;
     if ([self isButton]) {
-        ((MyButton *)_view).titleLabel.text = _value;
+        ((MyButton *)_control).titleLabel.text = _value;
     } else {
-        ((UITextField *)_view).text = _value;
+        ((UITextField *)_control).text = _value;
     }
 }
 
@@ -69,7 +69,9 @@
         _f = [UIFont systemFontSize];
         _value = @"";
         _tag = FtagNotSet;
-        _view = nil;
+        _type = FieldTypeNotSet;
+        _control = nil;
+        _vc = nil;
     }
     return self;
 }
@@ -91,11 +93,11 @@
 }
 
 - (BOOL)isButton {
-    return _type == (ButtonField || _type == KeyType);
+    return (_type == KeyType);
 }
 
 - (void)buttonPushed:(id)sender {
-    [self performSelector:@selector(buttonPushed:) withObject:self.vc];
+    [self.vc performSelector:@selector(buttonPushed:) withObject:sender];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -113,13 +115,13 @@
     b.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     b.titleLabel.textAlignment = NSTextAlignmentCenter;
     b.tag = self.tag;
+    b.bothTitles = self.value;
     if (self.type == KeyType) {
         [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient3.png"] forState:UIControlStateNormal];
         [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient3.png"] forState:UIControlStateSelected];
-        b.titleLabel.text = self.value;
+        //b.titleLabel.text = self.value;
     }
     self.control = (UIControl *)b;
-    NSLog(@"%s, %@!!!", __func__, self.control);
 }
 
 - (void)makeField {
@@ -132,14 +134,14 @@
     if (t.tag >= CostLabel && t.tag <= MoreLabel) {
         t.backgroundColor = [UIColor clearColor];
     }
-    t.borderStyle = UITextBorderStyleNone;
+    t.borderStyle = UITextBorderStyleLine;
     t.delegate = (id)self.vc;
     if (t.tag == ItemA || t.tag == ItemB || t.tag == BetterDealA || t.tag == BetterDealB || t.tag == Message) {
         t.placeholder = @"";
         t.text = self.value;
         t.contentVerticalAlignment = (t.tag == ItemA || t.tag == ItemB) ? UIControlContentVerticalAlignmentTop :UIControlContentVerticalAlignmentCenter;
         t.backgroundColor = [UIColor clearColor];
-        t.borderStyle = UITextBorderStyleNone;
+        t.borderStyle = UITextBorderStyleLine;
         if (t.tag == ItemA || t.tag == ItemB) {
             t.borderStyle = UITextBorderStyleLine;
         } else if (t.tag == BetterDealA || t.tag == BetterDealB) {
@@ -154,8 +156,6 @@
         t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     }
     self.control = (UIControl *)t;
-    NSLog(@"%s, %@!!!", __func__, self.control);
 }
-
 
 @end

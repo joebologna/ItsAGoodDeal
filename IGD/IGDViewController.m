@@ -29,7 +29,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 
 #if DEBUG==1
 static BOOL debug = YES;
-static Test testToRun = AisBigger;
+//static Test testToRun = AisBigger;
 #else
 static BOOL debug = NO;
 static Test testToRun = NotTesting;
@@ -61,7 +61,8 @@ static Test testToRun = NotTesting;
     
     self.view.backgroundColor = UIColorFromRGB(0x53e99e);
     
-    fields = [Fields allocFields];
+    fields = [[Fields alloc] init];
+    [fields makeFields:(UIViewController *)self];
     [fields populateScreen];
     [self initGUI];
     

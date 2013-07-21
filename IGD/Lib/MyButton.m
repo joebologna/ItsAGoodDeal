@@ -48,6 +48,12 @@
     [self setTitleColor:SELECTED_TITLECOLOR forState:UIControlStateSelected];
 }
 
+@synthesize bothTitles = _bothTitles;
+- (void)setBothTitles:(NSString *)b {
+    self.titles = [NSArray arrayWithObjects:b, b, nil];
+    _bothTitles = b;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -73,11 +79,8 @@
     self.backgroundColor = NORMAL_BACKGROUND;
     self.selected = NO;
     
-    [self setTitle:@"normal" forState:UIControlStateNormal];
-    [self setTitle:@"selected" forState:UIControlStateSelected];
-    
-    [self setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    self.titles = [NSArray arrayWithObjects:@"normal", @"selected", nil];
+    self.titleColors = [NSArray arrayWithObjects:[UIColor blueColor], [UIColor whiteColor], nil];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

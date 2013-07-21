@@ -21,7 +21,7 @@ typedef enum {
 
 @interface Fields : NSObject
 
-+ (Fields *)allocFields;
+- (Fields *)makeFields:(UIViewController *)vc;
 - (void)populateScreen;
 
 @property (unsafe_unretained, nonatomic) DeviceType deviceType;

@@ -25,10 +25,12 @@
 
 - (void)test01FieldsClass {
     Fields *f = [[Fields alloc] init];
+    [fields makeFields:(UIViewController *)self];
+
     NSLog(@"\n\n%@\n\n", f.toString);
     STAssertEquals(f.deviceType, UnknownDeviceType, @"Should be UnknownDeviceType");
     
-    f = [Fields allocFields];
+    f = [Fields makeFields:nil];
     NSLog(@"\n\n%@\n\n", f.toString);
 }
 

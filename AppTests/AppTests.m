@@ -46,7 +46,7 @@
 
 - (void)test02MakeFields {
     NSLog(@"%s, %@", __func__, [vc description]);
-    Fields *f = [Fields allocFields];
+    Fields *f = [Fields makeFields:vc];
     f.vc = vc;
     [f populateScreen];
     STAssertTrue(TRUE, @"oops");

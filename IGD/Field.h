@@ -55,7 +55,7 @@ typedef enum {
 } KTAG;
 
 typedef enum {
-    ButtonField,
+    FieldTypeNotSet,
     LabelField,
     KeyType
 } FieldType;
