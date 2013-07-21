@@ -100,11 +100,6 @@
     [self.vc performSelector:@selector(buttonPushed:) withObject:sender];
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [self performSelector:@selector(buttonPushed:) withObject:textField afterDelay:0.125];
-    return NO;
-}
-
 - (void)makeButton {
     NSLog(@"%s", __func__);
     MyButton *b = [[MyButton alloc] initWithFrame:self.rect];

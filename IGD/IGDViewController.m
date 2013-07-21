@@ -30,6 +30,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #if DEBUG==1
 static BOOL debug = YES;
 //static Test testToRun = AisBigger;
+static int pushed = 0;
 #else
 static BOOL debug = NO;
 static Test testToRun = NotTesting;
@@ -91,7 +92,28 @@ static Test testToRun = NotTesting;
 - (void)buttonPushed:(MyButton *)sender {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
+    if (pushed == 0) fields.message.control.hidden = YES;
+    else if(pushed == 1) fields.costField.control.hidden = YES;
+    else if(pushed == 2) fields.costLabel.control.hidden = YES;
+    else if(pushed == 3) fields.savingsField.control.hidden = YES;
+    else if(pushed == 4) fields.savingsLabel.control.hidden = YES;
+    else if(pushed == 5) fields.moreField.control.hidden = YES;
+    else if(pushed == 6) fields.moreLabel.control.hidden = YES;
+    else if(pushed == 7) fields.message.control.hidden = NO;
+    else if(pushed == 8) fields.costField.control.hidden = NO;
+    else if(pushed == 9) fields.costLabel.control.hidden = NO;
+    else if(pushed == 10) fields.savingsField.control.hidden = NO;
+    else if(pushed == 11) fields.savingsLabel.control.hidden = NO;
+    else if(pushed == 12) fields.moreField.control.hidden = NO;
+    else if(pushed == 13) fields.moreLabel.control.hidden = NO;
+    else { pushed = 0; return; }
+    pushed++;
 #endif
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self performSelector:@selector(buttonPushed:) withObject:textField afterDelay:0.125];
+    return NO;
 }
 
 #pragma mark -

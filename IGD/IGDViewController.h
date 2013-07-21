@@ -11,7 +11,7 @@
 #import "Fields.h"
 #import "MyButton.h"
 
-@interface IGDViewController : UIViewController <MyStoreObserverDelegate>
+@interface IGDViewController : UIViewController <MyStoreObserverDelegate, UITextFieldDelegate>
 
 - (void)buttonPushed:(MyButton *)sender;
 

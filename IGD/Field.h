@@ -60,7 +60,7 @@ typedef enum {
     KeyType
 } FieldType;
 
-@interface Field : NSObject <UITextFieldDelegate>
+@interface Field : NSObject
 
 + (Field *)allocField;
 + (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t andVC:(UIViewController *)vc;
