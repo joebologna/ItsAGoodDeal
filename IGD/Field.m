@@ -172,7 +172,7 @@
         case QtyB:
         case SizeB:
         case Qty2BuyB:
-            t.text = @"";
+            self.value = t.text = @"";
             break;
         case CostField:
         case SavingsField:

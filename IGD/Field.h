@@ -47,17 +47,17 @@ typedef enum {
     One = KTAG_BASE,
     Two,
     Three,
-    Clr,
     Four,
     Five,
     Six,
-    Store,
     Seven,
     Eight,
     Nine,
-    Del,
-    Period,
     Zero,
+    Period,
+    Clr,
+    Store,
+    Del,
     Next
 } KTAG;
 

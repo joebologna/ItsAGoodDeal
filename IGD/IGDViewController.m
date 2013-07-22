@@ -116,6 +116,28 @@ static Test testToRun = NotTesting;
 #endif
     if (sender.tag == Next) {
         [self.fields gotoNextField];
+    } else if (sender.tag <= Period) {
+        NSString *s = self.fields.curField.value;
+        if (sender.tag == Period) {
+            NSRange r = [s rangeOfString:@"."];
+            if (r.location == NSNotFound) {
+                self.fields.curField.value = [s stringByAppendingString:sender.titleLabel.text];
+            }
+#ifdef DEBUG
+            else {
+                NSLog(@"%s, skipping 2nd '.'", __func__);
+            }
+#endif
+        } else {
+            self.fields.curField.value = [s stringByAppendingString:sender.titleLabel.text];
+        }
+    } else if (sender.tag == Clr) {
+        self.fields.curField.value = @"";
+    } else if (sender.tag == Del) {
+        NSString *s = self.fields.curField.value;
+        if (s.length > 0) {
+            self.fields.curField.value = [s substringToIndex:s.length - 1];
+        }
     }
 }
 
