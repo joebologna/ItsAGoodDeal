@@ -138,6 +138,14 @@ static Test testToRun = NotTesting;
         if (s.length > 0) {
             self.fields.curField.value = [s substringToIndex:s.length - 1];
         }
+    } else if (sender.tag == Store) {
+        if (!myStoreObserver.bought) {
+            if ([SKPaymentQueue canMakePayments]) {
+                [self removeAds];
+            } else {
+                [[[UIAlertView alloc] initWithTitle:@"Payments Disabled" message:@"Use Settings to enable payments" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
+        }
     }
 }
 
