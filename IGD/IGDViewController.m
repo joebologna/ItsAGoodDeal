@@ -29,6 +29,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 static BOOL debug = YES;
 //static Test testToRun = AisBigger;
 
+//#define DEBUG_LAYOUT 1
 #ifdef DEBUG_LAYOUT
 static int pushed = 0;
 #endif
@@ -95,23 +96,7 @@ static Test testToRun = NotTesting;
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #ifdef DEBUG_LAYOUT
-    if (pushed == 0) self.fields.message.control.hidden = YES;
-    else if(pushed == 1) self.fields.costField.control.hidden = YES;
-    else if(pushed == 2) self.fields.costLabel.control.hidden = YES;
-    else if(pushed == 3) self.fields.savingsField.control.hidden = YES;
-    else if(pushed == 4) self.fields.savingsLabel.control.hidden = YES;
-    else if(pushed == 5) self.fields.moreField.control.hidden = YES;
-    else if(pushed == 6) self.fields.moreLabel.control.hidden = YES;
-    else if(pushed == 7) self.fields.message.control.hidden = NO;
-    else if(pushed == 8) self.fields.costField.control.hidden = NO;
-    else if(pushed == 9) self.fields.costLabel.control.hidden = NO;
-    else if(pushed == 10) self.fields.savingsField.control.hidden = NO;
-    else if(pushed == 11) self.fields.savingsLabel.control.hidden = NO;
-    else if(pushed == 12) self.fields.moreField.control.hidden = NO;
-    else if(pushed == 13) self.fields.moreLabel.control.hidden = NO;
-    else { pushed = 0; return; }
-    pushed++;
-    self.fields.messageMode = (self.fields.messageMode == ShowPrompt) ? ShowResult : ShowPrompt;
+    [self cyclefields];
 #endif
 #endif
     if (sender.tag == Next) {
@@ -147,6 +132,7 @@ static Test testToRun = NotTesting;
             }
         }
     }
+    //[self.fields calcSavings];
 }
 
 #pragma mark -
@@ -246,13 +232,29 @@ static Test testToRun = NotTesting;
     [alert show];
 }
 
-#pragma mark -
-#pragma mark Utilities
-
-- (NSString *)fmtPrice:(float)price {
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    NSString *c = [numberFormatter currencySymbol];
-    return [NSString stringWithFormat:@"%@%.2f", c, price];
+#ifdef DEBUG_LAYOUT
+- (void)cyclefields {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    if (pushed == 0) self.fields.message.control.hidden = YES;
+    else if(pushed == 1) self.fields.costField.control.hidden = YES;
+    else if(pushed == 2) self.fields.costLabel.control.hidden = YES;
+    else if(pushed == 3) self.fields.savingsField.control.hidden = YES;
+    else if(pushed == 4) self.fields.savingsLabel.control.hidden = YES;
+    else if(pushed == 5) self.fields.moreField.control.hidden = YES;
+    else if(pushed == 6) self.fields.moreLabel.control.hidden = YES;
+    else if(pushed == 7) self.fields.message.control.hidden = NO;
+    else if(pushed == 8) self.fields.costField.control.hidden = NO;
+    else if(pushed == 9) self.fields.costLabel.control.hidden = NO;
+    else if(pushed == 10) self.fields.savingsField.control.hidden = NO;
+    else if(pushed == 11) self.fields.savingsLabel.control.hidden = NO;
+    else if(pushed == 12) self.fields.moreField.control.hidden = NO;
+    else if(pushed == 13) self.fields.moreLabel.control.hidden = NO;
+    else { pushed = 0; return; }
+    pushed++;
+    self.fields.messageMode = (self.fields.messageMode == ShowPrompt) ? ShowResult : ShowPrompt;
 }
+#endif
+
 @end

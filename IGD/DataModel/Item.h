@@ -24,7 +24,7 @@
 @property (strong, nonatomic) NSString *toString;
 
 + (Item *)theItem;
-+ (Item *)theItemWithName:(NSString *)name price:(float)price minQty:(float)minQty unitsPerItem:(float)unitsPerItem;
++ (Item *)itemWithName:(NSString *)name price:(float)price minQty:(float)minQty unitsPerItem:(float)unitsPerItem;
 
 - (BOOL)allInputsValid;
 - (BOOL)allOutputsValid;

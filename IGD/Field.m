@@ -7,6 +7,7 @@
 //
 
 #import "Field.h"
+#import "Lib/NSObject+Formatter.h"
 
 @implementation Field
 
@@ -56,6 +57,22 @@
         ((MyButton *)_control).titleLabel.text = _value;
     } else {
         ((UITextField *)_control).text = _value;
+        if ([self isNumber]) {
+            if ([self isCurrency]) {
+                NSString *s = [_value stringByReplacingOccurrencesOfString:self.currencySymbol withString:@""];
+                _floatValue = 0.0f;
+                NSString *c = @"";
+                @try {
+                    c = [_value substringToIndex:1];
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"%@ caught", exception.description);
+                }
+                if (![c isEqualToString:@"."]) {
+                    _floatValue = [s floatValue];
+                }
+            }
+        }
     }
 }
 
@@ -99,6 +116,24 @@
 
 - (BOOL)isButton {
     return (_type == KeyType);
+}
+
+- (BOOL)isCurrency {
+    return (_tag == ItemA || _tag == ItemB || _tag == CostField);
+}
+
+- (BOOL)isNumber {
+    return (_tag == ItemA
+            || _tag == ItemB
+            || _tag == PriceA
+            || _tag == PriceB
+            || _tag == QtyA
+            || _tag == QtyB
+            || _tag == SizeA
+            || _tag == SizeB
+            || _tag == Qty2BuyA
+            || _tag == Qty2BuyB
+            || _tag == CostField);
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {

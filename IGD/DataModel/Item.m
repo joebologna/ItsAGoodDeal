@@ -78,7 +78,7 @@
     return [[Item alloc] init];
 }
 
-+ (Item *)theItemWithName:(NSString *)name price:(float)price minQty:(float)minQty unitsPerItem:(float)unitsPerItem {
++ (Item *)itemWithName:(NSString *)name price:(float)price minQty:(float)minQty unitsPerItem:(float)unitsPerItem {
     Item *item = [[Item alloc] init];
     item.name = name;
 	item.price = price;

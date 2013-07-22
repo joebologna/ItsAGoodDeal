@@ -75,6 +75,8 @@ typedef enum {
 - (void)makeButton;
 - (void)makeField;
 - (BOOL)isButton;
+- (BOOL)isCurrency;
+- (BOOL)isNumber;
 
 @property (unsafe_unretained, nonatomic) CGRect rect;
 @property (unsafe_unretained, nonatomic) CGFloat f;
@@ -86,5 +88,6 @@ typedef enum {
 @property (unsafe_unretained, nonatomic) id caller;
 
 @property (strong, nonatomic, readonly) NSString *toString, *tagToString, *rectToString, *fTagToString;
+@property (unsafe_unretained, nonatomic, readonly) CGFloat floatValue;
 
 @end

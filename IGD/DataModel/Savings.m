@@ -226,7 +226,7 @@
     return [[Savings alloc] init];
 }
 
-+ (Savings *)theNewSavingsWithItemA:(Item *)itemA withItemB:(Item *)itemB {
++ (Savings *)savingsWithItemA:(Item *)itemA withItemB:(Item *)itemB {
     Savings *newSavings = [[Savings alloc] init];
     newSavings.itemA = itemA;
     newSavings.itemB = itemB;

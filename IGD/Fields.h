@@ -12,7 +12,7 @@
 #define STORE "Remove Ads"
 #define THANKS "Thank You"
 #define CLR "C"
-#define NEXT "Next"
+#define NEXT "Next/Calc Savings"
 #define DEL "Del"
 
 typedef enum {
@@ -30,9 +30,10 @@ typedef enum {
 - (void)populateScreen;
 - (void)fieldWasSelected:(Field *)field;
 - (void)gotoNextField;
+- (void)calcSavings;
 
 @property (unsafe_unretained, nonatomic) DeviceType deviceType;
-@property (strong, nonatomic, readonly) NSString *toString, *deviceTypeString;
+@property (strong, nonatomic, readonly) NSString *toString, *deviceTypeString, *fieldValues;
 @property (strong, nonatomic) Field *itemA, *itemB, *betterDealA, *betterDealB, *priceA, *priceB, *qtyA, *qtyB, *sizeA, *sizeB, *qty2BuyA, *qty2BuyB, *message, *costField, *savingsField, *moreField, *costLabel, *savingsLabel, *moreLabel, *ad, *one, *two, *three, *clr, *four, *five, *six, *store, *seven, *eight, *nine, *del, *period, *zero, *next;
 @property (strong, nonatomic) NSArray *inputFields, *allFields, *keys;
 @property (weak, nonatomic) UIViewController *vc;

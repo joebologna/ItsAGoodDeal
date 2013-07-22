@@ -7,6 +7,7 @@
 //
 
 #import "Fields.h"
+#import "Savings.h"
 
 @implementation Fields
 
@@ -21,9 +22,18 @@
     }
 }
 
-@synthesize toString = _toString;
+@dynamic toString;
 - (NSString *)toString {
 	return [NSString stringWithFormat:@".deviceType: %@", self.deviceTypeString];
+}
+
+@dynamic fieldValues;
+- (NSString *)fieldValues {
+    NSString *s = @"{\n";
+    for (Field *f in self.inputFields) {
+        s = [s stringByAppendingFormat:@"%@/%@/%.2f\n", f.value, ((UITextField *)f.control).text, f.value.floatValue];
+    }
+	return [NSString stringWithFormat:@"%@}\n", s];
 }
 
 @synthesize messageMode = _messageMode;
@@ -41,14 +51,21 @@
 
 @synthesize curField = _curField;
 - (void)setCurField:(Field *)c {
-    UITextField *t1 = (UITextField *)_curField.control;
-    UITextField *t2 = (UITextField *)c.control;
+    UITextField *previous = (UITextField *)_curField.control;
+    UITextField *selected = (UITextField *)c.control;
 #ifdef DEBUG
     NSLog(@"%s, %@, %@", __func__, _curField.fTagToString, c.fTagToString);
 #endif
-    t1.backgroundColor = FIELDCOLOR;
-    t2.backgroundColor = HIGHLIGHTCOLOR;
+    previous.backgroundColor = FIELDCOLOR;
+    selected.backgroundColor = HIGHLIGHTCOLOR;
+    self.curField.value = c.value;
+    if (c == _qty2BuyA) {
+        self.qty2BuyB.value = _qty2BuyA.value;
+    } else if (c == _qty2BuyB) {
+        self.qty2BuyB.value = _qty2BuyA.value;
+    }
     _curField = c;
+    [self calcSavings];
 }
 
 - (void)fieldWasSelected:(Field *)field {
@@ -326,4 +343,40 @@
     self.curField = self.priceA;
 }
 
+- (void)calcSavings {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    Item *a = [Item itemWithName:@"A"
+                    price:self.itemA.floatValue
+                    minQty:self.qtyA.floatValue
+                    unitsPerItem:self.sizeA.floatValue];
+    Item *b = [Item itemWithName:@"B"
+                           price:self.itemB.floatValue
+                          minQty:self.qtyB.floatValue
+                    unitsPerItem:self.sizeB.floatValue];
+    Savings *s = [Savings savingsWithItemA:a withItemB:b];
+    // s is nil if the calculation cannot be performed, if so it will need qty2purchase, which should be the same, make sure this happens when value is set.
+    if (s != nil) {
+        if (s.calcState == NeedQty2Purchase) {
+            s.qty2Purchase = self.qty2BuyA.value.floatValue;
+            if (s.calcState == CalcComplete) {
+                NSLog(@"%s, display result", __func__);
+                self.messageMode = ShowResult;
+                self.message.value = @"Calc Complete"; // this won't show
+                self.costField.value = [[NSNumber numberWithFloat:s.totalCost] stringValue];
+                self.savingsField.value = [[NSNumber numberWithFloat:s.savings] stringValue];
+                self.moreField.value = [[NSNumber numberWithFloat:s.percentMoreProductA] stringValue];
+            } else if (s.calcState == NeedQty2Purchase) {
+                NSLog(@"%s, display need qty2purchase", __func__);
+                self.messageMode = ShowPrompt;
+                self.message.value = @"Need Qty2Buy";
+            } else {
+                // some error
+            }
+        }
+    } else {
+        NSLog(@"not ready yet.");
+    }
+}
 @end

@@ -16,7 +16,7 @@ typedef enum {
 @interface Savings : NSObject
 
 + (Savings *)theNewSavings;
-+ (Savings *)theNewSavingsWithItemA:(Item *)itemA withItemB:(Item *)itemB;
++ (Savings *)savingsWithItemA:(Item *)itemA withItemB:(Item *)itemB;
 - (NSString *)getCalcStateString;
 
 @property (unsafe_unretained, nonatomic, readonly) float normalizedMinQty, totalCost, totalCostA, totalCostB, savings, savingsA, savingsB, amountPurchased, amountPurchasedA, amountPurchasedB, percentSavings, percentSavingsA, percentSavingsB, percentMoreProductA, percentMoreProductB;
