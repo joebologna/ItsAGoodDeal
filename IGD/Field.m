@@ -59,15 +59,6 @@
     }
 }
 
-@synthesize selected = _selected;
-- (void)setSelected:(BOOL)s {
-    _selected = s;
-    UITextField *t = ((UITextField *)_control);
-    if (![self isButton]) {
-        t.borderStyle = _selected ? UITextBorderStyleLine : UITextBorderStyleNone;
-    }
-}
-
 - (id)init {
     self = [super init];
     if (self) {
@@ -132,7 +123,7 @@
     MyButton *b = [[MyButton alloc] initWithFrame:self.rect];
     [b addTarget:self action:@selector(buttonPushed:) forControlEvents:UIControlEventTouchUpInside];
     [b setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor whiteColor], nil]];
-    //[b setBackgroundColors:[NSArray arrayWithObjects:fieldColor, curFieldColor, [UIColor grayColor], nil]];
+    [b setBackgroundColors:[NSArray arrayWithObjects:FIELDCOLOR, CURFIELDCOLOR, [UIColor grayColor], nil]];
     b.titleLabel.font = [UIFont systemFontOfSize:self.f];
     b.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     b.titleLabel.textAlignment = NSTextAlignmentCenter;

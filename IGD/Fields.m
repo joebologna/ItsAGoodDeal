@@ -33,20 +33,22 @@
     self.costLabel.control.hidden = self.savingsLabel.control.hidden = self.moreLabel.control.hidden = self.costField.control.hidden = self.savingsField.control.hidden = self.moreField.control.hidden = !self.message.control.hidden;
 }
 
+- (void)clearBackground {
+    for (Field *f in self.inputFields) {
+        ((UITextField *)f.control).backgroundColor = FIELDCOLOR;
+    }
+}
+
 @synthesize curField = _curField;
 - (void)setCurField:(Field *)c {
+    UITextField *t1 = (UITextField *)_curField.control;
+    UITextField *t2 = (UITextField *)c.control;
 #ifdef DEBUG
-    NSLog(@"%s", __func__);
+    NSLog(@"%s, %@, %@", __func__, _curField.fTagToString, c.fTagToString);
 #endif
-    if (c != _curField) {
-        UITextField *t1 = (UITextField *)_curField.control;
-        UITextField *t2 = (UITextField *)c.control;
-        _curField.selected = NO;
-        NSLog(@"c: %d, %d, %d, %d", t1.tag, t1.borderStyle, t2.tag, t2.borderStyle);
-        _curField = c;
-        _curField.selected = YES;
-        NSLog(@"c: %d, %d, %d, %d", t1.tag, t1.borderStyle, t2.tag, t2.borderStyle);
-    }
+    t1.backgroundColor = FIELDCOLOR;
+    t2.backgroundColor = HIGHLIGHTCOLOR;
+    _curField = c;
 }
 
 - (void)fieldWasSelected:(Field *)field {
@@ -300,6 +302,7 @@
         [self setView:f];
     }
     
+    [self clearBackground];
     self.costLabel.value = @"Cost";
     self.savingsLabel.value = @"Savings";
     self.moreLabel.value = @"More";

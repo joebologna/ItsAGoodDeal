@@ -17,8 +17,6 @@
 #pragma mark -
 #pragma mark Convenience Macros
 
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-
 #pragma mark -
 #pragma mark Tags and Fields Tables
 
@@ -63,7 +61,8 @@ static Test testToRun = NotTesting;
     ADBannerView *adView = (ADBannerView *)[self.view viewWithTag:Ad];
     adView.delegate = self;
     
-    self.view.backgroundColor = UIColorFromRGB(0x53e99e);
+    //self.view.backgroundColor = UIColorFromRGB(0x53e99e);
+    self.view.backgroundColor = BACKGROUNDCOLOR;
     
     self.fields = [[Fields alloc] init];
     [self.fields makeFields:(UIViewController *)self];
