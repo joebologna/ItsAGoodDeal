@@ -59,6 +59,15 @@
     }
 }
 
+@synthesize selected = _selected;
+- (void)setSelected:(BOOL)s {
+    _selected = s;
+    UITextField *t = ((UITextField *)_control);
+    if (![self isButton]) {
+        t.borderStyle = _selected ? UITextBorderStyleLine : UITextBorderStyleNone;
+    }
+}
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -72,6 +81,7 @@
         _type = FieldTypeNotSet;
         _control = nil;
         _vc = nil;
+        _caller = nil;
     }
     return self;
 }
@@ -80,7 +90,10 @@
     return [[Field alloc] init];
 }
 
-+ (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t andVC:(UIViewController *)vc{
++ (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t andVC:(UIViewController *)vc caller:(id)c {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
     Field *field = [[Field alloc] init];
     field.rect = r;
     field.f = f;
@@ -89,6 +102,7 @@
     field.type = t;
     field.control = nil; // allocate it later;
     field.vc = vc;
+    field.caller = c;
     return field;
 }
 
@@ -96,12 +110,25 @@
     return (_type == KeyType);
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    [self.caller performSelector:@selector(fieldWasSelected:) withObject:self];
+    return NO;
+}
+
 - (void)buttonPushed:(id)sender {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
     [self.vc performSelector:@selector(buttonPushed:) withObject:sender];
 }
 
 - (void)makeButton {
+#ifdef DEBUG
     NSLog(@"%s", __func__);
+#endif
     MyButton *b = [[MyButton alloc] initWithFrame:self.rect];
     [b addTarget:self action:@selector(buttonPushed:) forControlEvents:UIControlEventTouchUpInside];
     [b setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor whiteColor], nil]];
@@ -120,9 +147,12 @@
 }
 
 - (void)makeField {
+#ifdef DEBUG
     NSLog(@"%s", __func__);
+#endif
 
     UITextField *t = [[UITextField alloc] initWithFrame:self.rect];
+    t.delegate = self;
     t.font = [UIFont systemFontOfSize:self.f];
     t.textAlignment = NSTextAlignmentCenter;
     t.tag = self.tag;
@@ -130,17 +160,21 @@
     t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     t.placeholder = self.value;
     t.backgroundColor = [UIColor clearColor];
-    t.borderStyle = UITextBorderStyleLine;
+    t.enabled = YES;
     
     switch (t.tag) {
         case ItemA:
         case ItemB:
             t.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+            t.borderStyle = UITextBorderStyleLine;
         case BetterDealA:
         case BetterDealB:
         case Message:
             t.placeholder = @"";
+            t.enabled = NO;
             break;
+        case PriceA:
+        case PriceB:
         case QtyA:
         case SizeA:
         case Qty2BuyA:
@@ -149,14 +183,13 @@
         case Qty2BuyB:
             t.text = @"";
             break;
-        case PriceA:
-        case PriceB:
         case CostField:
         case SavingsField:
         case MoreField:
         case CostLabel:
         case SavingsLabel:
         case MoreLabel:
+            t.enabled = NO;
             break;
     }
     

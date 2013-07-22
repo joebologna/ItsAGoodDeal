@@ -30,7 +30,11 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #if DEBUG==1
 static BOOL debug = YES;
 //static Test testToRun = AisBigger;
+
+#ifdef DEBUG_LAYOUT
 static int pushed = 0;
+#endif
+
 #else
 static BOOL debug = NO;
 static Test testToRun = NotTesting;
@@ -40,7 +44,6 @@ static Test testToRun = NotTesting;
 #pragma mark Instance Properties
 
 @interface IGDViewController () <ADBannerViewDelegate, UIAlertViewDelegate> {
-    Fields *fields;
     MyStoreObserver *myStoreObserver;
 }
 
@@ -62,9 +65,9 @@ static Test testToRun = NotTesting;
     
     self.view.backgroundColor = UIColorFromRGB(0x53e99e);
     
-    fields = [[Fields alloc] init];
-    [fields makeFields:(UIViewController *)self];
-    [fields populateScreen];
+    self.fields = [[Fields alloc] init];
+    [self.fields makeFields:(UIViewController *)self];
+    [self.fields populateScreen];
     [self initGUI];
     
     myStoreObserver = [MyStoreObserver myStoreObserver];
@@ -93,30 +96,25 @@ static Test testToRun = NotTesting;
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #ifdef DEBUG_LAYOUT
-    if (pushed == 0) fields.message.control.hidden = YES;
-    else if(pushed == 1) fields.costField.control.hidden = YES;
-    else if(pushed == 2) fields.costLabel.control.hidden = YES;
-    else if(pushed == 3) fields.savingsField.control.hidden = YES;
-    else if(pushed == 4) fields.savingsLabel.control.hidden = YES;
-    else if(pushed == 5) fields.moreField.control.hidden = YES;
-    else if(pushed == 6) fields.moreLabel.control.hidden = YES;
-    else if(pushed == 7) fields.message.control.hidden = NO;
-    else if(pushed == 8) fields.costField.control.hidden = NO;
-    else if(pushed == 9) fields.costLabel.control.hidden = NO;
-    else if(pushed == 10) fields.savingsField.control.hidden = NO;
-    else if(pushed == 11) fields.savingsLabel.control.hidden = NO;
-    else if(pushed == 12) fields.moreField.control.hidden = NO;
-    else if(pushed == 13) fields.moreLabel.control.hidden = NO;
+    if (pushed == 0) self.fields.message.control.hidden = YES;
+    else if(pushed == 1) self.fields.costField.control.hidden = YES;
+    else if(pushed == 2) self.fields.costLabel.control.hidden = YES;
+    else if(pushed == 3) self.fields.savingsField.control.hidden = YES;
+    else if(pushed == 4) self.fields.savingsLabel.control.hidden = YES;
+    else if(pushed == 5) self.fields.moreField.control.hidden = YES;
+    else if(pushed == 6) self.fields.moreLabel.control.hidden = YES;
+    else if(pushed == 7) self.fields.message.control.hidden = NO;
+    else if(pushed == 8) self.fields.costField.control.hidden = NO;
+    else if(pushed == 9) self.fields.costLabel.control.hidden = NO;
+    else if(pushed == 10) self.fields.savingsField.control.hidden = NO;
+    else if(pushed == 11) self.fields.savingsLabel.control.hidden = NO;
+    else if(pushed == 12) self.fields.moreField.control.hidden = NO;
+    else if(pushed == 13) self.fields.moreLabel.control.hidden = NO;
     else { pushed = 0; return; }
     pushed++;
-    fields.messageMode = (fields.messageMode == ShowPrompt) ? ShowResult : ShowPrompt;
+    self.fields.messageMode = (self.fields.messageMode == ShowPrompt) ? ShowResult : ShowPrompt;
 #endif
 #endif
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [self performSelector:@selector(buttonPushed:) withObject:textField afterDelay:0.125];
-    return NO;
 }
 
 #pragma mark -

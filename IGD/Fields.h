@@ -28,12 +28,14 @@ typedef enum {
 
 - (Fields *)makeFields:(UIViewController *)vc;
 - (void)populateScreen;
+- (void)fieldWasSelected:(Field *)field;
 
 @property (unsafe_unretained, nonatomic) DeviceType deviceType;
 @property (strong, nonatomic, readonly) NSString *toString, *deviceTypeString;
 @property (strong, nonatomic) Field *itemA, *itemB, *betterDealA, *betterDealB, *priceA, *priceB, *qtyA, *qtyB, *sizeA, *sizeB, *qty2BuyA, *qty2BuyB, *message, *costField, *savingsField, *moreField, *costLabel, *savingsLabel, *moreLabel, *ad, *one, *two, *three, *clr, *four, *five, *six, *store, *seven, *eight, *nine, *del, *period, *zero, *next;
 @property (strong, nonatomic) NSArray *inputFields, *allFields, *keys;
 @property (weak, nonatomic) UIViewController *vc;
+@property (strong, nonatomic) Field *curField;
 
 @property (unsafe_unretained, nonatomic) MessageMode messageMode;
 

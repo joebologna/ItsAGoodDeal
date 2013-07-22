@@ -42,7 +42,6 @@
     }
     STAssertTrue(TRUE, @"oops");
 }
- */
 
 - (void)test02MakeFields {
     NSLog(@"%s, %@", __func__, [vc description]);
@@ -51,5 +50,18 @@
     [f populateScreen];
     STAssertTrue(TRUE, @"oops");
 }
+ */
 
+- (void)test03SelectFields {
+    [vc viewDidAppear:YES];
+    for (Field *f in vc.fields.inputFields) {
+        UITextField *t = (UITextField *)f.control;
+        NSLog(@"%d", t.borderStyle);
+        [f textFieldShouldBeginEditing:(UITextField *)f.control];
+        [vc viewDidAppear:YES];
+        NSLog(@"%d", t.borderStyle);
+    }
+    [vc viewDidAppear:YES];
+    STAssertTrue(YES, @"...");
+}
 @end

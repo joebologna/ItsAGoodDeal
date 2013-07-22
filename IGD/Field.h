@@ -60,10 +60,10 @@ typedef enum {
     KeyType
 } FieldType;
 
-@interface Field : NSObject
+@interface Field : NSObject <UITextFieldDelegate>
 
 + (Field *)allocField;
-+ (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t andVC:(UIViewController *)vc;
++ (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t andVC:(UIViewController *)vc caller:(id)caller;
 
 - (void)makeButton;
 - (void)makeField;
@@ -75,7 +75,9 @@ typedef enum {
 @property (unsafe_unretained, nonatomic) FTAG tag;
 @property (unsafe_unretained, nonatomic) FieldType type;
 @property (strong, nonatomic) UIView *control;
+@property (unsafe_unretained, nonatomic) BOOL selected;
 @property (unsafe_unretained, nonatomic) UIViewController *vc;
+@property (unsafe_unretained, nonatomic) id caller;
 
 @property (strong, nonatomic, readonly) NSString *toString, *tagToString, *rectToString, *fTagToString;
 
