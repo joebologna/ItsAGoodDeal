@@ -12,6 +12,24 @@
 		3B3D38A3179D5F800010A94F /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DC17778EE00041D6C0 /* MyButton.m */; };
 		3B3D38A4179D5FAE0010A94F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730728175EC9F500873194 /* CoreGraphics.framework */; };
 		3B3D38A5179D5FB60010A94F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF4FA917601B3C00964B0E /* QuartzCore.framework */; };
+		3B417405179DF28F0028D1E1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173EF179DF28F0028D1E1 /* .gitignore */; };
+		3B417406179DF28F0028D1E1 /* .project in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F0179DF28F0028D1E1 /* .project */; };
+		3B417408179DF28F0028D1E1 /* grabFrames in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F2179DF28F0028D1E1 /* grabFrames */; };
+		3B417409179DF28F0028D1E1 /* IGDCalcs.numbers in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F3179DF28F0028D1E1 /* IGDCalcs.numbers */; };
+		3B41740A179DF28F0028D1E1 /* iPadC.fields in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F4179DF28F0028D1E1 /* iPadC.fields */; };
+		3B41740B179DF28F0028D1E1 /* iPadC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F5179DF28F0028D1E1 /* iPadC.xib */; };
+		3B41740C179DF28F0028D1E1 /* iPhone3.5C.fields in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F6179DF28F0028D1E1 /* iPhone3.5C.fields */; };
+		3B41740D179DF28F0028D1E1 /* iPhone3.5C.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F7179DF28F0028D1E1 /* iPhone3.5C.xib */; };
+		3B41740E179DF28F0028D1E1 /* iPhone4C.fields in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F8179DF28F0028D1E1 /* iPhone4C.fields */; };
+		3B41740F179DF28F0028D1E1 /* iPhone4C.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F9179DF28F0028D1E1 /* iPhone4C.xib */; };
+		3B417410179DF28F0028D1E1 /* 2013-06-15-EBD-logic.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173FB179DF28F0028D1E1 /* 2013-06-15-EBD-logic.txt */; };
+		3B417411179DF28F0028D1E1 /* BetterDealCalcs.numbers in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173FC179DF28F0028D1E1 /* BetterDealCalcs.numbers */; };
+		3B417412179DF28F0028D1E1 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173FD179DF28F0028D1E1 /* index.html */; };
+		3B417413179DF28F0028D1E1 /* index.oo.html in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173FE179DF28F0028D1E1 /* index.oo.html */; };
+		3B417415179DF28F0028D1E1 /* newdesign.html in Resources */ = {isa = PBXBuildFile; fileRef = 3B417401179DF28F0028D1E1 /* newdesign.html */; };
+		3B417416179DF28F0028D1E1 /* pull in Resources */ = {isa = PBXBuildFile; fileRef = 3B417402179DF28F0028D1E1 /* pull */; };
+		3B417417179DF28F0028D1E1 /* push in Resources */ = {isa = PBXBuildFile; fileRef = 3B417403179DF28F0028D1E1 /* push */; };
+		3B417418179DF28F0028D1E1 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B417404179DF28F0028D1E1 /* README.txt */; };
 		3B557541176FAADA005EEB51 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B557540176FAADA005EEB51 /* SenTestingKit.framework */; };
 		3B557542176FAADA005EEB51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B557543176FAADA005EEB51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
@@ -55,7 +73,6 @@
 		3BE052E317778EE00041D6C0 /* MyStoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */; };
 		3BE052E517778EE00041D6C0 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Formatter.m */; };
 		3BE052E617778EE00041D6C0 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Formatter.m */; };
-		3BE052E917778F150041D6C0 /* Design in Resources */ = {isa = PBXBuildFile; fileRef = 3BE052E817778F150041D6C0 /* Design */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +88,25 @@
 /* Begin PBXFileReference section */
 		3B312C0A17602A8F00AF12F9 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		3B3A62F61761557700C7DD46 /* ButtonGradient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGradient3.png; sourceTree = "<group>"; };
+		3B4173EF179DF28F0028D1E1 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		3B4173F0179DF28F0028D1E1 /* .project */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = .project; sourceTree = "<group>"; };
+		3B4173F2179DF28F0028D1E1 /* grabFrames */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = grabFrames; sourceTree = "<group>"; };
+		3B4173F3179DF28F0028D1E1 /* IGDCalcs.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = IGDCalcs.numbers; sourceTree = "<group>"; };
+		3B4173F4179DF28F0028D1E1 /* iPadC.fields */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iPadC.fields; sourceTree = "<group>"; };
+		3B4173F5179DF28F0028D1E1 /* iPadC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPadC.xib; sourceTree = "<group>"; };
+		3B4173F6179DF28F0028D1E1 /* iPhone3.5C.fields */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iPhone3.5C.fields; sourceTree = "<group>"; };
+		3B4173F7179DF28F0028D1E1 /* iPhone3.5C.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPhone3.5C.xib; sourceTree = "<group>"; };
+		3B4173F8179DF28F0028D1E1 /* iPhone4C.fields */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iPhone4C.fields; sourceTree = "<group>"; };
+		3B4173F9179DF28F0028D1E1 /* iPhone4C.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPhone4C.xib; sourceTree = "<group>"; };
+		3B4173FB179DF28F0028D1E1 /* 2013-06-15-EBD-logic.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2013-06-15-EBD-logic.txt"; sourceTree = "<group>"; };
+		3B4173FC179DF28F0028D1E1 /* BetterDealCalcs.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = BetterDealCalcs.numbers; sourceTree = "<group>"; };
+		3B4173FD179DF28F0028D1E1 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		3B4173FE179DF28F0028D1E1 /* index.oo.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.oo.html; sourceTree = "<group>"; };
+		3B417400179DF28F0028D1E1 /* jquery-1.9.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.9.1.min.js"; sourceTree = "<group>"; };
+		3B417401179DF28F0028D1E1 /* newdesign.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = newdesign.html; sourceTree = "<group>"; };
+		3B417402179DF28F0028D1E1 /* pull */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = pull; sourceTree = "<group>"; };
+		3B417403179DF28F0028D1E1 /* push */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = push; sourceTree = "<group>"; };
+		3B417404179DF28F0028D1E1 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		3B55753F176FAADA005EEB51 /* IGDUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IGDUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B557540176FAADA005EEB51 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		3B557546176FAADA005EEB51 /* IGDUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IGDUnitTests-Info.plist"; sourceTree = "<group>"; };
@@ -99,7 +135,7 @@
 		3B730740175EC9F500873194 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		3BA69A621773D3E500AA23FB /* IGDUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGDUnitTests.h; sourceTree = "<group>"; };
 		3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ItsAGoodDeal.entitlements; sourceTree = "<group>"; };
-		3BC289381799E83500D884BB /* Refactor.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Refactor.rtf; sourceTree = "<group>"; };
+		3BC289381799E83500D884BB /* Refactor.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = Refactor.rtf; path = ../Refactor.rtf; sourceTree = "<group>"; };
 		3BC289391799F12B00D884BB /* Fields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fields.h; sourceTree = "<group>"; };
 		3BC2893A1799F12B00D884BB /* Fields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Fields.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3BC2893D1799F48300D884BB /* FieldsClassUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldsClassUnitTests.h; sourceTree = "<group>"; };
@@ -127,7 +163,6 @@
 		3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyStoreObserver.m; path = Lib/MyStoreObserver.m; sourceTree = "<group>"; };
 		3BE052DF17778EE00041D6C0 /* NSObject+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Formatter.h"; path = "Lib/NSObject+Formatter.h"; sourceTree = "<group>"; };
 		3BE052E017778EE00041D6C0 /* NSObject+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Formatter.m"; path = "Lib/NSObject+Formatter.m"; sourceTree = "<group>"; };
-		3BE052E817778F150041D6C0 /* Design */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Design; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +204,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B4173EE179DF28F0028D1E1 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				3BC289381799E83500D884BB /* Refactor.rtf */,
+				3B4173EF179DF28F0028D1E1 /* .gitignore */,
+				3B4173F0179DF28F0028D1E1 /* .project */,
+				3B4173F2179DF28F0028D1E1 /* grabFrames */,
+				3B4173F3179DF28F0028D1E1 /* IGDCalcs.numbers */,
+				3B4173F4179DF28F0028D1E1 /* iPadC.fields */,
+				3B4173F5179DF28F0028D1E1 /* iPadC.xib */,
+				3B4173F6179DF28F0028D1E1 /* iPhone3.5C.fields */,
+				3B4173F7179DF28F0028D1E1 /* iPhone3.5C.xib */,
+				3B4173F8179DF28F0028D1E1 /* iPhone4C.fields */,
+				3B4173F9179DF28F0028D1E1 /* iPhone4C.xib */,
+				3B4173FA179DF28F0028D1E1 /* Old */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		3B4173FA179DF28F0028D1E1 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				3B4173FB179DF28F0028D1E1 /* 2013-06-15-EBD-logic.txt */,
+				3B4173FC179DF28F0028D1E1 /* BetterDealCalcs.numbers */,
+				3B4173FD179DF28F0028D1E1 /* index.html */,
+				3B4173FE179DF28F0028D1E1 /* index.oo.html */,
+				3B4173FF179DF28F0028D1E1 /* js */,
+				3B417401179DF28F0028D1E1 /* newdesign.html */,
+				3B417402179DF28F0028D1E1 /* pull */,
+				3B417403179DF28F0028D1E1 /* push */,
+				3B417404179DF28F0028D1E1 /* README.txt */,
+			);
+			path = Old;
+			sourceTree = "<group>";
+		};
+		3B4173FF179DF28F0028D1E1 /* js */ = {
+			isa = PBXGroup;
+			children = (
+				3B417400179DF28F0028D1E1 /* jquery-1.9.1.min.js */,
+			);
+			path = js;
+			sourceTree = "<group>";
+		};
 		3B557544176FAADA005EEB51 /* IGDUnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,7 +292,7 @@
 		3B730718175EC9F400873194 = {
 			isa = PBXGroup;
 			children = (
-				3BC289381799E83500D884BB /* Refactor.rtf */,
+				3B4173EE179DF28F0028D1E1 /* Design */,
 				3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */,
 				3BD286711762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png */,
 				3BD286731762EFC000A9AEE4 /* Default-Portrait~ipad.png */,
@@ -225,7 +303,6 @@
 				3BDB0CFA1762A7FA007AB586 /* Default.png */,
 				3BDB0CFB1762A7FA007AB586 /* Default@2x.png */,
 				3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */,
-				3BE052E817778F150041D6C0 /* Design */,
 				3BE052DA17778EC30041D6C0 /* DataModel */,
 				3B73072A175EC9F500873194 /* IGD */,
 				3B557544176FAADA005EEB51 /* IGDUnitTests */,
@@ -432,7 +509,24 @@
 				3BD286701762EB0700A9AEE4 /* scale-72x72.png in Resources */,
 				3BD286721762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png in Resources */,
 				3BD286741762EFC000A9AEE4 /* Default-Portrait~ipad.png in Resources */,
-				3BE052E917778F150041D6C0 /* Design in Resources */,
+				3B417405179DF28F0028D1E1 /* .gitignore in Resources */,
+				3B417406179DF28F0028D1E1 /* .project in Resources */,
+				3B417408179DF28F0028D1E1 /* grabFrames in Resources */,
+				3B417409179DF28F0028D1E1 /* IGDCalcs.numbers in Resources */,
+				3B41740A179DF28F0028D1E1 /* iPadC.fields in Resources */,
+				3B41740B179DF28F0028D1E1 /* iPadC.xib in Resources */,
+				3B41740C179DF28F0028D1E1 /* iPhone3.5C.fields in Resources */,
+				3B41740D179DF28F0028D1E1 /* iPhone3.5C.xib in Resources */,
+				3B41740E179DF28F0028D1E1 /* iPhone4C.fields in Resources */,
+				3B41740F179DF28F0028D1E1 /* iPhone4C.xib in Resources */,
+				3B417410179DF28F0028D1E1 /* 2013-06-15-EBD-logic.txt in Resources */,
+				3B417411179DF28F0028D1E1 /* BetterDealCalcs.numbers in Resources */,
+				3B417412179DF28F0028D1E1 /* index.html in Resources */,
+				3B417413179DF28F0028D1E1 /* index.oo.html in Resources */,
+				3B417415179DF28F0028D1E1 /* newdesign.html in Resources */,
+				3B417416179DF28F0028D1E1 /* pull in Resources */,
+				3B417417179DF28F0028D1E1 /* push in Resources */,
+				3B417418179DF28F0028D1E1 /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

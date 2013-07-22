@@ -57,23 +57,20 @@
         ((MyButton *)_control).titleLabel.text = _value;
     } else {
         ((UITextField *)_control).text = _value;
-        if ([self isNumber]) {
-            if ([self isCurrency]) {
-                NSString *s = [_value stringByReplacingOccurrencesOfString:self.currencySymbol withString:@""];
-                _floatValue = 0.0f;
-                NSString *c = @"";
-                @try {
-                    c = [_value substringToIndex:1];
-                }
-                @catch (NSException *exception) {
-                    NSLog(@"%@ caught", exception.description);
-                }
-                if (![c isEqualToString:@"."]) {
-                    _floatValue = [s floatValue];
-                }
-            }
-        }
     }
+}
+
+@dynamic floatValue;
+- (CGFloat)floatValue {
+    CGFloat f = INFINITY;
+    NSString *s = _value;
+    if ([self isNumber]) {
+        if ([self isCurrency]) {
+            s = [_value stringByReplacingOccurrencesOfString:self.currencySymbol withString:@""];
+        }
+        f = [s floatValue];
+    }
+    return f;
 }
 
 - (id)init {
@@ -119,13 +116,11 @@
 }
 
 - (BOOL)isCurrency {
-    return (_tag == ItemA || _tag == ItemB || _tag == CostField);
+    return (_tag == PriceA || _tag == PriceB || _tag == CostField || _tag == SavingsField);
 }
 
 - (BOOL)isNumber {
-    return (_tag == ItemA
-            || _tag == ItemB
-            || _tag == PriceA
+    return (_tag == PriceA
             || _tag == PriceB
             || _tag == QtyA
             || _tag == QtyB
@@ -140,6 +135,8 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
+    // clear field on direct tap
+    self.value = @"";
     [self.caller performSelector:@selector(fieldWasSelected:) withObject:self];
     return NO;
 }

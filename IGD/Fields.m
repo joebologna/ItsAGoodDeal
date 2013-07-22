@@ -31,7 +31,7 @@
 - (NSString *)fieldValues {
     NSString *s = @"{\n";
     for (Field *f in self.inputFields) {
-        s = [s stringByAppendingFormat:@"%@/%@/%.2f\n", f.value, ((UITextField *)f.control).text, f.value.floatValue];
+        s = [s stringByAppendingFormat:@"\t%@: %@, %@, %.2f\n", f.fTagToString, f.value, ((UITextField *)f.control).text, f.value.floatValue];
     }
 	return [NSString stringWithFormat:@"%@}\n", s];
 }
@@ -58,7 +58,9 @@
 #endif
     previous.backgroundColor = FIELDCOLOR;
     selected.backgroundColor = HIGHLIGHTCOLOR;
-    self.curField.value = c.value;
+    if ([_curField isCurrency]) {
+        _curField.value = [self fmtPrice:_curField.floatValue];
+    }
     if (c == _qty2BuyA) {
         self.qty2BuyB.value = _qty2BuyA.value;
     } else if (c == _qty2BuyB) {
@@ -348,11 +350,11 @@
     NSLog(@"%s", __func__);
 #endif
     Item *a = [Item itemWithName:@"A"
-                    price:self.itemA.floatValue
+                    price:self.priceA.floatValue
                     minQty:self.qtyA.floatValue
                     unitsPerItem:self.sizeA.floatValue];
     Item *b = [Item itemWithName:@"B"
-                           price:self.itemB.floatValue
+                           price:self.priceB.floatValue
                           minQty:self.qtyB.floatValue
                     unitsPerItem:self.sizeB.floatValue];
     Savings *s = [Savings savingsWithItemA:a withItemB:b];
@@ -364,9 +366,9 @@
                 NSLog(@"%s, display result", __func__);
                 self.messageMode = ShowResult;
                 self.message.value = @"Calc Complete"; // this won't show
-                self.costField.value = [[NSNumber numberWithFloat:s.totalCost] stringValue];
-                self.savingsField.value = [[NSNumber numberWithFloat:s.savings] stringValue];
-                self.moreField.value = [[NSNumber numberWithFloat:s.percentMoreProductA] stringValue];
+                self.costField.value = [self fmtPrice:s.totalCost];
+                self.savingsField.value = [self fmtPrice:s.savings];
+                self.moreField.value = [NSString stringWithFormat:@"%.0f%%", s.percentMoreProductA];
             } else if (s.calcState == NeedQty2Purchase) {
                 NSLog(@"%s, display need qty2purchase", __func__);
                 self.messageMode = ShowPrompt;
