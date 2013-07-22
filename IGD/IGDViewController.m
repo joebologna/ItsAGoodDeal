@@ -92,6 +92,7 @@ static Test testToRun = NotTesting;
 - (void)buttonPushed:(MyButton *)sender {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
+#ifdef DEBUG_LAYOUT
     if (pushed == 0) fields.message.control.hidden = YES;
     else if(pushed == 1) fields.costField.control.hidden = YES;
     else if(pushed == 2) fields.costLabel.control.hidden = YES;
@@ -108,6 +109,8 @@ static Test testToRun = NotTesting;
     else if(pushed == 13) fields.moreLabel.control.hidden = NO;
     else { pushed = 0; return; }
     pushed++;
+    fields.messageMode = (fields.messageMode == ShowPrompt) ? ShowResult : ShowPrompt;
+#endif
 #endif
 }
 

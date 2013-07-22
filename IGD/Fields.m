@@ -26,6 +26,13 @@
 	return [NSString stringWithFormat:@".deviceType: %@", self.deviceTypeString];
 }
 
+@synthesize messageMode = _messageMode;
+- (void)setMessageMode:(MessageMode)m {
+    _messageMode = m;
+    self.message.control.hidden = !(_messageMode == ShowPrompt);
+    self.costLabel.control.hidden = self.savingsLabel.control.hidden = self.moreLabel.control.hidden = self.costField.control.hidden = self.savingsField.control.hidden = self.moreField.control.hidden = !self.message.control.hidden;
+}
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -205,7 +212,7 @@
     f.sizeB = [Field allocFieldWithRect:CGRectMake(582, 144, 177, 86) andF:48 andValue:@"Size" andTag:SizeB andType:LabelField andVC:f.vc];
     f.qty2BuyB = [Field allocFieldWithRect:CGRectMake(488, 238, 177, 86) andF:48 andValue:@"# to Buy" andTag:Qty2BuyB andType:LabelField andVC:f.vc];
     
-    f.message = [Field allocFieldWithRect:CGRectMake(1, 393, 766, 75) andF:17 andValue:@"Enter Price, Min Qty & Size of Items" andTag:Message andType:LabelField andVC:f.vc];
+    f.message = [Field allocFieldWithRect:CGRectMake(1, 393, 766, 120) andF:50 andValue:@"Enter Price, Min Qty & Size of Items" andTag:Message andType:LabelField andVC:f.vc];
     
     f.costField = [Field allocFieldWithRect:   CGRectMake(1,   393, 256, 67) andF:40 andValue:@"Cost Field" andTag:CostField andType:LabelField andVC:f.vc];
     f.savingsField = [Field allocFieldWithRect:CGRectMake(256, 393, 257, 67) andF:40 andValue:@"Savings Field" andTag:SavingsField andType:LabelField andVC:f.vc];
@@ -256,5 +263,14 @@
     for (Field *f in self.keys) {
         [self setView:f];
     }
+    
+    self.costLabel.value = @"Cost";
+    self.savingsLabel.value = @"Savings";
+    self.moreLabel.value = @"More";
+    self.costField.value = @" ";
+    self.savingsField.value = @" ";
+    self.moreField.value = @" ";
+    self.messageMode = ShowPrompt;
 }
+
 @end

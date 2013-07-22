@@ -126,30 +126,40 @@
     t.font = [UIFont systemFontOfSize:self.f];
     t.textAlignment = NSTextAlignmentCenter;
     t.tag = self.tag;
-    if (t.tag >= CostLabel && t.tag <= MoreLabel) {
-        t.backgroundColor = [UIColor clearColor];
-    }
+    t.text = self.value;
+    t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    t.placeholder = self.value;
+    t.backgroundColor = [UIColor clearColor];
     t.borderStyle = UITextBorderStyleLine;
-    t.delegate = (id)self.vc;
-    if (t.tag == ItemA || t.tag == ItemB || t.tag == BetterDealA || t.tag == BetterDealB || t.tag == Message) {
-        t.placeholder = @"";
-        t.text = self.value;
-        t.contentVerticalAlignment = (t.tag == ItemA || t.tag == ItemB) ? UIControlContentVerticalAlignmentTop :UIControlContentVerticalAlignmentCenter;
-        t.backgroundColor = [UIColor clearColor];
-        t.borderStyle = UITextBorderStyleLine;
-        if (t.tag == ItemA || t.tag == ItemB) {
-            t.borderStyle = UITextBorderStyleLine;
-        } else if (t.tag == BetterDealA || t.tag == BetterDealB) {
-        } else {
-            // this does not appear to work
-            t.minimumFontSize = 6;
-            t.adjustsFontSizeToFitWidth = YES;
-        }
-    } else {
-        t.text = @"";
-        t.placeholder = self.value;
-        t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    
+    switch (t.tag) {
+        case ItemA:
+        case ItemB:
+            t.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+        case BetterDealA:
+        case BetterDealB:
+        case Message:
+            t.placeholder = @"";
+            break;
+        case QtyA:
+        case SizeA:
+        case Qty2BuyA:
+        case QtyB:
+        case SizeB:
+        case Qty2BuyB:
+            t.text = @"";
+            break;
+        case PriceA:
+        case PriceB:
+        case CostField:
+        case SavingsField:
+        case MoreField:
+        case CostLabel:
+        case SavingsLabel:
+        case MoreLabel:
+            break;
     }
+    
     self.control = (UIControl *)t;
 }
 
