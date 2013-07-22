@@ -58,6 +58,18 @@
     self.curField = field;
 }
 
+- (void)gotoNextField {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    if ([self.curField isEqual:self.inputFields.lastObject]) {
+        self.curField = self.inputFields[0];
+    } else {
+        NSInteger i = [self.inputFields indexOfObject:self.curField];
+        self.curField = self.inputFields[i + 1];
+    }
+}
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -116,7 +128,8 @@
         default:
             break;
     }
-    self.inputFields = [NSArray arrayWithObjects:self.priceA, self.priceB, self.qtyA, self.qtyB, self.sizeA, self.sizeB, self.qty2BuyA, self.qty2BuyB, nil];
+    // this is the order that the Next button traverses.
+    self.inputFields = [NSArray arrayWithObjects:self.priceA, self.qtyA, self.sizeA, self.priceB, self.qtyB, self.sizeB, self.qty2BuyA, self.qty2BuyB, nil];
     self.allFields = [NSArray arrayWithObjects:self.priceA, self.priceB, self.qtyA, self.qtyB, self.sizeA, self.sizeB, self.qty2BuyA, self.qty2BuyB, self.itemA, self.itemB, self.betterDealA, self.betterDealB, self.message, self.costField, self.savingsField, self.moreField, self.costLabel, self.savingsLabel, self.moreLabel, nil];
     self.keys = [NSArray arrayWithObjects:self.one, self.two, self.three, self.four, self.five, self.six, self.seven, self.eight, self.nine, self.zero, self.period, self.clr, self.store, self.del, self.next, nil];
     return self;

@@ -29,6 +29,7 @@ typedef enum {
 - (Fields *)makeFields:(UIViewController *)vc;
 - (void)populateScreen;
 - (void)fieldWasSelected:(Field *)field;
+- (void)gotoNextField;
 
 @property (unsafe_unretained, nonatomic) DeviceType deviceType;
 @property (strong, nonatomic, readonly) NSString *toString, *deviceTypeString;

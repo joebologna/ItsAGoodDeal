@@ -114,6 +114,9 @@ static Test testToRun = NotTesting;
     self.fields.messageMode = (self.fields.messageMode == ShowPrompt) ? ShowResult : ShowPrompt;
 #endif
 #endif
+    if (sender.tag == Next) {
+        [self.fields gotoNextField];
+    }
 }
 
 #pragma mark -
