@@ -3,5 +3,4 @@ js
 .DS_Store
 .*.swp
 *.swp
-UserInterfaceState.xcuserstate/
-ItsAGoodDeal.xcodeproj/xcuserdata/
+*.xcuserdatad/
