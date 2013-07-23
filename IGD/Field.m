@@ -10,7 +10,7 @@
 #import "Lib/NSObject+Formatter.h"
 
 @interface Field() {
-    UISegmentedControl *segControl;
+    UIToolbar *rowOfKeys;
 }
 @end
 
@@ -130,7 +130,7 @@
     // clear field on direct tap
     self.value = @"";
     textField.keyboardType = UIKeyboardTypeDecimalPad;
-    textField.inputAccessoryView = self.keyboardToolBar;
+    textField.inputAccessoryView = rowOfKeys;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -221,40 +221,36 @@
     }
     
     self.control = (UIControl *)t;
+    [self makeKeyboardToolBar];
 }
 
-- (void)handleCustomKey:(UISegmentedControl *)sender {
+- (void)handleCustomKey:(UIBarButtonItem *)b {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    
-    NSString *s = [sender titleForSegmentAtIndex:[sender selectedSegmentIndex]];
-    NSLog(@"s: %@", s);
+    if ([b.title isEqualToString:CALCBUTTON]) {
+        [self.control resignFirstResponder];
+    }
+    [self.caller handleCustomKey:b];
 }
 
-- (UIToolbar *)keyboardToolBar {
+- (void)makeKeyboardToolBar {
+    rowOfKeys = [[UIToolbar alloc] init];
+    rowOfKeys.barStyle = UIBarStyleBlack;
+    [rowOfKeys sizeToFit];
+
+    UIBarButtonItem *f = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    UIToolbar *toolbar = [[UIToolbar alloc] init];
-    [toolbar setBarStyle:UIBarStyleBlack];
-    [toolbar sizeToFit];
+    UIBarButtonItem *a = [[UIBarButtonItem alloc] initWithTitle:PREVBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(handleCustomKey:)];
+    a.style = UIBarButtonItemStyleBordered;
+
+    UIBarButtonItem *b = [[UIBarButtonItem alloc] initWithTitle:CALCBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(handleCustomKey:)];
+    b.style = UIBarButtonItemStyleBordered;
     
-    if (segControl == nil) {
-        segControl = [[UISegmentedControl alloc] initWithItems:@[@"Previous", @"Calculate", @"Next"]];
-        [segControl setSegmentedControlStyle:UISegmentedControlStyleBar];
-        segControl.momentary = YES;
-        
-        [segControl addTarget:self action:@selector(handleCustomKey:) forControlEvents:(UIControlEventValueChanged)];
-        [segControl setEnabled:YES forSegmentAtIndex:0];
-        [segControl setEnabled:YES forSegmentAtIndex:1];
-        [segControl setEnabled:YES forSegmentAtIndex:2];
-        
-        UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithCustomView:segControl];
-        
-        NSArray *itemsArray = @[nextButton];
-        
-        [toolbar setItems:itemsArray];
-    }
-    return toolbar;
+    UIBarButtonItem *c = [[UIBarButtonItem alloc] initWithTitle:NEXTBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(handleCustomKey:)];
+    c.style = UIBarButtonItemStyleBordered;
+    
+    [rowOfKeys setItems:@[a, f, b, f, c]];
 }
 
 @end

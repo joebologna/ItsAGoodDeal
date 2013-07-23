@@ -19,6 +19,10 @@
 #define FTAG_BASE 100
 #define KTAG_BASE 400
 
+#define PREVBUTTON @"     Previous    "
+#define CALCBUTTON @"    Calculate    "
+#define NEXTBUTTON @"       Next      "
+
 typedef enum {
     ItemA = FTAG_BASE,
     ItemB,

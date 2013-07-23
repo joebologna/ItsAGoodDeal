@@ -65,7 +65,22 @@
     self.curField = field;
 }
 
-- (void)gotoNextField {
+- (void)handleCustomKey:(UIBarButtonItem *)b {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    if ([b.title isEqualToString:PREVBUTTON]) {
+        [self gotoPrevField:YES];
+    } else if ([b.title isEqualToString:CALCBUTTON]) {
+        [self calcSavings];
+    } else if ([b.title isEqualToString:NEXTBUTTON]) {
+        [self gotoNextField:YES];
+    } else {
+        NSLog(@"Oops!");
+    }
+}
+
+- (void)gotoNextField:(BOOL)grabKeyboard {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
@@ -75,6 +90,20 @@
         NSInteger i = [self.inputFields indexOfObject:self.curField];
         self.curField = self.inputFields[i + 1];
     }
+    if (grabKeyboard) { [self.curField.control becomeFirstResponder]; }
+}
+
+- (void)gotoPrevField:(BOOL)grabKeyboard {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    if ([self.curField isEqual:self.inputFields[0]]) {
+        self.curField = self.inputFields.lastObject;
+    } else {
+        NSInteger i = [self.inputFields indexOfObject:self.curField];
+        self.curField = self.inputFields[i - 1];
+    }
+    if (grabKeyboard) { [self.curField.control becomeFirstResponder]; }
 }
 
 - (id)init {

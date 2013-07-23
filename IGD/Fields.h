@@ -31,8 +31,10 @@ typedef enum {
 - (Fields *)makeFields:(UIViewController *)vc;
 - (void)populateScreen;
 - (void)fieldWasSelected:(Field *)field;
-- (void)gotoNextField;
+- (void)gotoNextField:(BOOL)grabKeyboard;
+- (void)gotoPrevField:(BOOL)grabKeyboard;
 - (void)calcSavings;
+- (void)handleCustomKey:(UIBarButtonItem *)b;
 
 @property (unsafe_unretained, nonatomic) DeviceType deviceType;
 @property (strong, nonatomic, readonly) NSString

@@ -90,7 +90,7 @@ static Test testToRun = NotTesting;
     NSLog(@"%s", __func__);
 #endif
     if (sender.tag == Next) {
-        [self.fields gotoNextField];
+        [self.fields gotoNextField:NO];
     } else if (sender.tag <= Period) {
         NSString *s = self.fields.curField.value;
         if (sender.tag == Period) {
