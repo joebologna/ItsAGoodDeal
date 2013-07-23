@@ -19,9 +19,11 @@
 #define FTAG_BASE 100
 #define KTAG_BASE 400
 
+#ifdef FEATURE_KEYBOARD
 #define PREVBUTTON @"     Previous    "
 #define CALCBUTTON @"    Calculate    "
 #define NEXTBUTTON @"       Next      "
+#endif
 
 typedef enum {
     ItemA = FTAG_BASE,
@@ -62,7 +64,11 @@ typedef enum {
     KeyType
 } FieldType;
 
+#ifdef FEATURE_KEYBOARD
 @interface Field : NSObject <UITextFieldDelegate, UITextInputTraits>
+#else
+@interface Field : NSObject <UITextFieldDelegate>
+#endif
 
 + (Field *)allocField;
 + (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t andVC:(UIViewController *)vc caller:(id)caller;

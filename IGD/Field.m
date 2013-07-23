@@ -9,10 +9,12 @@
 #import "Field.h"
 #import "Lib/NSObject+Formatter.h"
 
+#ifdef FEATURE_KEYBOARD
 @interface Field() {
     UIToolbar *rowOfKeys;
 }
 @end
+#endif
 
 @implementation Field
 
@@ -123,6 +125,7 @@
             || _tag == UnitsEachB);
 }
 
+#ifdef FEATURE_KEYBOARD
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
@@ -156,6 +159,17 @@
     [textField resignFirstResponder];
     return YES;
 }
+#else
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    // clear field on direct tap
+    self.value = @"";
+    [self.caller performSelector:@selector(fieldWasSelected:) withObject:self];
+    return NO;
+}
+#endif
 
 - (void)buttonPushed:(id)sender {
 #ifdef DEBUG
@@ -221,8 +235,13 @@
     }
     
     self.control = (UIControl *)t;
+
+#ifdef FEATURE_KEYBOARD
     [self makeKeyboardToolBar];
+#endif
 }
+
+#ifdef FEATURE_KEYBOARD
 
 - (void)handleCustomKey:(UIBarButtonItem *)b {
 #ifdef DEBUG
@@ -253,4 +272,5 @@
     [rowOfKeys setItems:@[a, f, b, f, c]];
 }
 
+#endif
 @end
