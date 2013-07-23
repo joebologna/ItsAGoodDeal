@@ -65,7 +65,17 @@
     self.curField = field;
 }
 
-#ifdef FEATURE_KEYBOARD
+#ifdef KEYBOARD_FEATURE
+
+- (void)handleDirectTap:(UITextField *)t {
+    for(Field *f in self.inputFields) {
+        if ([f.control isEqual:t]) {
+            self.curField = f;
+            return;
+        }
+    }
+    abort();
+}
 
 - (void)handleCustomKey:(UIBarButtonItem *)b {
 #ifdef DEBUG
@@ -236,24 +246,30 @@
 
     f.message = [Field allocFieldWithRect:CGRectMake(1, 158, 318, 40) andF:17 andValue:@PROMPT andTag:Message andType:LabelField andVC:f.vc caller:self];
 
-    f.one = [Field allocFieldWithRect:CGRectMake(20, 199, 64, 46) andF:15 andValue:@"1" andTag:One andType:KeyType andVC:f.vc caller:self];
-    f.two = [Field allocFieldWithRect:CGRectMake(92, 199, 64, 46) andF:15 andValue:@"2" andTag:Two andType:KeyType andVC:f.vc caller:self];
-    f.three = [Field allocFieldWithRect:CGRectMake(164, 199, 64, 46) andF:15 andValue:@"3" andTag:Three andType:KeyType andVC:f.vc caller:self];
-    f.clr = [Field allocFieldWithRect:CGRectMake(236, 199, 64, 46) andF:15 andValue:@CLR andTag:Clr andType:KeyType andVC:f.vc caller:self];
+    float y = 200;
+    float yHeight = 46;
+    float ySpacing = yHeight + 2;
+    f.one = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"1" andTag:One andType:KeyType andVC:f.vc caller:self];
+    f.two = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"2" andTag:Two andType:KeyType andVC:f.vc caller:self];
+    f.three = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"3" andTag:Three andType:KeyType andVC:f.vc caller:self];
+    f.clr = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@CLR andTag:Clr andType:KeyType andVC:f.vc caller:self];
+    y += ySpacing;
+    
+    f.four = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"4" andTag:Four andType:KeyType andVC:f.vc caller:self];
+    f.five = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"5" andTag:Five andType:KeyType andVC:f.vc caller:self];
+    f.six = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"6" andTag:Six andType:KeyType andVC:f.vc caller:self];
+    f.store = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@STORE andTag:Store andType:KeyType andVC:f.vc caller:self];
+    y += ySpacing;
 
-    f.four = [Field allocFieldWithRect:CGRectMake(20, 252, 64, 46) andF:15 andValue:@"4" andTag:Four andType:KeyType andVC:f.vc caller:self];
-    f.five = [Field allocFieldWithRect:CGRectMake(92, 252, 64, 46) andF:15 andValue:@"5" andTag:Five andType:KeyType andVC:f.vc caller:self];
-    f.six = [Field allocFieldWithRect:CGRectMake(164, 252, 64, 46) andF:15 andValue:@"6" andTag:Six andType:KeyType andVC:f.vc caller:self];
-    f.store = [Field allocFieldWithRect:CGRectMake(236, 252, 64, 46) andF:15 andValue:@STORE andTag:Store andType:KeyType andVC:f.vc caller:self];
+    f.seven = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"7" andTag:Seven andType:KeyType andVC:f.vc caller:self];
+    f.eight = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"8" andTag:Eight andType:KeyType andVC:f.vc caller:self];
+    f.nine = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"9" andTag:Nine andType:KeyType andVC:f.vc caller:self];
+    f.del = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@DEL andTag:Del andType:KeyType andVC:f.vc caller:self];
+    y += ySpacing;
 
-    f.seven = [Field allocFieldWithRect:CGRectMake(20, 305, 64, 46) andF:15 andValue:@"7" andTag:Seven andType:KeyType andVC:f.vc caller:self];
-    f.eight = [Field allocFieldWithRect:CGRectMake(92, 305, 64, 46) andF:15 andValue:@"8" andTag:Eight andType:KeyType andVC:f.vc caller:self];
-    f.nine = [Field allocFieldWithRect:CGRectMake(164, 305, 64, 46) andF:15 andValue:@"9" andTag:Nine andType:KeyType andVC:f.vc caller:self];
-    f.del = [Field allocFieldWithRect:CGRectMake(236, 305, 64, 46) andF:15 andValue:@DEL andTag:Del andType:KeyType andVC:f.vc caller:self];
-
-    f.period = [Field allocFieldWithRect:CGRectMake(20, 358, 64, 46) andF:15 andValue:@"." andTag:Period andType:KeyType andVC:f.vc caller:self];
-    f.zero = [Field allocFieldWithRect:CGRectMake(92, 358, 64, 46) andF:15 andValue:@"0" andTag:Zero andType:KeyType andVC:f.vc caller:self];
-    f.next = [Field allocFieldWithRect:CGRectMake(164, 358, 136, 46) andF:15 andValue:@NEXT andTag:Next andType:KeyType andVC:f.vc caller:self];
+    f.period = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"." andTag:Period andType:KeyType andVC:f.vc caller:self];
+    f.zero = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"0" andTag:Zero andType:KeyType andVC:f.vc caller:self];
+    f.next = [Field allocFieldWithRect:CGRectMake(164, y, 136, yHeight) andF:15 andValue:@NEXT andTag:Next andType:KeyType andVC:f.vc caller:self];
 }
 
 - (void)buildIPhone5:(Fields *)f {

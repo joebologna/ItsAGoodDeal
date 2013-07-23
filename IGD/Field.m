@@ -9,9 +9,10 @@
 #import "Field.h"
 #import "Lib/NSObject+Formatter.h"
 
-#ifdef FEATURE_KEYBOARD
+#ifdef KEYBOARD_FEATURE
 @interface Field() {
     UIToolbar *rowOfKeys;
+    UIBarButtonItem *prevButton, *calcButton, *nextButton;
 }
 @end
 #endif
@@ -125,21 +126,25 @@
             || _tag == UnitsEachB);
 }
 
-#ifdef FEATURE_KEYBOARD
+#ifdef KEYBOARD_FEATURE
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
     // clear field on direct tap
-    self.value = @"";
-    textField.keyboardType = UIKeyboardTypeDecimalPad;
-    textField.inputAccessoryView = rowOfKeys;
+    // need to update curField
+    if ([textField isEqual:self.control]) {
+        self.value = @"";
+        textField.keyboardType = UIKeyboardTypeDecimalPad;
+        textField.inputAccessoryView = rowOfKeys;
+    }
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
+    [self.caller performSelector:@selector(handleDirectTap:) withObject:textField];
     return YES;
 }
 
@@ -149,17 +154,17 @@
 #endif
     self.value = [self fmtPrice:[textField.text floatValue]];
     textField.text = self.value;
-    [self.caller performSelector:@selector(fieldWasSelected:) withObject:self];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    [textField resignFirstResponder];
+    [self handleCustomKey:calcButton];
     return YES;
 }
-#else
+
+#else          // !KEYBOARD_FEATURE
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
@@ -169,7 +174,7 @@
     [self.caller performSelector:@selector(fieldWasSelected:) withObject:self];
     return NO;
 }
-#endif
+#endif          // !KEYBOARD_FEATURE
 
 - (void)buttonPushed:(id)sender {
 #ifdef DEBUG
@@ -236,20 +241,19 @@
     
     self.control = (UIControl *)t;
 
-#ifdef FEATURE_KEYBOARD
+#ifdef KEYBOARD_FEATURE
     [self makeKeyboardToolBar];
 #endif
 }
 
-#ifdef FEATURE_KEYBOARD
+#ifdef KEYBOARD_FEATURE
 
 - (void)handleCustomKey:(UIBarButtonItem *)b {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    if ([b.title isEqualToString:CALCBUTTON]) {
-        [self.control resignFirstResponder];
-    }
+    if ([b isEqual:calcButton]) [self.control resignFirstResponder];
+    self.value = ((UITextField *)self.control).text;
     [self.caller handleCustomKey:b];
 }
 
@@ -260,16 +264,16 @@
 
     UIBarButtonItem *f = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    UIBarButtonItem *a = [[UIBarButtonItem alloc] initWithTitle:PREVBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(handleCustomKey:)];
-    a.style = UIBarButtonItemStyleBordered;
+    prevButton = [[UIBarButtonItem alloc] initWithTitle:PREVBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(handleCustomKey:)];
+    prevButton.style = UIBarButtonItemStyleBordered;
 
-    UIBarButtonItem *b = [[UIBarButtonItem alloc] initWithTitle:CALCBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(handleCustomKey:)];
-    b.style = UIBarButtonItemStyleBordered;
+    calcButton = [[UIBarButtonItem alloc] initWithTitle:CALCBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(handleCustomKey:)];
+    calcButton.style = UIBarButtonItemStyleBordered;
     
-    UIBarButtonItem *c = [[UIBarButtonItem alloc] initWithTitle:NEXTBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(handleCustomKey:)];
-    c.style = UIBarButtonItemStyleBordered;
+    nextButton = [[UIBarButtonItem alloc] initWithTitle:NEXTBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(handleCustomKey:)];
+    nextButton.style = UIBarButtonItemStyleBordered;
     
-    [rowOfKeys setItems:@[a, f, b, f, c]];
+    [rowOfKeys setItems:@[prevButton, f, calcButton, f, nextButton]];
 }
 
 #endif

@@ -90,7 +90,7 @@ static Test testToRun = NotTesting;
     NSLog(@"%s", __func__);
 #endif
     if (sender.tag == Next) {
-#ifdef FEATURE_KEYBOARD
+#ifdef KEYBOARD_FEATURE
         [self.fields gotoNextField:NO];
 #else
         [self.fields gotoNextField];

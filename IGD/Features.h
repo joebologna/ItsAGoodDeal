@@ -9,6 +9,6 @@
 #ifndef ItsAGoodDeal_Features_h
 #define ItsAGoodDeal_Features_h
 
-//#define FEATURE_KEYBOARD
+#define KEYBOARD_FEATURE
 
 #endif
