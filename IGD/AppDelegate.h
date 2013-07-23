@@ -6,8 +6,10 @@
 //  Copyright (c) 2013 Joe Bologna. All rights reserved.
 //
 
-#import "MyStoreObserver.h"
 #import <UIKit/UIKit.h>
+#include "Features.h"
+
+#import "MyStoreObserver.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, SKProductsRequestDelegate>
 

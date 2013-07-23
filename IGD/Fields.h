@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#include "Features.h"
+
 #import "Field.h"
 
 #define STORE "Remove Ads"

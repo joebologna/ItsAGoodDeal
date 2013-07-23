@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#include "Features.h"
+
 #import "MyStoreObserver.h"
 #import "Fields.h"
 #import "MyButton.h"

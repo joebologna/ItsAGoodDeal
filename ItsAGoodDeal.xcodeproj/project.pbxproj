@@ -133,6 +133,7 @@
 		3B9AAA18179E1C10008B3569 /* Simple.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = Simple.numbers; sourceTree = "<group>"; };
 		3BA69A621773D3E500AA23FB /* IGDUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGDUnitTests.h; sourceTree = "<group>"; };
 		3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ItsAGoodDeal.entitlements; sourceTree = "<group>"; };
+		3BAD90EF179EC80500EDE6E8 /* Features.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Features.h; sourceTree = "<group>"; };
 		3BC289381799E83500D884BB /* Refactor.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = Refactor.rtf; path = ../Refactor.rtf; sourceTree = "<group>"; };
 		3BC289391799F12B00D884BB /* Fields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fields.h; sourceTree = "<group>"; };
 		3BC2893A1799F12B00D884BB /* Fields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Fields.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -325,6 +326,7 @@
 		3B73072A175EC9F500873194 /* IGD */ = {
 			isa = PBXGroup;
 			children = (
+				3BAD90EF179EC80500EDE6E8 /* Features.h */,
 				3B71F52F179C43C900E52260 /* IGDViewController.h */,
 				3B71F530179C43C900E52260 /* IGDViewController.m */,
 				3B730733175EC9F500873194 /* AppDelegate.h */,
