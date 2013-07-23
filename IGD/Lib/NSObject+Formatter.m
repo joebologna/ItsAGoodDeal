@@ -30,4 +30,15 @@
 - (NSString *)prefix {
     return @"\t";
 }
+
+- (NSString *)fmtPrice:(float)price {
+    return [NSString stringWithFormat:@"%@%.2f", self.currencySymbol, price];
+}
+
+- (NSString *)currencySymbol {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    return [numberFormatter currencySymbol];
+}
+
 @end

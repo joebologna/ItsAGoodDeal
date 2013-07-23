@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSArray *backgroundColors;
 @property (strong, nonatomic) NSArray *titles;
 @property (strong, nonatomic) NSArray *titleColors;
+@property (strong, nonatomic) NSString *bothTitles;
 
 - (void)toggle;
 

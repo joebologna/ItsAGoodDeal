@@ -38,6 +38,7 @@ static MyStoreObserver *theSharedObject = nil;
     }
     CFComparisonResult r = CFStringCompare(boughtStr, vYes, kCFCompareCaseInsensitive);
     bought = (r == kCFCompareEqualTo);
+    CFRelease(boughtStr);
     
     return bought;
 }

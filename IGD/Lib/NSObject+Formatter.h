@@ -14,7 +14,8 @@
 - (void)logSelf:(id)obj;
 - (NSString *)expandPrefix:(NSString *)prefix ntimes:(NSUInteger)n;
 - (NSString *)prefix;
-
+- (NSString *)fmtPrice:(float)price;
+- (NSString *)currencySymbol;
 @end
 
 @protocol Logging
