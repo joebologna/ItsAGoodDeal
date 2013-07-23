@@ -53,6 +53,7 @@
 		3B730735175EC9F500873194 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B730734175EC9F500873194 /* AppDelegate.m */; };
 		3B73073E175EC9F500873194 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073C175EC9F500873194 /* MainStoryboard_iPhone.storyboard */; };
 		3B730741175EC9F500873194 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */; };
+		3B9AAA19179E1C10008B3569 /* Simple.numbers in Resources */ = {isa = PBXBuildFile; fileRef = 3B9AAA18179E1C10008B3569 /* Simple.numbers */; };
 		3BC2893C1799F12B00D884BB /* Fields.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893A1799F12B00D884BB /* Fields.m */; };
 		3BC289401799F48300D884BB /* FieldsClassUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893E1799F48300D884BB /* FieldsClassUnitTests.m */; };
 		3BC289441799FFDD00D884BB /* Field.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC289421799FFDD00D884BB /* Field.m */; };
@@ -65,10 +66,6 @@
 		3BDB0D001762A7FA007AB586 /* scale-114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */; };
 		3BDB0D021762C184007AB586 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDB0D011762C184007AB586 /* StoreKit.framework */; };
 		3BDF4FAA17601B3C00964B0E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF4FA917601B3C00964B0E /* QuartzCore.framework */; };
-		3BE052D617778EAC0041D6C0 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052D317778EAC0041D6C0 /* Item.m */; };
-		3BE052D717778EAC0041D6C0 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052D317778EAC0041D6C0 /* Item.m */; };
-		3BE052D817778EAC0041D6C0 /* Savings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052D517778EAC0041D6C0 /* Savings.m */; };
-		3BE052D917778EAC0041D6C0 /* Savings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052D517778EAC0041D6C0 /* Savings.m */; };
 		3BE052E117778EE00041D6C0 /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DC17778EE00041D6C0 /* MyButton.m */; };
 		3BE052E317778EE00041D6C0 /* MyStoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */; };
 		3BE052E517778EE00041D6C0 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Formatter.m */; };
@@ -133,6 +130,7 @@
 		3B730734175EC9F500873194 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3B73073D175EC9F500873194 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		3B730740175EC9F500873194 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		3B9AAA18179E1C10008B3569 /* Simple.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = Simple.numbers; sourceTree = "<group>"; };
 		3BA69A621773D3E500AA23FB /* IGDUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGDUnitTests.h; sourceTree = "<group>"; };
 		3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ItsAGoodDeal.entitlements; sourceTree = "<group>"; };
 		3BC289381799E83500D884BB /* Refactor.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = Refactor.rtf; path = ../Refactor.rtf; sourceTree = "<group>"; };
@@ -153,10 +151,6 @@
 		3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scale-114x114.png"; sourceTree = "<group>"; };
 		3BDB0D011762C184007AB586 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3BDF4FA917601B3C00964B0E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		3BE052D217778EAC0041D6C0 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item.h; path = DataModel/Item.h; sourceTree = "<group>"; };
-		3BE052D317778EAC0041D6C0 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = DataModel/Item.m; sourceTree = "<group>"; };
-		3BE052D417778EAC0041D6C0 /* Savings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = Savings.h; path = DataModel/Savings.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		3BE052D517778EAC0041D6C0 /* Savings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = Savings.m; path = DataModel/Savings.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3BE052DB17778EE00041D6C0 /* MyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyButton.h; path = Lib/MyButton.h; sourceTree = "<group>"; };
 		3BE052DC17778EE00041D6C0 /* MyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyButton.m; path = Lib/MyButton.m; sourceTree = "<group>"; };
 		3BE052DD17778EE00041D6C0 /* MyStoreObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyStoreObserver.h; path = Lib/MyStoreObserver.h; sourceTree = "<group>"; };
@@ -207,6 +201,7 @@
 		3B4173EE179DF28F0028D1E1 /* Design */ = {
 			isa = PBXGroup;
 			children = (
+				3B9AAA18179E1C10008B3569 /* Simple.numbers */,
 				3BC289381799E83500D884BB /* Refactor.rtf */,
 				3B4173EF179DF28F0028D1E1 /* .gitignore */,
 				3B4173F0179DF28F0028D1E1 /* .project */,
@@ -293,21 +288,12 @@
 			isa = PBXGroup;
 			children = (
 				3B4173EE179DF28F0028D1E1 /* Design */,
-				3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */,
-				3BD286711762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png */,
-				3BD286731762EFC000A9AEE4 /* Default-Portrait~ipad.png */,
-				3BD2866F1762EB0700A9AEE4 /* scale-72x72.png */,
-				3BD2866D1762EAAC00A9AEE4 /* scale-144x144.png */,
-				3BD2866B1762E97100A9AEE4 /* scale-57x57.png */,
-				3BDB0CF91762A7FA007AB586 /* Default-568h@2x.png */,
-				3BDB0CFA1762A7FA007AB586 /* Default.png */,
-				3BDB0CFB1762A7FA007AB586 /* Default@2x.png */,
-				3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */,
 				3BE052DA17778EC30041D6C0 /* DataModel */,
 				3B73072A175EC9F500873194 /* IGD */,
 				3B557544176FAADA005EEB51 /* IGDUnitTests */,
 				3B71F51E179BFABE00E52260 /* AppTests */,
 				3B730723175EC9F500873194 /* Frameworks */,
+				3B9AAA1A179E1C45008B3569 /* Resources */,
 				3B730722175EC9F500873194 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -363,13 +349,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		3B9AAA1A179E1C45008B3569 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */,
+				3BD286711762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png */,
+				3BD286731762EFC000A9AEE4 /* Default-Portrait~ipad.png */,
+				3BD2866F1762EB0700A9AEE4 /* scale-72x72.png */,
+				3BD2866D1762EAAC00A9AEE4 /* scale-144x144.png */,
+				3BD2866B1762E97100A9AEE4 /* scale-57x57.png */,
+				3BDB0CF91762A7FA007AB586 /* Default-568h@2x.png */,
+				3BDB0CFA1762A7FA007AB586 /* Default.png */,
+				3BDB0CFB1762A7FA007AB586 /* Default@2x.png */,
+				3BDB0CFC1762A7FA007AB586 /* scale-114x114.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		3BE052DA17778EC30041D6C0 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				3BE052D217778EAC0041D6C0 /* Item.h */,
-				3BE052D317778EAC0041D6C0 /* Item.m */,
-				3BE052D417778EAC0041D6C0 /* Savings.h */,
-				3BE052D517778EAC0041D6C0 /* Savings.m */,
 				3BC289391799F12B00D884BB /* Fields.h */,
 				3BC2893A1799F12B00D884BB /* Fields.m */,
 				3BC289411799FFDD00D884BB /* Field.h */,
@@ -527,6 +526,7 @@
 				3B417416179DF28F0028D1E1 /* pull in Resources */,
 				3B417417179DF28F0028D1E1 /* push in Resources */,
 				3B417418179DF28F0028D1E1 /* README.txt in Resources */,
+				3B9AAA19179E1C10008B3569 /* Simple.numbers in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,8 +568,6 @@
 			files = (
 				3B3D38A3179D5F800010A94F /* MyButton.m in Sources */,
 				3B55754C176FAADA005EEB51 /* IGDUnitTests.m in Sources */,
-				3BE052D717778EAC0041D6C0 /* Item.m in Sources */,
-				3BE052D917778EAC0041D6C0 /* Savings.m in Sources */,
 				3BE052E617778EE00041D6C0 /* NSObject+Formatter.m in Sources */,
 				3BC2893C1799F12B00D884BB /* Fields.m in Sources */,
 				3BC289401799F48300D884BB /* FieldsClassUnitTests.m in Sources */,
@@ -595,8 +593,6 @@
 				3B71F533179C603C00E52260 /* Field.m in Sources */,
 				3B730731175EC9F500873194 /* main.m in Sources */,
 				3B730735175EC9F500873194 /* AppDelegate.m in Sources */,
-				3BE052D617778EAC0041D6C0 /* Item.m in Sources */,
-				3BE052D817778EAC0041D6C0 /* Savings.m in Sources */,
 				3BE052E117778EE00041D6C0 /* MyButton.m in Sources */,
 				3BE052E317778EE00041D6C0 /* MyStoreObserver.m in Sources */,
 				3BE052E517778EE00041D6C0 /* NSObject+Formatter.m in Sources */,

@@ -21,23 +21,13 @@
 	switch(_tag) {
         case ItemA: return @"ItemA";
         case ItemB: return @"ItemB";
-        case BetterDealA: return @"BetterDealA";
-        case BetterDealB: return @"BetterDealB";
         case PriceA: return @"PriceA";
-        case QtyA: return @"QtyA";
-        case SizeA: return @"SizeA";
-        case Qty2BuyA: return @"Qty2BuyA";
+        case NumItemsA: return @"NumItemsA";
+        case UnitsEachA: return @"UnitsEachA";
         case PriceB: return @"PriceB";
-        case QtyB: return @"QtyB";
-        case SizeB: return @"SizeB";
-        case Qty2BuyB: return @"Qty2BuyB";
+        case NumItemsB: return @"NumItemsB";
+        case UnitsEachB: return @"UnitsEachB";
         case Message: return @"Message";
-        case CostField: return @"CostField";
-        case SavingsField: return @"SavingsField";
-        case MoreField: return @"MoreField";
-        case CostLabel: return @"CostLabel";
-        case SavingsLabel: return @"SavingsLabel";
-        case MoreLabel: return @"MoreLabel";
         case Ad: return @"Ad";
         case FtagNotSet: return @"FtagNotSet";
         default: return @"OOPS!";
@@ -116,19 +106,16 @@
 }
 
 - (BOOL)isCurrency {
-    return (_tag == PriceA || _tag == PriceB || _tag == CostField || _tag == SavingsField);
+    return (_tag == PriceA || _tag == PriceB);
 }
 
 - (BOOL)isNumber {
     return (_tag == PriceA
             || _tag == PriceB
-            || _tag == QtyA
-            || _tag == QtyB
-            || _tag == SizeA
-            || _tag == SizeB
-            || _tag == Qty2BuyA
-            || _tag == Qty2BuyB
-            || _tag == CostField);
+            || _tag == NumItemsA
+            || _tag == NumItemsB
+            || _tag == UnitsEachA
+            || _tag == UnitsEachB);
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -190,29 +177,17 @@
         case ItemB:
             t.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
             t.borderStyle = UITextBorderStyleLine;
-        case BetterDealA:
-        case BetterDealB:
         case Message:
             t.placeholder = @"";
             t.enabled = NO;
             break;
         case PriceA:
         case PriceB:
-        case QtyA:
-        case SizeA:
-        case Qty2BuyA:
-        case QtyB:
-        case SizeB:
-        case Qty2BuyB:
+        case NumItemsA:
+        case UnitsEachA:
+        case NumItemsB:
+        case UnitsEachB:
             self.value = t.text = @"";
-            break;
-        case CostField:
-        case SavingsField:
-        case MoreField:
-        case CostLabel:
-        case SavingsLabel:
-        case MoreLabel:
-            t.enabled = NO;
             break;
     }
     

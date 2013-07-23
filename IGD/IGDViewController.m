@@ -9,7 +9,6 @@
 #import "IGDViewController.h"
 #import "MyButton.h"
 #import "MyStoreObserver.h"
-#import "Savings.h"
 
 #import <iAd/iAd.h>
 #import <StoreKit/StoreKit.h>
@@ -28,12 +27,6 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #if DEBUG==1
 static BOOL debug = YES;
 //static Test testToRun = AisBigger;
-
-//#define DEBUG_LAYOUT 1
-#ifdef DEBUG_LAYOUT
-static int pushed = 0;
-#endif
-
 #else
 static BOOL debug = NO;
 static Test testToRun = NotTesting;
@@ -95,9 +88,6 @@ static Test testToRun = NotTesting;
 - (void)buttonPushed:(MyButton *)sender {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
-#ifdef DEBUG_LAYOUT
-    [self cyclefields];
-#endif
 #endif
     if (sender.tag == Next) {
         [self.fields gotoNextField];
@@ -234,30 +224,5 @@ static Test testToRun = NotTesting;
     alert.delegate = self;
     [alert show];
 }
-
-#ifdef DEBUG_LAYOUT
-- (void)cyclefields {
-#ifdef DEBUG
-    NSLog(@"%s", __func__);
-#endif
-    if (pushed == 0) self.fields.message.control.hidden = YES;
-    else if(pushed == 1) self.fields.costField.control.hidden = YES;
-    else if(pushed == 2) self.fields.costLabel.control.hidden = YES;
-    else if(pushed == 3) self.fields.savingsField.control.hidden = YES;
-    else if(pushed == 4) self.fields.savingsLabel.control.hidden = YES;
-    else if(pushed == 5) self.fields.moreField.control.hidden = YES;
-    else if(pushed == 6) self.fields.moreLabel.control.hidden = YES;
-    else if(pushed == 7) self.fields.message.control.hidden = NO;
-    else if(pushed == 8) self.fields.costField.control.hidden = NO;
-    else if(pushed == 9) self.fields.costLabel.control.hidden = NO;
-    else if(pushed == 10) self.fields.savingsField.control.hidden = NO;
-    else if(pushed == 11) self.fields.savingsLabel.control.hidden = NO;
-    else if(pushed == 12) self.fields.moreField.control.hidden = NO;
-    else if(pushed == 13) self.fields.moreLabel.control.hidden = NO;
-    else { pushed = 0; return; }
-    pushed++;
-    self.fields.messageMode = (self.fields.messageMode == ShowPrompt) ? ShowResult : ShowPrompt;
-}
-#endif
 
 @end
