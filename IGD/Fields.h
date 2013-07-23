@@ -14,6 +14,8 @@
 #define CLR "C"
 #define NEXT "Next/Calc Savings"
 #define DEL "Del"
+#define PROMPT "Enter Price, Min Qty & Size of Items"
+#define NEEDQTY2BUY "Please enter # to buy"
 
 typedef enum {
     iPhone4, iPhone5, iPad, UnknownDeviceType

@@ -117,6 +117,9 @@ static Test testToRun = NotTesting;
             self.fields.curField.value = [s stringByAppendingString:sender.titleLabel.text];
         }
     } else if (sender.tag == Clr) {
+        for (Field *f in self.fields.inputFields) {
+            f.value = @"";
+        }
         self.fields.curField.value = @"";
     } else if (sender.tag == Del) {
         NSString *s = self.fields.curField.value;

@@ -176,7 +176,7 @@
     f.sizeB = [Field allocFieldWithRect:CGRectMake(246, 58, 64, 30) andF:17 andValue:@"Size" andTag:SizeB andType:LabelField andVC:f.vc caller:self];
     f.qty2BuyB = [Field allocFieldWithRect:CGRectMake(202, 96, 80, 30) andF:17 andValue:@"# to Buy" andTag:Qty2BuyB andType:LabelField andVC:f.vc caller:self];
 
-    f.message = [Field allocFieldWithRect:CGRectMake(1, 158, 318, 40) andF:17 andValue:@"Enter Price, Min Qty & Size of Items" andTag:Message andType:LabelField andVC:f.vc caller:self];
+    f.message = [Field allocFieldWithRect:CGRectMake(1, 158, 318, 40) andF:17 andValue:@PROMPT andTag:Message andType:LabelField andVC:f.vc caller:self];
 
     f.costField = [Field allocFieldWithRect:CGRectMake(1, 158, 106, 30) andF:15 andValue:@"Cost Field" andTag:CostField andType:LabelField andVC:f.vc caller:self];
     f.savingsField = [Field allocFieldWithRect:CGRectMake(106, 158, 107, 30) andF:15 andValue:@"Savings Field" andTag:SavingsField andType:LabelField andVC:f.vc caller:self];
@@ -227,7 +227,7 @@
     f.sizeB = [Field allocFieldWithRect:CGRectMake(246, 58, 64, 30) andF:17 andValue:@"Size" andTag:SizeB andType:LabelField andVC:f.vc caller:self];
     f.qty2BuyB = [Field allocFieldWithRect:CGRectMake(202, 96, 80, 30) andF:17 andValue:@"# to Buy" andTag:Qty2BuyB andType:LabelField andVC:f.vc caller:self];
     
-    f.message = [Field allocFieldWithRect:CGRectMake(1, 158, 318, 40) andF:17 andValue:@"Enter Price, Min Qty & Size of Items" andTag:Message andType:LabelField andVC:f.vc caller:self];
+    f.message = [Field allocFieldWithRect:CGRectMake(1, 158, 318, 40) andF:17 andValue:@PROMPT andTag:Message andType:LabelField andVC:f.vc caller:self];
     
     f.costField = [Field allocFieldWithRect:CGRectMake(1, 158, 106, 30) andF:17 andValue:@"Cost Field" andTag:CostField andType:LabelField andVC:f.vc caller:self];
     f.savingsField = [Field allocFieldWithRect:CGRectMake(106, 158, 107, 30) andF:17 andValue:@"Savings Field" andTag:SavingsField andType:LabelField andVC:f.vc caller:self];
@@ -278,7 +278,7 @@
     f.sizeB = [Field allocFieldWithRect:CGRectMake(582, 144, 177, 86) andF:48 andValue:@"Size" andTag:SizeB andType:LabelField andVC:f.vc caller:self];
     f.qty2BuyB = [Field allocFieldWithRect:CGRectMake(488, 238, 177, 86) andF:48 andValue:@"# to Buy" andTag:Qty2BuyB andType:LabelField andVC:f.vc caller:self];
     
-    f.message = [Field allocFieldWithRect:CGRectMake(1, 393, 766, 120) andF:50 andValue:@"Enter Price, Min Qty & Size of Items" andTag:Message andType:LabelField andVC:f.vc caller:self];
+    f.message = [Field allocFieldWithRect:CGRectMake(1, 393, 766, 120) andF:50 andValue:@PROMPT andTag:Message andType:LabelField andVC:f.vc caller:self];
     
     f.costField = [Field allocFieldWithRect:   CGRectMake(1,   393, 256, 67) andF:40 andValue:@"Cost Field" andTag:CostField andType:LabelField andVC:f.vc caller:self];
     f.savingsField = [Field allocFieldWithRect:CGRectMake(256, 393, 257, 67) andF:40 andValue:@"Savings Field" andTag:SavingsField andType:LabelField andVC:f.vc caller:self];
@@ -372,13 +372,15 @@
             } else if (s.calcState == NeedQty2Purchase) {
                 NSLog(@"%s, display need qty2purchase", __func__);
                 self.messageMode = ShowPrompt;
-                self.message.value = @"Need Qty2Buy";
+                self.message.value = @NEEDQTY2BUY;
             } else {
                 // some error
             }
         }
     } else {
         NSLog(@"not ready yet.");
+        self.messageMode = ShowPrompt;
+        self.message.value = @PROMPT;
     }
 }
 @end
