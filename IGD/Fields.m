@@ -233,40 +233,52 @@
     NSLog(@"%s", __func__);
 #endif
     
-    f.itemA = [Field allocFieldWithRect:CGRectMake(1, 1, 159, 156) andF:14 andValue:@"Deal A" andTag:ItemA andType:LabelField andVC:f.vc caller:self];
-    f.itemB = [Field allocFieldWithRect:CGRectMake(161, 1, 158, 156) andF:14 andValue:@"Deal B" andTag:ItemB andType:LabelField andVC:f.vc caller:self];
+    float y, yHeight, ySpacing, fieldWidth = 159;
+    y = 1;
+    yHeight = 156;
+    f.itemA = [Field allocFieldWithRect:CGRectMake(1, y, fieldWidth, yHeight) andF:14 andValue:@"Deal A" andTag:ItemA andType:LabelField andVC:f.vc caller:self];
+    f.itemB = [Field allocFieldWithRect:CGRectMake(161, y, fieldWidth - 1, yHeight) andF:14 andValue:@"Deal B" andTag:ItemB andType:LabelField andVC:f.vc caller:self];
 
-    f.priceA = [Field allocFieldWithRect:CGRectMake(10, 20, 136, 30) andF:17 andValue:@"Price" andTag:PriceA andType:LabelField andVC:f.vc caller:self];
-    f.numItemsA = [Field allocFieldWithRect:CGRectMake(10, 58, 136, 30) andF:17 andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:f.vc caller:self];
-    f.unitsEachA = [Field allocFieldWithRect:CGRectMake(10, 58+38, 136, 30) andF:17 andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:f.vc caller:self];
+    y = 20;
+    yHeight = 30;
+    ySpacing = yHeight + 8;
+    fieldWidth = 136;
+    f.priceA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"Price" andTag:PriceA andType:LabelField andVC:f.vc caller:self];
+    y += ySpacing;
+    f.numItemsA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:f.vc caller:self];
+    y += ySpacing;
+    f.unitsEachA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:f.vc caller:self];
 
-    f.priceB = [Field allocFieldWithRect:CGRectMake(174, 20, 136, 30) andF:17 andValue:@"Price" andTag:PriceB andType:LabelField andVC:f.vc caller:self];
-    f.numItemsB = [Field allocFieldWithRect:CGRectMake(174, 58, 136, 30) andF:17 andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:f.vc caller:self];
-    f.unitsEachB = [Field allocFieldWithRect:CGRectMake(174, 58+38, 136, 30) andF:17 andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:f.vc caller:self];
+    y = 20;
+    f.priceB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"Price" andTag:PriceB andType:LabelField andVC:f.vc caller:self];
+    y += ySpacing;
+    f.numItemsB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:f.vc caller:self];
+    y += ySpacing;
+    f.unitsEachB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:f.vc caller:self];
 
     f.message = [Field allocFieldWithRect:CGRectMake(1, 158, 318, 40) andF:17 andValue:@PROMPT andTag:Message andType:LabelField andVC:f.vc caller:self];
 
-    float y = 200;
-    float yHeight = 46;
-    float ySpacing = yHeight + 2;
+    y = 200;
+    yHeight = 46;
+    ySpacing = yHeight + 2;
     f.one = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"1" andTag:One andType:KeyType andVC:f.vc caller:self];
     f.two = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"2" andTag:Two andType:KeyType andVC:f.vc caller:self];
     f.three = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"3" andTag:Three andType:KeyType andVC:f.vc caller:self];
     f.clr = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@CLR andTag:Clr andType:KeyType andVC:f.vc caller:self];
+
     y += ySpacing;
-    
     f.four = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"4" andTag:Four andType:KeyType andVC:f.vc caller:self];
     f.five = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"5" andTag:Five andType:KeyType andVC:f.vc caller:self];
     f.six = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"6" andTag:Six andType:KeyType andVC:f.vc caller:self];
     f.store = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@STORE andTag:Store andType:KeyType andVC:f.vc caller:self];
-    y += ySpacing;
 
+    y += ySpacing;
     f.seven = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"7" andTag:Seven andType:KeyType andVC:f.vc caller:self];
     f.eight = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"8" andTag:Eight andType:KeyType andVC:f.vc caller:self];
     f.nine = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"9" andTag:Nine andType:KeyType andVC:f.vc caller:self];
     f.del = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@DEL andTag:Del andType:KeyType andVC:f.vc caller:self];
-    y += ySpacing;
 
+    y += ySpacing;
     f.period = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"." andTag:Period andType:KeyType andVC:f.vc caller:self];
     f.zero = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"0" andTag:Zero andType:KeyType andVC:f.vc caller:self];
     f.next = [Field allocFieldWithRect:CGRectMake(164, y, 136, yHeight) andF:15 andValue:@NEXT andTag:Next andType:KeyType andVC:f.vc caller:self];
@@ -277,37 +289,56 @@
     NSLog(@"%s", __func__);
 #endif
 
-    f.itemA = [Field allocFieldWithRect:CGRectMake(1, 1, 159, 156) andF:14 andValue:@"Deal A" andTag:ItemA andType:LabelField andVC:f.vc caller:self];
-    f.itemB = [Field allocFieldWithRect:CGRectMake(161, 1, 158, 156) andF:14 andValue:@"Deal B" andTag:ItemB andType:LabelField andVC:f.vc caller:self];
+    float y, yHeight, ySpacing, fieldWidth = 159;
+    y = 1;
+    yHeight = 186;
+    f.itemA = [Field allocFieldWithRect:CGRectMake(1, y, fieldWidth, yHeight) andF:14 andValue:@"Deal A" andTag:ItemA andType:LabelField andVC:f.vc caller:self];
+    f.itemB = [Field allocFieldWithRect:CGRectMake(161, y, fieldWidth - 1, yHeight) andF:14 andValue:@"Deal B" andTag:ItemB andType:LabelField andVC:f.vc caller:self];
     
-    f.priceA = [Field allocFieldWithRect:CGRectMake(10, 20, 136, 30) andF:17 andValue:@"Price" andTag:PriceA andType:LabelField andVC:f.vc caller:self];
-    f.numItemsA = [Field allocFieldWithRect:CGRectMake(10, 58+38, 136, 30) andF:17 andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:f.vc caller:self];
-    f.unitsEachA = [Field allocFieldWithRect:CGRectMake(10, 58+38, 136, 30) andF:17 andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:f.vc caller:self];
+    y = 20;
+    yHeight = 42;
+    ySpacing = yHeight + 8;
+    fieldWidth = 136;
+    f.priceA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"Price" andTag:PriceA andType:LabelField andVC:f.vc caller:self];
+    y += ySpacing;
+    f.numItemsA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:f.vc caller:self];
+    y += ySpacing;
+    f.unitsEachA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth,yHeight) andF:17 andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:f.vc caller:self];
+
+    y = 20;
+    f.priceB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"Price" andTag:PriceB andType:LabelField andVC:f.vc caller:self];
+    y += ySpacing;
+    f.numItemsB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:f.vc caller:self];
+    y += ySpacing;
+    f.unitsEachB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:f.vc caller:self];
     
-    f.priceB = [Field allocFieldWithRect:CGRectMake(174, 20, 136, 30) andF:17 andValue:@"Price" andTag:PriceB andType:LabelField andVC:f.vc caller:self];
-    f.numItemsB = [Field allocFieldWithRect:CGRectMake(174, 58, 64, 30) andF:17 andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:f.vc caller:self];
-    f.unitsEachB = [Field allocFieldWithRect:CGRectMake(174, 58+38, 136, 30) andF:17 andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:f.vc caller:self];
+    y = 200;
+    f.message = [Field allocFieldWithRect:CGRectMake(1, y, 318, 80) andF:17 andValue:@PROMPT andTag:Message andType:LabelField andVC:f.vc caller:self];
     
-    f.message = [Field allocFieldWithRect:CGRectMake(1, 158, 318, 40) andF:17 andValue:@PROMPT andTag:Message andType:LabelField andVC:f.vc caller:self];
+    y = 200 + 88;
+    yHeight = 46;
+    ySpacing = yHeight + 2;
+    f.one = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"1" andTag:One andType:KeyType andVC:f.vc caller:self];
+    f.two = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"2" andTag:Two andType:KeyType andVC:f.vc caller:self];
+    f.three = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"3" andTag:Three andType:KeyType andVC:f.vc caller:self];
+    f.clr = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@CLR andTag:Clr andType:KeyType andVC:f.vc caller:self];
+
+    y += ySpacing;
+    f.four = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"4" andTag:Four andType:KeyType andVC:f.vc caller:self];
+    f.five = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"5" andTag:Five andType:KeyType andVC:f.vc caller:self];
+    f.six = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"6" andTag:Six andType:KeyType andVC:f.vc caller:self];
+    f.store = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@STORE andTag:Store andType:KeyType andVC:f.vc caller:self];
     
-    f.one = [Field allocFieldWithRect:CGRectMake(20, 201, 64, 66) andF:15 andValue:@"1" andTag:One andType:KeyType andVC:f.vc caller:self];
-    f.two = [Field allocFieldWithRect:CGRectMake(92, 201, 64, 66) andF:15 andValue:@"2" andTag:Two andType:KeyType andVC:f.vc caller:self];
-    f.three = [Field allocFieldWithRect:CGRectMake(164, 201, 64, 66) andF:15 andValue:@"3" andTag:Three andType:KeyType andVC:f.vc caller:self];
-    f.clr = [Field allocFieldWithRect:CGRectMake(236, 201, 64, 66) andF:15 andValue:@CLR andTag:Clr andType:KeyType andVC:f.vc caller:self];
+    y += ySpacing;
+    f.seven = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"7" andTag:Seven andType:KeyType andVC:f.vc caller:self];
+    f.eight = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"8" andTag:Eight andType:KeyType andVC:f.vc caller:self];
+    f.nine = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"9" andTag:Nine andType:KeyType andVC:f.vc caller:self];
+    f.del = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@DEL andTag:Del andType:KeyType andVC:f.vc caller:self];
     
-    f.four = [Field allocFieldWithRect:CGRectMake(20, 275, 64, 66) andF:15 andValue:@"4" andTag:Four andType:KeyType andVC:f.vc caller:self];
-    f.five = [Field allocFieldWithRect:CGRectMake(92, 275, 64, 66) andF:15 andValue:@"5" andTag:Five andType:KeyType andVC:f.vc caller:self];
-    f.six = [Field allocFieldWithRect:CGRectMake(164, 275, 64, 66) andF:15 andValue:@"6" andTag:Six andType:KeyType andVC:f.vc caller:self];
-    f.store = [Field allocFieldWithRect:CGRectMake(236, 275, 64, 66) andF:15 andValue:@STORE andTag:Store andType:KeyType andVC:f.vc caller:self];
-    
-    f.seven = [Field allocFieldWithRect:CGRectMake(20, 349, 64, 66) andF:15 andValue:@"7" andTag:Seven andType:KeyType andVC:f.vc caller:self];
-    f.eight = [Field allocFieldWithRect:CGRectMake(92, 349, 64, 66) andF:15 andValue:@"8" andTag:Eight andType:KeyType andVC:f.vc caller:self];
-    f.nine = [Field allocFieldWithRect:CGRectMake(164, 349, 64, 66) andF:15 andValue:@"9" andTag:Nine andType:KeyType andVC:f.vc caller:self];
-    f.del = [Field allocFieldWithRect:CGRectMake(236, 349, 64, 66) andF:15 andValue:@DEL andTag:Del andType:KeyType andVC:f.vc caller:self];
-    
-    f.period = [Field allocFieldWithRect:CGRectMake(20, 422, 64, 66) andF:15 andValue:@"." andTag:Period andType:KeyType andVC:f.vc caller:self];
-    f.zero = [Field allocFieldWithRect:CGRectMake(92, 422, 64, 66) andF:15 andValue:@"0" andTag:Zero andType:KeyType andVC:f.vc caller:self];
-    f.next = [Field allocFieldWithRect:CGRectMake(164, 422, 136, 66) andF:15 andValue:@NEXT andTag:Next andType:KeyType andVC:f.vc caller:self];
+    y += ySpacing;
+    f.period = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"." andTag:Period andType:KeyType andVC:f.vc caller:self];
+    f.zero = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"0" andTag:Zero andType:KeyType andVC:f.vc caller:self];
+    f.next = [Field allocFieldWithRect:CGRectMake(164, y, 136, yHeight) andF:15 andValue:@NEXT andTag:Next andType:KeyType andVC:f.vc caller:self];
 }
 
 - (void)buildIPad:(Fields *)f {
