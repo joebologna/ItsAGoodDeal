@@ -21,7 +21,7 @@
 #define FTAG_BASE 100
 #define KTAG_BASE 400
 
-#ifdef KEYBOARD_FEATURE
+#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 #define PREVBUTTON @"     Previous    "
 #define CALCBUTTON @"    Calculate    "
 #define NEXTBUTTON @"       Next      "
@@ -66,7 +66,7 @@ typedef enum {
     KeyType
 } FieldType;
 
-#ifdef KEYBOARD_FEATURE
+#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 @interface Field : NSObject <UITextFieldDelegate, UITextInputTraits>
 #else
 @interface Field : NSObject <UITextFieldDelegate>

@@ -9,7 +9,7 @@
 #import "Field.h"
 #import "Lib/NSObject+Formatter.h"
 
-#ifdef KEYBOARD_FEATURE
+#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 @interface Field() {
     UIToolbar *rowOfKeys;
     UIBarButtonItem *prevButton, *calcButton, *nextButton;
@@ -54,11 +54,7 @@
     if ([self isButton]) {
         ((MyButton *)_control).titleLabel.text = _value;
     } else {
-        if (![_value isEqualToString:@""] && [self isCurrency]) {
-            ((UITextField *)_control).text = [self fmtPrice:[_value floatValue]];
-        } else {
-            ((UITextField *)_control).text = _value;
-        }
+        ((UITextField *)_control).text = _value;
     }
 }
 
@@ -209,13 +205,13 @@
 
     UIBarButtonItem *f = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    prevButton = [[UIBarButtonItem alloc] initWithTitle:PREVBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(handleCustomKey:)];
+    prevButton = [[UIBarButtonItem alloc] initWithTitle:PREVBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
     prevButton.style = UIBarButtonItemStyleBordered;
 
-    calcButton = [[UIBarButtonItem alloc] initWithTitle:CALCBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(handleCustomKey:)];
+    calcButton = [[UIBarButtonItem alloc] initWithTitle:CALCBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
     calcButton.style = UIBarButtonItemStyleBordered;
     
-    nextButton = [[UIBarButtonItem alloc] initWithTitle:NEXTBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(handleCustomKey:)];
+    nextButton = [[UIBarButtonItem alloc] initWithTitle:NEXTBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
     nextButton.style = UIBarButtonItemStyleBordered;
     
     [rowOfKeys setItems:@[prevButton, f, calcButton, f, nextButton]];
@@ -228,7 +224,24 @@
     return YES;
 }
 
-#else  // !KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    textField.keyboardType = UIKeyboardTypeDecimalPad;
+    textField.inputAccessoryView = rowOfKeys;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    [self buttonPushed:textField];
+    return NO;
+}
+
+#else
+// !KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 #ifdef DEBUG
@@ -240,6 +253,7 @@
     return NO;
 }
 
-#endif // !KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
+// !KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
+#endif
 
 @end

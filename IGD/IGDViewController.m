@@ -85,10 +85,24 @@ static Test testToRun = NotTesting;
 #pragma mark -
 #pragma mark Handle Input
 
+#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
+- (MyButton *)mapKeyToButton:(UITextField *)sender {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    return (MyButton *)self.fields.one.control;
+}
+#endif
+
 - (void)buttonPushed:(MyButton *)sender {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
+    
+#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
+    sender = [self mapKeyToButton:(UITextField *)sender];
+#endif
+    
     if (sender.tag == Next) {
         [self.fields gotoNextField];
     } else if (sender.tag <= Period) {
