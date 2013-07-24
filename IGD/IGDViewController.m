@@ -90,11 +90,7 @@ static Test testToRun = NotTesting;
     NSLog(@"%s", __func__);
 #endif
     if (sender.tag == Next) {
-#ifdef KEYBOARD_FEATURE
-        [self.fields gotoNextField:NO];
-#else
         [self.fields gotoNextField];
-#endif
     } else if (sender.tag <= Period) {
         NSString *s = self.fields.curField.value;
         if (sender.tag == Period) {

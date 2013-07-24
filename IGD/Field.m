@@ -130,63 +130,6 @@
             || _tag == UnitsEachB);
 }
 
-#ifdef KEYBOARD_FEATURE
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-#ifdef DEBUG
-    NSLog(@"%s", __func__);
-#endif
-    // clear field on direct tap
-    // need to update curField
-    if ([textField isEqual:self.control]) {
-        self.value = @"";
-        textField.keyboardType = UIKeyboardTypeDecimalPad;
-        textField.inputAccessoryView = rowOfKeys;
-    }
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-#ifdef DEBUG
-    NSLog(@"%s", __func__);
-#endif
-
-    [self.caller performSelector:@selector(handleDirectTap:) withObject:textField];
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    // don't allow keyboard on iPad yet.
-    if (height < 568) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-#ifdef DEBUG
-    NSLog(@"%s", __func__);
-#endif
-    self.value = textField.text;
-//    textField.text = self.value;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-#ifdef DEBUG
-    NSLog(@"%s", __func__);
-#endif
-        [textField resignFirstResponder];
-        return YES;
-}
-
-#else          // !KEYBOARD_FEATURE
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-#ifdef DEBUG
-    NSLog(@"%s", __func__);
-#endif
-    // clear field on direct tap
-    self.value = @"";
-    [self.caller performSelector:@selector(fieldWasSelected:) withObject:self];
-    return NO;
-}
-#endif          // !KEYBOARD_FEATURE
-
 - (void)buttonPushed:(id)sender {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
@@ -252,21 +195,12 @@
     
     self.control = (UIControl *)t;
 
-#ifdef KEYBOARD_FEATURE
+#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
     [self makeKeyboardToolBar];
-#endif
+#endif // KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 }
 
-#ifdef KEYBOARD_FEATURE
-
-- (void)handleCustomKey:(UIBarButtonItem *)b {
-#ifdef DEBUG
-    NSLog(@"%s", __func__);
-#endif
-    if ([b isEqual:calcButton]) [self.control resignFirstResponder];
-    self.value = ((UITextField *)self.control).text;
-    [self.caller handleCustomKey:b];
-}
+#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 
 - (void)makeKeyboardToolBar {
     rowOfKeys = [[UIToolbar alloc] init];
@@ -287,5 +221,25 @@
     [rowOfKeys setItems:@[prevButton, f, calcButton, f, nextButton]];
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
 #endif
+    return YES;
+}
+
+#else  // !KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    // clear field on direct tap
+    self.value = @"";
+    [self.caller performSelector:@selector(fieldWasSelected:) withObject:self];
+    return NO;
+}
+
+#endif // !KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
+
 @end
