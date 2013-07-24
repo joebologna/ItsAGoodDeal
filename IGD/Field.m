@@ -236,7 +236,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    [self buttonPushed:textField];
+    [self buttonPushed:string];
     return NO;
 }
 

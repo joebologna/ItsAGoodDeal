@@ -86,11 +86,16 @@ static Test testToRun = NotTesting;
 #pragma mark Handle Input
 
 #ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
-- (MyButton *)mapKeyToButton:(UITextField *)sender {
+- (MyButton *)mapKeyToButton:(NSString *)sender {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    return (MyButton *)self.fields.one.control;
+    for (Field *key in self.fields.keys) {
+        if ([sender isEqualToString:key.value]) {
+            return (MyButton *)key.control;
+        }
+    }
+    abort();
 }
 #endif
 
@@ -100,7 +105,9 @@ static Test testToRun = NotTesting;
 #endif
     
 #ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
-    sender = [self mapKeyToButton:(UITextField *)sender];
+    if ([sender isKindOfClass:[NSString class]]) {
+        sender = [self mapKeyToButton:(NSString *)sender];
+    }
 #endif
     
     if (sender.tag == Next) {
