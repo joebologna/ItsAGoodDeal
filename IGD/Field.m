@@ -148,8 +148,15 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
+
     [self.caller performSelector:@selector(handleDirectTap:) withObject:textField];
-    return YES;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    // don't allow keyboard on iPad yet.
+    if (height < 568) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
@@ -164,9 +171,8 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    //[self handleCustomKey:calcButton];
-    [textField resignFirstResponder];
-    return YES;
+        [textField resignFirstResponder];
+        return YES;
 }
 
 #else          // !KEYBOARD_FEATURE

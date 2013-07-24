@@ -12,24 +12,6 @@
 		3B3D38A3179D5F800010A94F /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DC17778EE00041D6C0 /* MyButton.m */; };
 		3B3D38A4179D5FAE0010A94F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730728175EC9F500873194 /* CoreGraphics.framework */; };
 		3B3D38A5179D5FB60010A94F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF4FA917601B3C00964B0E /* QuartzCore.framework */; };
-		3B417405179DF28F0028D1E1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173EF179DF28F0028D1E1 /* .gitignore */; };
-		3B417406179DF28F0028D1E1 /* .project in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F0179DF28F0028D1E1 /* .project */; };
-		3B417408179DF28F0028D1E1 /* grabFrames in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F2179DF28F0028D1E1 /* grabFrames */; };
-		3B417409179DF28F0028D1E1 /* IGDCalcs.numbers in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F3179DF28F0028D1E1 /* IGDCalcs.numbers */; };
-		3B41740A179DF28F0028D1E1 /* iPadC.fields in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F4179DF28F0028D1E1 /* iPadC.fields */; };
-		3B41740B179DF28F0028D1E1 /* iPadC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F5179DF28F0028D1E1 /* iPadC.xib */; };
-		3B41740C179DF28F0028D1E1 /* iPhone3.5C.fields in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F6179DF28F0028D1E1 /* iPhone3.5C.fields */; };
-		3B41740D179DF28F0028D1E1 /* iPhone3.5C.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F7179DF28F0028D1E1 /* iPhone3.5C.xib */; };
-		3B41740E179DF28F0028D1E1 /* iPhone4C.fields in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F8179DF28F0028D1E1 /* iPhone4C.fields */; };
-		3B41740F179DF28F0028D1E1 /* iPhone4C.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173F9179DF28F0028D1E1 /* iPhone4C.xib */; };
-		3B417410179DF28F0028D1E1 /* 2013-06-15-EBD-logic.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173FB179DF28F0028D1E1 /* 2013-06-15-EBD-logic.txt */; };
-		3B417411179DF28F0028D1E1 /* BetterDealCalcs.numbers in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173FC179DF28F0028D1E1 /* BetterDealCalcs.numbers */; };
-		3B417412179DF28F0028D1E1 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173FD179DF28F0028D1E1 /* index.html */; };
-		3B417413179DF28F0028D1E1 /* index.oo.html in Resources */ = {isa = PBXBuildFile; fileRef = 3B4173FE179DF28F0028D1E1 /* index.oo.html */; };
-		3B417415179DF28F0028D1E1 /* newdesign.html in Resources */ = {isa = PBXBuildFile; fileRef = 3B417401179DF28F0028D1E1 /* newdesign.html */; };
-		3B417416179DF28F0028D1E1 /* pull in Resources */ = {isa = PBXBuildFile; fileRef = 3B417402179DF28F0028D1E1 /* pull */; };
-		3B417417179DF28F0028D1E1 /* push in Resources */ = {isa = PBXBuildFile; fileRef = 3B417403179DF28F0028D1E1 /* push */; };
-		3B417418179DF28F0028D1E1 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B417404179DF28F0028D1E1 /* README.txt */; };
 		3B557541176FAADA005EEB51 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B557540176FAADA005EEB51 /* SenTestingKit.framework */; };
 		3B557542176FAADA005EEB51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B557543176FAADA005EEB51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
@@ -53,7 +35,6 @@
 		3B730735175EC9F500873194 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B730734175EC9F500873194 /* AppDelegate.m */; };
 		3B73073E175EC9F500873194 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073C175EC9F500873194 /* MainStoryboard_iPhone.storyboard */; };
 		3B730741175EC9F500873194 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */; };
-		3B9AAA19179E1C10008B3569 /* Simple.numbers in Resources */ = {isa = PBXBuildFile; fileRef = 3B9AAA18179E1C10008B3569 /* Simple.numbers */; };
 		3BC2893C1799F12B00D884BB /* Fields.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893A1799F12B00D884BB /* Fields.m */; };
 		3BC289401799F48300D884BB /* FieldsClassUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893E1799F48300D884BB /* FieldsClassUnitTests.m */; };
 		3BC289441799FFDD00D884BB /* Field.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC289421799FFDD00D884BB /* Field.m */; };
@@ -510,25 +491,6 @@
 				3BD286701762EB0700A9AEE4 /* scale-72x72.png in Resources */,
 				3BD286721762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png in Resources */,
 				3BD286741762EFC000A9AEE4 /* Default-Portrait~ipad.png in Resources */,
-				3B417405179DF28F0028D1E1 /* .gitignore in Resources */,
-				3B417406179DF28F0028D1E1 /* .project in Resources */,
-				3B417408179DF28F0028D1E1 /* grabFrames in Resources */,
-				3B417409179DF28F0028D1E1 /* IGDCalcs.numbers in Resources */,
-				3B41740A179DF28F0028D1E1 /* iPadC.fields in Resources */,
-				3B41740B179DF28F0028D1E1 /* iPadC.xib in Resources */,
-				3B41740C179DF28F0028D1E1 /* iPhone3.5C.fields in Resources */,
-				3B41740D179DF28F0028D1E1 /* iPhone3.5C.xib in Resources */,
-				3B41740E179DF28F0028D1E1 /* iPhone4C.fields in Resources */,
-				3B41740F179DF28F0028D1E1 /* iPhone4C.xib in Resources */,
-				3B417410179DF28F0028D1E1 /* 2013-06-15-EBD-logic.txt in Resources */,
-				3B417411179DF28F0028D1E1 /* BetterDealCalcs.numbers in Resources */,
-				3B417412179DF28F0028D1E1 /* index.html in Resources */,
-				3B417413179DF28F0028D1E1 /* index.oo.html in Resources */,
-				3B417415179DF28F0028D1E1 /* newdesign.html in Resources */,
-				3B417416179DF28F0028D1E1 /* pull in Resources */,
-				3B417417179DF28F0028D1E1 /* push in Resources */,
-				3B417418179DF28F0028D1E1 /* README.txt in Resources */,
-				3B9AAA19179E1C10008B3569 /* Simple.numbers in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
