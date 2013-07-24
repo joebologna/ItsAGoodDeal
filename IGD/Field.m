@@ -54,7 +54,11 @@
     if ([self isButton]) {
         ((MyButton *)_control).titleLabel.text = _value;
     } else {
-        ((UITextField *)_control).text = _value;
+        if (![_value isEqualToString:@""] && [self isCurrency]) {
+            ((UITextField *)_control).text = [self fmtPrice:[_value floatValue]];
+        } else {
+            ((UITextField *)_control).text = _value;
+        }
     }
 }
 
@@ -152,15 +156,16 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    self.value = [self fmtPrice:[textField.text floatValue]];
-    textField.text = self.value;
+    self.value = textField.text;
+//    textField.text = self.value;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    [self handleCustomKey:calcButton];
+    //[self handleCustomKey:calcButton];
+    [textField resignFirstResponder];
     return YES;
 }
 

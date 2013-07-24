@@ -51,9 +51,6 @@
 #endif
     previous.backgroundColor = FIELDCOLOR;
     selected.backgroundColor = HIGHLIGHTCOLOR;
-    if ([_curField isCurrency]) {
-        _curField.value = [self fmtPrice:_curField.floatValue];
-    }
     _curField = c;
     [self calcSavings];
 }
@@ -68,6 +65,9 @@
 #ifdef KEYBOARD_FEATURE
 
 - (void)handleDirectTap:(UITextField *)t {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
     for(Field *f in self.inputFields) {
         if ([f.control isEqual:t]) {
             self.curField = f;
