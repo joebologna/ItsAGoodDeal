@@ -1,5 +1,5 @@
 //
-//  NSObject+Formatter.h
+//  NSObject+Utils.h
 //  ItsAGoodDeal
 //
 //  Created by Joe Bologna on 6/17/13.
@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (Formatter)
+typedef enum {
+    iPhone4, iPhone5, iPad, UnknownDeviceType
+} DeviceType;
+
+@interface NSObject (Utils)
 
 - (void)log:(NSString *)s;
 - (void)logSelf:(id)obj;
@@ -16,6 +20,10 @@
 - (NSString *)prefix;
 - (NSString *)fmtPrice:(float)price;
 - (NSString *)currencySymbol;
+- (DeviceType)getDeviceType;
+- (BOOL)isPhone;
+- (NSString *)getDeviceTypeString:(DeviceType)d;
+
 @end
 
 @protocol Logging

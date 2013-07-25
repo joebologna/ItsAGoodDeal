@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Joe Bologna. All rights reserved.
 //
 
-#import "NSObject+Formatter.h"
+#import "NSObject+Utils.h"
 
-@implementation NSObject (Formatter)
+@implementation NSObject (Utils)
 
 - (void)log:(NSString *)s {
     const char *ts = [[NSString stringWithFormat:@"%@\n", s] UTF8String];
@@ -39,6 +39,33 @@
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     return [numberFormatter currencySymbol];
+}
+
+- (DeviceType)getDeviceType {
+    // iPhone 4 = 480, iPhone 5 = 568, iPad > 568
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    if (height <= 480) {
+        return iPhone4;
+    }
+    if (height > 480 && height <= 568) {
+        return iPhone5;
+    }
+    return iPad;
+}
+
+- (BOOL)isPhone {
+    DeviceType d = [self getDeviceType];
+    return (d == iPhone4 || d == iPhone5);
+}
+
+- (NSString *)getDeviceTypeString:(DeviceType)d {
+    switch(d) {
+        case iPhone4: return @"iPhone4";
+        case iPhone5: return @"iPhone5";
+        case iPad: return @"iPad";
+        case UnknownDeviceType: return @"UnknownDeviceType";
+        default: return @"Ooops!";
+    }
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import "FieldsClassUnitTests.h"
 #import "Fields.h"
-#import "NSObject+Formatter.h"
+#import "NSObject+Utils.h"
 
 @interface FieldsClassUnitTests() {
 };

@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #include "Features.h"
-
 #import "Field.h"
 
 #define STORE "Remove Ads"
@@ -18,10 +17,6 @@
 #define DEL "Del"
 #define PROMPT "Enter Price, Min Qty & Size of Items"
 #define NEEDQTY2BUY "Please enter # to buy"
-
-typedef enum {
-    iPhone4, iPhone5, iPad, UnknownDeviceType
-} DeviceType;
 
 typedef enum {
     ShowPrompt,
@@ -35,15 +30,14 @@ typedef enum {
 - (void)showKeypad:(id)sender;
 - (void)populateScreen;
 - (void)fieldWasSelected:(Field *)field;
-- (void)gotoNextField;
-- (void)gotoPrevField;
+- (void)gotoNextField:(BOOL)grabKeyboard;
+- (void)gotoPrevField:(BOOL)grabKeyboard;
 - (void)gotoFieldWithControl:(UITextField *)t;
 - (void)calcSavings;
 
 @property (unsafe_unretained, nonatomic) DeviceType deviceType;
 @property (strong, nonatomic, readonly) NSString
 	*toString,
-	*deviceTypeString,
 	*fieldValues;
 
 @property (strong, nonatomic) Field

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #include "Features.h"
-
+#import "Lib/NSObject+Utils.h"
 #import "MyButton.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -19,7 +19,8 @@
 #define HIGHLIGHTCOLOR UIColorFromRGB(0xd2fde8)
 
 #define FTAG_BASE 100
-#define KTAG_BASE 400
+#define KTAG_BASE 200
+#define BTAG_BASE 300
 
 #ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 #define PREVBUTTON @"     Previous    "
@@ -40,11 +41,6 @@ typedef enum {
     UnitCostB,
     Message,
     MoreLabel,
-    Ad = 999,
-    FtagNotSet = -1
-} FTAG;
-
-typedef enum {
     One = KTAG_BASE,
     Two,
     Three,
@@ -59,12 +55,13 @@ typedef enum {
     Clr,
     Store,
     Del,
-    Next
-} KTAG;
-
-typedef enum {
-    PrevButton, CalcButton, NextButton
-} BTAG;
+    Next,
+    PrevButton = BTAG_BASE,
+    CalcButton,
+    NextButton,
+    Ad = 999,
+    FtagNotSet = -1
+} FTAG;
 
 typedef enum {
     FieldTypeNotSet,

@@ -49,8 +49,8 @@
 		3BDF4FAA17601B3C00964B0E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF4FA917601B3C00964B0E /* QuartzCore.framework */; };
 		3BE052E117778EE00041D6C0 /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DC17778EE00041D6C0 /* MyButton.m */; };
 		3BE052E317778EE00041D6C0 /* MyStoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */; };
-		3BE052E517778EE00041D6C0 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Formatter.m */; };
-		3BE052E617778EE00041D6C0 /* NSObject+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Formatter.m */; };
+		3BE052E517778EE00041D6C0 /* NSObject+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Utils.m */; };
+		3BE052E617778EE00041D6C0 /* NSObject+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Utils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,8 +138,8 @@
 		3BE052DC17778EE00041D6C0 /* MyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyButton.m; path = Lib/MyButton.m; sourceTree = "<group>"; };
 		3BE052DD17778EE00041D6C0 /* MyStoreObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyStoreObserver.h; path = Lib/MyStoreObserver.h; sourceTree = "<group>"; };
 		3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyStoreObserver.m; path = Lib/MyStoreObserver.m; sourceTree = "<group>"; };
-		3BE052DF17778EE00041D6C0 /* NSObject+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Formatter.h"; path = "Lib/NSObject+Formatter.h"; sourceTree = "<group>"; };
-		3BE052E017778EE00041D6C0 /* NSObject+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Formatter.m"; path = "Lib/NSObject+Formatter.m"; sourceTree = "<group>"; };
+		3BE052DF17778EE00041D6C0 /* NSObject+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Utils.h"; path = "Lib/NSObject+Utils.h"; sourceTree = "<group>"; };
+		3BE052E017778EE00041D6C0 /* NSObject+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Utils.m"; path = "Lib/NSObject+Utils.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,8 +370,8 @@
 				3BE052DC17778EE00041D6C0 /* MyButton.m */,
 				3BE052DD17778EE00041D6C0 /* MyStoreObserver.h */,
 				3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */,
-				3BE052DF17778EE00041D6C0 /* NSObject+Formatter.h */,
-				3BE052E017778EE00041D6C0 /* NSObject+Formatter.m */,
+				3BE052DF17778EE00041D6C0 /* NSObject+Utils.h */,
+				3BE052E017778EE00041D6C0 /* NSObject+Utils.m */,
 			);
 			name = Lib;
 			sourceTree = "<group>";
@@ -534,7 +534,7 @@
 			files = (
 				3B3D38A3179D5F800010A94F /* MyButton.m in Sources */,
 				3B55754C176FAADA005EEB51 /* IGDUnitTests.m in Sources */,
-				3BE052E617778EE00041D6C0 /* NSObject+Formatter.m in Sources */,
+				3BE052E617778EE00041D6C0 /* NSObject+Utils.m in Sources */,
 				3BC2893C1799F12B00D884BB /* Fields.m in Sources */,
 				3BC289401799F48300D884BB /* FieldsClassUnitTests.m in Sources */,
 				3BC289441799FFDD00D884BB /* Field.m in Sources */,
@@ -561,7 +561,7 @@
 				3B730735175EC9F500873194 /* AppDelegate.m in Sources */,
 				3BE052E117778EE00041D6C0 /* MyButton.m in Sources */,
 				3BE052E317778EE00041D6C0 /* MyStoreObserver.m in Sources */,
-				3BE052E517778EE00041D6C0 /* NSObject+Formatter.m in Sources */,
+				3BE052E517778EE00041D6C0 /* NSObject+Utils.m in Sources */,
 				3B71F531179C43C900E52260 /* IGDViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

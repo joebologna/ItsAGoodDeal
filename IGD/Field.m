@@ -7,7 +7,6 @@
 //
 
 #import "Field.h"
-#import "Lib/NSObject+Formatter.h"
 
 #ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 @interface Field() {
@@ -135,6 +134,13 @@
     [self.vc performSelector:@selector(buttonPushed:) withObject:sender];
 }
 
+- (void)toolBarButtonPushed:(id)sender {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    [self buttonPushed:sender];
+}
+
 - (void)makeButton {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
@@ -212,15 +218,15 @@
 
     UIBarButtonItem *f = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    prevButton = [[UIBarButtonItem alloc] initWithTitle:PREVBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
+    prevButton = [[UIBarButtonItem alloc] initWithTitle:PREVBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(toolBarButtonPushed:)];
     prevButton.style = UIBarButtonItemStyleBordered;
     prevButton.tag = PrevButton;
 
-    calcButton = [[UIBarButtonItem alloc] initWithTitle:CALCBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
+    calcButton = [[UIBarButtonItem alloc] initWithTitle:CALCBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(toolBarButtonPushed:)];
     calcButton.style = UIBarButtonItemStyleBordered;
     calcButton.tag = CalcButton;
     
-    nextButton = [[UIBarButtonItem alloc] initWithTitle:NEXTBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
+    nextButton = [[UIBarButtonItem alloc] initWithTitle:NEXTBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(toolBarButtonPushed:)];
     nextButton.style = UIBarButtonItemStyleBordered;
     nextButton.tag = NextButton;
     
@@ -231,9 +237,8 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    BOOL isPhone = [UIScreen mainScreen].bounds.size.height < 568;
     if (textField.enabled) {
-        if (isPhone) {
+        if ([self isPhone]) {
             return YES;
         } else {
             //handle direct tap.
@@ -251,8 +256,7 @@
 #endif
     // could be a directTap...
     [self.caller performSelector:@selector(gotoFieldWithControl:) withObject:textField];
-    BOOL isPhone = [UIScreen mainScreen].bounds.size.height < 568;
-    if (isPhone) {
+    if ([self isPhone]) {
         textField.keyboardType = UIKeyboardTypeDecimalPad;
         textField.inputAccessoryView = rowOfKeys;
     }
@@ -282,9 +286,9 @@
     NSLog(@"%s", __func__);
 #endif
     if (self.tag == UnitsEachB) {
-        [self buttonPushed:calcButton];
+        [self toolBarButtonPushed:calcButton];
     } else {
-        [self buttonPushed:nextButton];
+        [self toolBarButtonPushed:nextButton];
     }
     return YES;
 }

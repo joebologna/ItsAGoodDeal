@@ -112,13 +112,17 @@ static Test testToRun = NotTesting;
     // else .tag can come from a UIBarButtonItem, it will get picked up below
 #endif
     
-    if (sender.tag == Next || sender.tag == NextButton) {
-        [self.fields gotoNextField];
+    if (sender.tag == Next) {
+        [self.fields gotoNextField:NO];
+    } else if (sender.tag == NextButton) {
+        [self.fields gotoNextField:YES];
     } else if (sender.tag == PrevButton) {
-        [self.fields gotoPrevField];
+        [self.fields gotoPrevField:YES];
     } else if (sender.tag == CalcButton) {
+#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
         [self.fields.curField.control resignFirstResponder];
         [self.fields showKeypad:nil];
+#endif
         [self.fields calcSavings];
     } else if (sender.tag <= Period) {
         NSString *s = self.fields.curField.value;

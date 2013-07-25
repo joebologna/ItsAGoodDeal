@@ -7,7 +7,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "../IGD/Lib/NSObject+Formatter.h"
+#import "../IGD/Lib/NSObject+Utils.h"
 
 @interface IGDUnitTests : SenTestCase
 
