@@ -207,12 +207,15 @@
     
     prevButton = [[UIBarButtonItem alloc] initWithTitle:PREVBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
     prevButton.style = UIBarButtonItemStyleBordered;
+    prevButton.tag = PrevButton;
 
     calcButton = [[UIBarButtonItem alloc] initWithTitle:CALCBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
     calcButton.style = UIBarButtonItemStyleBordered;
+    calcButton.tag = CalcButton;
     
     nextButton = [[UIBarButtonItem alloc] initWithTitle:NEXTBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
     nextButton.style = UIBarButtonItemStyleBordered;
+    nextButton.tag = NextButton;
     
     [rowOfKeys setItems:@[prevButton, f, calcButton, f, nextButton]];
 }

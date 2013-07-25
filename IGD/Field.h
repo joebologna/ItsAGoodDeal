@@ -61,6 +61,10 @@ typedef enum {
 } KTAG;
 
 typedef enum {
+    PrevButton, CalcButton, NextButton
+} BTAG;
+
+typedef enum {
     FieldTypeNotSet,
     LabelField,
     KeyType

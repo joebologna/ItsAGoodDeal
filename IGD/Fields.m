@@ -72,6 +72,9 @@
         NSInteger i = [self.inputFields indexOfObject:self.curField];
         self.curField = self.inputFields[i + 1];
     }
+#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
+    [_curField.control becomeFirstResponder];
+#endif
 }
 
 - (void)gotoPrevField {
@@ -84,6 +87,9 @@
         NSInteger i = [self.inputFields indexOfObject:self.curField];
         self.curField = self.inputFields[i - 1];
     }
+#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
+    [_curField.control becomeFirstResponder];
+#endif
 }
 
 - (id)init {

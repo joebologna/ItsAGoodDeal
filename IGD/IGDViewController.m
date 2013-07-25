@@ -91,11 +91,11 @@ static Test testToRun = NotTesting;
     NSLog(@"%s", __func__);
 #endif
     for (Field *key in self.fields.keys) {
-        if ([sender isEqualToString:key.value]) {
+        if ((sender.length == 0 && key.tag == Del) || [sender isEqualToString:key.value]) {
             return (MyButton *)key.control;
         }
     }
-    abort();
+    return nil;
 }
 #endif
 
@@ -107,11 +107,18 @@ static Test testToRun = NotTesting;
 #ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
     if ([sender isKindOfClass:[NSString class]]) {
         sender = [self mapKeyToButton:(NSString *)sender];
+        if (sender == nil) return;
     }
+    // else .tag can come from a UIBarButtonItem, it will get picked up below
 #endif
     
-    if (sender.tag == Next) {
+    if (sender.tag == Next || sender.tag == NextButton) {
         [self.fields gotoNextField];
+    } else if (sender.tag == PrevButton) {
+        [self.fields gotoPrevField];
+    } else if (sender.tag == CalcButton) {
+        [self.fields.curField.control resignFirstResponder];
+        [self.fields calcSavings];
     } else if (sender.tag <= Period) {
         NSString *s = self.fields.curField.value;
         if (sender.tag == Period) {
