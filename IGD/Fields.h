@@ -35,6 +35,7 @@ typedef enum {
 - (void)fieldWasSelected:(Field *)field;
 - (void)gotoNextField;
 - (void)gotoPrevField;
+- (void)gotoFieldWithControl:(UITextField *)t;
 - (void)calcSavings;
 
 @property (unsafe_unretained, nonatomic) DeviceType deviceType;

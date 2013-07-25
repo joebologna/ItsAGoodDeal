@@ -92,6 +92,19 @@
 #endif
 }
 
+- (void)gotoFieldWithControl:(UITextField *)t {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    for (Field *f in self.inputFields) {
+        if ([f.control isEqual:t]) {
+            self.curField = f;
+            // it should already be firstResponder.
+            return;
+        }
+    }
+}
+
 - (id)init {
     self = [super init];
     if (self) {

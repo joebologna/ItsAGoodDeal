@@ -231,6 +231,8 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
+    // could be a directTap...
+    [self.caller performSelector:@selector(gotoFieldWithControl:) withObject:textField];
     textField.keyboardType = UIKeyboardTypeDecimalPad;
     textField.inputAccessoryView = rowOfKeys;
 }
