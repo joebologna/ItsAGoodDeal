@@ -118,6 +118,7 @@ static Test testToRun = NotTesting;
         [self.fields gotoPrevField];
     } else if (sender.tag == CalcButton) {
         [self.fields.curField.control resignFirstResponder];
+        [self.fields showKeypad:nil];
         [self.fields calcSavings];
     } else if (sender.tag <= Period) {
         NSString *s = self.fields.curField.value;

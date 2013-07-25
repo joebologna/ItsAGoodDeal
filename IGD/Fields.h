@@ -31,6 +31,8 @@ typedef enum {
 @interface Fields : NSObject
 
 - (Fields *)makeFields:(UIViewController *)vc;
+- (void)hideKeypad:(id)sender;
+- (void)showKeypad:(id)sender;
 - (void)populateScreen;
 - (void)fieldWasSelected:(Field *)field;
 - (void)gotoNextField;
@@ -53,6 +55,8 @@ typedef enum {
 	*numItemsB,
 	*unitsEachA,
 	*unitsEachB,
+    *unitCostA,
+    *unitCostB,
 	*message,
 	*ad,
 	*one,

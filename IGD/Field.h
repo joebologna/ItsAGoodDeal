@@ -36,6 +36,8 @@ typedef enum {
     PriceB,
     NumItemsB,
     UnitsEachB,
+    UnitCostA,
+    UnitCostB,
     Message,
     MoreLabel,
     Ad = 999,

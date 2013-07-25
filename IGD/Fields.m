@@ -174,6 +174,8 @@
                       self.unitsEachB,
                       self.itemA,
                       self.itemB,
+                      self.unitCostA,
+                      self.unitCostB,
                       self.message,
                       nil];
 
@@ -198,6 +200,26 @@
     return self;
 }
 
+#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
+- (void)hideKeypad:(id)sender {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    for (Field *f in self.keys) {
+        f.control.hidden = YES;
+    }
+}
+
+- (void)showKeypad:(id)sender {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    for (Field *f in self.keys) {
+        f.control.hidden = NO;
+    }
+}
+#endif
+
 // builders
 - (void)buildIPhone4:(Fields *)f {
 #ifdef DEBUG
@@ -219,13 +241,20 @@
     f.numItemsA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:f.vc caller:self];
     y += ySpacing;
     f.unitsEachA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:f.vc caller:self];
-
+    ySpacing -= 5;
+    y += ySpacing;
+    f.unitCostA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:13 andValue:@"Hi!!!" andTag:UnitCostA andType:LabelField andVC:f.vc caller:self];
+    
     y = 20;
+    ySpacing = yHeight + 8;
     f.priceB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"Price" andTag:PriceB andType:LabelField andVC:f.vc caller:self];
     y += ySpacing;
     f.numItemsB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:f.vc caller:self];
     y += ySpacing;
     f.unitsEachB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:f.vc caller:self];
+    ySpacing -= 5;
+    y += ySpacing;
+    f.unitCostB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:13 andValue:@"Hi!!!" andTag:UnitCostB andType:LabelField andVC:f.vc caller:self];
 
     f.message = [Field allocFieldWithRect:CGRectMake(1, 158, 318, 40) andF:17 andValue:@PROMPT andTag:Message andType:LabelField andVC:f.vc caller:self];
 
@@ -275,14 +304,21 @@
     f.numItemsA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:f.vc caller:self];
     y += ySpacing;
     f.unitsEachA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth,yHeight) andF:17 andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:f.vc caller:self];
+    ySpacing -= 16;
+    y += ySpacing;
+    f.unitCostA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:13 andValue:@"Hi!!!" andTag:UnitCostA andType:LabelField andVC:f.vc caller:self];
 
     y = 20;
+    ySpacing = yHeight + 8;
     f.priceB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"Price" andTag:PriceB andType:LabelField andVC:f.vc caller:self];
     y += ySpacing;
     f.numItemsB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:f.vc caller:self];
     y += ySpacing;
     f.unitsEachB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:f.vc caller:self];
-    
+    ySpacing -= 16;
+    y += ySpacing;
+    f.unitCostB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:13 andValue:@"Hi!!!" andTag:UnitCostB andType:LabelField andVC:f.vc caller:self];
+
     y = 200;
     f.message = [Field allocFieldWithRect:CGRectMake(1, y, 318, 80) andF:17 andValue:@PROMPT andTag:Message andType:LabelField andVC:f.vc caller:self];
     
@@ -319,7 +355,7 @@
 
     float y, yHeight, ySpacing, fieldWidth = 385;
     y = 1;
-    yHeight = 352;
+    yHeight = 382;
     f.itemA = [Field allocFieldWithRect:CGRectMake(1, y, fieldWidth, yHeight) andF:30 andValue:@"Deal A" andTag:ItemA andType:LabelField andVC:f.vc caller:self];
     f.itemB = [Field allocFieldWithRect:CGRectMake(fieldWidth + 1, y, fieldWidth - 1, yHeight) andF:30 andValue:@"Deal B" andTag:ItemB andType:LabelField andVC:f.vc caller:self];
     
@@ -332,15 +368,22 @@
     f.numItemsA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:48 andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:f.vc caller:self];
     y += ySpacing;
     f.unitsEachA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:48 andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:f.vc caller:self];
+    ySpacing -= 24;
+    y += ySpacing;
+    f.unitCostA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:28 andValue:@"Hi!!!" andTag:UnitCostA andType:LabelField andVC:f.vc caller:self];
     
     y = 60;
+    ySpacing = yHeight + 8;
     f.priceB = [Field allocFieldWithRect:CGRectMake(393, y, fieldWidth, yHeight) andF:48 andValue:@"Price" andTag:PriceB andType:LabelField andVC:f.vc caller:self];
     y += ySpacing;
     f.numItemsB = [Field allocFieldWithRect:CGRectMake(393, y, fieldWidth, yHeight) andF:48 andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:f.vc caller:self];
     y += ySpacing;
     f.unitsEachB = [Field allocFieldWithRect:CGRectMake(393, y, fieldWidth, yHeight) andF:48 andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:f.vc caller:self];
+    ySpacing -= 24;
+    y += ySpacing;
+    f.unitCostB = [Field allocFieldWithRect:CGRectMake(393, y, fieldWidth, yHeight) andF:28 andValue:@"Hi!!!" andTag:UnitCostB andType:LabelField andVC:f.vc caller:self];
     
-    f.message = [Field allocFieldWithRect:CGRectMake(1, 393, 766, 120) andF:40 andValue:@PROMPT andTag:Message andType:LabelField andVC:f.vc caller:self];
+    f.message = [Field allocFieldWithRect:CGRectMake(1, 413, 766, 120) andF:40 andValue:@PROMPT andTag:Message andType:LabelField andVC:f.vc caller:self];
     
     f.one = [Field allocFieldWithRect:CGRectMake(20, 546, 176, 92) andF:48 andValue:@"1" andTag:One andType:KeyType andVC:f.vc caller:self];
     f.two = [Field allocFieldWithRect:CGRectMake(204, 546, 176, 92) andF:48 andValue:@"2" andTag:Two andType:KeyType andVC:f.vc caller:self];
@@ -419,11 +462,11 @@
         if ((unitCostA < unitCostB) && fabsf(unitCostA - unitCostB) > 0.01) {
             savingsPerUnit = unitCostB - unitCostA;
             totalSavings = savingsPerUnit * totalUnitsA;
-            self.message.value = [NSString stringWithFormat:@"Buy A, You Save: %.2f", totalSavings];
+            self.message.value = [NSString stringWithFormat:@"Buy A, You Save: %@", [self fmtPrice:totalSavings]];
         } else if ((unitCostA > unitCostB) && fabsf(unitCostA - unitCostB) > 0.01) {
             savingsPerUnit = unitCostA - unitCostB;
             totalSavings = savingsPerUnit * totalUnitsB;
-            self.message.value = [NSString stringWithFormat:@"Buy B, You Save: %.2f", totalSavings];
+            self.message.value = [NSString stringWithFormat:@"Buy B, You Save: %@", [self fmtPrice:totalSavings]];
         } else {
             self.message.value = @"Same Price!";
         }

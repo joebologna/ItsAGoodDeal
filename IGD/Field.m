@@ -237,7 +237,12 @@
     // could be a directTap...
     [self.caller performSelector:@selector(gotoFieldWithControl:) withObject:textField];
     BOOL isPad = [UIScreen mainScreen].bounds.size.height >= 568;
-    textField.keyboardType = isPad ? UIKeyboardTypeNumbersAndPunctuation : UIKeyboardTypeDecimalPad;
+    if (isPad) {
+        textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        [self.caller performSelector:@selector(hideKeypad:) withObject:nil];
+    } else {
+        textField.keyboardType = UIKeyboardTypeDecimalPad;
+    }
     textField.inputAccessoryView = rowOfKeys;
     textField.text = self.value;
     previousPlaceholder = textField.placeholder;
