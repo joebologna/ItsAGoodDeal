@@ -192,6 +192,10 @@
             break;
     }
     
+    if (t.tag == UnitCostA || t.tag == UnitCostB) {
+        t.enabled = NO;
+    }
+    
     self.control = (UIControl *)t;
 
 #ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
@@ -227,7 +231,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    return YES;
+    return textField.enabled;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -263,6 +267,18 @@
 #endif
     textField.text = [self isCurrency] ? [self fmtPrice:self.floatValue] : self.value;
     textField.placeholder = previousPlaceholder;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    if (self.tag == UnitsEachB) {
+        [self buttonPushed:calcButton];
+    } else {
+        [self buttonPushed:nextButton];
+    }
+    return YES;
 }
 
 #else
