@@ -13,6 +13,7 @@
 @interface Field() {
     UIToolbar *rowOfKeys;
     UIBarButtonItem *prevButton, *calcButton, *nextButton;
+    NSString *previousPlaceholder;
 }
 @end
 #endif
@@ -85,6 +86,7 @@
         _control = nil;
         _vc = nil;
         _caller = nil;
+        previousPlaceholder = @"";
     }
     return self;
 }
@@ -166,6 +168,7 @@
     t.tag = self.tag;
     t.text = self.value;
     t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    t.textAlignment = NSTextAlignmentCenter;
     t.placeholder = self.value;
     t.backgroundColor = [UIColor clearColor];
     t.enabled = YES;
@@ -236,6 +239,9 @@
     BOOL isPad = [UIScreen mainScreen].bounds.size.height >= 568;
     textField.keyboardType = isPad ? UIKeyboardTypeNumbersAndPunctuation : UIKeyboardTypeDecimalPad;
     textField.inputAccessoryView = rowOfKeys;
+    textField.text = self.value;
+    previousPlaceholder = textField.placeholder;
+    textField.placeholder = @"";
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -244,6 +250,14 @@
 #endif
     [self buttonPushed:string];
     return NO;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    textField.text = [self isCurrency] ? [self fmtPrice:self.floatValue] : self.value;
+    textField.placeholder = previousPlaceholder;
 }
 
 #else
