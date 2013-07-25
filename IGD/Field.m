@@ -233,7 +233,8 @@
 #endif
     // could be a directTap...
     [self.caller performSelector:@selector(gotoFieldWithControl:) withObject:textField];
-    textField.keyboardType = UIKeyboardTypeDecimalPad;
+    BOOL isPad = [UIScreen mainScreen].bounds.size.height >= 568;
+    textField.keyboardType = isPad ? UIKeyboardTypeNumbersAndPunctuation : UIKeyboardTypeDecimalPad;
     textField.inputAccessoryView = rowOfKeys;
 }
 
