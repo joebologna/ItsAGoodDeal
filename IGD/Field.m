@@ -231,7 +231,18 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    return textField.enabled;
+    BOOL isPhone = [UIScreen mainScreen].bounds.size.height < 568;
+    if (textField.enabled) {
+        if (isPhone) {
+            return YES;
+        } else {
+            //handle direct tap.
+            [self.caller performSelector:@selector(gotoFieldWithControl:) withObject:textField];
+            return NO;
+        }
+    } else {
+        return NO;
+    }
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -240,14 +251,11 @@
 #endif
     // could be a directTap...
     [self.caller performSelector:@selector(gotoFieldWithControl:) withObject:textField];
-    BOOL isPad = [UIScreen mainScreen].bounds.size.height >= 568;
-    if (isPad) {
-        textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-        [self.caller performSelector:@selector(hideKeypad:) withObject:nil];
-    } else {
+    BOOL isPhone = [UIScreen mainScreen].bounds.size.height < 568;
+    if (isPhone) {
         textField.keyboardType = UIKeyboardTypeDecimalPad;
+        textField.inputAccessoryView = rowOfKeys;
     }
-    textField.inputAccessoryView = rowOfKeys;
     textField.text = self.value;
     previousPlaceholder = textField.placeholder;
     textField.placeholder = @"";

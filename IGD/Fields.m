@@ -66,6 +66,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
+    ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue] : self.curField.value;
     if ([self.curField isEqual:self.inputFields.lastObject]) {
         self.curField = self.inputFields[0];
     } else {
@@ -81,6 +82,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
+    ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue] : self.curField.value;
     if ([self.curField isEqual:self.inputFields[0]]) {
         self.curField = self.inputFields.lastObject;
     } else {
@@ -96,6 +98,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
+    ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue] : self.curField.value;
     for (Field *f in self.inputFields) {
         if ([f.control isEqual:t]) {
             self.curField = f;

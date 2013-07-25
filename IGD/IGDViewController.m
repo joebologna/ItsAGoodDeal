@@ -139,6 +139,7 @@ static Test testToRun = NotTesting;
         for (Field *f in self.fields.inputFields) {
             f.value = @"";
         }
+        self.fields.curField = self.fields.inputFields[0];
         self.fields.curField.value = @"";
     } else if (sender.tag == Del) {
         NSString *s = self.fields.curField.value;
