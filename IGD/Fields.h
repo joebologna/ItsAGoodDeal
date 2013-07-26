@@ -10,12 +10,12 @@
 #include "Features.h"
 #import "Field.h"
 
-#define STORE "Remove Ads"
+#define STORE "No Ads"
 #define THANKS "Thank You"
 #define CLR "C"
 #define NEXT "Next/Calc Savings"
 #define DEL "Del"
-#define PROMPT "Enter Price, Min Qty & Size of Items"
+#define PROMPT "Enter Prices, # of Items and # of Units"
 
 typedef enum {
     ShowPrompt,
@@ -59,11 +59,11 @@ typedef enum {
 	*four,
 	*five,
 	*six,
-	*store,
+*del,
 	*seven,
 	*eight,
 	*nine,
-	*del,
+*store,
 	*period,
 	*zero,
 	*next;
