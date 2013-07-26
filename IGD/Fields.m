@@ -353,7 +353,7 @@
         _four = [Field allocFieldWithRect:CGRectMake(20, 644, 176, 92) andF:48 andValue:@"4" andTag:Four andType:KeyType andVC:_vc caller:self];
         _five = [Field allocFieldWithRect:CGRectMake(204, 644, 176, 92) andF:48 andValue:@"5" andTag:Five andType:KeyType andVC:_vc caller:self];
         _six = [Field allocFieldWithRect:CGRectMake(388, 644, 176, 92) andF:48 andValue:@"6" andTag:Six andType:KeyType andVC:_vc caller:self];
-        _store = [Field allocFieldWithRect:CGRectMake(572, 644, 176, 92) andF:36 andValue:@DEL andTag:Del andType:KeyType andVC:_vc caller:self];
+        _store = [Field allocFieldWithRect:CGRectMake(572, 644, 176, 92) andF:48 andValue:@DEL andTag:Del andType:KeyType andVC:_vc caller:self];
         
         _seven = [Field allocFieldWithRect:CGRectMake(20, 742, 176, 92) andF:48 andValue:@"7" andTag:Seven andType:KeyType andVC:_vc caller:self];
         _eight = [Field allocFieldWithRect:CGRectMake(204, 742, 176, 92) andF:48 andValue:@"8" andTag:Eight andType:KeyType andVC:_vc caller:self];
