@@ -409,6 +409,7 @@
         if (f.floatValue == 0.0) {
             allSet = NO;
             self.message.value = @PROMPT;
+            self.unitCostA.value = self.unitCostB.value = @"";
             break;
         }
     }
