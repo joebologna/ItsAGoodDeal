@@ -12,7 +12,7 @@
 
 @dynamic toString;
 - (NSString *)toString {
-	return [NSString stringWithFormat:@".deviceType: %@", [self getDeviceTypeString:self.deviceType]];
+	return [NSString stringWithFormat:@".deviceType: %@, %@", [self getDeviceTypeString:self.deviceType], self.fieldValues];
 }
 
 @dynamic fieldValues;
@@ -408,27 +408,32 @@
     for (Field *f in self.inputFields) {
         if (f.floatValue == 0.0) {
             allSet = NO;
+            self.message.value = @PROMPT;
             break;
         }
     }
     
     if (allSet) {
-        float totalUnitsA = self.numItemsA.floatValue * self.unitsEachA.floatValue;
-        float unitCostA = self.priceA.floatValue / totalUnitsA;
+        float unitCostA = self.priceA.floatValue / self.unitsEachA.floatValue;
+        float totalCostA = self.priceA.floatValue * self.numItemsA.floatValue;
         
-        float totalUnitsB = self.numItemsB.floatValue * self.unitsEachB.floatValue;
-        float unitCostB = self.priceB.floatValue / totalUnitsB;
+        float unitCostB = self.priceB.floatValue / self.unitsEachB.floatValue;
+        float totalCostB = self.priceB.floatValue * self.numItemsB.floatValue;
         
-        float savingsPerUnit = 0.0;
-        float totalSavings = 0.0;
-        if ((unitCostA < unitCostB) && fabsf(unitCostA - unitCostB) > 0.01) {
-            savingsPerUnit = unitCostB - unitCostA;
-            totalSavings = savingsPerUnit * totalUnitsA;
-            self.message.value = [NSString stringWithFormat:@"Buy A, You Save: %@", [self fmtPrice:totalSavings]];
-        } else if ((unitCostA > unitCostB) && fabsf(unitCostA - unitCostB) > 0.01) {
-            savingsPerUnit = unitCostA - unitCostB;
-            totalSavings = savingsPerUnit * totalUnitsB;
-            self.message.value = [NSString stringWithFormat:@"Buy B, You Save: %@", [self fmtPrice:totalSavings]];
+        float totalSavings = fabsf(totalCostA - totalCostB);
+        
+        if (totalCostA < totalCostB) {
+            if (totalSavings < 0.01) {
+                self.message.value = [NSString stringWithFormat:@"Buy A, You Save: almost %@0.01", self.currencySymbol];
+            } else {
+                self.message.value = [NSString stringWithFormat:@"Buy A, You Save: %@", [self fmtPrice:totalSavings]];
+            }
+        } else if (totalCostA > totalCostB) {
+            if (totalSavings < 0.01) {
+                self.message.value = [NSString stringWithFormat:@"Buy B, You Save: almost %@0.01", self.currencySymbol];
+            } else {
+                self.message.value = [NSString stringWithFormat:@"Buy B, You Save: %@", [self fmtPrice:totalSavings]];
+            }
         } else {
             self.message.value = @"A is the same price as B";
         }
