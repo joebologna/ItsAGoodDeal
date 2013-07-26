@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 
-#define kBought CFSTR("bought")
-#define vNo CFSTR("NO")
-#define vYes CFSTR("YES")
+#define kBought @"bought"
 
 @protocol MyStoreObserverDelegate <NSObject>
 @required

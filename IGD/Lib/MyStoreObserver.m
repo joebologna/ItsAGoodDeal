@@ -16,38 +16,25 @@ static MyStoreObserver *theSharedObject = nil;
 
 @synthesize myProducts = _myProducts;
 @synthesize delegate = _delegate;
+@synthesize bought = _bought;
 
-// setters/getters
 - (void)setBought:(BOOL)newValue {
-    bought = newValue;
+    _bought = newValue;
     
-    // Set up the preference.
-    CFPreferencesSetAppValue(kBought, (newValue ? vYes : vNo), kCFPreferencesCurrentApplication);
-    
-    // Write out the preference data.
-    CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication);
+    [[NSUserDefaults standardUserDefaults] setBool:_bought forKey:kBought];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (BOOL)bought {
-    CFStringRef boughtStr;
-    
-    // Read the preference.
-    boughtStr = (CFStringRef)CFPreferencesCopyAppValue(kBought, kCFPreferencesCurrentApplication);
-    if (boughtStr == nil) {
-        boughtStr = vNo;
-    }
-    CFComparisonResult r = CFStringCompare(boughtStr, vYes, kCFCompareCaseInsensitive);
-    bought = (r == kCFCompareEqualTo);
-    CFRelease(boughtStr);
-    
-    return bought;
+    _bought = [[NSUserDefaults standardUserDefaults] boolForKey:kBought];
+    return _bought;
 }
 
 + (MyStoreObserver *)myStoreObserver {
     if (theSharedObject == nil) {
         theSharedObject = [[super allocWithZone:NULL] init];
         theSharedObject.myProducts = [NSArray array];
-        theSharedObject.bought = NO;
+        theSharedObject.bought = [[NSUserDefaults standardUserDefaults] boolForKey:kBought];
         theSharedObject.delegate = nil;
     }
     return theSharedObject;

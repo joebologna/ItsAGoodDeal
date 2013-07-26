@@ -52,7 +52,7 @@
 - (void)setValue:(NSString *)v {
     _value = v;
     if ([self isButton]) {
-        ((MyButton *)_control).titleLabel.text = _value;
+        ((MyButton *)_control).bothTitles = _value;
     } else {
         ((UITextField *)_control).text = _value;
     }

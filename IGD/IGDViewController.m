@@ -25,11 +25,11 @@
 typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 
 #if DEBUG==1
-static BOOL debug = YES;
+//static BOOL debug = YES;
 //static Test testToRun = AisBigger;
 #else
-static BOOL debug = NO;
-static Test testToRun = NotTesting;
+//static BOOL debug = NO;
+//static Test testToRun = NotTesting;
 #endif
 
 #pragma mark -
@@ -37,6 +37,7 @@ static Test testToRun = NotTesting;
 
 @interface IGDViewController () <ADBannerViewDelegate, UIAlertViewDelegate> {
     MyStoreObserver *myStoreObserver;
+    ADBannerView *bannerView;
 }
 
 @end
@@ -52,6 +53,9 @@ static Test testToRun = NotTesting;
 #endif
     [super viewDidLoad];
 
+    myStoreObserver = [MyStoreObserver myStoreObserver];
+    myStoreObserver.delegate = self;
+
     ADBannerView *adView = (ADBannerView *)[self.view viewWithTag:Ad];
     adView.delegate = self;
     
@@ -60,11 +64,9 @@ static Test testToRun = NotTesting;
     
     self.fields = [[Fields alloc] init];
     [self.fields makeFields:(UIViewController *)self];
+    [self setAdButtonState];
     [self.fields populateScreen];
     [self initGUI];
-    
-    myStoreObserver = [MyStoreObserver myStoreObserver];
-    myStoreObserver.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -171,27 +173,27 @@ static Test testToRun = NotTesting;
 #ifdef DEBUG
             NSLog(@"Buy it here");
 #endif
-            //            self.bought = YES;
             [self doPayment];
         } else {
-            if (debug) {
-                myStoreObserver.bought = NO;
-                [self setAdButtonState];
-            } else {
-#ifdef DEBUG
-                NSLog(@"Dont do anything");
-#endif
-            }
+            myStoreObserver.bought = NO;
+            [self setAdButtonState];
         }
-        //        [self setAdButtonState];
     }
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }
 
 - (void)setAdButtonState {
 #ifdef DEBUG
-    NSLog(@"%s", __func__);
+    NSLog(@"%s, bought: %d", __func__, myStoreObserver.bought);
 #endif
+    if (myStoreObserver.bought) {
+        self.fields.store.value = @THANKS;
+        [bannerView cancelBannerViewAction];
+        [bannerView removeFromSuperview];
+        bannerView.delegate = nil;
+    } else {
+        self.fields.store.value = @STORE;
+    }
 }
 
 #pragma mark -
@@ -201,27 +203,36 @@ static Test testToRun = NotTesting;
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    [banner setHidden:myStoreObserver.bought];
+    bannerView = banner;
+    if (!myStoreObserver.bought) {
+        [bannerView cancelBannerViewAction];
+    }
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    [banner setHidden:YES];
+    bannerView = banner;
+    [bannerView cancelBannerViewAction];
 }
 
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
 #ifdef DEBUG
     NSLog(@"%s, Nothing to do", __func__);
 #endif
-    return YES;
+    bannerView = banner;
+    return myStoreObserver.bought;
 }
 
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
 #ifdef DEBUG
     NSLog(@"%s, Nothing to do", __func__);
 #endif
+    bannerView = banner;
+    if (!myStoreObserver.bought) {
+        [bannerView cancelBannerViewAction];
+    }
 }
 
 #pragma mark -

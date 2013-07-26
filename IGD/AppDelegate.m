@@ -16,6 +16,9 @@
 {
     // Override point for customization after application launch.
     self.myStoreObserver = [MyStoreObserver myStoreObserver];
+#ifdef DEBUG
+    NSLog(@"bought: %d", self.myStoreObserver.bought);
+#endif
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self.myStoreObserver];
     [self requestProductData];
     return YES;
