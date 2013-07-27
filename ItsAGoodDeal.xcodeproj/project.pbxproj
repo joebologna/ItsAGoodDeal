@@ -16,7 +16,6 @@
 		3B557542176FAADA005EEB51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B557543176FAADA005EEB51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
 		3B557549176FAADA005EEB51 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B557547176FAADA005EEB51 /* InfoPlist.strings */; };
-		3B55754C176FAADA005EEB51 /* IGDUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B55754B176FAADA005EEB51 /* IGDUnitTests.m */; };
 		3B71F51B179BFABE00E52260 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B557540176FAADA005EEB51 /* SenTestingKit.framework */; };
 		3B71F51C179BFABE00E52260 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B71F51D179BFABE00E52260 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
@@ -533,7 +532,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B3D38A3179D5F800010A94F /* MyButton.m in Sources */,
-				3B55754C176FAADA005EEB51 /* IGDUnitTests.m in Sources */,
 				3BE052E617778EE00041D6C0 /* NSObject+Utils.m in Sources */,
 				3BC2893C1799F12B00D884BB /* Fields.m in Sources */,
 				3BC289401799F48300D884BB /* FieldsClassUnitTests.m in Sources */,

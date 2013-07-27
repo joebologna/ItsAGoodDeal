@@ -204,8 +204,10 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     NSLog(@"%s", __func__);
 #endif
     bannerView = banner;
-    if (!myStoreObserver.bought) {
+    if (myStoreObserver.bought) {
         [bannerView cancelBannerViewAction];
+    } else {
+        bannerView.hidden = NO;
     }
 }
 
@@ -230,7 +232,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     NSLog(@"%s, Nothing to do", __func__);
 #endif
     bannerView = banner;
-    if (!myStoreObserver.bought) {
+    if (myStoreObserver.bought) {
         [bannerView cancelBannerViewAction];
     }
 }
@@ -264,7 +266,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    NSString *s = [NSString stringWithFormat:@"Do you wish to remove Ads for %@?", [NSNumberFormatter localizedStringFromNumber:((SKProduct *)[MyStoreObserver myStoreObserver].myProducts[0]).price numberStyle:NSNumberFormatterCurrencyStyle]];
+    NSString *s = [NSString stringWithFormat:@"Remove Ads for %@?", [NSNumberFormatter localizedStringFromNumber:((SKProduct *)[MyStoreObserver myStoreObserver].myProducts[0]).price numberStyle:NSNumberFormatterCurrencyStyle]];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@STORE message:s delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
     alert.delegate = self;
     [alert show];

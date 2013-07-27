@@ -29,7 +29,7 @@
     [f makeFields:(UIViewController *)self];
 
     NSLog(@"\n\n%@\n\n", f.toString);
-    STAssertEquals(f.deviceType, iPhone4, @"Should be whatever the simulator is set to.");
+    STAssertEquals(f.deviceType, iPhone5, @"Should be whatever the simulator is set to.");
     
     f = [[Fields alloc] init];
     [f makeFields:nil];
@@ -51,7 +51,7 @@
 
 - (void)test03FieldClass {
     NSString *c = self.currencySymbol;
-    Field *f = [Field allocFieldWithRect:CGRectMake(1, 1, 1, 1) andF:20 andValue:c andTag:ItemA andType:LabelField andVC:nil caller:self];
+    Field *f = [Field allocFieldWithRect:CGRectMake(1, 1, 1, 1) andF:20 andValue:@"0" andTag:PriceA andType:LabelField andVC:nil caller:self];
     STAssertEquals(f.floatValue, 0.0f, @"should be 0.0");
     NSLog(@"%@", [self fmtPrice:f.floatValue]);
 
@@ -74,5 +74,8 @@
     f.value = [c stringByAppendingString:@"."];
     STAssertEquals(f.floatValue, 0.0f, @"should be 0.0");
     NSLog(@"%@", [self fmtPrice:f.floatValue]);
+
+    f = [Field allocFieldWithRect:CGRectMake(1, 1, 1, 1) andF:20 andValue:@"0" andTag:ItemA andType:LabelField andVC:nil caller:self];
+    STAssertEquals(f.floatValue, 0.0f, @"should be 0.0");
 }
 @end
