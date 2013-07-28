@@ -11,7 +11,11 @@
 
 static float ***grid = (float ***)0;
 
-@interface KeypadTests() {DeviceType *deviceType;};
+@interface KeypadTests() {
+    DeviceType *deviceType;
+    devGrid **g_devices;
+    float ***g_grid;
+};
 
 @end
 @implementation KeypadTests
@@ -80,6 +84,44 @@ static float ***grid = (float ***)0;
         {iPad, 20, 546, 176, 92, 8, 6}
     };
     [self makeGrid:&grid devices:devices ndevices:sizeof(devices)/sizeof(devGrid) rows:rows];
+}
+
+- (void)testGrid2 {
+    
+    devGrid devices[] = {
+        {iPhone4, 0, 0, 20, 10, 2, 2},
+        {iPhone5, 0, 0, 20, 10, 2, 2},
+        {iPad, 0, 0, 20, 10, 2, 2}
+    };
+    int ndevices = sizeof(devices)/sizeof(devGrid);
+    g_devices = malloc(ndevices * sizeof(devGrid));
+    memccpy(g_devices, devices, ndevices, sizeof(devGrid));
+    
+    int nrows = 4;
+    float *grid[ndevices][nrows];
+
+    for (int device = 0; device < ndevices; device++) {
+        for (int row = 0; row < nrows; row++) {
+            CGRect r = CGRectMake(0, 0, 0, 0);
+            memccpy(&r, &grid[device][row], 1, sizeof(CGRect));
+            r.origin.x = devices[device].xb + row * (devices[device].xw + devices[device].xs);
+            r.origin.y = devices[device].yb + row * (devices[device].yh + devices[device].ys);
+            r.size.width = devices[device].xw;
+            r.size.height = devices[device].yh;
+            [self printRect:&r];
+        }
+    }
+    g_grid = malloc(ndevices * nrows * sizeof(CGRect));
+    memccpy(g_grid, grid, ndevices*nrows, sizeof(float));
+    for (int device = 0; device < ndevices; device++) {
+        for (int row = 0; row < nrows; row++) {
+            [self printRect:(CGRect *)g_grid[device][row]];
+        }
+    }
+}
+
+- (void)printRect:(CGRect *)r {
+    NSLog(@"%.2f, %.2f, %.2f, %.2f", r->origin.x, r->origin.y, r->size.width, r->size.height);
 }
 
 - (void)dealloc:(id)sender {

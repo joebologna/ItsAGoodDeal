@@ -7,6 +7,7 @@
 //
 
 #import "Fields.h"
+#import "NSObject+Grid.h"
 
 @implementation Fields
 
@@ -124,6 +125,7 @@
 #endif
     self.vc = vc;
     self.deviceType = [self getDeviceType];
+    
     [self buildScreen];
 
     // this is the order that the Next button traverses.
