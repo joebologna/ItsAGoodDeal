@@ -197,6 +197,7 @@
 #ifdef DEBUG
     NSLog(@"%s, %@", __func__, self.getDeviceTypeString);
 #endif
+    
     float y, yHeight, ySpacing, fieldWidth;
     if (self.deviceType == iPhone4) {
         fieldWidth = 159;
