@@ -7,6 +7,7 @@
 //
 
 #import "Fields.h"
+#import "Grid.h"
 
 @implementation Fields
 
@@ -198,6 +199,25 @@
     NSLog(@"%s, %@", __func__, self.getDeviceTypeString);
 #endif
     
+    CGPoint origin, size, spacing;
+    if (self.deviceType == iPhone4) {
+        origin = CGPointMake(20, 200);
+        size = CGPointMake(64, 46);
+        spacing = CGPointMake(8, 2);
+    } else if (self.deviceType == iPhone5) {
+        origin = CGPointMake(20, 288);
+        size = CGPointMake(64, 46);
+        spacing = CGPointMake(8, 2);
+    } else {
+        origin = CGPointMake(20, 546);
+        size = CGPointMake(176, 92);
+        spacing = CGPointMake(8, 2);
+    }
+    
+    Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+    [grid makeGridWithRows:4 andCols:4];
+
+    
     float y, yHeight, ySpacing, fieldWidth;
     if (self.deviceType == iPhone4) {
         fieldWidth = 159;
@@ -235,27 +255,43 @@
         y = 200;
         yHeight = 46;
         ySpacing = yHeight + 2;
-        _one = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"1" andTag:One andType:KeyType andVC:_vc caller:self];
-        _two = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"2" andTag:Two andType:KeyType andVC:_vc caller:self];
-        _three = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"3" andTag:Three andType:KeyType andVC:_vc caller:self];
-        _clr = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@CLR andTag:Clr andType:KeyType andVC:_vc caller:self];
+        
+        CGPoint origin = CGPointMake(20, 200);
+        CGPoint size = CGPointMake(64, 46);
+        CGPoint spacing = CGPointMake(8, 2);
+
+        Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+        [grid makeGridWithRows:4 andCols:4];
+        float fontSize = 15;
+
+        int row = 0;
+        int col = 0;
+        _one = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"1" andTag:One andType:KeyType andVC:_vc caller:self];
+        _two = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"2" andTag:Two andType:KeyType andVC:_vc caller:self];
+        _three = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"3" andTag:Three andType:KeyType andVC:_vc caller:self];
+        _clr = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@CLR andTag:Clr andType:KeyType andVC:_vc caller:self];
         
         y += ySpacing;
-        _four = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"4" andTag:Four andType:KeyType andVC:_vc caller:self];
-        _five = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"5" andTag:Five andType:KeyType andVC:_vc caller:self];
-        _six = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"6" andTag:Six andType:KeyType andVC:_vc caller:self];
-        _del = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@DEL andTag:Del andType:KeyType andVC:_vc caller:self];
+        col = 0; row++;
+        _four = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"4" andTag:Four andType:KeyType andVC:_vc caller:self];
+        _five = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"5" andTag:Five andType:KeyType andVC:_vc caller:self];
+        _six = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"6" andTag:Six andType:KeyType andVC:_vc caller:self];
+        _del = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@DEL andTag:Del andType:KeyType andVC:_vc caller:self];
         
         y += ySpacing;
-        _seven = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"7" andTag:Seven andType:KeyType andVC:_vc caller:self];
-        _eight = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"8" andTag:Eight andType:KeyType andVC:_vc caller:self];
-        _nine = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"9" andTag:Nine andType:KeyType andVC:_vc caller:self];
-        _store = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@STORE andTag:Store andType:KeyType andVC:_vc caller:self];
+        col = 0; row++;
+        _seven = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"7" andTag:Seven andType:KeyType andVC:_vc caller:self];
+        _eight = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"8" andTag:Eight andType:KeyType andVC:_vc caller:self];
+        _nine = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"9" andTag:Nine andType:KeyType andVC:_vc caller:self];
+        _store = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@STORE andTag:Store andType:KeyType andVC:_vc caller:self];
         
         y += ySpacing;
-        _period = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"." andTag:Period andType:KeyType andVC:_vc caller:self];
-        _zero = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"0" andTag:Zero andType:KeyType andVC:_vc caller:self];
-        _next = [Field allocFieldWithRect:CGRectMake(164, y, 136, yHeight) andF:15 andValue:@NEXT andTag:Next andType:KeyType andVC:_vc caller:self];
+        col = 0; row++;
+        _period = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"." andTag:Period andType:KeyType andVC:_vc caller:self];
+        _zero = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"0" andTag:Zero andType:KeyType andVC:_vc caller:self];
+        CGRect r = [grid getRectAtX:row andY:col++];
+        r.size.width = 136;
+        _next = [Field allocFieldWithRect:r andF:fontSize andValue:@NEXT andTag:Next andType:KeyType andVC:_vc caller:self];
     } else if (self.deviceType == iPhone5) {
         fieldWidth = 159;
         y = 1;
@@ -293,27 +329,28 @@
         y = 200 + 88;
         yHeight = 46;
         ySpacing = yHeight + 2;
-        _one = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"1" andTag:One andType:KeyType andVC:_vc caller:self];
-        _two = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"2" andTag:Two andType:KeyType andVC:_vc caller:self];
-        _three = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"3" andTag:Three andType:KeyType andVC:_vc caller:self];
-        _clr = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@CLR andTag:Clr andType:KeyType andVC:_vc caller:self];
+        float fontSize = 15;
+        _one = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:fontSize andValue:@"1" andTag:One andType:KeyType andVC:_vc caller:self];
+        _two = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:fontSize andValue:@"2" andTag:Two andType:KeyType andVC:_vc caller:self];
+        _three = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:fontSize andValue:@"3" andTag:Three andType:KeyType andVC:_vc caller:self];
+        _clr = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:fontSize andValue:@CLR andTag:Clr andType:KeyType andVC:_vc caller:self];
         
         y += ySpacing;
-        _four = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"4" andTag:Four andType:KeyType andVC:_vc caller:self];
-        _five = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"5" andTag:Five andType:KeyType andVC:_vc caller:self];
-        _six = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"6" andTag:Six andType:KeyType andVC:_vc caller:self];
-        _del = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@DEL andTag:Del andType:KeyType andVC:_vc caller:self];
+        _four = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:fontSize andValue:@"4" andTag:Four andType:KeyType andVC:_vc caller:self];
+        _five = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:fontSize andValue:@"5" andTag:Five andType:KeyType andVC:_vc caller:self];
+        _six = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:fontSize andValue:@"6" andTag:Six andType:KeyType andVC:_vc caller:self];
+        _del = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:fontSize andValue:@DEL andTag:Del andType:KeyType andVC:_vc caller:self];
         
         y += ySpacing;
-        _seven = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"7" andTag:Seven andType:KeyType andVC:_vc caller:self];
-        _eight = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"8" andTag:Eight andType:KeyType andVC:_vc caller:self];
-        _nine = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:15 andValue:@"9" andTag:Nine andType:KeyType andVC:_vc caller:self];
-        _store = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:15 andValue:@STORE andTag:Store andType:KeyType andVC:_vc caller:self];
+        _seven = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:fontSize andValue:@"7" andTag:Seven andType:KeyType andVC:_vc caller:self];
+        _eight = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:fontSize andValue:@"8" andTag:Eight andType:KeyType andVC:_vc caller:self];
+        _nine = [Field allocFieldWithRect:CGRectMake(164, y, 64, yHeight) andF:fontSize andValue:@"9" andTag:Nine andType:KeyType andVC:_vc caller:self];
+        _store = [Field allocFieldWithRect:CGRectMake(236, y, 64, yHeight) andF:fontSize andValue:@STORE andTag:Store andType:KeyType andVC:_vc caller:self];
         
         y += ySpacing;
-        _period = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:15 andValue:@"." andTag:Period andType:KeyType andVC:_vc caller:self];
-        _zero = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:15 andValue:@"0" andTag:Zero andType:KeyType andVC:_vc caller:self];
-        _next = [Field allocFieldWithRect:CGRectMake(164, y, 136, yHeight) andF:15 andValue:@NEXT andTag:Next andType:KeyType andVC:_vc caller:self];
+        _period = [Field allocFieldWithRect:CGRectMake(20, y, 64, yHeight) andF:fontSize andValue:@"." andTag:Period andType:KeyType andVC:_vc caller:self];
+        _zero = [Field allocFieldWithRect:CGRectMake(92, y, 64, yHeight) andF:fontSize andValue:@"0" andTag:Zero andType:KeyType andVC:_vc caller:self];
+        _next = [Field allocFieldWithRect:CGRectMake(164, y, 136, yHeight) andF:fontSize andValue:@NEXT andTag:Next andType:KeyType andVC:_vc caller:self];
     } else if (self.deviceType == iPad) {
         fieldWidth = 385;
         y = 1;
@@ -346,24 +383,25 @@
         _unitCostB = [Field allocFieldWithRect:CGRectMake(393, y, fieldWidth, yHeight) andF:28 andValue:@"" andTag:UnitCostB andType:LabelField andVC:_vc caller:self];
         
         _message = [Field allocFieldWithRect:CGRectMake(1, 413, 766, 120) andF:40 andValue:@PROMPT andTag:Message andType:LabelField andVC:_vc caller:self];
+
+        float fontSize = 48;
+        _one = [Field allocFieldWithRect:CGRectMake(20, 546, 176, 92) andF:fontSize andValue:@"1" andTag:One andType:KeyType andVC:_vc caller:self];
+        _two = [Field allocFieldWithRect:CGRectMake(204, 546, 176, 92) andF:fontSize andValue:@"2" andTag:Two andType:KeyType andVC:_vc caller:self];
+        _three = [Field allocFieldWithRect:CGRectMake(388, 546, 176, 92) andF:fontSize andValue:@"3" andTag:Three andType:KeyType andVC:_vc caller:self];
+        _clr = [Field allocFieldWithRect:CGRectMake(572, 546, 176, 92) andF:fontSize andValue:@CLR andTag:Clr andType:KeyType andVC:_vc caller:self];
         
-        _one = [Field allocFieldWithRect:CGRectMake(20, 546, 176, 92) andF:48 andValue:@"1" andTag:One andType:KeyType andVC:_vc caller:self];
-        _two = [Field allocFieldWithRect:CGRectMake(204, 546, 176, 92) andF:48 andValue:@"2" andTag:Two andType:KeyType andVC:_vc caller:self];
-        _three = [Field allocFieldWithRect:CGRectMake(388, 546, 176, 92) andF:48 andValue:@"3" andTag:Three andType:KeyType andVC:_vc caller:self];
-        _clr = [Field allocFieldWithRect:CGRectMake(572, 546, 176, 92) andF:48 andValue:@CLR andTag:Clr andType:KeyType andVC:_vc caller:self];
+        _four = [Field allocFieldWithRect:CGRectMake(20, 644, 176, 92) andF:fontSize andValue:@"4" andTag:Four andType:KeyType andVC:_vc caller:self];
+        _five = [Field allocFieldWithRect:CGRectMake(204, 644, 176, 92) andF:fontSize andValue:@"5" andTag:Five andType:KeyType andVC:_vc caller:self];
+        _six = [Field allocFieldWithRect:CGRectMake(388, 644, 176, 92) andF:fontSize andValue:@"6" andTag:Six andType:KeyType andVC:_vc caller:self];
+        _del = [Field allocFieldWithRect:CGRectMake(572, 644, 176, 92) andF:fontSize andValue:@DEL andTag:Del andType:KeyType andVC:_vc caller:self];
         
-        _four = [Field allocFieldWithRect:CGRectMake(20, 644, 176, 92) andF:48 andValue:@"4" andTag:Four andType:KeyType andVC:_vc caller:self];
-        _five = [Field allocFieldWithRect:CGRectMake(204, 644, 176, 92) andF:48 andValue:@"5" andTag:Five andType:KeyType andVC:_vc caller:self];
-        _six = [Field allocFieldWithRect:CGRectMake(388, 644, 176, 92) andF:48 andValue:@"6" andTag:Six andType:KeyType andVC:_vc caller:self];
-        _del = [Field allocFieldWithRect:CGRectMake(572, 644, 176, 92) andF:48 andValue:@DEL andTag:Del andType:KeyType andVC:_vc caller:self];
+        _seven = [Field allocFieldWithRect:CGRectMake(20, 742, 176, 92) andF:fontSize andValue:@"7" andTag:Seven andType:KeyType andVC:_vc caller:self];
+        _eight = [Field allocFieldWithRect:CGRectMake(204, 742, 176, 92) andF:fontSize andValue:@"8" andTag:Eight andType:KeyType andVC:_vc caller:self];
+        _nine = [Field allocFieldWithRect:CGRectMake(388, 742, 176, 92) andF:fontSize andValue:@"9" andTag:Nine andType:KeyType andVC:_vc caller:self];
+        _store = [Field allocFieldWithRect:CGRectMake(572, 742, 176, 92) andF:fontSize andValue:@STORE andTag:Store andType:KeyType andVC:_vc caller:self];
         
-        _seven = [Field allocFieldWithRect:CGRectMake(20, 742, 176, 92) andF:48 andValue:@"7" andTag:Seven andType:KeyType andVC:_vc caller:self];
-        _eight = [Field allocFieldWithRect:CGRectMake(204, 742, 176, 92) andF:48 andValue:@"8" andTag:Eight andType:KeyType andVC:_vc caller:self];
-        _nine = [Field allocFieldWithRect:CGRectMake(388, 742, 176, 92) andF:48 andValue:@"9" andTag:Nine andType:KeyType andVC:_vc caller:self];
-        _store = [Field allocFieldWithRect:CGRectMake(572, 742, 176, 92) andF:48 andValue:@STORE andTag:Store andType:KeyType andVC:_vc caller:self];
-        
-        _period = [Field allocFieldWithRect:CGRectMake(20, 840, 176, 92) andF:48 andValue:@"." andTag:Period andType:KeyType andVC:_vc caller:self];
-        _zero = [Field allocFieldWithRect:CGRectMake(204, 840, 176, 92) andF:48 andValue:@"0" andTag:Zero andType:KeyType andVC:_vc caller:self];
+        _period = [Field allocFieldWithRect:CGRectMake(20, 840, 176, 92) andF:fontSize andValue:@"." andTag:Period andType:KeyType andVC:_vc caller:self];
+        _zero = [Field allocFieldWithRect:CGRectMake(204, 840, 176, 92) andF:fontSize andValue:@"0" andTag:Zero andType:KeyType andVC:_vc caller:self];
         _next = [Field allocFieldWithRect:CGRectMake(388, 840, 360, 92) andF:36 andValue:@NEXT andTag:Next andType:KeyType andVC:_vc caller:self];
     } else {
         abort();

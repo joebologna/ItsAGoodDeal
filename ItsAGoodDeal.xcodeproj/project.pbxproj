@@ -76,12 +76,6 @@
 		3B4173F0179DF28F0028D1E1 /* .project */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = .project; sourceTree = "<group>"; };
 		3B4173F2179DF28F0028D1E1 /* grabFrames */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = grabFrames; sourceTree = "<group>"; };
 		3B4173F3179DF28F0028D1E1 /* IGDCalcs.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = IGDCalcs.numbers; sourceTree = "<group>"; };
-		3B4173F4179DF28F0028D1E1 /* iPadC.fields */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iPadC.fields; sourceTree = "<group>"; };
-		3B4173F5179DF28F0028D1E1 /* iPadC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPadC.xib; sourceTree = "<group>"; };
-		3B4173F6179DF28F0028D1E1 /* iPhone3.5C.fields */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iPhone3.5C.fields; sourceTree = "<group>"; };
-		3B4173F7179DF28F0028D1E1 /* iPhone3.5C.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPhone3.5C.xib; sourceTree = "<group>"; };
-		3B4173F8179DF28F0028D1E1 /* iPhone4C.fields */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iPhone4C.fields; sourceTree = "<group>"; };
-		3B4173F9179DF28F0028D1E1 /* iPhone4C.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iPhone4C.xib; sourceTree = "<group>"; };
 		3B4173FB179DF28F0028D1E1 /* 2013-06-15-EBD-logic.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2013-06-15-EBD-logic.txt"; sourceTree = "<group>"; };
 		3B4173FC179DF28F0028D1E1 /* BetterDealCalcs.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = BetterDealCalcs.numbers; sourceTree = "<group>"; };
 		3B4173FD179DF28F0028D1E1 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
@@ -196,12 +190,6 @@
 				3B4173F0179DF28F0028D1E1 /* .project */,
 				3B4173F2179DF28F0028D1E1 /* grabFrames */,
 				3B4173F3179DF28F0028D1E1 /* IGDCalcs.numbers */,
-				3B4173F4179DF28F0028D1E1 /* iPadC.fields */,
-				3B4173F5179DF28F0028D1E1 /* iPadC.xib */,
-				3B4173F6179DF28F0028D1E1 /* iPhone3.5C.fields */,
-				3B4173F7179DF28F0028D1E1 /* iPhone3.5C.xib */,
-				3B4173F8179DF28F0028D1E1 /* iPhone4C.fields */,
-				3B4173F9179DF28F0028D1E1 /* iPhone4C.xib */,
 				3B4173FA179DF28F0028D1E1 /* Old */,
 			);
 			path = Design;
@@ -238,9 +226,9 @@
 				3B55754B176FAADA005EEB51 /* IGDUnitTests.m */,
 				3BC2893D1799F48300D884BB /* FieldsClassUnitTests.h */,
 				3BC2893E1799F48300D884BB /* FieldsClassUnitTests.m */,
-				3B557545176FAADA005EEB51 /* Supporting Files */,
 				3B3C28DC17A5A54000B36EF6 /* gridTests.h */,
 				3B3C28DD17A5A54000B36EF6 /* gridTests.m */,
+				3B557545176FAADA005EEB51 /* Supporting Files */,
 			);
 			path = IGDUnitTests;
 			sourceTree = "<group>";

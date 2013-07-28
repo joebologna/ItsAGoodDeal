@@ -23,22 +23,18 @@
     NSLog(@"%.2f, %.2f, %.2f, %.2f", r.origin.x, r.origin.y, r.size.width, r.size.height);
 }
 
-- (void)testGrid {
-    CGPoint spacing = CGPointMake(2, 2);
-    CGRect base = CGRectMake(200, 200, 100, 50);
-    int nrows = 4;
-    for (int row = 0; row < nrows; row++) {
-        CGRect r = CGRectMake(base.origin.x + spacing.x * row, base.origin.y + spacing.y * row, base.size.width, base.size.height);
-        [self printRect:r];
-    }
-}
-
 - (void)testGridObject {
+    CGPoint origin = CGPointMake(200, 200);
+    CGPoint size = CGPointMake(100, 50);
     CGPoint spacing = CGPointMake(2, 2);
-    CGRect base = CGRectMake(200, 200, 100, 50);
-    Grid *grid = [Grid initWithBase:&base andSpacing:&spacing];
-    [grid makeGridRows:4 andCols:4];
+    Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+    [grid makeGridWithRows:4 andCols:4];
     [grid printGrid];
+    for (int row = 0; row < 4; row++) {
+        for (int col = 0; col < 4; col++) {
+            printf("[%d,%d] (%s)\n", row, col, [[grid rectToString:[grid getRectAtX:row andY:col]] UTF8String]);
+        }
+    }
 }
 
 @end
