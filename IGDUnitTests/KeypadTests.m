@@ -9,7 +9,7 @@
 #import "KeypadTests.h"
 #import "NSObject+Utils.h"
 
-static float ***grid;
+static float ***gridArray;
 
 @implementation KeypadTests
 
@@ -72,9 +72,7 @@ static float ***grid;
 *((float *)grid + (d * 3 * 4 * r) + 2) = w; \
 *((float *)grid + (d * 3 * 4 * r) + 3) = h;
 
-- (void)makeGrid {
-    grid = malloc(sizeof(float) * 3 * 4 * 4);
-    memset(grid, sizeof(float), 3 * 4 * 4);
+- (void)makeGrid:(float ****)grid devices:(DeviceType [])d rows:(int)rows {
     NSLog(@"iPhone4");
     {
         float xb = 20, yb = 200, xw = 64, yh = 46, xs = 8, ys = 2;
@@ -119,11 +117,20 @@ static float ***grid;
 }
 
 - (void)testGrid {
-    [self makeGrid];
+    //- (void)makeGrid:(float ****)grid devices:(DeviceType [])d rows:(int)rows {
+
+    int rows = 4;
+    DeviceType devices[] = {iPhone4, iPhone5, iPad};
+    int n = sizeof(float) * (sizeof(devices) / sizeof(DeviceType)) * rows * (sizeof(CGRect) / sizeof(float));
+    gridArray = malloc(n);
+    memset(gridArray, sizeof(float), n);
+    [self makeGrid:&gridArray devices:devices rows:rows];
 }
 
 - (void)dealloc:(id)sender {
-    free(grid);
+    if (*gridArray != 0) {
+        free(gridArray);
+    }
 }
 
 @end
