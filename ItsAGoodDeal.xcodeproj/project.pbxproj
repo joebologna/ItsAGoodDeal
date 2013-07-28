@@ -12,6 +12,7 @@
 		3B3D38A3179D5F800010A94F /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DC17778EE00041D6C0 /* MyButton.m */; };
 		3B3D38A4179D5FAE0010A94F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730728175EC9F500873194 /* CoreGraphics.framework */; };
 		3B3D38A5179D5FB60010A94F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF4FA917601B3C00964B0E /* QuartzCore.framework */; };
+		3B544EB517A4CD2500AD5282 /* KeypadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B544EB417A4CD2500AD5282 /* KeypadTests.m */; };
 		3B557541176FAADA005EEB51 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B557540176FAADA005EEB51 /* SenTestingKit.framework */; };
 		3B557542176FAADA005EEB51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730724175EC9F500873194 /* UIKit.framework */; };
 		3B557543176FAADA005EEB51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730726175EC9F500873194 /* Foundation.framework */; };
@@ -35,7 +36,6 @@
 		3B73073E175EC9F500873194 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073C175EC9F500873194 /* MainStoryboard_iPhone.storyboard */; };
 		3B730741175EC9F500873194 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */; };
 		3BC2893C1799F12B00D884BB /* Fields.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893A1799F12B00D884BB /* Fields.m */; };
-		3BC289401799F48300D884BB /* FieldsClassUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893E1799F48300D884BB /* FieldsClassUnitTests.m */; };
 		3BC289441799FFDD00D884BB /* Field.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC289421799FFDD00D884BB /* Field.m */; };
 		3BD2866C1762E97100A9AEE4 /* scale-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BD2866B1762E97100A9AEE4 /* scale-57x57.png */; };
 		3BD2866E1762EAAC00A9AEE4 /* scale-144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BD2866D1762EAAC00A9AEE4 /* scale-144x144.png */; };
@@ -85,6 +85,8 @@
 		3B417402179DF28F0028D1E1 /* pull */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = pull; sourceTree = "<group>"; };
 		3B417403179DF28F0028D1E1 /* push */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = push; sourceTree = "<group>"; };
 		3B417404179DF28F0028D1E1 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		3B544EB317A4CD2500AD5282 /* KeypadTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeypadTests.h; sourceTree = "<group>"; };
+		3B544EB417A4CD2500AD5282 /* KeypadTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeypadTests.m; sourceTree = "<group>"; };
 		3B55753F176FAADA005EEB51 /* IGDUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IGDUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B557540176FAADA005EEB51 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		3B557546176FAADA005EEB51 /* IGDUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IGDUnitTests-Info.plist"; sourceTree = "<group>"; };
@@ -232,6 +234,8 @@
 				3B55754B176FAADA005EEB51 /* IGDUnitTests.m */,
 				3BC2893D1799F48300D884BB /* FieldsClassUnitTests.h */,
 				3BC2893E1799F48300D884BB /* FieldsClassUnitTests.m */,
+				3B544EB317A4CD2500AD5282 /* KeypadTests.h */,
+				3B544EB417A4CD2500AD5282 /* KeypadTests.m */,
 				3B557545176FAADA005EEB51 /* Supporting Files */,
 			);
 			path = IGDUnitTests;
@@ -534,8 +538,8 @@
 				3B3D38A3179D5F800010A94F /* MyButton.m in Sources */,
 				3BE052E617778EE00041D6C0 /* NSObject+Utils.m in Sources */,
 				3BC2893C1799F12B00D884BB /* Fields.m in Sources */,
-				3BC289401799F48300D884BB /* FieldsClassUnitTests.m in Sources */,
 				3BC289441799FFDD00D884BB /* Field.m in Sources */,
+				3B544EB517A4CD2500AD5282 /* KeypadTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

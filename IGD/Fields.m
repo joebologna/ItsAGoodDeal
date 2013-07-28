@@ -397,9 +397,6 @@
     self.curField = self.priceA;
 }
 
-// round to 2 decimal places
-// #define r2(F) (roundf(F * 100.0) / 100.0)
-
 - (void)calcSavings {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
