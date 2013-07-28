@@ -21,8 +21,8 @@ typedef enum {
 - (NSString *)fmtPrice:(float)price;
 - (NSString *)currencySymbol;
 - (DeviceType)getDeviceType;
+- (NSString *)getDeviceTypeString;
 - (BOOL)isPhone;
-- (NSString *)getDeviceTypeString:(DeviceType)d;
 
 @end
 

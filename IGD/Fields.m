@@ -12,7 +12,7 @@
 
 @dynamic toString;
 - (NSString *)toString {
-	return [NSString stringWithFormat:@".deviceType: %@, %@", [self getDeviceTypeString:self.deviceType], self.fieldValues];
+	return [NSString stringWithFormat:@".deviceType: %@, %@", self.getDeviceTypeString, self.fieldValues];
 }
 
 @dynamic fieldValues;
@@ -194,7 +194,7 @@
 // builders
 - (void)buildScreen {
 #ifdef DEBUG
-    NSLog(@"%s, %@", __func__, [self getDeviceTypeString:self.getDeviceType]);
+    NSLog(@"%s, %@", __func__, self.getDeviceTypeString);
 #endif
     float y, yHeight, ySpacing, fieldWidth;
     if (self.deviceType == iPhone4) {

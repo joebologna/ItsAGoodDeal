@@ -53,13 +53,8 @@
     return iPad;
 }
 
-- (BOOL)isPhone {
-    DeviceType d = [self getDeviceType];
-    return (d == iPhone4 || d == iPhone5);
-}
-
-- (NSString *)getDeviceTypeString:(DeviceType)d {
-    switch(d) {
+- (NSString *)getDeviceTypeString {
+    switch(self.getDeviceType) {
         case iPhone4: return @"iPhone4";
         case iPhone5: return @"iPhone5";
         case iPad: return @"iPad";
@@ -68,4 +63,8 @@
     }
 }
 
+- (BOOL)isPhone {
+    DeviceType d = [self getDeviceType];
+    return (d == iPhone4 || d == iPhone5);
+}
 @end
