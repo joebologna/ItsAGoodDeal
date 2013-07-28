@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3B312C0B17602A8F00AF12F9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B312C0A17602A8F00AF12F9 /* iAd.framework */; };
 		3B3A62F91761557700C7DD46 /* ButtonGradient3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B3A62F61761557700C7DD46 /* ButtonGradient3.png */; };
+		3B3C28DA17A5753700B36EF6 /* NSObject+Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C28D917A5753700B36EF6 /* NSObject+Grid.m */; };
+		3B3C28DB17A5753700B36EF6 /* NSObject+Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C28D917A5753700B36EF6 /* NSObject+Grid.m */; };
 		3B3D38A3179D5F800010A94F /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DC17778EE00041D6C0 /* MyButton.m */; };
 		3B3D38A4179D5FAE0010A94F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B730728175EC9F500873194 /* CoreGraphics.framework */; };
 		3B3D38A5179D5FB60010A94F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF4FA917601B3C00964B0E /* QuartzCore.framework */; };
@@ -66,6 +68,8 @@
 		3B031DD117A0A8500039A5A5 /* KeyboardSupport.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = KeyboardSupport.numbers; sourceTree = "<group>"; };
 		3B312C0A17602A8F00AF12F9 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		3B3A62F61761557700C7DD46 /* ButtonGradient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGradient3.png; sourceTree = "<group>"; };
+		3B3C28D817A5753700B36EF6 /* NSObject+Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Grid.h"; path = "Lib/NSObject+Grid.h"; sourceTree = "<group>"; };
+		3B3C28D917A5753700B36EF6 /* NSObject+Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Grid.m"; path = "Lib/NSObject+Grid.m"; sourceTree = "<group>"; };
 		3B4173EF179DF28F0028D1E1 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		3B4173F0179DF28F0028D1E1 /* .project */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = .project; sourceTree = "<group>"; };
 		3B4173F2179DF28F0028D1E1 /* grabFrames */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = grabFrames; sourceTree = "<group>"; };
@@ -375,6 +379,8 @@
 				3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */,
 				3BE052DF17778EE00041D6C0 /* NSObject+Utils.h */,
 				3BE052E017778EE00041D6C0 /* NSObject+Utils.m */,
+				3B3C28D817A5753700B36EF6 /* NSObject+Grid.h */,
+				3B3C28D917A5753700B36EF6 /* NSObject+Grid.m */,
 			);
 			name = Lib;
 			sourceTree = "<group>";
@@ -540,6 +546,7 @@
 				3BC2893C1799F12B00D884BB /* Fields.m in Sources */,
 				3BC289441799FFDD00D884BB /* Field.m in Sources */,
 				3B544EB517A4CD2500AD5282 /* KeypadTests.m in Sources */,
+				3B3C28DB17A5753700B36EF6 /* NSObject+Grid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +572,7 @@
 				3BE052E317778EE00041D6C0 /* MyStoreObserver.m in Sources */,
 				3BE052E517778EE00041D6C0 /* NSObject+Utils.m in Sources */,
 				3B71F531179C43C900E52260 /* IGDViewController.m in Sources */,
+				3B3C28DA17A5753700B36EF6 /* NSObject+Grid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

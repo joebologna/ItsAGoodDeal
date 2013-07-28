@@ -7,11 +7,9 @@
 //
 
 #import "KeypadTests.h"
-#import "NSObject+Utils.h"
+#import "NSObject+Grid.h"
 
 static float ***grid = (float ***)0;
-
-typedef struct {DeviceType d; float xb;float yb; float xw; float yh; float xs; float ys;} devGrid;
 
 @interface KeypadTests() {DeviceType *deviceType;};
 
@@ -68,45 +66,6 @@ typedef struct {DeviceType d; float xb;float yb; float xw; float yh; float xs; f
                    r[i][row].origin.y,
                    r[i][row].size.width,
                    r[i][row].size.height);
-        }
-    }
-}
-
-#define RECT(d, r, x, y, w, h) \
-*((float *)grid + (d * 3 * 4 * r) + 0) = x; \
-*((float *)grid + (d * 3 * 4 * r) + 1) = y; \
-*((float *)grid + (d * 3 * 4 * r) + 2) = w; \
-*((float *)grid + (d * 3 * 4 * r) + 3) = h;
-
-- (void)makeGrid:(float ****)grid devices:(devGrid [])devices ndevices:(int)ndevices rows:(int)nrows {
-    int n = sizeof(float) * ndevices * nrows * (sizeof(CGRect) / sizeof(float));
-    if (grid == (float ****)0) {
-        grid = malloc(n);
-        memset(grid, sizeof(float), n);
-    }
-    
-    for (int i = 0; i < ndevices; i++) {
-        devGrid *d = &devices[i];
-        NSLog(@"%d", d->d);
-        for (int row = 0; row < nrows; row++) {
-            float x = d->xb + (d->xw + d->xs) * row;
-            float y = d->yb + (d->yh + d->ys);
-            float xw = d->xw;
-            float yh = d->yh;
-            printf("%.2f, %.2f, %.2f, %.2f\n", x, y, xw, yh);
-            RECT(d->d, row, x, y, xw, yh);
-        }
-    }
-
-    for (int i = iPhone4; i <= iPad; i++) {
-        NSLog(@"%d", i);
-        for (int row = 0; row < nrows; row++) {
-            CGRect *r = (CGRect *)(grid + (i * ndevices * nrows * row));
-            printf("%.2f, %.2f, %.2f, %.2f\n",
-                   r->origin.x,
-                   r->origin.y,
-                   r->size.width,
-                   r->size.height);
         }
     }
 }
