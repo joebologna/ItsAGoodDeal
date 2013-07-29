@@ -411,6 +411,18 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
+    
+    if (![self.priceA.value isEqualToString:@""]) {
+        if ([self.numItemsA.value isEqualToString:@""]) {
+            self.numItemsA.value = @"1";
+        }
+    }
+    if (![self.priceB.value isEqualToString:@""]) {
+        if ([self.numItemsB.value isEqualToString:@""]) {
+            self.numItemsB.value = @"1";
+        }
+    }
+    
     BOOL allSet = YES;
     for (Field *f in self.inputFields) {
         if (f.floatValue == 0.0) {
