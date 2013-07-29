@@ -13,10 +13,10 @@
 #import "Fields.h"
 #import "MyButton.h"
 
-@interface IGDViewController : UIViewController <MyStoreObserverDelegate>
+@interface IGDViewController : UIViewController <MyStoreObserverDelegate, TraverseViewDelegate>
 
 @property (strong, nonatomic) Fields *fields;
 
-- (void)buttonPushed:(MyButton *)sender;
+- (void)buttonPushed:(id)sender;
 
 @end

@@ -22,7 +22,9 @@ typedef enum {
     ShowResult
 } MessageMode;
 
-@interface Fields : NSObject
+@protocol TraverseViewDelegate;
+
+@interface Fields : NSObject <TraverseFieldsDelegate>
 
 - (Fields *)makeFields:(UIViewController *)vc;
 - (void)hideKeypad:(id)sender;
@@ -72,7 +74,12 @@ typedef enum {
 	*allFields,
 	*keys;
 
-@property (weak, nonatomic) UIViewController *vc;
+@property (weak, nonatomic) id vc;
 @property (strong, nonatomic) Field *curField;
 
+@end
+
+@protocol TraverseViewDelegate <NSObject>
+- (void)buttonPushed:(id)sender;
+- (void)addControl:(UIView *)control;
 @end

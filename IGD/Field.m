@@ -83,7 +83,6 @@
         _tag = FtagNotSet;
         _type = FieldTypeNotSet;
         _control = nil;
-        _vc = nil;
         _caller = nil;
         previousPlaceholder = @"";
     }
@@ -94,7 +93,7 @@
     return [[Field alloc] init];
 }
 
-+ (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t andVC:(UIViewController *)vc caller:(id)c {
++ (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t caller:(id)c {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
@@ -105,7 +104,6 @@
     field.tag = tag;
     field.type = t;
     field.control = nil; // allocate it later;
-    field.vc = vc;
     field.caller = c;
     return field;
 }
@@ -131,15 +129,15 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    [self.vc performSelector:@selector(buttonPushed:) withObject:sender];
+    [self.caller buttonPushed:sender];
 }
 
-- (void)toolBarButtonPushed:(id)sender {
-#ifdef DEBUG
-    NSLog(@"%s", __func__);
-#endif
-    [self buttonPushed:sender];
-}
+//- (void)toolBarButtonPushed:(id)sender {
+//#ifdef DEBUG
+//    NSLog(@"%s", __func__);
+//#endif
+//    [self buttonPushed:sender];
+//}
 
 - (void)makeButton {
 #ifdef DEBUG
@@ -218,15 +216,15 @@
 
     UIBarButtonItem *f = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    prevButton = [[UIBarButtonItem alloc] initWithTitle:PREVBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(toolBarButtonPushed:)];
+    prevButton = [[UIBarButtonItem alloc] initWithTitle:PREVBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
     prevButton.style = UIBarButtonItemStyleBordered;
     prevButton.tag = PrevButton;
 
-    calcButton = [[UIBarButtonItem alloc] initWithTitle:CALCBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(toolBarButtonPushed:)];
+    calcButton = [[UIBarButtonItem alloc] initWithTitle:CALCBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
     calcButton.style = UIBarButtonItemStyleBordered;
     calcButton.tag = CalcButton;
     
-    nextButton = [[UIBarButtonItem alloc] initWithTitle:NEXTBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(toolBarButtonPushed:)];
+    nextButton = [[UIBarButtonItem alloc] initWithTitle:NEXTBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
     nextButton.style = UIBarButtonItemStyleBordered;
     nextButton.tag = NextButton;
     
@@ -249,11 +247,11 @@
     NSLog(@"%s", __func__);
 #endif
     // could be a directTap...
-    [self.caller performSelector:@selector(gotoFieldWithControl:) withObject:textField];
+    [self.caller gotoFieldWithControl:textField];
     textField.inputAccessoryView = rowOfKeys;
     textField.keyboardType = [self isPhone] ? UIKeyboardTypeDecimalPad : UIKeyboardTypeNumberPad;
     if (![self isPhone]) {
-        [self.caller performSelector:@selector(hideKeypad:) withObject:self];
+        [self.caller hideKeypad:self];
     }
     textField.text = self.value;
     previousPlaceholder = textField.placeholder;
@@ -274,7 +272,7 @@
 #endif
     textField.text = [self isCurrency] ? [self fmtPrice:self.floatValue] : self.value;
     textField.placeholder = previousPlaceholder;
-    [self.caller performSelector:@selector(showKeypad:) withObject:self];
+    [self.caller showKeypad:self];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -282,9 +280,9 @@
     NSLog(@"%s", __func__);
 #endif
     if (self.tag == NumItemsB) {
-        [self toolBarButtonPushed:calcButton];
+        [self buttonPushed:calcButton];
     } else {
-        [self toolBarButtonPushed:nextButton];
+        [self buttonPushed:nextButton];
     }
     return YES;
 }

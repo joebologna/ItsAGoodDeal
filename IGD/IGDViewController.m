@@ -101,37 +101,40 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 }
 #endif
 
-- (void)buttonPushed:(MyButton *)sender {
+- (void)buttonPushed:(id)sender {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
     
 #ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
-    if ([sender isKindOfClass:[NSString class]]) {
-        sender = [self mapKeyToButton:(NSString *)sender];
-        if (sender == nil) return;
+    
+    MyButton *button = (MyButton *)sender;
+    
+    if ([button isKindOfClass:[NSString class]]) {
+        button = [self mapKeyToButton:(NSString *)button];
+        if (button == nil) return;
     }
     // else .tag can come from a UIBarButtonItem, it will get picked up below
 #endif
     
-    if (sender.tag == Next) {
+    if (button.tag == Next) {
         [self.fields gotoNextField:NO];
-    } else if (sender.tag == NextButton) {
+    } else if (button.tag == NextButton) {
         [self.fields gotoNextField:YES];
-    } else if (sender.tag == PrevButton) {
+    } else if (button.tag == PrevButton) {
         [self.fields gotoPrevField:YES];
-    } else if (sender.tag == CalcButton) {
+    } else if (button.tag == CalcButton) {
 #ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
         [self.fields.curField.control resignFirstResponder];
         [self.fields showKeypad:nil];
 #endif
         [self.fields calcSavings];
-    } else if (sender.tag <= Period) {
+    } else if (button.tag <= Period) {
         NSString *s = self.fields.curField.value;
-        if (sender.tag == Period) {
+        if (button.tag == Period) {
             NSRange r = [s rangeOfString:@"."];
             if (r.location == NSNotFound) {
-                self.fields.curField.value = [s stringByAppendingString:sender.titleLabel.text];
+                self.fields.curField.value = [s stringByAppendingString:button.titleLabel.text];
             }
 #ifdef DEBUG
             else {
@@ -139,20 +142,20 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
             }
 #endif
         } else {
-            self.fields.curField.value = [s stringByAppendingString:sender.titleLabel.text];
+            self.fields.curField.value = [s stringByAppendingString:button.titleLabel.text];
         }
-    } else if (sender.tag == Clr) {
+    } else if (button.tag == Clr) {
         for (Field *f in self.fields.inputFields) {
             f.value = @"";
         }
         self.fields.curField = self.fields.inputFields[0];
         self.fields.curField.value = @"";
-    } else if (sender.tag == Del) {
+    } else if (button.tag == Del) {
         NSString *s = self.fields.curField.value;
         if (s.length > 0) {
             self.fields.curField.value = [s substringToIndex:s.length - 1];
         }
-    } else if (sender.tag == Store) {
+    } else if (button.tag == Store) {
         if (!myStoreObserver.bought) {
             if ([SKPaymentQueue canMakePayments]) {
                 [self removeAds];
@@ -270,6 +273,13 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@STORE message:s delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
     alert.delegate = self;
     [alert show];
+}
+
+- (void)addControl:(UIView *)control {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    [self.view addSubview:control];
 }
 
 @end

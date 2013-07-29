@@ -119,7 +119,7 @@
     return self;
 }
 
-- (Fields *)makeFields:(UIViewController *)vc {
+- (Fields *)makeFields:(id)vc {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
@@ -225,8 +225,8 @@
         
         int row = 0;
         int col = 0;
-        _itemA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal A" andTag:ItemA andType:LabelField andVC:_vc caller:self];
-        _itemB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal B" andTag:ItemB andType:LabelField andVC:_vc caller:self];
+        _itemA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal A" andTag:ItemA andType:LabelField caller:self];
+        _itemB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal B" andTag:ItemB andType:LabelField caller:self];
     }
     
     // input fields
@@ -255,16 +255,16 @@
         
         int row = 0;
         int col = 0;
-        _priceA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceA andType:LabelField andVC:_vc caller:self];
-        _priceB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceB andType:LabelField andVC:_vc caller:self];
+        _priceA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceA andType:LabelField caller:self];
+        _priceB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceB andType:LabelField caller:self];
         
         row++; col = 0;
-        _unitsEachA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:_vc caller:self];
-        _unitsEachB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:_vc caller:self];
+        _unitsEachA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField caller:self];
+        _unitsEachB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField caller:self];
 
         row++; col = 0;
-        _numItemsA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:_vc caller:self];
-        _numItemsB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:_vc caller:self];
+        _numItemsA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsA andType:LabelField caller:self];
+        _numItemsB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsB andType:LabelField caller:self];
     }
     
     // unit cost
@@ -293,8 +293,8 @@
         
         int row = 0;
         int col = 0;
-        _unitCostA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostA andType:LabelField andVC:_vc caller:self];
-        _unitCostB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostB andType:LabelField andVC:_vc caller:self];
+        _unitCostA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostA andType:LabelField caller:self];
+        _unitCostB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostB andType:LabelField caller:self];
     }
     
         // message
@@ -319,7 +319,7 @@
         Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
         [grid makeGridWithRows:4 andCols:4];
         
-        _message = [Field allocFieldWithRect:[grid getRectAtX:0 andY:0] andF:fontSize andValue:@PROMPT andTag:Message andType:LabelField andVC:_vc caller:self];
+        _message = [Field allocFieldWithRect:[grid getRectAtX:0 andY:0] andF:fontSize andValue:@PROMPT andTag:Message andType:LabelField caller:self];
     }
     
     // keypad
@@ -354,29 +354,29 @@
         
         int row = 0;
         int col = 0;
-        _one = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"1" andTag:One andType:KeyType andVC:_vc caller:self];
-        _two = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"2" andTag:Two andType:KeyType andVC:_vc caller:self];
-        _three = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"3" andTag:Three andType:KeyType andVC:_vc caller:self];
-        _clr = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@CLR andTag:Clr andType:KeyType andVC:_vc caller:self];
+        _one = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"1" andTag:One andType:KeyType caller:self];
+        _two = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"2" andTag:Two andType:KeyType caller:self];
+        _three = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"3" andTag:Three andType:KeyType caller:self];
+        _clr = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@CLR andTag:Clr andType:KeyType caller:self];
         
         col = 0; row++;
-        _four = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"4" andTag:Four andType:KeyType andVC:_vc caller:self];
-        _five = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"5" andTag:Five andType:KeyType andVC:_vc caller:self];
-        _six = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"6" andTag:Six andType:KeyType andVC:_vc caller:self];
-        _del = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@DEL andTag:Del andType:KeyType andVC:_vc caller:self];
+        _four = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"4" andTag:Four andType:KeyType caller:self];
+        _five = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"5" andTag:Five andType:KeyType caller:self];
+        _six = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"6" andTag:Six andType:KeyType caller:self];
+        _del = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@DEL andTag:Del andType:KeyType caller:self];
         
         col = 0; row++;
-        _seven = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"7" andTag:Seven andType:KeyType andVC:_vc caller:self];
-        _eight = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"8" andTag:Eight andType:KeyType andVC:_vc caller:self];
-        _nine = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"9" andTag:Nine andType:KeyType andVC:_vc caller:self];
-        _store = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@STORE andTag:Store andType:KeyType andVC:_vc caller:self];
+        _seven = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"7" andTag:Seven andType:KeyType caller:self];
+        _eight = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"8" andTag:Eight andType:KeyType caller:self];
+        _nine = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"9" andTag:Nine andType:KeyType caller:self];
+        _store = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@STORE andTag:Store andType:KeyType caller:self];
         
         col = 0; row++;
-        _period = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"." andTag:Period andType:KeyType andVC:_vc caller:self];
-        _zero = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"0" andTag:Zero andType:KeyType andVC:_vc caller:self];
+        _period = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"." andTag:Period andType:KeyType caller:self];
+        _zero = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"0" andTag:Zero andType:KeyType caller:self];
         CGRect r = [grid getRectAtX:row andY:col++];
         r.size.width = nextKeyWidth;
-        _next = [Field allocFieldWithRect:r andF:nextKeyFontSize andValue:@NEXT andTag:Next andType:KeyType andVC:_vc caller:self];
+        _next = [Field allocFieldWithRect:r andF:nextKeyFontSize andValue:@NEXT andTag:Next andType:KeyType caller:self];
     }
 }
 
@@ -390,7 +390,7 @@
     } else {
         [f makeField];
     }
-    [self.vc.view addSubview:f.control];
+    [self.vc addControl:f.control];
 }
 
 - (void)populateScreen {
@@ -450,6 +450,10 @@
         ((UITextField *)self.unitCostA.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostA]];
         ((UITextField *)self.unitCostB.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostB]];
     }
+}
+
+- (void)buttonPushed:(id)sender {
+    [self.vc buttonPushed:sender];
 }
 
 @end

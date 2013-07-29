@@ -69,6 +69,9 @@ typedef enum {
     KeyType
 } FieldType;
 
+
+@protocol TraverseFieldsDelegate;
+
 #ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 @interface Field : NSObject <UITextFieldDelegate, UITextInputTraits>
 #else
@@ -76,7 +79,7 @@ typedef enum {
 #endif
 
 + (Field *)allocField;
-+ (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t andVC:(UIViewController *)vc caller:(id)caller;
++ (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t caller:(id)caller;
 
 - (void)makeButton;
 - (void)makeField;
@@ -90,10 +93,18 @@ typedef enum {
 @property (unsafe_unretained, nonatomic) FTAG tag;
 @property (unsafe_unretained, nonatomic) FieldType type;
 @property (strong, nonatomic) UIView *control;
-@property (unsafe_unretained, nonatomic) UIViewController *vc;
 @property (unsafe_unretained, nonatomic) id caller;
 
 @property (strong, nonatomic, readonly) NSString *toString, *tagToString, *rectToString, *fTagToString;
 @property (unsafe_unretained, nonatomic, readonly) CGFloat floatValue;
+
+@end
+
+@protocol TraverseFieldsDelegate <NSObject>
+
+- (void)gotoFieldWithControl:(UITextField *)textField;
+- (void)hideKeypad:(Field *)field;
+- (void)showKeypad:(Field *)field;
+- (void)buttonPushed:(id)sender;
 
 @end
