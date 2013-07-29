@@ -101,10 +101,9 @@ typedef enum {
 @end
 
 @protocol TraverseFieldsDelegate <NSObject>
-
 - (void)gotoFieldWithControl:(UITextField *)textField;
 - (void)hideKeypad:(Field *)field;
 - (void)showKeypad:(Field *)field;
 - (void)buttonPushed:(id)sender;
-
+- (void)fieldWasSelected:(Field *)field;
 @end

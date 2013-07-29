@@ -296,7 +296,7 @@
 #endif
     // clear field on direct tap
     self.value = @"";
-    [self.caller performSelector:@selector(fieldWasSelected:) withObject:self];
+    [self.caller fieldWasSelected:self];
     return NO;
 }
 
