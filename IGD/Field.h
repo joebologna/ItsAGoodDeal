@@ -22,11 +22,9 @@
 #define KTAG_BASE 200
 #define BTAG_BASE 300
 
-#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 #define PREVBUTTON @"     Previous    "
 #define CALCBUTTON @"    Calculate    "
 #define NEXTBUTTON @"       Next      "
-#endif
 
 typedef enum {
     ItemA = FTAG_BASE,
@@ -72,11 +70,7 @@ typedef enum {
 
 @protocol TraverseFieldsDelegate;
 
-#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 @interface Field : NSObject <UITextFieldDelegate, UITextInputTraits>
-#else
-@interface Field : NSObject <UITextFieldDelegate>
-#endif
 
 + (Field *)allocField;
 + (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t caller:(id)caller;

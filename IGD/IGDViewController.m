@@ -87,7 +87,6 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #pragma mark -
 #pragma mark Handle Input
 
-#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 - (MyButton *)mapKeyToButton:(NSString *)sender {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
@@ -99,14 +98,11 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     }
     return nil;
 }
-#endif
 
 - (void)buttonPushed:(id)sender {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    
-#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
     
     MyButton *button = (MyButton *)sender;
     
@@ -115,7 +111,6 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
         if (button == nil) return;
     }
     // else .tag can come from a UIBarButtonItem, it will get picked up below
-#endif
     
     if (button.tag == Next) {
         [self.fields gotoNextField:NO];
@@ -124,10 +119,8 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     } else if (button.tag == PrevButton) {
         [self.fields gotoPrevField:YES];
     } else if (button.tag == CalcButton) {
-#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
         [self.fields.curField.control resignFirstResponder];
         [self.fields showKeypad:nil];
-#endif
         [self.fields calcSavings];
     } else if (button.tag <= Period) {
         NSString *s = self.fields.curField.value;

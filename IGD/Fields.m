@@ -62,9 +62,9 @@
         NSInteger i = [self.inputFields indexOfObject:self.curField];
         self.curField = self.inputFields[i + 1];
     }
-#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
-    if (grabKeyboard) [_curField.control becomeFirstResponder];
-#endif
+    if (grabKeyboard) {
+        [_curField.control becomeFirstResponder];
+    }
 }
 
 - (void)gotoPrevField:(BOOL)grabKeyboard {
@@ -78,9 +78,9 @@
         NSInteger i = [self.inputFields indexOfObject:self.curField];
         self.curField = self.inputFields[i - 1];
     }
-#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
-    if (grabKeyboard) [_curField.control becomeFirstResponder];
-#endif
+    if (grabKeyboard) {
+        [_curField.control becomeFirstResponder];
+    }
 }
 
 - (void)gotoFieldWithControl:(UITextField *)t {
@@ -173,7 +173,6 @@
     return self;
 }
 
-#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 - (void)hideKeypad:(id)sender {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
@@ -191,7 +190,6 @@
         f.control.hidden = NO;
     }
 }
-#endif
 
 // builders
 - (void)buildScreen {

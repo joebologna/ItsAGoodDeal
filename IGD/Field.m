@@ -8,14 +8,12 @@
 
 #import "Field.h"
 
-#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 @interface Field() {
     UIToolbar *rowOfKeys;
     UIBarButtonItem *prevButton, *calcButton, *nextButton;
     NSString *previousPlaceholder;
 }
 @end
-#endif
 
 @implementation Field
 
@@ -202,12 +200,8 @@
     
     self.control = (UIControl *)t;
 
-#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
     [self makeKeyboardToolBar];
-#endif // KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 }
-
-#ifdef KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
 
 - (void)makeKeyboardToolBar {
     rowOfKeys = [[UIToolbar alloc] init];
@@ -286,21 +280,4 @@
     }
     return YES;
 }
-
-#else
-// !KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-#ifdef DEBUG
-    NSLog(@"%s", __func__);
-#endif
-    // clear field on direct tap
-    self.value = @"";
-    [self.caller fieldWasSelected:self];
-    return NO;
-}
-
-// !KEYBOARD_FEATURE_CALLS_BUTTON_PUSHED
-#endif
-
 @end
