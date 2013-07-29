@@ -199,137 +199,130 @@
     NSLog(@"%s, %@", __func__, self.getDeviceTypeString);
 #endif
     
-    CGPoint origin, size, spacing;
-    float fontSize, nextKeyWidth, nextKeyFontSize;
-    if (self.deviceType == iPhone4) {
-        origin = CGPointMake(20, 200);
-        size = CGPointMake(64, 46);
-        spacing = CGPointMake(8, 2);
-        fontSize = 15;
-        nextKeyWidth = 136;
-        nextKeyFontSize = fontSize;
-    } else if (self.deviceType == iPhone5) {
-        origin = CGPointMake(20, 288);
-        size = CGPointMake(64, 46);
-        spacing = CGPointMake(8, 2);
-        fontSize = 15;
-        nextKeyWidth = 136;
-        nextKeyFontSize = fontSize;
-    } else {
-        origin = CGPointMake(20, 546);
-        size = CGPointMake(176, 92);
-        spacing = CGPointMake(8, 2);
-        fontSize = 48;
-        nextKeyWidth = 360;
-        nextKeyFontSize = 36;
+    // items
+    {
+        CGPoint origin, size, spacing;
+        float fontSize;
+        if (self.deviceType == iPhone4) {
+            origin = CGPointMake(1, 1);
+            size = CGPointMake(158, 154);
+            spacing = CGPointMake(2, 0);
+            fontSize = 14;
+        } else if (self.deviceType == iPhone5) {
+            origin = CGPointMake(1, 1);
+            size = CGPointMake(158, 196);
+            spacing = CGPointMake(2, 0);
+            fontSize = 14;
+        } else {
+            origin = CGPointMake(1, 1);
+            size = CGPointMake(768/2 - 2, 1024/3 + 50);
+            spacing = CGPointMake(2, 0);
+            fontSize = 30;
+        }
+        
+        Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+        [grid makeGridWithRows:4 andCols:4];
+        
+        int row = 0;
+        int col = 0;
+        _itemA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal A" andTag:ItemA andType:LabelField andVC:_vc caller:self];
+        _itemB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal B" andTag:ItemB andType:LabelField andVC:_vc caller:self];
     }
     
-    Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
-    [grid makeGridWithRows:4 andCols:4];
-    
-    float y, yHeight, ySpacing, fieldWidth;
-    if (self.deviceType == iPhone4) {
-        fieldWidth = 159;
-        y = 1;
-        yHeight = 156;
-        _itemA = [Field allocFieldWithRect:CGRectMake(1, y, fieldWidth, yHeight) andF:14 andValue:@"Deal A" andTag:ItemA andType:LabelField andVC:_vc caller:self];
-        _itemB = [Field allocFieldWithRect:CGRectMake(161, y, fieldWidth - 1, yHeight) andF:14 andValue:@"Deal B" andTag:ItemB andType:LabelField andVC:_vc caller:self];
+    // input fields
+    {
+        CGPoint origin, size, spacing;
+        float fontSize;
+        if (self.deviceType == iPhone4) {
+            origin = CGPointMake(10, 20);
+            size = CGPointMake(136, 30);
+            spacing = CGPointMake(28, 8);
+            fontSize = 17;
+        } else if (self.deviceType == iPhone5) {
+            origin = CGPointMake(10, 20);
+            size = CGPointMake(136, 42);
+            spacing = CGPointMake(28, 8);
+            fontSize = 17;
+        } else {
+            origin = CGPointMake(10, 60);
+            size = CGPointMake(768/2 - 15, 1024/12);
+            spacing = CGPointMake(8, 8);
+            fontSize = 34;
+        }
         
-        y = 20;
-        yHeight = 30;
-        ySpacing = yHeight + 8;
-        fieldWidth = 136;
-        _priceA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"Price" andTag:PriceA andType:LabelField andVC:_vc caller:self];
-        y += ySpacing;
-        _numItemsA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:_vc caller:self];
-        y += ySpacing;
-        _unitsEachA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:_vc caller:self];
-        ySpacing -= 5;
-        y += ySpacing;
-        _unitCostA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:13 andValue:@"" andTag:UnitCostA andType:LabelField andVC:_vc caller:self];
+        Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+        [grid makeGridWithRows:4 andCols:4];
         
-        y = 20;
-        ySpacing = yHeight + 8;
-        _priceB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"Price" andTag:PriceB andType:LabelField andVC:_vc caller:self];
-        y += ySpacing;
-        _numItemsB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:_vc caller:self];
-        y += ySpacing;
-        _unitsEachB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:_vc caller:self];
-        ySpacing -= 5;
-        y += ySpacing;
-        _unitCostB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:13 andValue:@"" andTag:UnitCostB andType:LabelField andVC:_vc caller:self];
+        int row = 0;
+        int col = 0;
+        _priceA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceA andType:LabelField andVC:_vc caller:self];
+        _priceB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceB andType:LabelField andVC:_vc caller:self];
         
-        _message = [Field allocFieldWithRect:CGRectMake(1, 158, 318, 40) andF:17 andValue:@PROMPT andTag:Message andType:LabelField andVC:_vc caller:self];
-    } else if (self.deviceType == iPhone5) {
-        fieldWidth = 159;
-        y = 1;
-        yHeight = 186;
-        _itemA = [Field allocFieldWithRect:CGRectMake(1, y, fieldWidth, yHeight) andF:14 andValue:@"Deal A" andTag:ItemA andType:LabelField andVC:_vc caller:self];
-        _itemB = [Field allocFieldWithRect:CGRectMake(161, y, fieldWidth - 1, yHeight) andF:14 andValue:@"Deal B" andTag:ItemB andType:LabelField andVC:_vc caller:self];
-        
-        y = 20;
-        yHeight = 42;
-        ySpacing = yHeight + 8;
-        fieldWidth = 136;
-        _priceA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"Price" andTag:PriceA andType:LabelField andVC:_vc caller:self];
-        y += ySpacing;
-        _numItemsA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:17 andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:_vc caller:self];
-        y += ySpacing;
-        _unitsEachA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth,yHeight) andF:17 andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:_vc caller:self];
-        ySpacing -= 16;
-        y += ySpacing;
-        _unitCostA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:13 andValue:@"" andTag:UnitCostA andType:LabelField andVC:_vc caller:self];
-        
-        y = 20;
-        ySpacing = yHeight + 8;
-        _priceB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"Price" andTag:PriceB andType:LabelField andVC:_vc caller:self];
-        y += ySpacing;
-        _numItemsB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:_vc caller:self];
-        y += ySpacing;
-        _unitsEachB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:17 andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:_vc caller:self];
-        ySpacing -= 16;
-        y += ySpacing;
-        _unitCostB = [Field allocFieldWithRect:CGRectMake(174, y, fieldWidth, yHeight) andF:13 andValue:@"" andTag:UnitCostB andType:LabelField andVC:_vc caller:self];
-        
-        y = 200;
-        _message = [Field allocFieldWithRect:CGRectMake(1, y, 318, 80) andF:17 andValue:@PROMPT andTag:Message andType:LabelField andVC:_vc caller:self];
-    } else if (self.deviceType == iPad) {
-        fieldWidth = 385;
-        y = 1;
-        yHeight = 382;
-        _itemA = [Field allocFieldWithRect:CGRectMake(1, y, fieldWidth, yHeight) andF:30 andValue:@"Deal A" andTag:ItemA andType:LabelField andVC:_vc caller:self];
-        _itemB = [Field allocFieldWithRect:CGRectMake(fieldWidth + 1, y, fieldWidth - 1, yHeight) andF:30 andValue:@"Deal B" andTag:ItemB andType:LabelField andVC:_vc caller:self];
-        
-        y = 60;
-        yHeight = 86;
-        ySpacing = yHeight + 8;
-        fieldWidth = 366;
-        _priceA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:48 andValue:@"Price" andTag:PriceA andType:LabelField andVC:_vc caller:self];
-        y += ySpacing;
-        _numItemsA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:48 andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:_vc caller:self];
-        y += ySpacing;
-        _unitsEachA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:48 andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:_vc caller:self];
-        ySpacing -= 24;
-        y += ySpacing;
-        _unitCostA = [Field allocFieldWithRect:CGRectMake(10, y, fieldWidth, yHeight) andF:28 andValue:@"" andTag:UnitCostA andType:LabelField andVC:_vc caller:self];
-        
-        y = 60;
-        ySpacing = yHeight + 8;
-        _priceB = [Field allocFieldWithRect:CGRectMake(393, y, fieldWidth, yHeight) andF:48 andValue:@"Price" andTag:PriceB andType:LabelField andVC:_vc caller:self];
-        y += ySpacing;
-        _numItemsB = [Field allocFieldWithRect:CGRectMake(393, y, fieldWidth, yHeight) andF:48 andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:_vc caller:self];
-        y += ySpacing;
-        _unitsEachB = [Field allocFieldWithRect:CGRectMake(393, y, fieldWidth, yHeight) andF:48 andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:_vc caller:self];
-        ySpacing -= 24;
-        y += ySpacing;
-        _unitCostB = [Field allocFieldWithRect:CGRectMake(393, y, fieldWidth, yHeight) andF:28 andValue:@"" andTag:UnitCostB andType:LabelField andVC:_vc caller:self];
-        
-        _message = [Field allocFieldWithRect:CGRectMake(1, 413, 766, 120) andF:40 andValue:@PROMPT andTag:Message andType:LabelField andVC:_vc caller:self];
-    } else {
-        abort();
+        row++; col = 0;
+        _numItemsA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:_vc caller:self];
+        _numItemsB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:_vc caller:self];
+
+        row++; col = 0;
+        _unitsEachA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:_vc caller:self];
+        _unitsEachB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:_vc caller:self];
     }
     
-    // keyPad
+    // unit cost
+    {
+        CGPoint origin, size, spacing;
+        float fontSize;
+        if (self.deviceType == iPhone4) {
+            origin = CGPointMake(10, 128);
+            size = CGPointMake(136, 30);
+            spacing = CGPointMake(28, 3);
+            fontSize = 13;
+        } else if (self.deviceType == iPhone5) {
+            origin = CGPointMake(10, 166);
+            size = CGPointMake(136, 30);
+            spacing = CGPointMake(28, 3);
+            fontSize = 17;
+        } else {
+            origin = CGPointMake(10, 342);
+            size = CGPointMake(768/2, 30);
+            spacing = CGPointMake(2, 0);
+            fontSize = 24;
+        }
+        
+        Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+        [grid makeGridWithRows:4 andCols:4];
+        
+        int row = 0;
+        int col = 0;
+        _unitCostA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostA andType:LabelField andVC:_vc caller:self];
+        _unitCostB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostB andType:LabelField andVC:_vc caller:self];
+    }
+    
+        // message
+    {
+        CGPoint origin, size, spacing;
+        float fontSize;
+        spacing = CGPointMake(0, 0);
+        if (self.deviceType == iPhone4) {
+            origin = CGPointMake(1, 158);
+            size = CGPointMake(318, 40);
+            fontSize = 17;
+        } else if (self.deviceType == iPhone5) {
+            origin = CGPointMake(1, 208);
+            size = CGPointMake(318, 80);
+            fontSize = 17;
+        } else {
+            origin = CGPointMake(1, 413);
+            size = CGPointMake(766, 120);
+            fontSize = 40;
+        }
+        
+        Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+        [grid makeGridWithRows:4 andCols:4];
+        
+        _message = [Field allocFieldWithRect:[grid getRectAtX:0 andY:0] andF:fontSize andValue:@PROMPT andTag:Message andType:LabelField andVC:_vc caller:self];
+    }
+    
+    // keypad
     {
         CGPoint origin, size, spacing;
         float fontSize, nextKeyWidth, nextKeyFontSize;

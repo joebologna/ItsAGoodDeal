@@ -238,7 +238,7 @@
     NSLog(@"%s", __func__);
 #endif
     if (textField.enabled) {
-        if ([self isPhone]) {
+        if ([self isPhone] || YES) {
             return YES;
         } else {
             //handle direct tap.
@@ -256,7 +256,7 @@
 #endif
     // could be a directTap...
     [self.caller performSelector:@selector(gotoFieldWithControl:) withObject:textField];
-    if ([self isPhone]) {
+    if ([self isPhone] || YES) {
         textField.keyboardType = UIKeyboardTypeDecimalPad;
         textField.inputAccessoryView = rowOfKeys;
     }
