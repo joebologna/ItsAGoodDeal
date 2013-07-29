@@ -131,11 +131,11 @@
     // this is the order that the Next button traverses.
     self.inputFields = [NSArray arrayWithObjects:
                         self.priceA,
-                        self.numItemsA,
                         self.unitsEachA,
+                        self.numItemsA,
                         self.priceB,
-                        self.numItemsB,
                         self.unitsEachB,
+                        self.numItemsB,
                         nil];
 
     self.allFields = [NSArray arrayWithObjects:
@@ -259,12 +259,12 @@
         _priceB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceB andType:LabelField andVC:_vc caller:self];
         
         row++; col = 0;
-        _numItemsA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:_vc caller:self];
-        _numItemsB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:_vc caller:self];
-
-        row++; col = 0;
         _unitsEachA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField andVC:_vc caller:self];
         _unitsEachB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField andVC:_vc caller:self];
+
+        row++; col = 0;
+        _numItemsA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsA andType:LabelField andVC:_vc caller:self];
+        _numItemsB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsB andType:LabelField andVC:_vc caller:self];
     }
     
     // unit cost

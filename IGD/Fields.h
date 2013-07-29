@@ -59,11 +59,11 @@ typedef enum {
 	*four,
 	*five,
 	*six,
-*del,
+    *del,
 	*seven,
 	*eight,
 	*nine,
-*store,
+    *store,
 	*period,
 	*zero,
 	*next;

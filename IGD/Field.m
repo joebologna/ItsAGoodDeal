@@ -281,7 +281,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    if (self.tag == UnitsEachB) {
+    if (self.tag == NumItemsB) {
         [self toolBarButtonPushed:calcButton];
     } else {
         [self toolBarButtonPushed:nextButton];
