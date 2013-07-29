@@ -238,13 +238,7 @@
     NSLog(@"%s", __func__);
 #endif
     if (textField.enabled) {
-        if ([self isPhone] || YES) {
-            return YES;
-        } else {
-            //handle direct tap.
-            [self.caller performSelector:@selector(gotoFieldWithControl:) withObject:textField];
-            return NO;
-        }
+        return YES;
     } else {
         return NO;
     }
@@ -256,9 +250,10 @@
 #endif
     // could be a directTap...
     [self.caller performSelector:@selector(gotoFieldWithControl:) withObject:textField];
-    if ([self isPhone] || YES) {
-        textField.keyboardType = UIKeyboardTypeDecimalPad;
-        textField.inputAccessoryView = rowOfKeys;
+    textField.inputAccessoryView = rowOfKeys;
+    textField.keyboardType = [self isPhone] ? UIKeyboardTypeDecimalPad : UIKeyboardTypeNumberPad;
+    if (![self isPhone]) {
+        [self.caller performSelector:@selector(hideKeypad:) withObject:self];
     }
     textField.text = self.value;
     previousPlaceholder = textField.placeholder;
@@ -279,6 +274,7 @@
 #endif
     textField.text = [self isCurrency] ? [self fmtPrice:self.floatValue] : self.value;
     textField.placeholder = previousPlaceholder;
+    [self.caller performSelector:@selector(showKeypad:) withObject:self];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
