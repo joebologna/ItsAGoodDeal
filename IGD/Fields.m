@@ -198,184 +198,149 @@
 #endif
     
     // items
-    {
-        CGPoint origin, size, spacing;
-        float fontSize;
-        if (self.deviceType == iPhone4) {
-            origin = CGPointMake(1, 1);
-            size = CGPointMake(158, 154);
-            spacing = CGPointMake(2, 0);
-            fontSize = 14;
-        } else if (self.deviceType == iPhone5) {
-            origin = CGPointMake(1, 1);
-            size = CGPointMake(158, 196);
-            spacing = CGPointMake(2, 0);
-            fontSize = 14;
-        } else {
-            origin = CGPointMake(1, 1);
-            size = CGPointMake(768/2 - 2, 1024/3 + 50);
-            spacing = CGPointMake(2, 0);
-            fontSize = 30;
-        }
-        
-        Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
-        [grid makeGridWithRows:4 andCols:4];
-        
-        int row = 0;
-        int col = 0;
-        _itemA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal A" andTag:ItemA andType:LabelField caller:self];
-        _itemB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal B" andTag:ItemB andType:LabelField caller:self];
+    CGPoint origin, size, spacing;
+    float fontSize;
+    origin = CGPointMake(1, 1);
+    size = CGPointMake(158, 154);
+    spacing = CGPointMake(2, 0);
+    fontSize = 14;
+    if (self.deviceType == iPhone5) {
+        size = CGPointMake(158, 196);
+    }
+    if (self.deviceType == iPad) {
+        size = CGPointMake(768/2 - 2, 1024/3 + 50);
+        fontSize = 30;
     }
     
-    // input fields
-    {
-        CGPoint origin, size, spacing;
-        float fontSize;
-        if (self.deviceType == iPhone4) {
-            origin = CGPointMake(10, 20);
-            size = CGPointMake(136, 30);
-            spacing = CGPointMake(28, 8);
-            fontSize = 17;
-        } else if (self.deviceType == iPhone5) {
-            origin = CGPointMake(10, 20);
-            size = CGPointMake(136, 42);
-            spacing = CGPointMake(28, 8);
-            fontSize = 17;
-        } else {
-            origin = CGPointMake(10, 60);
-            size = CGPointMake(768/2 - 15, 1024/12);
-            spacing = CGPointMake(8, 8);
-            fontSize = 34;
-        }
-        
-        Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
-        [grid makeGridWithRows:4 andCols:4];
-        
-        int row = 0;
-        int col = 0;
-        _priceA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceA andType:LabelField caller:self];
-        _priceB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceB andType:LabelField caller:self];
-        
-        row++; col = 0;
-        _unitsEachA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField caller:self];
-        _unitsEachB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField caller:self];
-
-        row++; col = 0;
-        _numItemsA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsA andType:LabelField caller:self];
-        _numItemsB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsB andType:LabelField caller:self];
+    Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+    [grid makeGridWithRows:4 andCols:4];
+    
+    int row = 0;
+    int col = 0;
+    _itemA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal A" andTag:ItemA andType:LabelField caller:self];
+    _itemB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal B" andTag:ItemB andType:LabelField caller:self];
+    
+    origin = CGPointMake(10, 20);
+    size = CGPointMake(136, 30);
+    spacing = CGPointMake(28, 8);
+    fontSize = 17;
+    if (self.deviceType == iPhone5) {
+        size = CGPointMake(136, 42);
     }
+    if (self.deviceType == iPad) {
+        origin = CGPointMake(10, 60);
+        size = CGPointMake(768/2 - 24, 1024/12);
+        fontSize = 34;
+    }
+    
+    grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+    [grid makeGridWithRows:4 andCols:4];
+    
+    row = 0;
+    col = 0;
+    _priceA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceA andType:LabelField caller:self];
+    _priceB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceB andType:LabelField caller:self];
+    
+    row++; col = 0;
+    _unitsEachA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField caller:self];
+    _unitsEachB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField caller:self];
+    
+    row++; col = 0;
+    _numItemsA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsA andType:LabelField caller:self];
+    _numItemsB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsB andType:LabelField caller:self];
     
     // unit cost
-    {
-        CGPoint origin, size, spacing;
-        float fontSize;
-        if (self.deviceType == iPhone4) {
-            origin = CGPointMake(10, 128);
-            size = CGPointMake(136, 30);
-            spacing = CGPointMake(28, 3);
-            fontSize = 13;
-        } else if (self.deviceType == iPhone5) {
-            origin = CGPointMake(10, 166);
-            size = CGPointMake(136, 30);
-            spacing = CGPointMake(28, 3);
-            fontSize = 17;
-        } else {
-            origin = CGPointMake(10, 342);
-            size = CGPointMake(768/2, 30);
-            spacing = CGPointMake(2, 0);
-            fontSize = 24;
-        }
-        
-        Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
-        [grid makeGridWithRows:4 andCols:4];
-        
-        int row = 0;
-        int col = 0;
-        _unitCostA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostA andType:LabelField caller:self];
-        _unitCostB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostB andType:LabelField caller:self];
+    origin = CGPointMake(10, 128);
+    size = CGPointMake(136, 30);
+    spacing = CGPointMake(28, 3);
+    fontSize = 13;
+    if (self.deviceType == iPhone5) {
+        origin = CGPointMake(10, 166);
+        fontSize = 17;
+    }
+    if (self.deviceType == iPad) {
+        origin = CGPointMake(10, 342);
+        size = CGPointMake(768/2 - 24, 30);
+        fontSize = 24;
     }
     
-        // message
-    {
-        CGPoint origin, size, spacing;
-        float fontSize;
-        spacing = CGPointMake(0, 0);
-        if (self.deviceType == iPhone4) {
-            origin = CGPointMake(1, 158);
-            size = CGPointMake(318, 40);
-            fontSize = 17;
-        } else if (self.deviceType == iPhone5) {
-            origin = CGPointMake(1, 208);
-            size = CGPointMake(318, 80);
-            fontSize = 17;
-        } else {
-            origin = CGPointMake(1, 413);
-            size = CGPointMake(766, 120);
-            fontSize = 40;
-        }
-        
-        Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
-        [grid makeGridWithRows:4 andCols:4];
-        
-        _message = [Field allocFieldWithRect:[grid getRectAtX:0 andY:0] andF:fontSize andValue:@PROMPT andTag:Message andType:LabelField caller:self];
+    grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+    [grid makeGridWithRows:4 andCols:4];
+    
+    row = 0;
+    col = 0;
+    _unitCostA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostA andType:LabelField caller:self];
+    _unitCostB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostB andType:LabelField caller:self];
+    
+    
+    // message
+    spacing = CGPointMake(0, 0);
+    origin = CGPointMake(1, 158);
+    size = CGPointMake(318, 40);
+    fontSize = 17;
+    if (self.deviceType == iPhone5) {
+        origin = CGPointMake(1, 208);
+        size = CGPointMake(318, 80);
     }
+    if (self.deviceType == iPad) {
+        origin = CGPointMake(1, 413);
+        size = CGPointMake(766, 120);
+        fontSize = 40;
+    }
+    
+    grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+    [grid makeGridWithRows:4 andCols:4];
+    
+    _message = [Field allocFieldWithRect:[grid getRectAtX:0 andY:0] andF:fontSize andValue:@PROMPT andTag:Message andType:LabelField caller:self];
     
     // keypad
-    {
-        CGPoint origin, size, spacing;
-        float fontSize, nextKeyWidth, nextKeyFontSize;
-        if (self.deviceType == iPhone4) {
-            origin = CGPointMake(20, 200);
-            size = CGPointMake(64, 46);
-            spacing = CGPointMake(8, 2);
-            fontSize = 15;
-            nextKeyWidth = 136;
-            nextKeyFontSize = fontSize;
-        } else if (self.deviceType == iPhone5) {
-            origin = CGPointMake(20, 288);
-            size = CGPointMake(64, 46);
-            spacing = CGPointMake(8, 2);
-            fontSize = 15;
-            nextKeyWidth = 136;
-            nextKeyFontSize = fontSize;
-        } else {
-            origin = CGPointMake(20, 546);
-            size = CGPointMake(176, 92);
-            spacing = CGPointMake(8, 2);
-            fontSize = 48;
-            nextKeyWidth = 360;
-            nextKeyFontSize = 36;
-        }
-        
-        Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
-        [grid makeGridWithRows:4 andCols:4];
-        
-        int row = 0;
-        int col = 0;
-        _one = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"1" andTag:One andType:KeyType caller:self];
-        _two = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"2" andTag:Two andType:KeyType caller:self];
-        _three = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"3" andTag:Three andType:KeyType caller:self];
-        _clr = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@CLR andTag:Clr andType:KeyType caller:self];
-        
-        col = 0; row++;
-        _four = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"4" andTag:Four andType:KeyType caller:self];
-        _five = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"5" andTag:Five andType:KeyType caller:self];
-        _six = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"6" andTag:Six andType:KeyType caller:self];
-        _del = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@DEL andTag:Del andType:KeyType caller:self];
-        
-        col = 0; row++;
-        _seven = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"7" andTag:Seven andType:KeyType caller:self];
-        _eight = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"8" andTag:Eight andType:KeyType caller:self];
-        _nine = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"9" andTag:Nine andType:KeyType caller:self];
-        _store = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@STORE andTag:Store andType:KeyType caller:self];
-        
-        col = 0; row++;
-        _period = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"." andTag:Period andType:KeyType caller:self];
-        _zero = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"0" andTag:Zero andType:KeyType caller:self];
-        CGRect r = [grid getRectAtX:row andY:col++];
-        r.size.width = nextKeyWidth;
-        _next = [Field allocFieldWithRect:r andF:nextKeyFontSize andValue:@NEXT andTag:Next andType:KeyType caller:self];
+    float nextKeyWidth, nextKeyFontSize;
+    origin = CGPointMake(20, 200);
+    size = CGPointMake(64, 46);
+    spacing = CGPointMake(8, 2);
+    fontSize = 15;
+    nextKeyWidth = 136;
+    nextKeyFontSize = fontSize;
+    if (self.deviceType == iPhone5) {
+        origin = CGPointMake(20, 288);
     }
+    if (self.deviceType == iPad) {
+        origin = CGPointMake(20, 546);
+        size = CGPointMake(176, 92);
+        fontSize = 48;
+        nextKeyWidth = 360;
+        nextKeyFontSize = 36;
+    }
+    
+    grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+    [grid makeGridWithRows:4 andCols:4];
+    
+    row = 0;
+    col = 0;
+    _one = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"1" andTag:One andType:KeyType caller:self];
+    _two = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"2" andTag:Two andType:KeyType caller:self];
+    _three = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"3" andTag:Three andType:KeyType caller:self];
+    _clr = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@CLR andTag:Clr andType:KeyType caller:self];
+    
+    col = 0; row++;
+    _four = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"4" andTag:Four andType:KeyType caller:self];
+    _five = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"5" andTag:Five andType:KeyType caller:self];
+    _six = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"6" andTag:Six andType:KeyType caller:self];
+    _del = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@DEL andTag:Del andType:KeyType caller:self];
+    
+    col = 0; row++;
+    _seven = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"7" andTag:Seven andType:KeyType caller:self];
+    _eight = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"8" andTag:Eight andType:KeyType caller:self];
+    _nine = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"9" andTag:Nine andType:KeyType caller:self];
+    _store = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@STORE andTag:Store andType:KeyType caller:self];
+    
+    col = 0; row++;
+    _period = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"." andTag:Period andType:KeyType caller:self];
+    _zero = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"0" andTag:Zero andType:KeyType caller:self];
+    CGRect r = [grid getRectAtX:row andY:col++];
+    r.size.width = nextKeyWidth;
+    _next = [Field allocFieldWithRect:r andF:nextKeyFontSize andValue:@NEXT andTag:Next andType:KeyType caller:self];
+    
 }
 
 - (void)setView:(Field *)f {
