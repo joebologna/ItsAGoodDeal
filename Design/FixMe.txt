@@ -1,0 +1,11 @@
+Area of Focus
+Fixes
+Tasks
+A=B when abs(TotalA-TotalB) < 0.01
+Switch del and remove ads buttons
+Rename remove ads maybe no ads
+Restore purchase support
+Help?
+Shadow on text?
+Ridge around fields?
+Logs
