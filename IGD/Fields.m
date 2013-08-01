@@ -406,23 +406,21 @@
         }
     }
     
-    BOOL allSet = YES;
-    for (Field *f in self.inputFields) {
-        if (f.floatValue == 0.0) {
-            allSet = NO;
-            self.message.value = @PROMPT;
-            self.unitCostA.value = self.unitCostB.value = @"";
-            break;
-        }
-    }
-    
-    if (allSet) {
+    BOOL AisAllSet = self.priceA.floatValue != 0.0 && self.unitsEachA.floatValue != 0.0 && self.numItemsA.floatValue != 0.0;
+    BOOL BisAllSet = self.priceB.floatValue != 0.0 && self.unitsEachB.floatValue != 0.0 && self.numItemsB.floatValue != 0.0;
+    BOOL allSet = AisAllSet && BisAllSet;
+
+    if (AisAllSet) {
         float unitCostA = self.priceA.floatValue / self.unitsEachA.floatValue;
-        float totalCostA = self.priceA.floatValue * self.numItemsA.floatValue;
-        
+        ((UITextField *)self.unitCostA.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostA]];
+    }
+    if (BisAllSet) {
         float unitCostB = self.priceB.floatValue / self.unitsEachB.floatValue;
+        ((UITextField *)self.unitCostB.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostB]];
+    }
+    if (allSet) {
+        float totalCostA = self.priceA.floatValue * self.numItemsA.floatValue;
         float totalCostB = self.priceB.floatValue * self.numItemsB.floatValue;
-        
         float totalSavings = fabsf(totalCostA - totalCostB);
         
         if (totalCostA < totalCostB) {
@@ -440,8 +438,6 @@
         } else {
             self.message.value = @"A is the same price as B";
         }
-        ((UITextField *)self.unitCostA.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostA]];
-        ((UITextField *)self.unitCostB.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostB]];
     }
 }
 

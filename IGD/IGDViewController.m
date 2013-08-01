@@ -212,6 +212,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     NSLog(@"%s", __func__);
 #endif
     bannerView = banner;
+    banner.hidden = YES;
     [bannerView cancelBannerViewAction];
 }
 
@@ -220,6 +221,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     NSLog(@"%s, Nothing to do", __func__);
 #endif
     bannerView = banner;
+    banner.hidden = !myStoreObserver.bought;
     return myStoreObserver.bought;
 }
 
@@ -229,6 +231,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #endif
     bannerView = banner;
     if (myStoreObserver.bought) {
+        banner.hidden = YES;
         [bannerView cancelBannerViewAction];
     }
 }
