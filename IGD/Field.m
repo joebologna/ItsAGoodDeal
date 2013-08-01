@@ -28,17 +28,11 @@
         case ItemA: return @"ItemA";
         case ItemB: return @"ItemB";
         case PriceA: return @"PriceA";
-        case PriceAT: return @"PriceAT";
         case NumItemsA: return @"NumItemsA";
-        case NumItemsAT: return @"NumItemsAT";
         case UnitsEachA: return @"UnitsEachA";
-        case UnitsEachAT: return @"UnitsEachAT";
         case PriceB: return @"PriceB";
-        case PriceBT: return @"PriceBT";
         case NumItemsB: return @"NumItemsB";
-        case NumItemsBT: return @"NumItemsBT";
         case UnitsEachB: return @"UnitsEachB";
-        case UnitsEachBT: return @"UnitsEachBT";
         case Message: return @"Message";
         case Ad: return @"Ad";
         case FtagNotSet: return @"FtagNotSet";
@@ -117,18 +111,14 @@
 }
 
 - (BOOL)isCurrency {
-    return (_tag == PriceA || _tag == PriceB || _tag == PriceAT || _tag == PriceBT);
+    return (_tag == PriceA || _tag == PriceB);
 }
 
 - (BOOL)isNumber {
     return (_tag == PriceA
-            || _tag == PriceAT
             || _tag == PriceB
-            || _tag == PriceBT
             || _tag == NumItemsA
-            || _tag == NumItemsAT
             || _tag == NumItemsB
-            || _tag == NumItemsBT
             || _tag == UnitsEachA
             || _tag == UnitsEachB);
 }
@@ -195,17 +185,11 @@
             t.enabled = NO;
             break;
         case PriceA:
-        case PriceAT:
         case PriceB:
-        case PriceBT:
         case NumItemsA:
-        case NumItemsAT:
         case UnitsEachA:
-        case UnitsEachAT:
         case NumItemsB:
-        case NumItemsBT:
         case UnitsEachB:
-        case UnitsEachBT:
             self.value = t.text = @"";
             break;
     }
@@ -289,7 +273,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    if (self.tag == NumItemsBT) {
+    if (self.tag == NumItemsB) {
         [self buttonPushed:calcButton];
     } else {
         [self buttonPushed:nextButton];
