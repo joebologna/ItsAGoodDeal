@@ -50,6 +50,8 @@ typedef enum {
 	*unitsEachB,
     *numItemsA,
     *numItemsB,
+    *xlabelA,
+    *xlabelB,
     *unitCostA,
     *unitCostB,
 	*message,

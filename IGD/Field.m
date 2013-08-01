@@ -29,6 +29,8 @@
         case ItemB: return @"ItemB";
         case PriceA: return @"PriceA";
         case NumItemsA: return @"NumItemsA";
+        case XLabelA: return @"XLabelA";
+        case XLabelB: return @"XLabelB";
         case UnitsEachA: return @"UnitsEachA";
         case PriceB: return @"PriceB";
         case NumItemsB: return @"NumItemsB";
@@ -193,6 +195,11 @@
         case NumItemsB:
         case UnitsEachB:
             self.value = t.text = @"";
+            break;
+        case XLabelA:
+        case XLabelB:
+            t.placeholder = @"X";
+            t.enabled = NO;
             break;
     }
     
