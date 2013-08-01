@@ -133,30 +133,18 @@
                         self.priceA,
                         self.unitsEachA,
                         self.numItemsA,
-                        self.priceAT,
-                        self.unitsEachAT,
-                        self.numItemsAT,
                         self.priceB,
                         self.unitsEachB,
                         self.numItemsB,
-                        self.priceBT,
-                        self.unitsEachBT,
-                        self.numItemsBT,
                         nil];
 
     self.allFields = [NSArray arrayWithObjects:
                       self.priceA,
                       self.unitsEachA,
                       self.numItemsA,
-                      self.priceAT,
-                      self.unitsEachAT,
-                      self.numItemsAT,
                       self.priceB,
                       self.unitsEachB,
                       self.numItemsB,
-                      self.priceBT,
-                      self.unitsEachBT,
-                      self.numItemsBT,
                       self.itemA,
                       self.itemB,
                       self.unitCostA,
@@ -233,15 +221,15 @@
     _itemB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal B" andTag:ItemB andType:LabelField caller:self];
     
     origin = CGPointMake(10, 20);
-    size = CGPointMake(136/2, 30);
-    spacing = CGPointMake(9, 8);
+    size = CGPointMake(136, 30);
+    spacing = CGPointMake(28, 8);
     fontSize = 17;
     if (self.deviceType == iPhone5) {
         size.y = 42;
     }
     if (self.deviceType == iPad) {
         origin = CGPointMake(10, 60);
-        size = CGPointMake(768/2/2 - 12, 1024/12);
+        size = CGPointMake(768/2 - 24, 1024/12);
         fontSize = 34;
     }
     
@@ -251,21 +239,15 @@
     row = 0;
     col = 0;
     _priceA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceA andType:LabelField caller:self];
-    _priceAT = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceAT andType:LabelField caller:self];
     _priceB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceB andType:LabelField caller:self];
-    _priceBT = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceBT andType:LabelField caller:self];
     
     row++; col = 0;
     _unitsEachA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField caller:self];
-    _unitsEachAT = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachAT andType:LabelField caller:self];
     _unitsEachB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField caller:self];
-    _unitsEachBT = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachBT andType:LabelField caller:self];
     
     row++; col = 0;
     _numItemsA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsA andType:LabelField caller:self];
-    _numItemsAT = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsAT andType:LabelField caller:self];
     _numItemsB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsB andType:LabelField caller:self];
-    _numItemsBT = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsBT andType:LabelField caller:self];
     
     // unit cost
     origin = CGPointMake(10, 128);
@@ -413,10 +395,14 @@
     if (AisAllSet) {
         float unitCostA = self.priceA.floatValue / self.unitsEachA.floatValue;
         ((UITextField *)self.unitCostA.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostA]];
+    } else {
+        ((UITextField *)self.unitCostA.control).text = @"";
     }
     if (BisAllSet) {
         float unitCostB = self.priceB.floatValue / self.unitsEachB.floatValue;
         ((UITextField *)self.unitCostB.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostB]];
+    } else {
+        ((UITextField *)self.unitCostB.control).text = @"";
     }
     if (allSet) {
         float totalCostA = self.priceA.floatValue * self.numItemsA.floatValue;
