@@ -53,6 +53,8 @@ typedef enum {
     *unitCostA,
     *unitCostB,
 	*message,
+    *message2,
+    *message3,
 	*ad,
 	*one,
 	*two,

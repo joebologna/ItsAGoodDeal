@@ -34,6 +34,7 @@
         case NumItemsB: return @"NumItemsB";
         case UnitsEachB: return @"UnitsEachB";
         case Message: return @"Message";
+        case Message2: return @"Message2";
         case Ad: return @"Ad";
         case FtagNotSet: return @"FtagNotSet";
         default: return @"OOPS!";
@@ -181,6 +182,7 @@
             t.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
             t.borderStyle = UITextBorderStyleLine;
         case Message:
+        case Message2:
             t.placeholder = @"";
             t.enabled = NO;
             break;

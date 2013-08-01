@@ -150,6 +150,8 @@
                       self.unitCostA,
                       self.unitCostB,
                       self.message,
+                      self.message2,
+                      self.message3,
                       nil];
 
     self.keys = [NSArray arrayWithObjects:
@@ -273,25 +275,26 @@
     _unitCostB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostB andType:LabelField caller:self];
     
     
-    // message
-    spacing = CGPointMake(0, 0);
-    origin = CGPointMake(1, 158);
-    size = CGPointMake(318, 40);
+    // messages
     fontSize = 17;
+    origin = CGPointMake(1, 158);
+    size = CGPointMake(318, 24);
     if (self.deviceType == iPhone5) {
-        origin = CGPointMake(1, 208);
-        size = CGPointMake(318, 80);
+        origin = CGPointMake(1, 202);
     }
     if (self.deviceType == iPad) {
         origin = CGPointMake(1, 413);
         size = CGPointMake(766, 120);
         fontSize = 40;
     }
+    spacing = CGPointMake(0, 0);
     
     grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
-    [grid makeGridWithRows:4 andCols:4];
+    [grid makeGridWithRows:3 andCols:1];
     
     _message = [Field allocFieldWithRect:[grid getRectAtX:0 andY:0] andF:fontSize andValue:@PROMPT andTag:Message andType:LabelField caller:self];
+    _message2 = [Field allocFieldWithRect:[grid getRectAtX:1 andY:0] andF:fontSize andValue:@"" andTag:Message2 andType:LabelField caller:self];
+    _message3 = [Field allocFieldWithRect:[grid getRectAtX:2 andY:0] andF:fontSize andValue:@"" andTag:Message2 andType:LabelField caller:self];
     
     // keypad
     float nextKeyWidth, nextKeyFontSize;
@@ -377,6 +380,7 @@
     NSLog(@"%s", __func__);
 #endif
     
+    self.message2.value = self.message3.value = @"";
     if (![self.priceA.value isEqualToString:@""]) {
         if ([self.numItemsA.value isEqualToString:@""]) {
             self.numItemsA.value = @"1";
@@ -391,15 +395,16 @@
     BOOL AisAllSet = self.priceA.floatValue != 0.0 && self.unitsEachA.floatValue != 0.0 && self.numItemsA.floatValue != 0.0;
     BOOL BisAllSet = self.priceB.floatValue != 0.0 && self.unitsEachB.floatValue != 0.0 && self.numItemsB.floatValue != 0.0;
     BOOL allSet = AisAllSet && BisAllSet;
+    float unitCostA, unitCostB;
 
     if (AisAllSet) {
-        float unitCostA = self.priceA.floatValue / self.unitsEachA.floatValue;
+        unitCostA = self.priceA.floatValue / self.unitsEachA.floatValue;
         ((UITextField *)self.unitCostA.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostA]];
     } else {
         ((UITextField *)self.unitCostA.control).text = @"";
     }
     if (BisAllSet) {
-        float unitCostB = self.priceB.floatValue / self.unitsEachB.floatValue;
+        unitCostB = self.priceB.floatValue / self.unitsEachB.floatValue;
         ((UITextField *)self.unitCostB.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostB]];
     } else {
         ((UITextField *)self.unitCostB.control).text = @"";
@@ -411,18 +416,27 @@
         
         if (totalCostA < totalCostB) {
             if (totalSavings < 0.01) {
-                self.message.value = [NSString stringWithFormat:@"Buy A, You Save: almost %@0.01", self.currencySymbol];
+                self.message.value = [NSString stringWithFormat:@"Buy A, You Save almost %@0.01", self.currencySymbol];
             } else {
-                self.message.value = [NSString stringWithFormat:@"Buy A, You Save: %@", [self fmtPrice:totalSavings]];
+                self.message.value = [NSString stringWithFormat:@"Buy A, You Save %@", [self fmtPrice:totalSavings]];
             }
         } else if (totalCostA > totalCostB) {
             if (totalSavings < 0.01) {
-                self.message.value = [NSString stringWithFormat:@"Buy B, You Save: almost %@0.01", self.currencySymbol];
+                self.message.value = [NSString stringWithFormat:@"Buy B, You Save almost %@0.01", self.currencySymbol];
             } else {
-                self.message.value = [NSString stringWithFormat:@"Buy B, You Save: %@", [self fmtPrice:totalSavings]];
+                self.message.value = [NSString stringWithFormat:@"Buy B, You Save %@", [self fmtPrice:totalSavings]];
             }
         } else {
             self.message.value = @"A is the same price as B";
+        }
+        if (unitCostA < unitCostB) {
+            self.message2.value = [NSString stringWithFormat:@"Unit cost of A is %.1f%% less than B", 100 *(1-(unitCostA/unitCostB))];
+            self.message3.value = @"A is a better deal";
+        } else if (unitCostA > unitCostB) {
+            self.message2.value = [NSString stringWithFormat:@"Unit cost of B is %.1f%% less than A", 100 *(1-(unitCostB/unitCostA))];
+            self.message3.value = @"B is a better deal";
+        } else {
+            self.message2.value = @"Unit cost of A and B are equal";
         }
     }
 }
