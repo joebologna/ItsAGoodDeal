@@ -28,6 +28,7 @@
 - (void)clearBackground {
     for (Field *f in self.inputFields) {
         ((UITextField *)f.control).backgroundColor = FIELDCOLOR;
+        ((UITextField *)f.control).borderStyle = UITextBorderStyleBezel;
     }
 }
 
@@ -39,7 +40,9 @@
     NSLog(@"%s, %@, %@", __func__, _curField.fTagToString, c.fTagToString);
 #endif
     previous.backgroundColor = FIELDCOLOR;
+    previous.borderStyle = UITextBorderStyleBezel;
     selected.backgroundColor = HIGHLIGHTCOLOR;
+    selected.borderStyle = UITextBorderStyleLine;
     _curField = c;
     [self calcSavings];
 }
@@ -113,6 +116,8 @@
         _unitsEachA = nil,
         _unitsEachB = nil,
         _message = nil;
+        _message2 = nil;
+        _message3 = nil;
         _ad = nil;
         _vc = nil;
     }
@@ -221,8 +226,8 @@
     
     int row = 0;
     int col = 0;
-    _itemA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal A" andTag:ItemA andType:LabelField caller:self];
-    _itemB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal B" andTag:ItemB andType:LabelField caller:self];
+    _itemA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price A" andTag:ItemA andType:LabelField caller:self];
+    _itemB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price B" andTag:ItemB andType:LabelField caller:self];
     
     origin = CGPointMake(10, 20);
     size = CGPointMake(136, 30);
@@ -242,8 +247,8 @@
     
     row = 0;
     col = 0;
-    _priceA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceA andType:LabelField caller:self];
-    _priceB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col] andF:fontSize andValue:@"Price" andTag:PriceB andType:LabelField caller:self];
+    _priceA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:PriceA andType:LabelField caller:self];
+    _priceB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col] andF:fontSize andValue:@"" andTag:PriceB andType:LabelField caller:self];
     
     CGRect tmp = [grid getRectAtX:0 andY:0];
     origin = CGPointMake(tmp.origin.x, tmp.origin.y);
@@ -264,8 +269,8 @@
     
     row = 1;
     col = 0;
-    _unitsEachA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField caller:self];
-    _unitsEachB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField caller:self];
+    _unitsEachA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitsEachA andType:LabelField caller:self];
+    _unitsEachB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitsEachB andType:LabelField caller:self];
     
     origin = CGPointMake(tmp.origin.x + 12, tmp.origin.y);
     size = CGPointMake(136/2 - 8, 30);
@@ -283,8 +288,8 @@
     grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
     [grid makeGridWithRows:3 andCols:4];
     row = 1; col = 2;
-    _numItemsA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsA andType:LabelField caller:self];
-    _numItemsB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsB andType:LabelField caller:self];
+    _numItemsA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:NumItemsA andType:LabelField caller:self];
+    _numItemsB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:NumItemsB andType:LabelField caller:self];
     tmp = [grid getRectAtX:1 andY:0];
     tmp.origin.x = size.x - spacing.x + 4;
     _xlabelA = [Field allocFieldWithRect:tmp andF:fontSize andValue:@"X" andTag:XLabelA andType:LabelField caller:self];
