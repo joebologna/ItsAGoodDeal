@@ -125,6 +125,7 @@
         _totalCostA = nil;
         _totalCostB = nil;
         _message = nil;
+        _message2 = nil;
         _ad = nil;
         _vc = nil;
     }
@@ -148,6 +149,10 @@
                         _numItemsA,
                         _unitsEachB,
                         _numItemsB,
+                        _unitCostA,
+                        _unitCostB,
+                        _totalCostA,
+                        _totalCostB,
                         nil];
 
     self.allFields = [NSArray arrayWithObjects:
@@ -171,7 +176,10 @@
                       _unitCostB,
                       _totalCostA,
                       _totalCostB,
+                      _totalCostAL,
+                      _totalCostBL,
                       _message,
+                      _message2,
                       nil];
 
     self.keys = [NSArray arrayWithObjects:
@@ -220,70 +228,112 @@
 #endif
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGPoint origin, size, spacing;
-    float fontSize = 10;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    CGFloat h = ceilf(0.4 * height / 14);
+    CGFloat h2 = h * 2;
+    float fontSize = ceilf(h * .667);
     
-    CGRect c1 = CGRectMake(0, 0, width/2, 15);
+    CGRect c1 = CGRectMake(0, 0, 0, 0);
+    c1.origin.x = 0;
+    c1.origin.y = 0;
+    c1.size.height = h;
+    c1.size.width = width/2;
     _priceAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Price A" andTag:PriceAL andType:LabelField caller:self];
-    CGRect c2 = CGRectMake(width/2, 0, width/2, 15);
-    _priceBL = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"Price B" andTag:PriceBL andType:LabelField caller:self];
+    c1.origin.x += c1.size.width;
+    _priceBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Price B" andTag:PriceBL andType:LabelField caller:self];
     
-    c1.origin.y += 15;
-    c1.size.height *= 2;
+    c1.origin.y += c1.size.height;
+    c1.origin.x = 0;
+    c1.size.height = h2;
+    c1.size.width = width/2;
     _priceA = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:PriceA andType:LabelField caller:self];
-    c2.origin.y += 15;
-    c2.size.height *= 2;
-    _priceB = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"" andTag:PriceB andType:LabelField caller:self];
+    c1.origin.x += c1.size.width;
+    _priceB = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:PriceB andType:LabelField caller:self];
     
-    c1.origin.y += 30;
-    c1.size.height /= 2;
-    c1.size.width = c1.size.width/2;
+    c1.origin.y += c1.size.height;
+    c1.origin.x = 0;
+    c1.size.height = h;
+    c1.size.width = width/4;
     _unitsEachAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Units" andTag:UnitsEachAL andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     _numItemsAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Items" andTag:NumItemsAL andType:LabelField caller:self];
-    c2.origin.y += 30;
-    c2.size.height /= 2;
-    c2.size.width = c2.size.width/2;
-    _unitsEachBL = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"Units" andTag:UnitsEachBL andType:LabelField caller:self];
-    c2.origin.x += c2.size.width;
-    _numItemsBL = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"# of Items" andTag:NumItemsBL andType:LabelField caller:self];
+
+    c1.origin.x += c1.size.width;
+    c1.size.height = h;
+    c1.size.width = width/4;
+    _unitsEachBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Units" andTag:UnitsEachBL andType:LabelField caller:self];
+    c1.origin.x += c1.size.width;
+    _numItemsBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Items" andTag:NumItemsBL andType:LabelField caller:self];
     
-    c1.origin.y += 15;
+    c1.origin.y += c1.size.height;
     c1.origin.x = 0;
-    c1.size.width = width/4 - 7.5;
-    c1.size.height = 30;
+    c1.size.width = width/4 - h / 2;
+    c1.size.height = h2;
     _unitsEachA = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:UnitsEachA andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
+    c1.size.width = h;
     _xAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XAL andType:LabelField caller:self];
-    c1.origin.x += 15;
+    c1.origin.x += c1.size.width;
+    c1.size.width = width/4 - h / 2;
     _numItemsA = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:NumItemsA andType:LabelField caller:self];
     
-    c2.origin.y += 15;
-    c2.origin.x = width/2;
-    c2.size.width = width/4 - 7.5;
-    c2.size.height = 30;
-    _unitsEachB = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"" andTag:UnitsEachB andType:LabelField caller:self];
-    c2.origin.x += c2.size.width;
-    _xBL = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"x" andTag:XBL andType:LabelField caller:self];
-    c2.origin.x += 15;
-    _numItemsB = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"" andTag:NumItemsB andType:LabelField caller:self];
+    c1.origin.x += c1.size.width;
+    c1.size.width = width/4 - h / 2;
+    c1.size.height = h2;
+    _unitsEachB = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:UnitsEachB andType:LabelField caller:self];
+    c1.origin.x += c1.size.width;
+    c1.size.width = h;
+    _xBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XBL andType:LabelField caller:self];
+    c1.origin.x += c1.size.width;
+    c1.size.width = width/4 - h / 2;
+    _numItemsB = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:NumItemsB andType:LabelField caller:self];
     
-    CGRect rr = CGRectMake(0, 100, width/2, 15);
-    _unitCostAL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"Unit Cost" andTag:UnitCostAL andType:LabelField caller:self];
-    _unitCostBL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"Unit Cost" andTag:UnitCostBL andType:LabelField caller:self];
-    
-    _unitCostA = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:UnitCostA andType:LabelField caller:self];
-    _unitCostB = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:UnitCostB andType:LabelField caller:self];
+    c1.origin.y += c1.size.height;
+    c1.origin.x = 0;
+    c1.size.height = h;
+    c1.size.width = width/2;
+    _unitCostAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Unit Cost" andTag:UnitCostAL andType:LabelField caller:self];
+    c1.origin.x += c1.size.width;
+    _unitCostBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Unit Cost" andTag:UnitCostBL andType:LabelField caller:self];
 
-    _totalCostAL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"Total Cost of XXX Units" andTag:TotalCostAL andType:LabelField caller:self];
-    _totalCostBL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"Total Cost of XXX Units" andTag:TotalCostBL andType:LabelField caller:self];
-    
-    _totalCostA = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:TotalCostA andType:LabelField caller:self];
-    _totalCostB = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:TotalCostB andType:LabelField caller:self];
+    c1.origin.y += c1.size.height;
+    c1.origin.x = 0;
+    c1.size.height = h2;
+    c1.size.width = width/2;
+    _unitCostA = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:UnitCostA andType:LabelField caller:self];
+    c1.origin.x += c1.size.width;
+    _unitCostB = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:UnitCostB andType:LabelField caller:self];
 
-    _message = [Field allocFieldWithRect:rr andF:fontSize andValue:@PROMPT andTag:Message andType:LabelField caller:self];
+    c1.origin.y += c1.size.height;
+    c1.origin.x = 0;
+    c1.size.height = h;
+    c1.size.width = width/2;
+    _totalCostAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Cost of XXX Units" andTag:TotalCostAL andType:LabelField caller:self];
+    c1.origin.x += c1.size.width;
+    _totalCostBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Cost of XXX Units" andTag:TotalCostBL andType:LabelField caller:self];
     
+    c1.origin.y += c1.size.height;
+    c1.origin.x = 0;
+    c1.size.height = h2;
+    c1.size.width = width/2;
+    _totalCostA = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:TotalCostA andType:LabelField caller:self];
+    c1.origin.x += c1.size.width;
+    _totalCostB = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:TotalCostB andType:LabelField caller:self];
+
+    c1.origin.y += c1.size.height;
+    c1.origin.x = 0;
+    c1.size.height = h2;
+    c1.size.width = width;
+    _message = [Field allocFieldWithRect:c1 andF:fontSize andValue:@PROMPT andTag:Message andType:LabelField caller:self];
+
+    c1.origin.y += c1.size.height;
+    c1.origin.x = 0;
+    c1.size.height = h2;
+    c1.size.width = width;
+    _message2 = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:Message andType:LabelField caller:self];
+
     // keypad
+    CGPoint origin, size, spacing;
     float nextKeyWidth, nextKeyFontSize;
     origin = CGPointMake(20, 200);
     size = CGPointMake(64, 46);

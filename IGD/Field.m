@@ -172,7 +172,7 @@
     t.placeholder = self.value;
     t.backgroundColor = [UIColor clearColor];
     t.enabled = YES;
-    t.borderStyle = UITextBorderStyleBezel;
+    t.borderStyle = UITextBorderStyleNone;
     
     self.control = (UIControl *)t;
 

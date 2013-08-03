@@ -50,6 +50,7 @@ typedef enum {
     TotalCostA,
     TotalCostB,
     Message,
+    Message2,
     MoreLabel,
     One = KTAG_BASE,
     Two,

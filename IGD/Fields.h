@@ -65,6 +65,7 @@ typedef enum {
     *totalCostA,
     *totalCostB,
 	*message,
+    *message2,
 	*ad,
 	*one,
 	*two,
