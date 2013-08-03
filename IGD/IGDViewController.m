@@ -146,6 +146,10 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     } else if (button.tag == Clr) {
         for (Field *f in self.fields.inputFields) {
             f.value = @"";
+            if (f.tag == Slider) {
+                ((UISlider *)f.control).maximumValue = 10.0;
+                ((UISlider *)f.control).value = 1.0;
+            }
         }
         self.fields.curField = self.fields.inputFields[0];
         self.fields.curField.value = @"";

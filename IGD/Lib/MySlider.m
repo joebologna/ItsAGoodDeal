@@ -42,7 +42,8 @@
 #ifdef DEBUG
     NSLog(@"%s:%@:%@:%.2f", __func__, touches, event, x);
 #endif
-    long int v = lroundf((x / t.view.frame.size.width) * (s.maximumValue - s.minimumValue));
+    long int v = MIN(lroundf((x / t.view.frame.size.width) * (s.maximumValue - s.minimumValue)), 100.0);
+    v = MAX(1.0, v);
     s.value = v;
     NSLog(@"v:%.2f", s.value);
     [self.caller newSliderValue:v];

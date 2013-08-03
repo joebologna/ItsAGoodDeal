@@ -187,8 +187,8 @@
 #endif
     MySlider *s = [[MySlider alloc] initWithFrame:self.rect];
     s.continuous = YES;
-    s.maximumValue = 10.0;
-    s.minimumValue = 0.0;
+    s.maximumValue = 100.0;
+    s.minimumValue = 1.0;
     s.value = 1.0;
     self.control = (UIControl *)s;
     s.caller = self;

@@ -308,7 +308,7 @@
 
     c1.origin.y += c1.size.height;
     c1.origin.x = 0;
-    c1.size.height = h2;
+    c1.size.height = h2 + 2;
     c1.size.width = width;
     _message = [Field allocFieldWithRect:c1 andF:fontSize * ([self isPhone] ? 1.1 : 1.5) andValue:@PROMPT andTag:Message andType:LabelField caller:self];
     
@@ -413,38 +413,43 @@
     BOOL AisAllSet = self.priceA.floatValue != 0.0 && self.unitsEachA.floatValue != 0.0 && self.numItemsA.floatValue != 0.0;
     BOOL BisAllSet = self.priceB.floatValue != 0.0 && self.unitsEachB.floatValue != 0.0 && self.numItemsB.floatValue != 0.0;
     BOOL allSet = AisAllSet && BisAllSet;
+    float unitCostA = 0;
+    float unitCostB = 0;
+    float numUnitsA = 0;
+    float numUnitsB = 0;
 
     if (AisAllSet) {
-        float unitCostA = self.priceA.floatValue / (self.unitsEachA.floatValue * self.numItemsA.floatValue);
+        numUnitsA = (self.unitsEachA.floatValue * self.numItemsA.floatValue);
+        unitCostA = self.priceA.floatValue /numUnitsA;
         ((UITextField *)self.unitCostAL.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostA d:3]];
     }
     if (BisAllSet) {
-        float unitCostB = self.priceB.floatValue / (self.unitsEachB.floatValue * self.numItemsB.floatValue);
+        numUnitsB = (self.unitsEachB.floatValue * self.numItemsB.floatValue);
+        unitCostB = self.priceB.floatValue / numUnitsB;
         ((UITextField *)self.unitCostBL.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostB d:3]];
     }
+    float unitCostDiff = fabsf(unitCostA - unitCostB);
     if (allSet) {
-        float totalCostA = self.priceA.floatValue * self.numItemsA.floatValue;
-        float totalCostB = self.priceB.floatValue * self.numItemsB.floatValue;
-        float totalSavings = fabsf(totalCostA - totalCostB);
-        
-        if (totalCostA < totalCostB) {
+        if (unitCostA < unitCostB) {
+            float totalSavings = unitCostDiff * numUnitsA;
             if (totalSavings < 0.01) {
                 self.message.value = [NSString stringWithFormat:@"Buy A, You Save: almost %@0.01", self.currencySymbol];
             } else {
                 self.message.value = [NSString stringWithFormat:@"Buy A, You Save: %@", [self fmtPrice:totalSavings d:2]];
             }
-            ((UISlider *)self.slider.control).value = self.numItemsA.value.floatValue;
-        } else if (totalCostA > totalCostB) {
+            ((UISlider *)self.slider.control).value = self.numItemsA.floatValue;
+        } else if (unitCostA > unitCostB) {
+            float totalSavings = unitCostDiff * numUnitsB;
             if (totalSavings < 0.01) {
                 self.message.value = [NSString stringWithFormat:@"Buy B, You Save: almost %@0.01", self.currencySymbol];
             } else {
                 self.message.value = [NSString stringWithFormat:@"Buy B, You Save: %@", [self fmtPrice:totalSavings d:2]];
             }
-            ((UISlider *)self.slider.control).value = self.numItemsB.value.floatValue;
+            ((UISlider *)self.slider.control).value = self.numItemsB.floatValue;
         } else {
             self.message.value = @"A is the same price as B";
         }
-        ((UISlider *)self.slider.control).value = self.numItemsA.value.floatValue;
+        ((UISlider *)self.slider.control).value = self.numItemsA.floatValue;
     }
     self.slider.control.hidden = !allSet;
 }
@@ -465,6 +470,22 @@
 - (void)newSliderValue:(float)v {
 #ifdef DEBUG
     NSLog(@"%s:%.2f", __func__, v);
+#endif
+
+#ifdef ADJUSTER
+    if (v <= 1.0) v = 1.0;
+    float diff = fabsf(v - ((UISlider *)self.slider.control).maximumValue);
+    if (diff <= 1) {
+        ((UISlider *)self.slider.control).maximumValue *= 10;
+    } else if (v == ((UISlider *)self.slider.control).minimumValue) {
+        ((UISlider *)self.slider.control).maximumValue /= 10;
+    }
+    if (((UISlider *)self.slider.control).maximumValue < 1.0) {
+        ((UISlider *)self.slider.control).maximumValue = 10.0;
+    }
+    if (((UISlider *)self.slider.control).maximumValue > 1000.0) {
+        ((UISlider *)self.slider.control).maximumValue = 1000.0;
+    }
 #endif
     [self.vc sliderMoved:v];
     float itemCostA = self.priceA.floatValue / self.numItemsA.floatValue;
