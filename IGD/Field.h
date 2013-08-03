@@ -10,6 +10,7 @@
 #include "Features.h"
 #import "Lib/NSObject+Utils.h"
 #import "MyButton.h"
+#import "MySlider.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -22,9 +23,10 @@
 #define KTAG_BASE 200
 #define BTAG_BASE 300
 
-#define PREVBUTTON @"     Previous    "
-#define CALCBUTTON @"    Calculate    "
-#define NEXTBUTTON @"       Next      "
+#define PREVBUTTON @" Previous  "
+#define CALCBUTTON @" Calculate "
+#define NEXTBUTTON @"   Next    "
+#define MULTBUTTON @" Multiply  "
 
 typedef enum {
     PriceAL = FTAG_BASE,
@@ -45,8 +47,6 @@ typedef enum {
     UnitCostBL,
     UnitCostA,
     UnitCostB,
-    TotalCostAL,
-    TotalCostBL,
     TotalCostA,
     TotalCostB,
     Message,
@@ -67,9 +67,12 @@ typedef enum {
     Store,
     Del,
     Next,
+    Mul,
     PrevButton = BTAG_BASE,
     CalcButton,
     NextButton,
+    MultButton,
+    Slider,
     Ad = 999,
     FtagNotSet = -1
 } FTAG;
@@ -90,9 +93,11 @@ typedef enum {
 
 - (void)makeButton;
 - (void)makeField;
+- (void)makeSlider;
 - (BOOL)isButton;
 - (BOOL)isCurrency;
 - (BOOL)isNumber;
+- (BOOL)isSlider;
 
 @property (unsafe_unretained, nonatomic) CGRect rect;
 @property (unsafe_unretained, nonatomic) CGFloat f;

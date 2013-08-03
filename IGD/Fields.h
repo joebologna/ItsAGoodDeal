@@ -58,8 +58,7 @@ typedef enum {
     *numItemsB,
     *unitCostAL,
     *unitCostBL,
-    *totalCostAL,
-    *totalCostBL,
+    *slider,
 	*message,
 	*ad,
 	*one,
@@ -76,7 +75,8 @@ typedef enum {
     *store,
 	*period,
 	*zero,
-	*next;
+	*next,
+    *mul;
 
 @property (strong, nonatomic) NSArray *inputFields,
 	*allFields,
@@ -90,4 +90,10 @@ typedef enum {
 @protocol TraverseViewDelegate <NSObject>
 - (void)buttonPushed:(id)sender;
 - (void)addControl:(UIView *)control;
+@end
+
+@protocol SliderDelegate <NSObject>
+
+- (void)sliderMoved:(id)sender;
+
 @end

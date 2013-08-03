@@ -121,6 +121,7 @@
         _unitCostAL = nil;
         _unitCostBL = nil;
         _message = nil;
+        _slider = nil;
         _ad = nil;
         _vc = nil;
     }
@@ -131,7 +132,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    self.vc = vc;
+    _vc = vc;
     self.deviceType = [self getDeviceType];
     
     [self buildScreen];
@@ -163,6 +164,7 @@
                       _numItemsB,
                       _unitCostAL,
                       _unitCostBL,
+                      _slider,
                       _message,
                       nil];
 
@@ -213,7 +215,7 @@
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    CGFloat h = ceilf(0.4 * height / 8);
+    CGFloat h = ceilf(0.4 * height / 10);
     CGFloat h2 = h * 2;
     CGFloat fontSize;
 
@@ -297,6 +299,12 @@
     _unitCostAL = [Field allocFieldWithRect:c1 andF:fontSize*.75 andValue:@"" andTag:UnitCostAL andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     _unitCostBL = [Field allocFieldWithRect:c1 andF:fontSize*.75 andValue:@"" andTag:UnitCostBL andType:LabelField caller:self];
+    
+    c1.origin.y += c1.size.height;
+    c1.origin.x = fontSize;
+    c1.size.height = h;
+    c1.size.width = width - fontSize * 2;
+    _slider = [Field allocFieldWithRect:c1 andF:fontSize*.75 andValue:@"" andTag:Slider andType:LabelField caller:self];
 
     c1.origin.y += c1.size.height;
     c1.origin.x = 0;
@@ -359,13 +367,15 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    assert(self.vc != nil);
+    assert(_vc != nil);
     if ([f isButton]) {
         [f makeButton];
+    } else if ([f isSlider]) {
+        [f makeSlider];
     } else {
         [f makeField];
     }
-    [self.vc addControl:f.control];
+    [_vc addControl:f.control];
 }
 
 - (void)populateScreen {
@@ -423,20 +433,33 @@
             } else {
                 self.message.value = [NSString stringWithFormat:@"Buy A, You Save: %@", [self fmtPrice:totalSavings d:2]];
             }
+            ((UISlider *)self.slider.control).value = self.numItemsA.value.floatValue;
         } else if (totalCostA > totalCostB) {
             if (totalSavings < 0.01) {
                 self.message.value = [NSString stringWithFormat:@"Buy B, You Save: almost %@0.01", self.currencySymbol];
             } else {
                 self.message.value = [NSString stringWithFormat:@"Buy B, You Save: %@", [self fmtPrice:totalSavings d:2]];
             }
+            ((UISlider *)self.slider.control).value = self.numItemsB.value.floatValue;
         } else {
             self.message.value = @"A is the same price as B";
         }
+        ((UISlider *)self.slider.control).value = self.numItemsA.value.floatValue;
     }
+    self.slider.control.hidden = !allSet;
 }
 
 - (void)buttonPushed:(id)sender {
-    [self.vc buttonPushed:sender];
+#ifdef DEBUG
+    if ([sender isKindOfClass:[UIButton class]]) {
+        NSLog(@"%s:%d:%@", __func__, ((UIButton *)sender).tag, ((UIButton *)sender).titleLabel.text);
+    } else if ([sender isKindOfClass:[UISlider class]]) {
+            NSLog(@"%s:%d:%.2f", __func__, ((UISlider *)sender).tag, ((UISlider *)sender).value);
+    } else {
+        NSLog(@"%s:%@", __func__, sender);
+    }
+#endif
+    [_vc buttonPushed:sender];
 }
 
 @end

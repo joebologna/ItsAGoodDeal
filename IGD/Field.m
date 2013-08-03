@@ -121,19 +121,22 @@
             || _tag == UnitsEachB);
 }
 
+- (BOOL)isSlider {
+    return _tag == Slider;
+}
+
 - (void)buttonPushed:(id)sender {
 #ifdef DEBUG
-    NSLog(@"%s", __func__);
+    if ([sender isKindOfClass:[UIButton class]]) {
+        NSLog(@"%s:%d:%@", __func__, ((UIButton *)sender).tag, ((UIButton *)sender).titleLabel.text);
+    } else if ([sender isKindOfClass:[UISlider class]]) {
+        NSLog(@"%s:%d:%.2f", __func__, ((UISlider *)sender).tag, ((UISlider *)sender).value);
+    } else {
+        NSLog(@"%s:%@", __func__, sender);
+    }
 #endif
     [self.caller buttonPushed:sender];
 }
-
-//- (void)toolBarButtonPushed:(id)sender {
-//#ifdef DEBUG
-//    NSLog(@"%s", __func__);
-//#endif
-//    [self buttonPushed:sender];
-//}
 
 - (void)makeButton {
 #ifdef DEBUG
@@ -151,7 +154,6 @@
     if (self.type == KeyType) {
         [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient3.png"] forState:UIControlStateNormal];
         [b setBackgroundImage:[UIImage imageNamed:@"ButtonGradient3.png"] forState:UIControlStateSelected];
-        //b.titleLabel.text = self.value;
     }
     self.control = (UIControl *)b;
 }
@@ -179,7 +181,23 @@
     [self makeKeyboardToolBar];
 }
 
+- (void)makeSlider {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    MySlider *s = [[MySlider alloc] initWithFrame:self.rect];
+    s.continuous = YES;
+    s.maximumValue = 10.0;
+    s.minimumValue = 0.0;
+    s.value = 1.0;
+    self.control = (UIControl *)s;
+    s.caller = self;
+}
+
 - (void)makeKeyboardToolBar {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
     rowOfKeys = [[UIToolbar alloc] init];
     rowOfKeys.barStyle = UIBarStyleBlack;
     [rowOfKeys sizeToFit];
@@ -255,5 +273,11 @@
         [self buttonPushed:nextButton];
     }
     return YES;
+}
+
+- (void)newValue:(float)v {
+#ifdef DEBUG
+    NSLog(@"%s:%.2f", __func__, v);
+#endif
 }
 @end

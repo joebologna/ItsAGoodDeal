@@ -101,7 +101,13 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 
 - (void)buttonPushed:(id)sender {
 #ifdef DEBUG
-    NSLog(@"%s", __func__);
+    if ([sender isKindOfClass:[UIButton class]]) {
+        NSLog(@"%s:%d:%@", __func__, ((UIButton *)sender).tag, ((UIButton *)sender).titleLabel.text);
+    } else if ([sender isKindOfClass:[UISlider class]]) {
+        NSLog(@"%s:%d:%.2f", __func__, ((UISlider *)sender).tag, ((UISlider *)sender).value);
+    } else {
+        NSLog(@"%s:%@", __func__, sender);
+    }
 #endif
     
     MyButton *button = (MyButton *)sender;
