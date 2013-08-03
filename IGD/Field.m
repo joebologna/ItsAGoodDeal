@@ -275,9 +275,10 @@
     return YES;
 }
 
-- (void)newValue:(float)v {
+- (void)newSliderValue:(float)v {
 #ifdef DEBUG
     NSLog(@"%s:%.2f", __func__, v);
 #endif
+    [self.caller newSliderValue:v];
 }
 @end

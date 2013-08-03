@@ -94,6 +94,6 @@ typedef enum {
 
 @protocol SliderDelegate <NSObject>
 
-- (void)sliderMoved:(id)sender;
+- (void)sliderMoved:(float)v;
 
 @end

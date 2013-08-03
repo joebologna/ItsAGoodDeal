@@ -45,7 +45,7 @@
     long int v = lroundf((x / t.view.frame.size.width) * (s.maximumValue - s.minimumValue));
     s.value = v;
     NSLog(@"v:%.2f", s.value);
-    [self.caller newValue:v];
+    [self.caller newSliderValue:v];
 }
 
 /*

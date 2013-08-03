@@ -118,4 +118,5 @@ typedef enum {
 - (void)showKeypad:(Field *)field;
 - (void)buttonPushed:(id)sender;
 - (void)fieldWasSelected:(Field *)field;
+- (void)newSliderValue:(float)v;
 @end

@@ -166,6 +166,12 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     //[self.fields calcSavings];
 }
 
+- (void)sliderMoved:(float)v {
+#ifdef DEBUG
+    NSLog(@"%s:%.2f", __func__, v);
+#endif
+}
+
 #pragma mark -
 #pragma mark Ads
 

@@ -415,11 +415,11 @@
     BOOL allSet = AisAllSet && BisAllSet;
 
     if (AisAllSet) {
-        float unitCostA = self.priceA.floatValue / self.unitsEachA.floatValue;
+        float unitCostA = self.priceA.floatValue / (self.unitsEachA.floatValue * self.numItemsA.floatValue);
         ((UITextField *)self.unitCostAL.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostA d:3]];
     }
     if (BisAllSet) {
-        float unitCostB = self.priceB.floatValue / self.unitsEachB.floatValue;
+        float unitCostB = self.priceB.floatValue / (self.unitsEachB.floatValue * self.numItemsB.floatValue);
         ((UITextField *)self.unitCostBL.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostB d:3]];
     }
     if (allSet) {
@@ -462,4 +462,17 @@
     [_vc buttonPushed:sender];
 }
 
+- (void)newSliderValue:(float)v {
+#ifdef DEBUG
+    NSLog(@"%s:%.2f", __func__, v);
+#endif
+    [self.vc sliderMoved:v];
+    float itemCostA = self.priceA.floatValue / self.numItemsA.floatValue;
+    float itemCostB = self.priceB.floatValue / self.numItemsB.floatValue;
+    int n = (int)lrintf(v);
+    self.priceA.value = [NSString stringWithFormat:@"%.2f", itemCostA * n];
+    self.priceB.value = [NSString stringWithFormat:@"%.2f", itemCostB * n];
+    self.numItemsA.value = self.numItemsB.value = [NSString stringWithFormat:@"%d", n];
+    [self calcSavings];
+}
 @end
