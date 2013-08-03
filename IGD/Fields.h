@@ -15,7 +15,7 @@
 #define CLR "C"
 #define NEXT "Next/Calc Savings"
 #define DEL "Del"
-#define PROMPT "Enter Prices, # of Items and # of Units"
+#define PROMPT "Enter Prices, Units and # of Items"
 
 typedef enum {
     ShowPrompt,

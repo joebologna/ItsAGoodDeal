@@ -229,11 +229,12 @@
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    CGFloat fudge = (height > 480 && height < 1024) ? 7 : 0;
     CGFloat h = ceilf(0.4 * height / 14);
     CGFloat h2 = h * 2;
-    float fontSize = ceilf(h * .667);
-    float fontSize2 = ceilf(h2 * .667);
-    float spf = 0.05;
+    CGFloat fontSize = ceilf(h * .667);
+    CGFloat fontSize2 = ceilf(h2 * .667);
+    CGFloat spf = 0.04;
     
     CGRect c1 = CGRectMake(0, 0, 0, 0);
     c1.origin.x = 0;
@@ -276,7 +277,7 @@
     c1.size.width = fontSize;
     _xAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XAL andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
-    c1.size.width = ceilf(width/4 - (width/2 * spf) * 2 + ceilf(fontSize/2));
+    c1.size.width = ceilf(width/4 - (width/2 * spf) * 2);
     _numItemsA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:NumItemsA andType:LabelField caller:self];
     
     c1.origin.x += c1.size.width + ceilf((width/2 * spf) * 2);
@@ -287,7 +288,7 @@
     c1.size.width = fontSize;
     _xBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XBL andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
-    c1.size.width = ceilf(width/4 - (width/2 * spf) * 2 + ceilf(fontSize/2));
+    c1.size.width = ceilf(width/4 - (width/2 * spf) * 2 + ceilf(fontSize/2)) - fudge;
     _numItemsB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:NumItemsB andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
@@ -333,22 +334,22 @@
     c1.size.height = h2;
     c1.size.width = width;
     _message2 = [Field allocFieldWithRect:c1 andF:fontSize * 1.5 andValue:@"" andTag:Message andType:LabelField caller:self];
-
+    
     // keypad
     CGPoint origin, size, spacing;
     float nextKeyWidth, nextKeyFontSize;
-    origin = CGPointMake(20, 200);
+    origin = CGPointMake(20, c1.origin.y + c1.size.height);
     size = CGPointMake(64, 46);
     spacing = CGPointMake(8, 2);
     fontSize = 15;
     nextKeyWidth = 136;
     nextKeyFontSize = fontSize;
     if (self.deviceType == iPhone5) {
-        origin = CGPointMake(20, 288);
+        origin = CGPointMake(20, c1.origin.y + c1.size.height);
     }
     if (self.deviceType == iPad) {
-        origin = CGPointMake(20, 546);
-        size = CGPointMake(176, 92);
+        origin = CGPointMake(20, c1.origin.y + c1.size.height);
+        size = CGPointMake(176, 110);
         fontSize = 48;
         nextKeyWidth = 360;
         nextKeyFontSize = 36;
