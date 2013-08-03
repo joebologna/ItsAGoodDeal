@@ -18,7 +18,7 @@ typedef enum {
 - (void)logSelf:(id)obj;
 - (NSString *)expandPrefix:(NSString *)prefix ntimes:(NSUInteger)n;
 - (NSString *)prefix;
-- (NSString *)fmtPrice:(float)price;
+- (NSString *)fmtPrice:(float)price d:(int)d;
 - (NSString *)currencySymbol;
 - (DeviceType)getDeviceType;
 - (NSString *)getDeviceTypeString;

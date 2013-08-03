@@ -171,7 +171,7 @@
     t.textAlignment = NSTextAlignmentCenter;
     t.placeholder = self.value;
     t.backgroundColor = [UIColor clearColor];
-    t.enabled = YES;
+    t.enabled = [self isNumber];
     t.borderStyle = UITextBorderStyleNone;
     
     self.control = (UIControl *)t;
@@ -240,7 +240,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    textField.text = [self isCurrency] ? [self fmtPrice:self.floatValue] : self.value;
+    textField.text = [self isCurrency] ? [self fmtPrice:self.floatValue d:2] : self.value;
     textField.placeholder = previousPlaceholder;
     [self.caller showKeypad:self];
 }

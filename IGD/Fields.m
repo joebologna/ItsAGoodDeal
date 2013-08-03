@@ -55,7 +55,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue] : self.curField.value;
+    ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue d:2] : self.curField.value;
     if ([self.curField isEqual:self.inputFields.lastObject]) {
         self.curField = self.inputFields[0];
     } else {
@@ -71,7 +71,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue] : self.curField.value;
+    ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue d:2] : self.curField.value;
     if ([self.curField isEqual:self.inputFields[0]]) {
         self.curField = self.inputFields.lastObject;
     } else {
@@ -87,7 +87,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue] : self.curField.value;
+    ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue d:2] : self.curField.value;
     for (Field *f in self.inputFields) {
         if ([f.control isEqual:t]) {
             self.curField = f;
@@ -120,12 +120,7 @@
         _numItemsB = nil;
         _unitCostAL = nil;
         _unitCostBL = nil;
-        _unitCostA = nil;
-        _unitCostB = nil;
-        _totalCostA = nil;
-        _totalCostB = nil;
         _message = nil;
-        _message2 = nil;
         _ad = nil;
         _vc = nil;
     }
@@ -149,10 +144,6 @@
                         _numItemsA,
                         _unitsEachB,
                         _numItemsB,
-                        _unitCostA,
-                        _unitCostB,
-                        _totalCostA,
-                        _totalCostB,
                         nil];
 
     self.allFields = [NSArray arrayWithObjects:
@@ -172,14 +163,7 @@
                       _numItemsB,
                       _unitCostAL,
                       _unitCostBL,
-                      _unitCostA,
-                      _unitCostB,
-                      _totalCostA,
-                      _totalCostB,
-                      _totalCostAL,
-                      _totalCostBL,
                       _message,
-                      _message2,
                       nil];
 
     self.keys = [NSArray arrayWithObjects:
@@ -229,111 +213,96 @@
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    CGFloat fudge = (height > 480 && height < 1024) ? 7 : 0;
-    CGFloat h = ceilf(0.4 * height / 14);
+    CGFloat h = ceilf(0.4 * height / 8);
     CGFloat h2 = h * 2;
-    CGFloat fontSize = ceilf(h * .667);
-    CGFloat fontSize2 = ceilf(h2 * .667);
-    CGFloat spf = 0.04;
+    CGFloat fontSize;
+
+    switch (self.deviceType) {
+        case iPhone4:
+            fontSize = ceilf(h * .6);
+            break;
+        case iPhone5:
+            fontSize = ceilf(h * .6);
+            break;
+        case iPad:
+            fontSize = ceilf(h * .6);
+            break;
+        case UnknownDeviceType:
+            fontSize = ceilf(h * .6);
+            break;
+    }
+
+    CGFloat fontSize2 = ceilf(h2 * .6);
     
     CGRect c1 = CGRectMake(0, 0, 0, 0);
-    c1.origin.x = 0;
+    c1.origin.x = fontSize;
     c1.origin.y = 0;
     c1.size.height = h;
-    c1.size.width = ceilf(width/2);
+    c1.size.width = ceilf(width/2 - fontSize * 1.5);
     _priceAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Price A" andTag:PriceAL andType:LabelField caller:self];
-    c1.origin.x += c1.size.width;
+    c1.origin.x += c1.size.width + fontSize;
     _priceBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Price B" andTag:PriceBL andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
-    c1.origin.x = ceilf(width/2 * spf);
+    c1.origin.x = fontSize;
     c1.size.height = h2;
-    c1.size.width = ceilf(width/2 * (1 - spf * 2));
+    c1.size.width = ceilf(width/2 - fontSize * 1.5);
     _priceA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:PriceA andType:LabelField caller:self];
-    c1.origin.x += ceilf(c1.size.width + 2 * c1.size.width * spf);
+    c1.origin.x = c1.size.width + fontSize * 2;
     _priceB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:PriceB andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
-    c1.origin.x = 0;
+    c1.origin.x = fontSize;
     c1.size.height = h;
-    c1.size.width = ceilf(width/4);
-    _unitsEachAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Units" andTag:UnitsEachAL andType:LabelField caller:self];
-    c1.origin.x += c1.size.width;
-    _numItemsAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Items" andTag:NumItemsAL andType:LabelField caller:self];
+    c1.size.width = ceilf((width - fontSize * 5)/4);
+    _unitsEachAL = [Field allocFieldWithRect:c1 andF:fontSize * 0.6 andValue:@"# of Units" andTag:UnitsEachAL andType:LabelField caller:self];
+    c1.origin.x += fontSize + c1.size.width;
+    c1.size.width = ceilf((width - fontSize * 5)/4);
+    _numItemsAL = [Field allocFieldWithRect:c1 andF:fontSize * 0.6 andValue:@"# of Items" andTag:NumItemsAL andType:LabelField caller:self];
 
-    c1.origin.x += c1.size.width;
+    c1.origin.x += c1.size.width + fontSize;
     c1.size.height = h;
-    c1.size.width = ceilf(width/4);
-    _unitsEachBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Units" andTag:UnitsEachBL andType:LabelField caller:self];
-    c1.origin.x += c1.size.width;
-    _numItemsBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Items" andTag:NumItemsBL andType:LabelField caller:self];
+    c1.size.width = ceilf((width - fontSize * 5)/4);
+    _unitsEachBL = [Field allocFieldWithRect:c1 andF:fontSize * 0.6 andValue:@"# of Units" andTag:UnitsEachBL andType:LabelField caller:self];
+    c1.origin.x += fontSize + c1.size.width;
+    _numItemsBL = [Field allocFieldWithRect:c1 andF:fontSize * 0.6 andValue:@"# of Items" andTag:NumItemsBL andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
-    c1.origin.x = ceilf(width/2 * spf);
-    c1.size.width = ceilf(width/4 - (width/2 * spf) * 2);
+    c1.origin.x = fontSize;
+    c1.size.width = ceilf((width - fontSize * 5)/4);
     c1.size.height = h2;
     _unitsEachA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:UnitsEachA andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     c1.size.width = fontSize;
     _xAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XAL andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
-    c1.size.width = ceilf(width/4 - (width/2 * spf) * 2);
+    c1.size.width = ceilf((width - fontSize * 5)/4);
     _numItemsA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:NumItemsA andType:LabelField caller:self];
     
-    c1.origin.x += c1.size.width + ceilf((width/2 * spf) * 2);
-    c1.size.width = ceilf(width/4 - (width/2 * spf) * 2);
+    c1.origin.x += c1.size.width + fontSize;
+    c1.size.width = ceilf((width - fontSize * 5)/4);
     c1.size.height = h2;
     _unitsEachB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:UnitsEachB andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     c1.size.width = fontSize;
     _xBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XBL andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
-    c1.size.width = ceilf(width/4 - (width/2 * spf) * 2 + ceilf(fontSize/2)) - fudge;
+    c1.size.width = ceilf((width - fontSize * 5)/4);
     _numItemsB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:NumItemsB andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
     c1.origin.x = 0;
     c1.size.height = h;
     c1.size.width = ceilf(width/2);
-    _unitCostAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Unit Cost" andTag:UnitCostAL andType:LabelField caller:self];
+    _unitCostAL = [Field allocFieldWithRect:c1 andF:fontSize*.75 andValue:@"" andTag:UnitCostAL andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
-    _unitCostBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Unit Cost" andTag:UnitCostBL andType:LabelField caller:self];
-
-    c1.origin.y += c1.size.height;
-    c1.origin.x = ceilf(width/2 * spf);
-    c1.size.height = h2;
-    c1.size.width = ceilf(width/2 * (1 - spf * 2));
-    _unitCostA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:UnitCostA andType:LabelField caller:self];
-    c1.origin.x += ceilf(c1.size.width + 2 * c1.size.width * spf);
-    _unitCostB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:UnitCostB andType:LabelField caller:self];
-
-    c1.origin.y += c1.size.height;
-    c1.origin.x = 0;
-    c1.size.height = h;
-    c1.size.width = ceilf(width/2);
-    _totalCostAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"XXX Units Cost" andTag:TotalCostAL andType:LabelField caller:self];
-    c1.origin.x += c1.size.width;
-    _totalCostBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"XXX Units Cost" andTag:TotalCostBL andType:LabelField caller:self];
-    
-    c1.origin.y += c1.size.height;
-    c1.origin.x = ceilf(width/2 * spf);
-    c1.size.height = h2;
-    c1.size.width = ceilf(width/2 * (1 - spf * 2));
-    _totalCostA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:TotalCostA andType:LabelField caller:self];
-    c1.origin.x += ceilf(c1.size.width + 2 * c1.size.width * spf);
-    _totalCostB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:TotalCostB andType:LabelField caller:self];
+    _unitCostBL = [Field allocFieldWithRect:c1 andF:fontSize*.75 andValue:@"" andTag:UnitCostBL andType:LabelField caller:self];
 
     c1.origin.y += c1.size.height;
     c1.origin.x = 0;
     c1.size.height = h2;
     c1.size.width = width;
-    _message = [Field allocFieldWithRect:c1 andF:fontSize * 1.5 andValue:@PROMPT andTag:Message andType:LabelField caller:self];
-
-    c1.origin.y += c1.size.height;
-    c1.origin.x = 0;
-    c1.size.height = h2;
-    c1.size.width = width;
-    _message2 = [Field allocFieldWithRect:c1 andF:fontSize * 1.5 andValue:@"" andTag:Message andType:LabelField caller:self];
+    _message = [Field allocFieldWithRect:c1 andF:fontSize * ([self isPhone] ? 1.1 : 1.5) andValue:@PROMPT andTag:Message andType:LabelField caller:self];
     
     // keypad
     CGPoint origin, size, spacing;
@@ -437,11 +406,11 @@
 
     if (AisAllSet) {
         float unitCostA = self.priceA.floatValue / self.unitsEachA.floatValue;
-        ((UITextField *)self.unitCostA.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostA]];
+        ((UITextField *)self.unitCostAL.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostA d:3]];
     }
     if (BisAllSet) {
         float unitCostB = self.priceB.floatValue / self.unitsEachB.floatValue;
-        ((UITextField *)self.unitCostB.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostB]];
+        ((UITextField *)self.unitCostBL.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostB d:3]];
     }
     if (allSet) {
         float totalCostA = self.priceA.floatValue * self.numItemsA.floatValue;
@@ -452,13 +421,13 @@
             if (totalSavings < 0.01) {
                 self.message.value = [NSString stringWithFormat:@"Buy A, You Save: almost %@0.01", self.currencySymbol];
             } else {
-                self.message.value = [NSString stringWithFormat:@"Buy A, You Save: %@", [self fmtPrice:totalSavings]];
+                self.message.value = [NSString stringWithFormat:@"Buy A, You Save: %@", [self fmtPrice:totalSavings d:2]];
             }
         } else if (totalCostA > totalCostB) {
             if (totalSavings < 0.01) {
                 self.message.value = [NSString stringWithFormat:@"Buy B, You Save: almost %@0.01", self.currencySymbol];
             } else {
-                self.message.value = [NSString stringWithFormat:@"Buy B, You Save: %@", [self fmtPrice:totalSavings]];
+                self.message.value = [NSString stringWithFormat:@"Buy B, You Save: %@", [self fmtPrice:totalSavings d:2]];
             }
         } else {
             self.message.value = @"A is the same price as B";

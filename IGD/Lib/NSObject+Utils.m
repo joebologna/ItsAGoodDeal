@@ -31,8 +31,11 @@
     return @"\t";
 }
 
-- (NSString *)fmtPrice:(float)price {
-    return [NSString stringWithFormat:@"%@%.2f", self.currencySymbol, price];
+- (NSString *)fmtPrice:(float)price d:(int)d {
+    if (d == 2) {
+        return [NSString stringWithFormat:@"%@%.2f", self.currencySymbol, price];
+    }
+    return [NSString stringWithFormat:@"%@%.3f", self.currencySymbol, price];
 }
 
 - (NSString *)currencySymbol {
