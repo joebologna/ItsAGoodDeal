@@ -104,14 +104,26 @@
         NSLog(@"%s", __func__);
 #endif
         _deviceType = UnknownDeviceType;
-        _itemA = nil,
-        _itemB = nil,
-        _priceA = nil,
-        _priceB = nil,
-        _numItemsA = nil,
-        _numItemsB = nil,
-        _unitsEachA = nil,
-        _unitsEachB = nil,
+        _priceAL = nil;
+        _priceBL = nil;
+        _priceA = nil;
+        _priceB = nil;
+        _unitsEachAL = nil;
+        _numItemsAL = nil;
+        _unitsEachBL = nil;
+        _numItemsBL = nil;
+        _unitsEachA = nil;
+        _xAL = nil;
+        _numItemsA = nil;
+        _unitsEachB = nil;
+        _xBL = nil;
+        _numItemsB = nil;
+        _unitCostAL = nil;
+        _unitCostBL = nil;
+        _unitCostA = nil;
+        _unitCostB = nil;
+        _totalCostA = nil;
+        _totalCostB = nil;
         _message = nil;
         _ad = nil;
         _vc = nil;
@@ -130,56 +142,54 @@
 
     // this is the order that the Next button traverses.
     self.inputFields = [NSArray arrayWithObjects:
-                        self.priceA,
-                        self.unitsEachA,
-                        self.numItemsA,
-                        self.priceAT,
-                        self.unitsEachAT,
-                        self.numItemsAT,
-                        self.priceB,
-                        self.unitsEachB,
-                        self.numItemsB,
-                        self.priceBT,
-                        self.unitsEachBT,
-                        self.numItemsBT,
+                        _priceA,
+                        _priceB,
+                        _unitsEachA,
+                        _numItemsA,
+                        _unitsEachB,
+                        _numItemsB,
                         nil];
 
     self.allFields = [NSArray arrayWithObjects:
-                      self.priceA,
-                      self.unitsEachA,
-                      self.numItemsA,
-                      self.priceAT,
-                      self.unitsEachAT,
-                      self.numItemsAT,
-                      self.priceB,
-                      self.unitsEachB,
-                      self.numItemsB,
-                      self.priceBT,
-                      self.unitsEachBT,
-                      self.numItemsBT,
-                      self.itemA,
-                      self.itemB,
-                      self.unitCostA,
-                      self.unitCostB,
-                      self.message,
+                      _priceAL,
+                      _priceBL,
+                      _priceA,
+                      _priceB,
+                      _unitsEachAL,
+                      _numItemsAL,
+                      _unitsEachBL,
+                      _numItemsBL,
+                      _unitsEachA,
+                      _xAL,
+                      _numItemsA,
+                      _unitsEachB,
+                      _xBL,
+                      _numItemsB,
+                      _unitCostAL,
+                      _unitCostBL,
+                      _unitCostA,
+                      _unitCostB,
+                      _totalCostA,
+                      _totalCostB,
+                      _message,
                       nil];
 
     self.keys = [NSArray arrayWithObjects:
-                 self.one,
-                 self.two,
-                 self.three,
-                 self.four,
-                 self.five,
-                 self.six,
-                 self.seven,
-                 self.eight,
-                 self.nine,
-                 self.zero,
-                 self.period,
-                 self.clr,
-                 self.store,
-                 self.del,
-                 self.next,
+                 _one,
+                 _two,
+                 _three,
+                 _four,
+                 _five,
+                 _six,
+                 _seven,
+                 _eight,
+                 _nine,
+                 _zero,
+                 _period,
+                 _clr,
+                 _store,
+                 _del,
+                 _next,
                  nil];
 
     return self;
@@ -209,107 +219,55 @@
     NSLog(@"%s, %@", __func__, self.getDeviceTypeString);
 #endif
     
-    // items
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGPoint origin, size, spacing;
-    float fontSize;
-    origin = CGPointMake(1, 1);
-    size = CGPointMake(158, 154);
-    spacing = CGPointMake(2, 0);
-    fontSize = 14;
-    if (self.deviceType == iPhone5) {
-        size.y = 196;
-    }
-    if (self.deviceType == iPad) {
-        size = CGPointMake(768/2 - 2, 1024/3 + 50);
-        fontSize = 30;
-    }
+    float fontSize = 10;
     
-    Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
-    [grid makeGridWithRows:4 andCols:4];
+    CGRect c1 = CGRectMake(0, 0, width/2, 15);
+    _priceAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Price A" andTag:PriceAL andType:LabelField caller:self];
+    CGRect c2 = CGRectMake(width/2, 0, width/2, 15);
+    _priceBL = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"Price B" andTag:PriceBL andType:LabelField caller:self];
     
-    int row = 0;
-    int col = 0;
-    _itemA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal A" andTag:ItemA andType:LabelField caller:self];
-    _itemB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Deal B" andTag:ItemB andType:LabelField caller:self];
+    c1.origin.y += 15;
+    c1.size.height *= 2;
+    _priceA = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:PriceA andType:LabelField caller:self];
+    c2.origin.y += 15;
+    c2.size.height *= 2;
+    _priceB = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"" andTag:PriceB andType:LabelField caller:self];
     
-    origin = CGPointMake(10, 20);
-    size = CGPointMake(136/2, 30);
-    spacing = CGPointMake(9, 8);
-    fontSize = 17;
-    if (self.deviceType == iPhone5) {
-        size.y = 42;
-    }
-    if (self.deviceType == iPad) {
-        origin = CGPointMake(10, 60);
-        size = CGPointMake(768/2/2 - 12, 1024/12);
-        fontSize = 34;
-    }
+    c1.origin.y += 30;
+    c1.size.height /= 2;
+    c1.size.width = width/2;
+    _unitsEachAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Units x # of Items" andTag:UnitsEachAL andType:LabelField caller:self];
+    _numItemsAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Items" andTag:NumItemsAL andType:LabelField caller:self];
+    c2.origin.y += 30;
+    c2.size.height /= 2;
+    c2.size.width = width/2;
+    _unitsEachBL = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"Units x # of Items" andTag:UnitsEachBL andType:LabelField caller:self];
+    _numItemsBL = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"# of Items" andTag:NumItemsBL andType:LabelField caller:self];
     
-    grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
-    [grid makeGridWithRows:4 andCols:4];
+    CGRect rr = CGRectMake(0, 100, width/2, 15);
+    _unitsEachA = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:UnitsEachA andType:LabelField caller:self];
+    _xAL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"x" andTag:XAL andType:LabelField caller:self];
+    _numItemsA = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:NumItemsA andType:LabelField caller:self];
     
-    row = 0;
-    col = 0;
-    _priceA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceA andType:LabelField caller:self];
-    _priceAT = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceAT andType:LabelField caller:self];
-    _priceB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceB andType:LabelField caller:self];
-    _priceBT = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Price" andTag:PriceBT andType:LabelField caller:self];
+    _unitsEachB = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:UnitsEachB andType:LabelField caller:self];
+    _xBL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"x" andTag:XBL andType:LabelField caller:self];
+    _numItemsB = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:NumItemsB andType:LabelField caller:self];
     
-    row++; col = 0;
-    _unitsEachA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachA andType:LabelField caller:self];
-    _unitsEachAT = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachAT andType:LabelField caller:self];
-    _unitsEachB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachB andType:LabelField caller:self];
-    _unitsEachBT = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Units Each" andTag:UnitsEachBT andType:LabelField caller:self];
+    _unitCostAL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"Unit Cost" andTag:UnitCostAL andType:LabelField caller:self];
+    _unitCostBL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"Unit Cost" andTag:UnitCostBL andType:LabelField caller:self];
     
-    row++; col = 0;
-    _numItemsA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsA andType:LabelField caller:self];
-    _numItemsAT = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsAT andType:LabelField caller:self];
-    _numItemsB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsB andType:LabelField caller:self];
-    _numItemsBT = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"# of Items" andTag:NumItemsBT andType:LabelField caller:self];
+    _unitCostA = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:UnitCostA andType:LabelField caller:self];
+    _unitCostB = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:UnitCostB andType:LabelField caller:self];
+
+    _totalCostAL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"Total Cost of XXX Units" andTag:TotalCostAL andType:LabelField caller:self];
+    _totalCostBL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"Total Cost of XXX Units" andTag:TotalCostBL andType:LabelField caller:self];
     
-    // unit cost
-    origin = CGPointMake(10, 128);
-    size = CGPointMake(136, 30);
-    spacing = CGPointMake(28, 3);
-    fontSize = 13;
-    if (self.deviceType == iPhone5) {
-        origin = CGPointMake(10, 166);
-        fontSize = 17;
-    }
-    if (self.deviceType == iPad) {
-        origin = CGPointMake(10, 342);
-        size = CGPointMake(768/2 - 24, 30);
-        fontSize = 24;
-    }
-    
-    grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
-    [grid makeGridWithRows:4 andCols:4];
-    
-    row = 0;
-    col = 0;
-    _unitCostA = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostA andType:LabelField caller:self];
-    _unitCostB = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"" andTag:UnitCostB andType:LabelField caller:self];
-    
-    
-    // message
-    spacing = CGPointMake(0, 0);
-    origin = CGPointMake(1, 158);
-    size = CGPointMake(318, 40);
-    fontSize = 17;
-    if (self.deviceType == iPhone5) {
-        origin = CGPointMake(1, 208);
-        size = CGPointMake(318, 80);
-    }
-    if (self.deviceType == iPad) {
-        origin = CGPointMake(1, 413);
-        size = CGPointMake(766, 120);
-        fontSize = 40;
-    }
-    
-    grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
-    [grid makeGridWithRows:4 andCols:4];
-    
-    _message = [Field allocFieldWithRect:[grid getRectAtX:0 andY:0] andF:fontSize andValue:@PROMPT andTag:Message andType:LabelField caller:self];
+    _totalCostA = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:TotalCostA andType:LabelField caller:self];
+    _totalCostB = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:TotalCostB andType:LabelField caller:self];
+
+    _message = [Field allocFieldWithRect:rr andF:fontSize andValue:@PROMPT andTag:Message andType:LabelField caller:self];
     
     // keypad
     float nextKeyWidth, nextKeyFontSize;
@@ -330,11 +288,11 @@
         nextKeyFontSize = 36;
     }
     
-    grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
+    Grid *grid = [Grid initWithOrigin:&origin andSize:&size andSpacing:&spacing];
     [grid makeGridWithRows:4 andCols:4];
     
-    row = 0;
-    col = 0;
+    int row = 0;
+    int col = 0;
     _one = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"1" andTag:One andType:KeyType caller:self];
     _two = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"2" andTag:Two andType:KeyType caller:self];
     _three = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"3" andTag:Three andType:KeyType caller:self];
