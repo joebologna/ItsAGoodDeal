@@ -237,24 +237,38 @@
     
     c1.origin.y += 30;
     c1.size.height /= 2;
-    c1.size.width = width/2;
-    _unitsEachAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Units x # of Items" andTag:UnitsEachAL andType:LabelField caller:self];
+    c1.size.width = c1.size.width/2;
+    _unitsEachAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Units" andTag:UnitsEachAL andType:LabelField caller:self];
+    c1.origin.x += c1.size.width;
     _numItemsAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Items" andTag:NumItemsAL andType:LabelField caller:self];
     c2.origin.y += 30;
     c2.size.height /= 2;
-    c2.size.width = width/2;
-    _unitsEachBL = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"Units x # of Items" andTag:UnitsEachBL andType:LabelField caller:self];
+    c2.size.width = c2.size.width/2;
+    _unitsEachBL = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"Units" andTag:UnitsEachBL andType:LabelField caller:self];
+    c2.origin.x += c2.size.width;
     _numItemsBL = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"# of Items" andTag:NumItemsBL andType:LabelField caller:self];
     
+    c1.origin.y += 15;
+    c1.origin.x = 0;
+    c1.size.width = width/4 - 7.5;
+    c1.size.height = 30;
+    _unitsEachA = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:UnitsEachA andType:LabelField caller:self];
+    c1.origin.x += c1.size.width;
+    _xAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XAL andType:LabelField caller:self];
+    c1.origin.x += 15;
+    _numItemsA = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:NumItemsA andType:LabelField caller:self];
+    
+    c2.origin.y += 15;
+    c2.origin.x = width/2;
+    c2.size.width = width/4 - 7.5;
+    c2.size.height = 30;
+    _unitsEachB = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"" andTag:UnitsEachB andType:LabelField caller:self];
+    c2.origin.x += c2.size.width;
+    _xBL = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"x" andTag:XBL andType:LabelField caller:self];
+    c2.origin.x += 15;
+    _numItemsB = [Field allocFieldWithRect:c2 andF:fontSize andValue:@"" andTag:NumItemsB andType:LabelField caller:self];
+    
     CGRect rr = CGRectMake(0, 100, width/2, 15);
-    _unitsEachA = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:UnitsEachA andType:LabelField caller:self];
-    _xAL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"x" andTag:XAL andType:LabelField caller:self];
-    _numItemsA = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:NumItemsA andType:LabelField caller:self];
-    
-    _unitsEachB = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:UnitsEachB andType:LabelField caller:self];
-    _xBL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"x" andTag:XBL andType:LabelField caller:self];
-    _numItemsB = [Field allocFieldWithRect:rr andF:fontSize andValue:@"" andTag:NumItemsB andType:LabelField caller:self];
-    
     _unitCostAL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"Unit Cost" andTag:UnitCostAL andType:LabelField caller:self];
     _unitCostBL = [Field allocFieldWithRect:rr andF:fontSize andValue:@"Unit Cost" andTag:UnitCostBL andType:LabelField caller:self];
     
