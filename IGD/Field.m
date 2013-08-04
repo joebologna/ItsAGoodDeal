@@ -238,9 +238,9 @@
     [self.caller gotoFieldWithControl:textField];
     textField.inputAccessoryView = rowOfKeys;
     textField.keyboardType = [self isPhone] ? UIKeyboardTypeDecimalPad : UIKeyboardTypeNumberPad;
-    if (![self isPhone]) {
+//    if (![self isPhone]) {
         [self.caller hideKeypad:self];
-    }
+//    }
     textField.text = self.value;
     previousPlaceholder = textField.placeholder;
     textField.placeholder = @"";
