@@ -34,7 +34,7 @@ typedef enum {
 - (void)gotoNextField:(BOOL)grabKeyboard;
 - (void)gotoPrevField:(BOOL)grabKeyboard;
 - (void)gotoFieldWithControl:(UITextField *)t;
-- (void)calcSavings;
+- (void)calcSavings:(BOOL)useQty;
 
 @property (unsafe_unretained, nonatomic) DeviceType deviceType;
 @property (strong, nonatomic, readonly) NSString
@@ -59,6 +59,7 @@ typedef enum {
     *unitCostAL,
     *unitCostBL,
     *slider,
+    *qty,
 	*message,
 	*ad,
 	*one,
@@ -90,10 +91,4 @@ typedef enum {
 @protocol TraverseViewDelegate <NSObject>
 - (void)buttonPushed:(id)sender;
 - (void)addControl:(UIView *)control;
-@end
-
-@protocol SliderDelegate <NSObject>
-
-- (void)sliderMoved:(float)v;
-
 @end

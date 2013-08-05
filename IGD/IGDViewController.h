@@ -13,7 +13,7 @@
 #import "Fields.h"
 #import "MyButton.h"
 
-@interface IGDViewController : UIViewController <MyStoreObserverDelegate, TraverseViewDelegate, SliderDelegate>
+@interface IGDViewController : UIViewController <MyStoreObserverDelegate, TraverseViewDelegate>
 
 @property (strong, nonatomic) Fields *fields;
 

@@ -18,6 +18,7 @@
 
 @protocol MySliderDelegate <NSObject>
 
-- (void)newSliderValue:(float)v;
+- (void)updateQty:(float)v;
+- (void)updateSavings;
 
 @end

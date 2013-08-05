@@ -32,6 +32,7 @@
         case NumItemsB: return @"NumItemsB";
         case UnitsEachB: return @"UnitsEachB";
         case Message: return @"Message";
+        case Qty: return @"Qty";
         case Ad: return @"Ad";
         case FtagNotSet: return @"FtagNotSet";
         default: return @"OOPS!";
@@ -118,11 +119,16 @@
             || _tag == NumItemsA
             || _tag == NumItemsB
             || _tag == UnitsEachA
-            || _tag == UnitsEachB);
+            || _tag == UnitsEachB
+            || _tag == Qty);
 }
 
 - (BOOL)isSlider {
     return _tag == Slider;
+}
+
+- (BOOL)isQty {
+    return _tag == Qty;
 }
 
 - (void)buttonPushed:(id)sender {
@@ -168,30 +174,44 @@
     t.font = [UIFont systemFontOfSize:self.f];
     t.textAlignment = NSTextAlignmentCenter;
     t.tag = self.tag;
-    t.text = self.value;
+    t.text = [self isCurrency] ? [self fmtPrice:self.floatValue d:2] : self.value;
     t.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     t.textAlignment = NSTextAlignmentCenter;
-    t.placeholder = self.value;
+    t.placeholder = @"";
     t.backgroundColor = [UIColor clearColor];
     t.enabled = [self isNumber];
     t.borderStyle = UITextBorderStyleNone;
     
+    if (self.tag == Qty) {
+        t.hidden = YES;
+    }
     self.control = (UIControl *)t;
 
     [self makeKeyboardToolBar];
 }
 
+- (void)updateQty:(float)v {
+#ifdef DEBUG
+    NSLog(@"%s:%.2f", __func__, v);
+#endif
+    [self.caller updateQty:v];
+}
 - (void)makeSlider {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
     MySlider *s = [[MySlider alloc] initWithFrame:self.rect];
+    self.value = @"1";
     s.continuous = YES;
-    s.maximumValue = 100.0;
-    s.minimumValue = 1.0;
-    s.value = 1.0;
-    self.control = (UIControl *)s;
+    s.maximumValue = 10.0;
+    s.minimumValue = self.value.floatValue;
     s.caller = self;
+    s.hidden = YES;
+    self.control = s;
+}
+
+- (void)updateSavings {
+    [self.caller updateSavings];
 }
 
 - (void)makeKeyboardToolBar {
@@ -275,10 +295,10 @@
     return YES;
 }
 
-- (void)newSliderValue:(float)v {
+- (void)setSliderPosition:(float)v {
 #ifdef DEBUG
     NSLog(@"%s:%.2f", __func__, v);
 #endif
-    [self.caller newSliderValue:v];
+    [self.caller setSliderPosition:v];    
 }
 @end

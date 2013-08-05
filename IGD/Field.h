@@ -73,6 +73,7 @@ typedef enum {
     NextButton,
     MultButton,
     Slider,
+    Qty,
     Ad = 999,
     FtagNotSet = -1
 } FTAG;
@@ -86,7 +87,7 @@ typedef enum {
 
 @protocol TraverseFieldsDelegate;
 
-@interface Field : NSObject <UITextFieldDelegate, UITextInputTraits>
+@interface Field : NSObject <UITextFieldDelegate, UITextInputTraits, MySliderDelegate>
 
 + (Field *)allocField;
 + (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t caller:(id)caller;
@@ -98,6 +99,7 @@ typedef enum {
 - (BOOL)isCurrency;
 - (BOOL)isNumber;
 - (BOOL)isSlider;
+- (BOOL)isQty;
 
 @property (unsafe_unretained, nonatomic) CGRect rect;
 @property (unsafe_unretained, nonatomic) CGFloat f;
@@ -118,5 +120,8 @@ typedef enum {
 - (void)showKeypad:(Field *)field;
 - (void)buttonPushed:(id)sender;
 - (void)fieldWasSelected:(Field *)field;
-- (void)newSliderValue:(float)v;
+- (void)setSliderPosition:(float)v;
+- (void)setNumItems:(NSString *)v;
+- (void)updateQty:(float)v;
+- (void)updateSavings;
 @end

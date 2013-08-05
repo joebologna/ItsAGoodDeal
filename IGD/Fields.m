@@ -41,7 +41,7 @@
     previous.backgroundColor = FIELDCOLOR;
     selected.backgroundColor = HIGHLIGHTCOLOR;
     _curField = c;
-    [self calcSavings];
+    //[self calcSavings];
 }
 
 - (void)fieldWasSelected:(Field *)field {
@@ -122,6 +122,7 @@
         _unitCostBL = nil;
         _message = nil;
         _slider = nil;
+        _qty = nil;
         _ad = nil;
         _vc = nil;
     }
@@ -140,11 +141,12 @@
     // this is the order that the Next button traverses.
     self.inputFields = [NSArray arrayWithObjects:
                         _priceA,
-                        _priceB,
                         _unitsEachA,
                         _numItemsA,
+                        _priceB,
                         _unitsEachB,
                         _numItemsB,
+                        _qty,
                         nil];
 
     self.allFields = [NSArray arrayWithObjects:
@@ -165,6 +167,7 @@
                       _unitCostAL,
                       _unitCostBL,
                       _slider,
+                      _qty,
                       _message,
                       nil];
 
@@ -249,9 +252,9 @@
     c1.origin.x = fontSize;
     c1.size.height = h2;
     c1.size.width = ceilf(width/2 - fontSize * 1.5);
-    _priceA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:PriceA andType:LabelField caller:self];
+    _priceA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"2.99" andTag:PriceA andType:LabelField caller:self];
     c1.origin.x = c1.size.width + fontSize * 2;
-    _priceB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:PriceB andType:LabelField caller:self];
+    _priceB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"1.99" andTag:PriceB andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
     c1.origin.x = fontSize;
@@ -273,18 +276,18 @@
     c1.origin.x = fontSize;
     c1.size.width = ceilf((width - fontSize * 5)/4);
     c1.size.height = h2;
-    _unitsEachA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:UnitsEachA andType:LabelField caller:self];
+    _unitsEachA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"7.5" andTag:UnitsEachA andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     c1.size.width = fontSize;
     _xAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XAL andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     c1.size.width = ceilf((width - fontSize * 5)/4);
-    _numItemsA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:NumItemsA andType:LabelField caller:self];
+    _numItemsA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"2" andTag:NumItemsA andType:LabelField caller:self];
     
     c1.origin.x += c1.size.width + fontSize;
     c1.size.width = ceilf((width - fontSize * 5)/4);
     c1.size.height = h2;
-    _unitsEachB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:UnitsEachB andType:LabelField caller:self];
+    _unitsEachB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"8" andTag:UnitsEachB andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     c1.size.width = fontSize;
     _xBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XBL andType:LabelField caller:self];
@@ -303,9 +306,14 @@
     c1.origin.y += c1.size.height;
     c1.origin.x = fontSize;
     c1.size.height = h;
-    c1.size.width = width - fontSize * 2;
+    c1.size.width = 0.75 * (width - fontSize * 3);
     _slider = [Field allocFieldWithRect:c1 andF:fontSize*.75 andValue:@"" andTag:Slider andType:LabelField caller:self];
 
+    c1.origin.x = fontSize * 2 + c1.size.width;
+    c1.size.height = h;
+    c1.size.width = 0.25 * (width - fontSize * 4);
+    _qty = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:Qty andType:LabelField caller:self];
+    
     c1.origin.y += c1.size.height;
     c1.origin.x = 0;
     c1.size.height = h2 + 2;
@@ -394,7 +402,7 @@
     self.curField = self.priceA;
 }
 
-- (void)calcSavings {
+- (void)calcSavings:(BOOL)useQty {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
@@ -420,7 +428,7 @@
 
     if (AisAllSet) {
         numUnitsA = (self.unitsEachA.floatValue * self.numItemsA.floatValue);
-        unitCostA = self.priceA.floatValue /numUnitsA;
+        unitCostA = self.priceA.floatValue / numUnitsA;
         ((UITextField *)self.unitCostAL.control).text = [NSString stringWithFormat:@"%@/unit", [self fmtPrice:unitCostA d:3]];
     }
     if (BisAllSet) {
@@ -430,6 +438,17 @@
     }
     float unitCostDiff = fabsf(unitCostA - unitCostB);
     if (allSet) {
+        if (useQty) {
+            float v;
+            v = self.priceA.floatValue * (self.qty.floatValue / self.numItemsA.floatValue);
+            self.priceA.value = [self fmtPrice:v d:2];
+            v = self.priceB.floatValue * (self.qty.floatValue / self.numItemsB.floatValue);
+            self.priceB.value = [self fmtPrice:v d:2];
+            self.numItemsA.value = self.qty.value;
+            self.numItemsB.value = self.qty.value;
+            numUnitsA = (self.unitsEachA.floatValue * self.numItemsA.floatValue);
+            numUnitsB = (self.unitsEachB.floatValue * self.numItemsB.floatValue);
+        }
         if (unitCostA < unitCostB) {
             float totalSavings = unitCostDiff * numUnitsA;
             if (totalSavings < 0.01) {
@@ -437,7 +456,6 @@
             } else {
                 self.message.value = [NSString stringWithFormat:@"Buy A, You Save: %@", [self fmtPrice:totalSavings d:2]];
             }
-            ((UISlider *)self.slider.control).value = self.numItemsA.floatValue;
         } else if (unitCostA > unitCostB) {
             float totalSavings = unitCostDiff * numUnitsB;
             if (totalSavings < 0.01) {
@@ -445,13 +463,14 @@
             } else {
                 self.message.value = [NSString stringWithFormat:@"Buy B, You Save: %@", [self fmtPrice:totalSavings d:2]];
             }
-            ((UISlider *)self.slider.control).value = self.numItemsB.floatValue;
         } else {
             self.message.value = @"A is the same price as B";
         }
-        ((UISlider *)self.slider.control).value = self.numItemsA.floatValue;
+
+    } else {
+        self.message.value = @PROMPT;
     }
-    self.slider.control.hidden = !allSet;
+    self.slider.control.hidden = self.qty.control.hidden = !allSet;
 }
 
 - (void)buttonPushed:(id)sender {
@@ -467,33 +486,29 @@
     [_vc buttonPushed:sender];
 }
 
-- (void)newSliderValue:(float)v {
+- (void)setNumItems:(NSString *)v {
+#ifdef DEBUG
+    NSLog(@"%s:%@", __func__, v);
+#endif
+    self.numItemsA.value = self.numItemsB.value = self.qty.value = v;
+}
+
+- (void)setSliderPosition:(float)v {
 #ifdef DEBUG
     NSLog(@"%s:%.2f", __func__, v);
 #endif
+    ((UISlider *)self.slider.control).value = v;
+}
 
-#ifdef ADJUSTER
-    if (v <= 1.0) v = 1.0;
-    float diff = fabsf(v - ((UISlider *)self.slider.control).maximumValue);
-    if (diff <= 1) {
-        ((UISlider *)self.slider.control).maximumValue *= 10;
-    } else if (v == ((UISlider *)self.slider.control).minimumValue) {
-        ((UISlider *)self.slider.control).maximumValue /= 10;
-    }
-    if (((UISlider *)self.slider.control).maximumValue < 1.0) {
-        ((UISlider *)self.slider.control).maximumValue = 10.0;
-    }
-    if (((UISlider *)self.slider.control).maximumValue > 1000.0) {
-        ((UISlider *)self.slider.control).maximumValue = 1000.0;
-    }
+- (void)updateQty:(float)v {
+#ifdef DEBUG
+    NSLog(@"%s:%.2f", __func__, v);
 #endif
-    [self.vc sliderMoved:v];
-    float itemCostA = self.priceA.floatValue / self.numItemsA.floatValue;
-    float itemCostB = self.priceB.floatValue / self.numItemsB.floatValue;
-    int n = (int)lrintf(v);
-    self.priceA.value = [NSString stringWithFormat:@"%.2f", itemCostA * n];
-    self.priceB.value = [NSString stringWithFormat:@"%.2f", itemCostB * n];
-    self.numItemsA.value = self.numItemsB.value = [NSString stringWithFormat:@"%d", n];
-    [self calcSavings];
+    NSString *s = [NSString stringWithFormat:@"%.0f", v];
+    self.qty.value = s;
+}
+
+- (void)updateSavings {
+    [self calcSavings:YES]; // use Qty
 }
 @end

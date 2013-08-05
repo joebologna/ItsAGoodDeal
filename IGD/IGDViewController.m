@@ -127,7 +127,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     } else if (button.tag == CalcButton) {
         [self.fields.curField.control resignFirstResponder];
         [self.fields showKeypad:nil];
-        [self.fields calcSavings];
+        [self.fields calcSavings:NO];
     } else if (button.tag <= Period) {
         NSString *s = self.fields.curField.value;
         if (button.tag == Period) {

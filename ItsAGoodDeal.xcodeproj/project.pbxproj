@@ -88,6 +88,7 @@
 		3B417404179DF28F0028D1E1 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		3B529E9D17AD8B530059ABDA /* MySlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MySlider.h; path = Lib/MySlider.h; sourceTree = "<group>"; };
 		3B529E9E17AD8B530059ABDA /* MySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MySlider.m; path = Lib/MySlider.m; sourceTree = "<group>"; };
+		3B529EA017AF37BC0059ABDA /* Slider.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Slider.rtf; sourceTree = "<group>"; };
 		3B55753F176FAADA005EEB51 /* IGDUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IGDUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B557540176FAADA005EEB51 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		3B557546176FAADA005EEB51 /* IGDUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IGDUnitTests-Info.plist"; sourceTree = "<group>"; };
@@ -193,6 +194,7 @@
 				3B4173F0179DF28F0028D1E1 /* .project */,
 				3B4173F2179DF28F0028D1E1 /* grabFrames */,
 				3B4173F3179DF28F0028D1E1 /* IGDCalcs.numbers */,
+				3B529EA017AF37BC0059ABDA /* Slider.rtf */,
 				3B4173FA179DF28F0028D1E1 /* Old */,
 			);
 			path = Design;
