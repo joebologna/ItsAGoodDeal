@@ -11,7 +11,7 @@
 #import "Field.h"
 
 #define STORE "No Ads"
-#define THANKS "Thanks!"
+#define RESTORE "Restore"
 #define CLR "C"
 #define NEXT "Next/Calc Savings"
 #define DEL "Del"

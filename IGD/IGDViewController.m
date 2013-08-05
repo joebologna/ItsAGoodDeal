@@ -164,9 +164,11 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
             } else {
                 [[[UIAlertView alloc] initWithTitle:@"Payments Disabled" message:@"Use Settings to enable payments" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
+        } else {
+            NSLog(@"handle restore here");
+            abort();
         }
     }
-    //[self.fields calcSavings:NO];
 }
 
 - (void)sliderMoved:(float)v {
@@ -198,7 +200,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     NSLog(@"%s, bought: %d", __func__, myStoreObserver.bought);
 #endif
     if (myStoreObserver.bought) {
-        self.fields.store.value = @THANKS;
+        self.fields.store.value = @RESTORE;
         [bannerView cancelBannerViewAction];
         [bannerView removeFromSuperview];
         bannerView.delegate = nil;
