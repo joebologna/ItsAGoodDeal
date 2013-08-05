@@ -56,7 +56,7 @@
     NSLog(@"%s", __func__);
 #endif
     ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue d:2] : self.curField.value;
-    if ([self.curField isEqual:self.inputFields.lastObject]) {
+    if (self.curField.control.hidden || [self.curField isEqual:self.inputFields.lastObject]) {
         self.curField = self.inputFields[0];
     } else {
         NSInteger i = [self.inputFields indexOfObject:self.curField];
@@ -407,16 +407,16 @@
     NSLog(@"%s", __func__);
 #endif
     
-    if (![self.priceA.value isEqualToString:@""]) {
-        if ([self.numItemsA.value isEqualToString:@""]) {
-            self.numItemsA.value = @"1";
-        }
-    }
-    if (![self.priceB.value isEqualToString:@""]) {
-        if ([self.numItemsB.value isEqualToString:@""]) {
-            self.numItemsB.value = @"1";
-        }
-    }
+//    if (![self.priceA.value isEqualToString:@""]) {
+//        if ([self.numItemsA.value isEqualToString:@""]) {
+//            self.numItemsA.value = @"1";
+//        }
+//    }
+//    if (![self.priceB.value isEqualToString:@""]) {
+//        if ([self.numItemsB.value isEqualToString:@""]) {
+//            self.numItemsB.value = @"1";
+//        }
+//    }
     
     BOOL AisAllSet = self.priceA.floatValue != 0.0 && self.unitsEachA.floatValue != 0.0 && self.numItemsA.floatValue != 0.0;
     BOOL BisAllSet = self.priceB.floatValue != 0.0 && self.unitsEachB.floatValue != 0.0 && self.numItemsB.floatValue != 0.0;
@@ -484,6 +484,14 @@
     }
 #endif
     [_vc buttonPushed:sender];
+    BOOL AisAllSet = self.priceA.floatValue != 0.0 && self.unitsEachA.floatValue != 0.0 && self.numItemsA.floatValue != 0.0;
+    BOOL BisAllSet = self.priceB.floatValue != 0.0 && self.unitsEachB.floatValue != 0.0 && self.numItemsB.floatValue != 0.0;
+    BOOL allSet = AisAllSet && BisAllSet;
+    self.message.value = @PROMPT;
+    if (!allSet) {
+        self.slider.control.hidden = self.qty.control.hidden = YES;
+        self.qty.value = @"";
+    }
 }
 
 - (void)setNumItems:(NSString *)v {

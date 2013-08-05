@@ -147,7 +147,6 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
         for (Field *f in self.fields.inputFields) {
             f.value = @"";
             if (f.tag == Slider) {
-                ((UISlider *)f.control).maximumValue = 10.0;
                 ((UISlider *)f.control).value = 1.0;
             }
         }
@@ -167,7 +166,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
             }
         }
     }
-    //[self.fields calcSavings];
+    //[self.fields calcSavings:NO];
 }
 
 - (void)sliderMoved:(float)v {

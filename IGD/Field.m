@@ -280,6 +280,10 @@
 #endif
     textField.text = [self isCurrency] ? [self fmtPrice:self.floatValue d:2] : self.value;
     textField.placeholder = previousPlaceholder;
+    if ([self isQty]) {
+        [self.caller updateSavings];
+        [self.caller setSliderPosition:self.floatValue];
+    }
     [self.caller showKeypad:self];
 }
 
@@ -287,6 +291,10 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
+    if ([self isQty]) {
+        [self.caller updateSavings];
+        [self.caller setSliderPosition:self.floatValue];
+    }
     if (self.tag == NumItemsB) {
         [self buttonPushed:calcButton];
     } else {
