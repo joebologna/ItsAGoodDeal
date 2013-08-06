@@ -185,6 +185,10 @@
     if (self.tag == Qty) {
         t.hidden = YES;
     }
+    
+    if (self.tag == HandleWidget) {
+        t.enabled = YES;
+    }
     self.control = (UIControl *)t;
 
     [self makeKeyboardToolBar];
@@ -244,6 +248,10 @@
     NSLog(@"%s", __func__);
 #endif
     if (textField.enabled) {
+        if (textField.tag == HandleWidget) {
+            [self.caller showSettings];
+            return NO;
+        }
         return YES;
     } else {
         return NO;

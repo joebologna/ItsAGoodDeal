@@ -315,4 +315,28 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     [self.view addSubview:control];
 }
 
+- (void)showSettings {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+#ifdef DEAD
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+
+    CGRect r = self.view.frame;
+    if (r.origin.y > 0) {
+        r.origin.y -= height * 0.4;
+        [self.view setFrame:r];
+    } else {
+        r.origin.y += height * 0.4;
+        [self.view setFrame:r];
+    }
+#endif
+    SettingsView *s = [[SettingsView alloc] init];
+    s.delegate = self;
+    [self presentViewController:s animated:YES completion:nil];
+}
+
+- (void)dismissSettingsView:(SettingsView *)vc {
+    [vc dismissViewControllerAnimated:YES completion:nil];
+}
 @end

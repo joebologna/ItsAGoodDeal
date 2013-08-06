@@ -71,7 +71,7 @@ typedef enum {
     PrevButton = BTAG_BASE,
     CalcButton,
     NextButton,
-    MultButton,
+    HandleWidget,
     Slider,
     Qty,
     Ad = 999,
@@ -124,4 +124,5 @@ typedef enum {
 - (void)setNumItems:(NSString *)v;
 - (void)updateQty:(float)v;
 - (void)updateSavings;
+- (void)showSettings;
 @end

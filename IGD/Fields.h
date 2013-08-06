@@ -77,7 +77,7 @@ typedef enum {
 	*period,
 	*zero,
 	*next,
-    *mul;
+    *handle;
 
 @property (strong, nonatomic) NSArray *inputFields,
 	*allFields,
@@ -91,4 +91,5 @@ typedef enum {
 @protocol TraverseViewDelegate <NSObject>
 - (void)buttonPushed:(id)sender;
 - (void)addControl:(UIView *)control;
+- (void)showSettings;
 @end

@@ -169,6 +169,7 @@
                       _slider,
                       _qty,
                       _message,
+                      _handle,
                       nil];
 
     self.keys = [NSArray arrayWithObjects:
@@ -324,13 +325,13 @@
     CGPoint origin, size, spacing;
     float nextKeyWidth, nextKeyFontSize;
     origin = CGPointMake(20, c1.origin.y + c1.size.height);
-    size = CGPointMake(64, 46);
+    size = CGPointMake(64, 48);
     spacing = CGPointMake(8, 2);
     fontSize = 15;
     nextKeyWidth = 136;
     nextKeyFontSize = fontSize;
     if (self.deviceType == iPhone5) {
-        size = CGPointMake(64, 64);
+        size = CGPointMake(64, 62);
         origin = CGPointMake(20, c1.origin.y + c1.size.height);
     }
     if (self.deviceType == iPad) {
@@ -370,6 +371,11 @@
     r.size.width = nextKeyWidth;
     _next = [Field allocFieldWithRect:r andF:nextKeyFontSize andValue:@NEXT andTag:Next andType:KeyType caller:self];
     
+    r.origin.x = width / 2 - 50;
+    r.origin.y += r.size.height;
+    r.size.width = 100;
+    r.size.height = 40;
+    _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"..." andTag:HandleWidget andType:LabelField caller:self];
 }
 
 - (void)setView:(Field *)f {
@@ -523,5 +529,9 @@
 
 - (void)updateSavings {
     [self calcSavings:YES]; // use Qty
+}
+
+- (void)showSettings {
+    [self.vc showSettings];
 }
 @end
