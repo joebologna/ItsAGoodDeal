@@ -49,6 +49,9 @@ static MyStoreObserver *theSharedObject = nil;
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
     for (SKPaymentTransaction *transaction in transactions) {
         switch (transaction.transactionState) {
             case SKPaymentTransactionStatePurchased:
@@ -66,6 +69,9 @@ static MyStoreObserver *theSharedObject = nil;
 }
 
 - (void) completeTransaction:(SKPaymentTransaction *)transaction {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
     // Your application should implement these two methods.
     [self recordTransaction:transaction];
     [self provideContent:transaction.payment.productIdentifier];
@@ -75,6 +81,9 @@ static MyStoreObserver *theSharedObject = nil;
 }
 
 - (void) restoreTransaction:(SKPaymentTransaction *)transaction {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
     [self recordTransaction:transaction];
     [self provideContent:transaction.originalTransaction.payment.productIdentifier];
     @try {
@@ -86,6 +95,9 @@ static MyStoreObserver *theSharedObject = nil;
 }
 
 - (void) failedTransaction:(SKPaymentTransaction *)transaction {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
     if (transaction.error.code != SKErrorPaymentCancelled) {
         // Optionally, display an error here.
     }
@@ -93,6 +105,9 @@ static MyStoreObserver *theSharedObject = nil;
 }
 
 - (void) recordTransaction:(SKPaymentTransaction *)transaction {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
     self.bought = YES;
 }
 
