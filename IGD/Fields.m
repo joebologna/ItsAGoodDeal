@@ -330,6 +330,7 @@
     nextKeyWidth = 136;
     nextKeyFontSize = fontSize;
     if (self.deviceType == iPhone5) {
+        size = CGPointMake(64, 64);
         origin = CGPointMake(20, c1.origin.y + c1.size.height);
     }
     if (self.deviceType == iPad) {
@@ -506,6 +507,10 @@
     NSLog(@"%s:%.2f", __func__, v);
 #endif
     ((UISlider *)self.slider.control).value = v;
+    ((UISlider *)self.slider.control).maximumValue = 2 * v;
+    if (((UISlider *)self.slider.control).maximumValue < 10.0) {
+        ((UISlider *)self.slider.control).maximumValue = 10.0;
+    }
 }
 
 - (void)updateQty:(float)v {

@@ -203,7 +203,7 @@
     MySlider *s = [[MySlider alloc] initWithFrame:self.rect];
     self.value = @"1";
     s.continuous = YES;
-    s.maximumValue = 10.0;
+    s.maximumValue = 20.0;
     s.minimumValue = self.value.floatValue;
     s.caller = self;
     s.hidden = YES;
