@@ -39,6 +39,7 @@
 		3B73073E175EC9F500873194 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073C175EC9F500873194 /* MainStoryboard_iPhone.storyboard */; };
 		3B730741175EC9F500873194 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */; };
 		3B91250017B0A22900A4B633 /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9124FF17B0A22900A4B633 /* SettingsView.m */; };
+		3B91250217B0B82B00A4B633 /* menuthing.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B91250117B0B82B00A4B633 /* menuthing.png */; };
 		3BC2893C1799F12B00D884BB /* Fields.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893A1799F12B00D884BB /* Fields.m */; };
 		3BC289441799FFDD00D884BB /* Field.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC289421799FFDD00D884BB /* Field.m */; };
 		3BD2866C1762E97100A9AEE4 /* scale-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BD2866B1762E97100A9AEE4 /* scale-57x57.png */; };
@@ -118,6 +119,7 @@
 		3B730740175EC9F500873194 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		3B9124FE17B0A22900A4B633 /* SettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsView.h; sourceTree = "<group>"; };
 		3B9124FF17B0A22900A4B633 /* SettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
+		3B91250117B0B82B00A4B633 /* menuthing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuthing.png; sourceTree = "<group>"; };
 		3B9AAA18179E1C10008B3569 /* Simple.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = Simple.numbers; sourceTree = "<group>"; };
 		3BA69A621773D3E500AA23FB /* IGDUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGDUnitTests.h; sourceTree = "<group>"; };
 		3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ItsAGoodDeal.entitlements; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 		3B730718175EC9F400873194 = {
 			isa = PBXGroup;
 			children = (
+				3B91250117B0B82B00A4B633 /* menuthing.png */,
 				3B4173EE179DF28F0028D1E1 /* Design */,
 				3BE052DA17778EC30041D6C0 /* DataModel */,
 				3B73072A175EC9F500873194 /* IGD */,
@@ -502,6 +505,7 @@
 				3BD286701762EB0700A9AEE4 /* scale-72x72.png in Resources */,
 				3BD286721762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png in Resources */,
 				3BD286741762EFC000A9AEE4 /* Default-Portrait~ipad.png in Resources */,
+				3B91250217B0B82B00A4B633 /* menuthing.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

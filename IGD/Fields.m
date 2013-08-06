@@ -356,7 +356,7 @@
     _four = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"4" andTag:Four andType:KeyType caller:self];
     _five = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"5" andTag:Five andType:KeyType caller:self];
     _six = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"6" andTag:Six andType:KeyType caller:self];
-    _del = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@DEL andTag:Del andType:KeyType caller:self];
+    //_del = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@DEL andTag:Del andType:KeyType caller:self];
     
     col = 0; row++;
     _seven = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"7" andTag:Seven andType:KeyType caller:self];
@@ -367,15 +367,18 @@
     col = 0; row++;
     _period = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"." andTag:Period andType:KeyType caller:self];
     _zero = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"0" andTag:Zero andType:KeyType caller:self];
-    CGRect r = [grid getRectAtX:row andY:col++];
-    r.size.width = nextKeyWidth;
-    _next = [Field allocFieldWithRect:r andF:nextKeyFontSize andValue:@NEXT andTag:Next andType:KeyType caller:self];
+    _del = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@DEL andTag:Del andType:KeyType caller:self];
+    CGRect r = [grid getRectAtX:row andY:col];
+    r.origin.y -= 2 * r.size.height + 2 * spacing.y;
+    r.size.height = 3 * r.size.height + 3 * spacing.y;
+    _next = [Field allocFieldWithRect:r andF:nextKeyFontSize andValue:@"Next" andTag:Next andType:KeyType caller:self];
     
-    r.origin.x = width / 2 - 50;
-    r.origin.y += r.size.height;
-    r.size.width = 100;
-    r.size.height = 40;
-    _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"..." andTag:HandleWidget andType:LabelField caller:self];
+    r = [grid getRectAtX:3 andY:1];
+    r.origin.x = fontSize/6;
+    r.origin.y = fontSize/6;
+    r.size.width = fontSize;
+    r.size.height = fontSize;
+    _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:HandleWidget andType:LabelField caller:self];
 }
 
 - (void)setView:(Field *)f {

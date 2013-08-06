@@ -188,7 +188,9 @@
     
     if (self.tag == HandleWidget) {
         t.enabled = YES;
+        [t setBackground:[UIImage imageNamed:@"menuthing.png"]];
     }
+
     self.control = (UIControl *)t;
 
     [self makeKeyboardToolBar];
