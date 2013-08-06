@@ -169,7 +169,11 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
             }
         } else {
             NSLog(@"handle restore here");
-            abort();
+            if ([SKPaymentQueue canMakePayments]) {
+                [self restorePurchase];
+            } else {
+                [[[UIAlertView alloc] initWithTitle:@"Payments Disabled" message:@"Use Settings to enable payments" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
         }
     }
 }
@@ -267,6 +271,19 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
         SKProduct *selectedProduct = myStoreObserver.myProducts[0];
         SKPayment *payment = [SKPayment paymentWithProduct:selectedProduct];
         [[SKPaymentQueue defaultQueue] addPayment:payment];
+    } else {
+#ifdef DEBUG
+        NSLog(@"no products found");
+#endif
+    }
+}
+
+- (void) restorePurchase {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    if (myStoreObserver.myProducts.count > 0) {
+        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
     } else {
 #ifdef DEBUG
         NSLog(@"no products found");

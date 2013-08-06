@@ -77,7 +77,12 @@ static MyStoreObserver *theSharedObject = nil;
 - (void) restoreTransaction:(SKPaymentTransaction *)transaction {
     [self recordTransaction:transaction];
     [self provideContent:transaction.originalTransaction.payment.productIdentifier];
-    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+    @try {
+        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%s:Ignoring %@", __func__, exception);
+    }
 }
 
 - (void) failedTransaction:(SKPaymentTransaction *)transaction {
@@ -111,5 +116,18 @@ static MyStoreObserver *theSharedObject = nil;
         NSLog(@"[%d]: priceLocale: %@", i, ((SKProduct *)self.myProducts[i]).priceLocale);
         NSLog(@"[%d]: localizedTitle: %@", i, ((SKProduct *)self.myProducts[i]).localizedTitle);
     }
+}
+
+- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    [self restoreTransaction:nil];
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
+#ifdef DEBUG
+    NSLog(@"%s:%@", __func__, error);
+#endif
 }
 @end
