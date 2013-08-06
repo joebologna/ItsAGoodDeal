@@ -129,6 +129,10 @@
     return self;
 }
 
+- (UIViewController *)getVC {
+    return _vc;
+}
+
 - (Fields *)makeFields:(id)vc {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
@@ -219,7 +223,7 @@
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    CGFloat h = ceilf(0.4 * height / 10);
+    CGFloat h = ceilf(0.4 * height / 10.5);
     CGFloat h2 = h * 2;
     CGFloat fontSize;
 
@@ -373,10 +377,10 @@
     r.size.height = 3 * r.size.height + 3 * spacing.y;
     _next = [Field allocFieldWithRect:r andF:nextKeyFontSize andValue:@"Next" andTag:Next andType:KeyType caller:self];
     
-    r = [grid getRectAtX:3 andY:1];
-    r.origin.x = fontSize/6;
-    r.origin.y = fontSize/6;
-    r.size.width = fontSize;
+    r = [grid getRectAtX:3 andY:2];
+    r.origin.y += spacing.y + size.y;
+    r.origin.x -= fontSize*3/2 + spacing.x / 2;
+    r.size.width = fontSize*3;
     r.size.height = fontSize;
     _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:HandleWidget andType:LabelField caller:self];
 }
@@ -390,6 +394,8 @@
         [f makeButton];
     } else if ([f isSlider]) {
         [f makeSlider];
+    } else if ([f isHandle]) {
+        [f makeHandle];
     } else {
         [f makeField];
     }

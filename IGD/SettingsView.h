@@ -19,5 +19,7 @@
 @protocol SettingsViewDelegate <NSObject>
 
 - (void)dismissSettingsView:(SettingsView *)vc;
+- (void)removeAds;
+- (void)restorePurchase;
 
 @end

@@ -127,6 +127,10 @@
     return _tag == Slider;
 }
 
+- (BOOL)isHandle {
+    return _tag == HandleWidget;
+}
+
 - (BOOL)isQty {
     return _tag == Qty;
 }
@@ -186,11 +190,6 @@
         t.hidden = YES;
     }
     
-    if (self.tag == HandleWidget) {
-        t.enabled = YES;
-        [t setBackground:[UIImage imageNamed:@"menuthing.png"]];
-    }
-
     self.control = (UIControl *)t;
 
     [self makeKeyboardToolBar];
@@ -202,6 +201,19 @@
 #endif
     [self.caller updateQty:v];
 }
+
+- (void)makeHandle {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    MyHandle *m = [[MyHandle alloc] initWithFrame:self.rect];
+    m.enabled = YES;
+    [m setBackgroundImage:[UIImage imageNamed:@"menuthing.png"] forState:UIControlStateNormal];
+    [m setBackgroundImage:[UIImage imageNamed:@"menuthing.png"] forState:UIControlStateSelected];
+    m.delegate = [self.caller getVC];
+    self.control = (UIControl *)m;
+}
+
 - (void)makeSlider {
 #ifdef DEBUG
     NSLog(@"%s", __func__);

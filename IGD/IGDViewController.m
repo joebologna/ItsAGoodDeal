@@ -161,6 +161,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
             self.fields.curField.value = [s substringToIndex:s.length - 1];
         }
     } else if (button.tag == Store) {
+#warning this is dead code
         if (!myStoreObserver.bought) {
             if ([SKPaymentQueue canMakePayments]) {
                 [self removeAds];
@@ -209,8 +210,9 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     if (myStoreObserver.bought) {
         self.fields.store.value = @RESTORE;
         [bannerView cancelBannerViewAction];
-        [bannerView removeFromSuperview];
-        bannerView.delegate = nil;
+        bannerView.hidden = YES;
+//        [bannerView removeFromSuperview];
+//        bannerView.delegate = nil;
     } else {
         self.fields.store.value = @STORE;
     }
@@ -226,6 +228,8 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     bannerView = banner;
     if (myStoreObserver.bought) {
         [bannerView cancelBannerViewAction];
+        [bannerView removeFromSuperview];
+        bannerView.delegate = nil;
     } else {
         bannerView.hidden = NO;
     }

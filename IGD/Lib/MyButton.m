@@ -59,6 +59,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self awakeFromNib];
+        _radius = 8;
     }
     return self;
 }
@@ -72,7 +73,7 @@
  
     [self.layer insertSublayer:gradientLayer atIndex:0];
 
-    self.layer.cornerRadius = 8;
+    self.layer.cornerRadius = _radius;
     self.layer.masksToBounds = YES;
     self.layer.borderWidth = 1;
     self.layer.borderColor = [[UIColor grayColor] CGColor];
@@ -95,6 +96,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
+    self.layer.cornerRadius = _radius;
     [gradientLayer setColors:[NSArray arrayWithObjects:(id)[[UIColor colorWithWhite:1 alpha:0.5] CGColor], (id)[[UIColor colorWithWhite:0.85 alpha:0.5] CGColor], nil]];
 }
 
