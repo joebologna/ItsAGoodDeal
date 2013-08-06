@@ -487,8 +487,8 @@
     BOOL AisAllSet = self.priceA.floatValue != 0.0 && self.unitsEachA.floatValue != 0.0 && self.numItemsA.floatValue != 0.0;
     BOOL BisAllSet = self.priceB.floatValue != 0.0 && self.unitsEachB.floatValue != 0.0 && self.numItemsB.floatValue != 0.0;
     BOOL allSet = AisAllSet && BisAllSet;
-    self.message.value = @PROMPT;
     if (!allSet) {
+        self.message.value = @PROMPT;
         self.slider.control.hidden = self.qty.control.hidden = YES;
         self.qty.value = @"";
     }

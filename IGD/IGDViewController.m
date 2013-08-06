@@ -120,10 +120,13 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     
     if (button.tag == Next) {
         [self.fields gotoNextField:NO];
+        [self.fields calcSavings:NO];
     } else if (button.tag == NextButton) {
         [self.fields gotoNextField:YES];
+        [self.fields calcSavings:NO];
     } else if (button.tag == PrevButton) {
         [self.fields gotoPrevField:YES];
+        [self.fields calcSavings:NO];
     } else if (button.tag == CalcButton) {
         [self.fields.curField.control resignFirstResponder];
         [self.fields showKeypad:nil];
