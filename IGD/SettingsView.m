@@ -8,13 +8,16 @@
 
 #import "SettingsView.h"
 #import "MyButton.h"
+#import "MyStoreObserver.h"
 #import "NSObject+Utils.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define HIGHLIGHTCOLOR UIColorFromRGB(0xd2fde8)
 
-@interface SettingsView ()
+@interface SettingsView () {
+    MyStoreObserver *myStoreObserver;
+}
 
 @end
 
@@ -24,7 +27,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        myStoreObserver = [MyStoreObserver myStoreObserver];
     }
     return self;
 }
@@ -91,6 +94,10 @@
     [ra setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor blackColor], nil]];
     [ra addTarget:self action:@selector(removeAds:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:ra];
+    if (myStoreObserver.bought) {
+        ra.bothTitles = @"Ad Free!";
+        ra.enabled = NO;
+    }
     
     MyButton *r = [[MyButton alloc] initWithFrame:CGRectMake(bheight, SLOT(position++), bwidth, bheight)];
     r.bothTitles = @"Restore";
