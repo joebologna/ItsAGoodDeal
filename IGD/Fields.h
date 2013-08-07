@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "Features.h"
+#include "Globals.h"
 #import "Field.h"
 
 #define PROMPT "Enter Prices, Units and # of Items"
@@ -32,6 +32,7 @@ typedef enum {
 - (void)calcSavings:(BOOL)useQty;
 
 @property (unsafe_unretained, nonatomic) DeviceType deviceType;
+@property (unsafe_unretained, nonatomic) float menuthingBought, menuthingNotBought;
 @property (strong, nonatomic, readonly) NSString
 	*toString,
 	*fieldValues;

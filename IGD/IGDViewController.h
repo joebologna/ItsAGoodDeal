@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#include "Features.h"
+#include "Globals.h"
 
 #import "MyStoreObserver.h"
 #import "Fields.h"

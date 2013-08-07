@@ -6,14 +6,13 @@
 //  Copyright (c) 2013 Joe Bologna. All rights reserved.
 //
 
+#import "Globals.h"
 #import "SettingsView.h"
 #import "MyButton.h"
 #import "MyStoreObserver.h"
 #import "NSObject+Utils.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-#define HIGHLIGHTCOLOR UIColorFromRGB(0xd2fde8)
 
 @interface SettingsView () {
     MyStoreObserver *myStoreObserver;
@@ -80,7 +79,7 @@
 
     UITextView *h = [[UITextView alloc] initWithFrame:CGRectMake(bheight, toffset + SLOT(position++), width - 2 * bheight, theight)];
     h.font = [UIFont systemFontOfSize:tfontSize];
-    h.text = @"Enter the price and number of units for each item, for instance 8 ounces. Enter 1 for the # of items.\n\nTo enter a 2 for 1 sale, enter 2 for the # of items.\n\nUse the slider to increase or decrease the quantity you plan to purchase. The price for each item and savings is adjusted automatically. The slider is limited to 10 items by default. Enter a number greater than 10 in the Qty box to increase the slider limit.\n\nSavings are the total number of units purchased times the difference in unit cost.\n\nYou may purchase the Remove Ads option or restore your purchase on other devices you own.";
+    h.text = [NSString stringWithFormat:@"Enter the price and number of units for each item, for instance 8 ounces. Enter 1 for the # of items.\n\nTo enter a 2 for 1 sale, enter 2 for the # of items.\n\nUse the slider to increase or decrease the quantity you plan to purchase. The price for each item and savings is adjusted automatically. The slider is limited to %d items by default. Enter a number greater than %d in the Qty box to increase the slider limit.\n\nSavings are the total number of units purchased times the difference in unit cost.\n\nYou may purchase the Remove Ads option or restore your purchase on other devices you own.", SLIDER_MIN, SLIDER_MIN];
     h.editable = NO;
     [h.layer setBorderColor:[[[UIColor blackColor] colorWithAlphaComponent:0.5] CGColor]];
     [h.layer setBorderWidth:2.0];

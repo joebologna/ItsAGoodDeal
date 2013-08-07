@@ -194,6 +194,13 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     if (myStoreObserver.bought) {
         [bannerView cancelBannerViewAction];
         bannerView.hidden = YES;
+        CGRect r = _fields.handle.rect;
+        r.origin.y = _fields.menuthingBought;
+        _fields.handle.rect = r;
+    } else {
+        CGRect r = _fields.handle.rect;
+        r.origin.y = _fields.menuthingNotBought;
+        _fields.handle.rect = r;
     }
 }
 
@@ -258,6 +265,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #ifdef DEBUG
         NSLog(@"no products found");
 #endif
+        [[[UIAlertView alloc] initWithTitle:@"Payment Failed" message:@"Try logging into Settings/iTunes again." delegate:self cancelButtonTitle:@"DONE" otherButtonTitles:nil] show];
     }
 }
 
@@ -271,6 +279,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #ifdef DEBUG
         NSLog(@"no products found");
 #endif
+        [[[UIAlertView alloc] initWithTitle:@"Payment Failed" message:@"Try logging into Settings/iTunes again." delegate:self cancelButtonTitle:@"DONE" otherButtonTitles:nil] show];
     }
 }
 

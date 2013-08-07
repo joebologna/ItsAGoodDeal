@@ -391,6 +391,8 @@
     r.size.width = fontSize*3;
     r.size.height = fontSize;
     _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:HandleWidget andType:LabelField caller:self];
+    _menuthingNotBought = r.origin.y;
+    _menuthingBought = _menuthingNotBought + 0.75 * h;
 }
 
 - (void)setView:(Field *)f {
