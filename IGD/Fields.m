@@ -62,7 +62,7 @@
     NSLog(@"%s", __func__);
 #endif
     ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue d:2] : self.curField.value;
-    if (self.curField.control.hidden || [self.curField isEqual:self.inputFields.lastObject]) {
+    if (self.curField.tag >= NumItemsB) {
         self.curField = self.inputFields[0];
     } else {
         NSInteger i = [self.inputFields indexOfObject:self.curField];
