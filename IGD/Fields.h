@@ -10,11 +10,6 @@
 #include "Features.h"
 #import "Field.h"
 
-#define STORE "No Ads"
-#define RESTORE "Restore"
-#define CLR "C"
-#define NEXT "Next/Calc Savings"
-#define DEL "Del"
 #define PROMPT "Enter Prices, Units and # of Items"
 
 typedef enum {
@@ -73,7 +68,6 @@ typedef enum {
 	*seven,
 	*eight,
 	*nine,
-    *store,
 	*period,
 	*zero,
 	*next,

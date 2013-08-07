@@ -160,22 +160,6 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
         if (s.length > 0) {
             self.fields.curField.value = [s substringToIndex:s.length - 1];
         }
-    } else if (button.tag == Store) {
-#warning this is dead code
-        if (!myStoreObserver.bought) {
-            if ([SKPaymentQueue canMakePayments]) {
-                [self removeAds];
-            } else {
-                [[[UIAlertView alloc] initWithTitle:@"Payments Disabled" message:@"Use Settings to enable payments" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            }
-        } else {
-            NSLog(@"handle restore here");
-            if ([SKPaymentQueue canMakePayments]) {
-                [self restorePurchase];
-            } else {
-                [[[UIAlertView alloc] initWithTitle:@"Payments Disabled" message:@"Use Settings to enable payments" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            }
-        }
     }
 }
 
@@ -208,13 +192,8 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     NSLog(@"%s, bought: %d", __func__, myStoreObserver.bought);
 #endif
     if (myStoreObserver.bought) {
-        self.fields.store.value = @RESTORE;
         [bannerView cancelBannerViewAction];
         bannerView.hidden = YES;
-//        [bannerView removeFromSuperview];
-//        bannerView.delegate = nil;
-    } else {
-        self.fields.store.value = @STORE;
     }
 }
 
@@ -307,7 +286,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     NSLog(@"%s", __func__);
 #endif
     NSString *s = [NSString stringWithFormat:@"Remove Ads for %@?", [NSNumberFormatter localizedStringFromNumber:((SKProduct *)[MyStoreObserver myStoreObserver].myProducts[0]).price numberStyle:NSNumberFormatterCurrencyStyle]];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@STORE message:s delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Remove Ads" message:s delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
     alert.delegate = self;
     [alert show];
 }

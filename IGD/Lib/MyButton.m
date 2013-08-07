@@ -54,6 +54,11 @@
     _bothTitles = b;
 }
 
+@synthesize font = _font;
+- (void)setFont:(UIFont *)font {
+    [self.titleLabel setFont:font];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

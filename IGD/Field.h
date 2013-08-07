@@ -65,7 +65,6 @@ typedef enum {
     Zero,
     Period,
     Clr,
-    Store,
     Del,
     Next,
     Mul,

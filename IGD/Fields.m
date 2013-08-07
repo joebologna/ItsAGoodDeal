@@ -9,6 +9,12 @@
 #import "Fields.h"
 #import "Grid.h"
 
+@interface Fields() {
+    BOOL debug;
+}
+
+@end
+
 @implementation Fields
 
 @dynamic toString;
@@ -125,6 +131,11 @@
         _qty = nil;
         _ad = nil;
         _vc = nil;
+#ifdef DEBUG
+        debug = YES;
+#else
+        debug = NO;
+#endif
     }
     return self;
 }
@@ -189,7 +200,6 @@
                  _zero,
                  _period,
                  _clr,
-                 _store,
                  _del,
                  _next,
                  nil];
@@ -257,9 +267,9 @@
     c1.origin.x = fontSize;
     c1.size.height = h2;
     c1.size.width = ceilf(width/2 - fontSize * 1.5);
-    _priceA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"2.99" andTag:PriceA andType:LabelField caller:self];
+    _priceA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:debug ? @"2.99" : @"" andTag:PriceA andType:LabelField caller:self];
     c1.origin.x = c1.size.width + fontSize * 2;
-    _priceB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"1.99" andTag:PriceB andType:LabelField caller:self];
+    _priceB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:debug ? @"1.99" : @"" andTag:PriceB andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
     c1.origin.x = fontSize;
@@ -281,18 +291,18 @@
     c1.origin.x = fontSize;
     c1.size.width = ceilf((width - fontSize * 5)/4);
     c1.size.height = h2;
-    _unitsEachA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"7.5" andTag:UnitsEachA andType:LabelField caller:self];
+    _unitsEachA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:debug ? @"7.5" : @"" andTag:UnitsEachA andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     c1.size.width = fontSize;
     _xAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XAL andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     c1.size.width = ceilf((width - fontSize * 5)/4);
-    _numItemsA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"2" andTag:NumItemsA andType:LabelField caller:self];
+    _numItemsA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:debug ? @"2" : @"" andTag:NumItemsA andType:LabelField caller:self];
     
     c1.origin.x += c1.size.width + fontSize;
     c1.size.width = ceilf((width - fontSize * 5)/4);
     c1.size.height = h2;
-    _unitsEachB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"8" andTag:UnitsEachB andType:LabelField caller:self];
+    _unitsEachB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:debug ? @"8" : @"" andTag:UnitsEachB andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     c1.size.width = fontSize;
     _xBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XBL andType:LabelField caller:self];
@@ -354,24 +364,22 @@
     _one = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"1" andTag:One andType:KeyType caller:self];
     _two = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"2" andTag:Two andType:KeyType caller:self];
     _three = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"3" andTag:Three andType:KeyType caller:self];
-    _clr = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@CLR andTag:Clr andType:KeyType caller:self];
+    _clr = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"C" andTag:Clr andType:KeyType caller:self];
     
     col = 0; row++;
     _four = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"4" andTag:Four andType:KeyType caller:self];
     _five = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"5" andTag:Five andType:KeyType caller:self];
     _six = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"6" andTag:Six andType:KeyType caller:self];
-    //_del = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@DEL andTag:Del andType:KeyType caller:self];
     
     col = 0; row++;
     _seven = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"7" andTag:Seven andType:KeyType caller:self];
     _eight = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"8" andTag:Eight andType:KeyType caller:self];
     _nine = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"9" andTag:Nine andType:KeyType caller:self];
-    _store = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@STORE andTag:Store andType:KeyType caller:self];
     
     col = 0; row++;
     _period = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"." andTag:Period andType:KeyType caller:self];
     _zero = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"0" andTag:Zero andType:KeyType caller:self];
-    _del = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@DEL andTag:Del andType:KeyType caller:self];
+    _del = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Del" andTag:Del andType:KeyType caller:self];
     CGRect r = [grid getRectAtX:row andY:col];
     r.origin.y -= 2 * r.size.height + 2 * spacing.y;
     r.size.height = 3 * r.size.height + 3 * spacing.y;
@@ -422,17 +430,6 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    
-//    if (![self.priceA.value isEqualToString:@""]) {
-//        if ([self.numItemsA.value isEqualToString:@""]) {
-//            self.numItemsA.value = @"1";
-//        }
-//    }
-//    if (![self.priceB.value isEqualToString:@""]) {
-//        if ([self.numItemsB.value isEqualToString:@""]) {
-//            self.numItemsB.value = @"1";
-//        }
-//    }
     
     BOOL AisAllSet = self.priceA.floatValue != 0.0 && self.unitsEachA.floatValue != 0.0 && self.numItemsA.floatValue != 0.0;
     BOOL BisAllSet = self.priceB.floatValue != 0.0 && self.unitsEachB.floatValue != 0.0 && self.numItemsB.floatValue != 0.0;

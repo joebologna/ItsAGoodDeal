@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSArray *titles;
 @property (strong, nonatomic) NSArray *titleColors;
 @property (strong, nonatomic) NSString *bothTitles;
+@property (strong, nonatomic) UIFont *font;
 @property (unsafe_unretained, nonatomic) CGFloat radius;
 
 - (void)toggle;
