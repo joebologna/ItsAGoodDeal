@@ -77,7 +77,7 @@
 
     UITextView *h = [[UITextView alloc] initWithFrame:CGRectMake(bheight, toffset + SLOT(position++), width - 2 * bheight, theight)];
     h.font = [UIFont systemFontOfSize:tfontSize];
-    h.text = @"Tap the Remove Ads button to purchase this option.\nTap the Restore button to restore this Remove Ads purchase.\nExplain how the slider works and stuff.\nthis is another things\nlets see if it scrolls\nhey hey hey\nfat albert!\nTap the Remove Ads button to purchase this option.\nTap the Restore button to restore this Remove Ads purchase.\nExplain how the slider works and stuff.\nthis is another things\nlets see if it scrolls\nhey hey hey\nfat albert!\nTap the Remove Ads button to purchase this option.\nTap the Restore button to restore this Remove Ads purchase.\nExplain how the slider works and stuff.\nthis is another things\nlets see if it scrolls\nhey hey hey\nfat albert!";
+    h.text = @"Enter the price and number of units for each item, for instance 8 ounces. Enter 1 for the # of items.\n\nTo enter a 2 for 1 sale, enter 2 for the # of items.\n\nUse the slider to increase or decrease the quantity you plan to purchase. The price for each item and savings is adjusted automatically. The slider is limited to 10 items by default. Enter a number greater than 10 in the Qty box to increase the slider limit.\n\nYou may purchase the Remove Ads option or restore your purchase on other devices you own.";
     h.editable = NO;
     [h.layer setBorderColor:[[[UIColor blackColor] colorWithAlphaComponent:0.5] CGColor]];
     [h.layer setBorderWidth:2.0];
