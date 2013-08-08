@@ -32,6 +32,11 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 //static Test testToRun = NotTesting;
 #endif
 
+#define PAYMENT_FAILED @"Payment Failed"
+#define SUCCESS_TITLE @"Success"
+#define FAILURE_TITLE @"Failure"
+#define REMOVE_ADS @"Remove Ads"
+
 #pragma mark -
 #pragma mark Instance Properties
 
@@ -67,6 +72,22 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     [self setAdButtonState];
     [self.fields populateScreen];
     [self initGUI];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    [super viewWillAppear:animated];
+    [self setAdButtonState];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    [super viewDidAppear:animated];
+    [self setAdButtonState];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -173,17 +194,23 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #pragma mark Ads
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (![[alertView title] isEqualToString:@"Payments Disabled"]) {
+    NSString *t = [alertView title];
+    if ([t isEqualToString:REMOVE_ADS]) {
         if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
 #ifdef DEBUG
-            NSLog(@"Buy it here");
+            NSLog(@"%s, User authorized payment.", __func__);
 #endif
             [self doPayment];
         } else {
             myStoreObserver.bought = NO;
             [self setAdButtonState];
         }
+    } else if ([t isEqualToString:SUCCESS_TITLE] || [t isEqualToString:FAILURE_TITLE] || [t isEqualToString:PAYMENT_FAILED]) {
+        NSLog(@"%s, nothing to do for '%@'", __func__, t);
+    } else {
+        NSLog(@"%s, oops, no handler for '%@'", __func__, t);
     }
+    [self setAdButtonState];
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }
 
@@ -265,7 +292,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #ifdef DEBUG
         NSLog(@"no products found");
 #endif
-        [[[UIAlertView alloc] initWithTitle:@"Payment Failed" message:@"Try logging into Settings/iTunes again." delegate:self cancelButtonTitle:@"DONE" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:PAYMENT_FAILED message:@"Try logging into Settings/iTunes again." delegate:self cancelButtonTitle:@"DONE" otherButtonTitles:nil] show];
     }
 }
 
@@ -279,7 +306,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #ifdef DEBUG
         NSLog(@"no products found");
 #endif
-        [[[UIAlertView alloc] initWithTitle:@"Payment Failed" message:@"Try logging into Settings/iTunes again." delegate:self cancelButtonTitle:@"DONE" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:PAYMENT_FAILED message:@"Try logging into Settings/iTunes again." delegate:self cancelButtonTitle:@"DONE" otherButtonTitles:nil] show];
     }
 }
 
@@ -287,6 +314,11 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
+    if (myStoreObserver.bought) {
+        [[[UIAlertView alloc] initWithTitle:SUCCESS_TITLE message:@"Thank you for your purchase!" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil] show];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:FAILURE_TITLE message:@"Purchase failed. Please try again later." delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil] show];
+    }
     [self setAdButtonState];
 }
 
@@ -295,7 +327,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     NSLog(@"%s", __func__);
 #endif
     NSString *s = [NSString stringWithFormat:@"Remove Ads for %@?", [NSNumberFormatter localizedStringFromNumber:((SKProduct *)[MyStoreObserver myStoreObserver].myProducts[0]).price numberStyle:NSNumberFormatterCurrencyStyle]];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Remove Ads" message:s delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:REMOVE_ADS message:s delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
     alert.delegate = self;
     [alert show];
 }

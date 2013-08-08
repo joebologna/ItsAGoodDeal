@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Joe Bologna. All rights reserved.
 //
 
+// po [NSUserDefaults resetStandardUserDefaults] to reset prefs.
+//
 // http://www.tutorialspoint.com/ios/ios_delegates.htm
 
 #import "MyStoreObserver.h"
@@ -19,10 +21,13 @@ static MyStoreObserver *theSharedObject = nil;
 @synthesize bought = _bought;
 
 - (void)setBought:(BOOL)newValue {
-    _bought = newValue;
     
-    [[NSUserDefaults standardUserDefaults] setBool:_bought forKey:kBought];
+    [[NSUserDefaults standardUserDefaults] setBool:newValue forKey:kBought];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    _bought = [[NSUserDefaults standardUserDefaults] boolForKey:kBought];
+    if (_bought != newValue) {
+        abort();
+    }
 }
 
 - (BOOL)bought {
@@ -34,7 +39,6 @@ static MyStoreObserver *theSharedObject = nil;
     if (theSharedObject == nil) {
         theSharedObject = [[super allocWithZone:NULL] init];
         theSharedObject.myProducts = [NSArray array];
-        theSharedObject.bought = [[NSUserDefaults standardUserDefaults] boolForKey:kBought];
         theSharedObject.delegate = nil;
     }
     return theSharedObject;
@@ -55,13 +59,28 @@ static MyStoreObserver *theSharedObject = nil;
     for (SKPaymentTransaction *transaction in transactions) {
         switch (transaction.transactionState) {
             case SKPaymentTransactionStatePurchased:
+#ifdef DEBUG
+                NSLog(@"%s, purchase succeeded", __func__);
+#endif
                 [self completeTransaction:transaction];
                 break;
             case SKPaymentTransactionStateFailed:
+#ifdef DEBUG
+                NSLog(@"%s, payment failed", __func__);
+#endif
                 [self failedTransaction:transaction];
                 break;
             case SKPaymentTransactionStateRestored:
+#ifdef DEBUG
+                NSLog(@"%s, purchase restored", __func__);
+#endif
                 [self restoreTransaction:transaction];
+                break;
+            case SKPaymentTransactionStatePurchasing:
+#ifdef DEBUG
+                NSLog(@"%s, purchase in progress", __func__);
+#endif
+                break;
             default:
                 break;
         }
@@ -84,13 +103,15 @@ static MyStoreObserver *theSharedObject = nil;
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    [self recordTransaction:transaction];
-    [self provideContent:transaction.originalTransaction.payment.productIdentifier];
-    @try {
-        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%s:Ignoring %@", __func__, exception);
+    if (transaction.transactionState == SKPaymentTransactionStateRestored) {
+        [self recordTransaction:transaction];
+        [self provideContent:transaction.originalTransaction.payment.productIdentifier];
+        @try {
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%s:Ignoring %@", __func__, exception);
+        }
     }
 }
 

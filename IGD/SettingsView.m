@@ -16,6 +16,9 @@
 
 @interface SettingsView () {
     MyStoreObserver *myStoreObserver;
+    MyButton *ra;
+    MyButton *r;
+    MyButton *b;
 }
 
 @end
@@ -46,7 +49,7 @@
     float toffset = 0;
     float ioffset = bheight * 1;
     if (self.getDeviceType == iPhone5) {
-        fontSize *= 1.30;
+        fontSize *= 1.10;
         bheight = fontSize * 2;
     }
     float bwidth = width - 2 * bheight;
@@ -86,19 +89,15 @@
     [self.view addSubview:h];
     
     position = 7;
-    MyButton *ra = [[MyButton alloc] initWithFrame:CGRectMake(bheight, SLOT(position++), bwidth, bheight)];
+    ra = [[MyButton alloc] initWithFrame:CGRectMake(bheight, SLOT(position++), bwidth, bheight)];
     ra.bothTitles = @"Remove Ads";
     ra.font = [UIFont systemFontOfSize:fontSize];
     ra.radius = radius;
     [ra setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor blackColor], nil]];
     [ra addTarget:self action:@selector(removeAds:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:ra];
-    if (myStoreObserver.bought) {
-        ra.bothTitles = @"Ad Free!";
-        ra.enabled = NO;
-    }
     
-    MyButton *r = [[MyButton alloc] initWithFrame:CGRectMake(bheight, SLOT(position++), bwidth, bheight)];
+    r = [[MyButton alloc] initWithFrame:CGRectMake(bheight, SLOT(position++), bwidth, bheight)];
     r.bothTitles = @"Restore";
     r.font = [UIFont systemFontOfSize:fontSize];
     r.radius = radius;
@@ -106,13 +105,18 @@
     [r addTarget:self action:@selector(restore:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:r];
 
-    MyButton *b = [[MyButton alloc] initWithFrame:CGRectMake(bheight, SLOT(position++), bwidth, bheight)];
+    b = [[MyButton alloc] initWithFrame:CGRectMake(bheight, SLOT(position++), bwidth, bheight)];
     b.bothTitles = @"Done";
     b.font = [UIFont systemFontOfSize:fontSize];
     b.radius = radius;
     [b setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor blackColor], nil]];
     [b addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:b];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    ra.bothTitles = myStoreObserver.bought ? @"Ad Free!" : @"Remove Ads";
 }
 
 - (void)restore:(id)sender {
