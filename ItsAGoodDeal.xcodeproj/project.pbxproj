@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B2230B217B486590097F693 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B2230AC17B486590097F693 /* background.png */; };
+		3B2230B317B486590097F693 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 3B2230AD17B486590097F693 /* index.html */; };
+		3B2230B417B486590097F693 /* Mints-6items.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B2230AE17B486590097F693 /* Mints-6items.png */; };
+		3B2230B517B486590097F693 /* Mints-Entered.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B2230AF17B486590097F693 /* Mints-Entered.png */; };
+		3B2230B617B486590097F693 /* Mints-Note.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B2230B017B486590097F693 /* Mints-Note.png */; };
 		3B312C0B17602A8F00AF12F9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B312C0A17602A8F00AF12F9 /* iAd.framework */; };
 		3B3A62F91761557700C7DD46 /* ButtonGradient3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B3A62F61761557700C7DD46 /* ButtonGradient3.png */; };
 		3B3C28DE17A5A54000B36EF6 /* gridTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C28DD17A5A54000B36EF6 /* gridTests.m */; };
@@ -70,6 +75,12 @@
 
 /* Begin PBXFileReference section */
 		3B031DD117A0A8500039A5A5 /* KeyboardSupport.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = KeyboardSupport.numbers; sourceTree = "<group>"; };
+		3B2230AB17B486590097F693 /* .project */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = .project; sourceTree = "<group>"; };
+		3B2230AC17B486590097F693 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		3B2230AD17B486590097F693 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		3B2230AE17B486590097F693 /* Mints-6items.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mints-6items.png"; sourceTree = "<group>"; };
+		3B2230AF17B486590097F693 /* Mints-Entered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mints-Entered.png"; sourceTree = "<group>"; };
+		3B2230B017B486590097F693 /* Mints-Note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mints-Note.png"; sourceTree = "<group>"; };
 		3B312C0A17602A8F00AF12F9 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		3B3A62F61761557700C7DD46 /* ButtonGradient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGradient3.png; sourceTree = "<group>"; };
 		3B3C28DC17A5A54000B36EF6 /* gridTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gridTests.h; sourceTree = "<group>"; };
@@ -192,6 +203,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B2230AA17B486590097F693 /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+				3B2230AB17B486590097F693 /* .project */,
+				3B2230AC17B486590097F693 /* background.png */,
+				3B2230AD17B486590097F693 /* index.html */,
+				3B2230AE17B486590097F693 /* Mints-6items.png */,
+				3B2230AF17B486590097F693 /* Mints-Entered.png */,
+				3B2230B017B486590097F693 /* Mints-Note.png */,
+			);
+			path = HTML;
+			sourceTree = "<group>";
+		};
 		3B4173EE179DF28F0028D1E1 /* Design */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +303,7 @@
 		3B730718175EC9F400873194 = {
 			isa = PBXGroup;
 			children = (
+				3B2230AA17B486590097F693 /* HTML */,
 				3B4173EE179DF28F0028D1E1 /* Design */,
 				3BE052DA17778EC30041D6C0 /* DataModel */,
 				3B73072A175EC9F500873194 /* IGD */,
@@ -511,6 +536,11 @@
 				3BD286721762EF5B00A9AEE4 /* Default-Portrait@2x~ipad.png in Resources */,
 				3BD286741762EFC000A9AEE4 /* Default-Portrait~ipad.png in Resources */,
 				3B91250217B0B82B00A4B633 /* menuthing.png in Resources */,
+				3B2230B217B486590097F693 /* background.png in Resources */,
+				3B2230B317B486590097F693 /* index.html in Resources */,
+				3B2230B417B486590097F693 /* Mints-6items.png in Resources */,
+				3B2230B517B486590097F693 /* Mints-Entered.png in Resources */,
+				3B2230B617B486590097F693 /* Mints-Note.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

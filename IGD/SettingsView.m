@@ -80,10 +80,9 @@
     l.backgroundColor = HIGHLIGHTCOLOR;
     [self.view addSubview:l];
 
-    UITextView *h = [[UITextView alloc] initWithFrame:CGRectMake(bheight, toffset + SLOT(position++), width - 2 * bheight, theight)];
-    h.font = [UIFont systemFontOfSize:tfontSize];
-    h.text = [NSString stringWithFormat:@"Enter the price and number of units for each item, for instance 8 ounces. Enter 1 for the # of items.\n\nTo enter a 2 for 1 sale, enter 2 for the # of items.\n\nUse the slider to increase or decrease the quantity you plan to purchase. The price for each item and savings is adjusted automatically. The slider is limited to %d items by default. Enter a number greater than %d in the Qty box to increase the slider limit.\n\nSavings are the total number of units purchased times the difference in unit cost.\n\nYou may purchase the Remove Ads option or restore your purchase on other devices you own.", SLIDER_MIN, SLIDER_MIN];
-    h.editable = NO;
+    UIWebView *h = [[UIWebView alloc] initWithFrame:CGRectMake(bheight, toffset + SLOT(position++), width - 2 * bheight, theight)];
+    NSString *page = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"index.html"];
+    [h loadData:[NSData dataWithContentsOfFile:page] MIMEType:@"text/html" textEncodingName:@"utf-8" baseURL:[[NSBundle mainBundle] bundleURL]];
     [h.layer setBorderColor:[[[UIColor blackColor] colorWithAlphaComponent:0.5] CGColor]];
     [h.layer setBorderWidth:2.0];
     [self.view addSubview:h];
