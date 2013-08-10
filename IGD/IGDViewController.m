@@ -88,6 +88,12 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #endif
     [super viewDidAppear:animated];
     [self setAdButtonState];
+    NSString *usedOnce = @"usedOnce";
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:usedOnce] == NO) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:usedOnce];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self showSettings];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
