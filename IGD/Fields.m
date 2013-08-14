@@ -275,17 +275,17 @@
     c1.origin.x = fontSize;
     c1.size.height = h;
     c1.size.width = ceilf((width - fontSize * 5)/4);
-    _unitsEachAL = [Field allocFieldWithRect:c1 andF:fontSize * 0.6 andValue:@"# of Units" andTag:UnitsEachAL andType:LabelField caller:self];
+    _unitsEachAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Units" andTag:UnitsEachAL andType:LabelField caller:self];
     c1.origin.x += fontSize + c1.size.width;
     c1.size.width = ceilf((width - fontSize * 5)/4);
-    _numItemsAL = [Field allocFieldWithRect:c1 andF:fontSize * 0.6 andValue:@"# of Items" andTag:NumItemsAL andType:LabelField caller:self];
+    _numItemsAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Items" andTag:NumItemsAL andType:LabelField caller:self];
 
     c1.origin.x += c1.size.width + fontSize;
     c1.size.height = h;
     c1.size.width = ceilf((width - fontSize * 5)/4);
-    _unitsEachBL = [Field allocFieldWithRect:c1 andF:fontSize * 0.6 andValue:@"# of Units" andTag:UnitsEachBL andType:LabelField caller:self];
+    _unitsEachBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Units" andTag:UnitsEachBL andType:LabelField caller:self];
     c1.origin.x += fontSize + c1.size.width;
-    _numItemsBL = [Field allocFieldWithRect:c1 andF:fontSize * 0.6 andValue:@"# of Items" andTag:NumItemsBL andType:LabelField caller:self];
+    _numItemsBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Items" andTag:NumItemsBL andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
     c1.origin.x = fontSize;
@@ -314,15 +314,15 @@
     c1.origin.x = 0;
     c1.size.height = h;
     c1.size.width = ceilf(width/2);
-    _unitCostAL = [Field allocFieldWithRect:c1 andF:fontSize*.75 andValue:@"" andTag:UnitCostAL andType:LabelField caller:self];
+    _unitCostAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:UnitCostAL andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
-    _unitCostBL = [Field allocFieldWithRect:c1 andF:fontSize*.75 andValue:@"" andTag:UnitCostBL andType:LabelField caller:self];
+    _unitCostBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:UnitCostBL andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
     c1.origin.x = fontSize;
     c1.size.height = h;
     c1.size.width = 0.75 * (width - fontSize * 3);
-    _slider = [Field allocFieldWithRect:c1 andF:fontSize*.75 andValue:@"" andTag:Slider andType:LabelField caller:self];
+    _slider = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:Slider andType:LabelField caller:self];
 
     c1.origin.x = fontSize * 2 + c1.size.width;
     c1.size.height = h;
