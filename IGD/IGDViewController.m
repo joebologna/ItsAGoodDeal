@@ -267,20 +267,13 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #ifdef DEBUG
     NSLog(@"%s, Nothing to do", __func__);
 #endif
-    bannerView = banner;
-    banner.hidden = !myStoreObserver.bought;
-    return myStoreObserver.bought;
+    return YES;
 }
 
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
 #ifdef DEBUG
     NSLog(@"%s, Nothing to do", __func__);
 #endif
-    bannerView = banner;
-    if (myStoreObserver.bought) {
-        banner.hidden = YES;
-        [bannerView cancelBannerViewAction];
-    }
 }
 
 #pragma mark -
@@ -348,18 +341,6 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 - (void)showSettings {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
-#endif
-#ifdef DEAD
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-
-    CGRect r = self.view.frame;
-    if (r.origin.y > 0) {
-        r.origin.y -= height * 0.4;
-        [self.view setFrame:r];
-    } else {
-        r.origin.y += height * 0.4;
-        [self.view setFrame:r];
-    }
 #endif
     SettingsView *s = [[SettingsView alloc] init];
     s.delegate = self;

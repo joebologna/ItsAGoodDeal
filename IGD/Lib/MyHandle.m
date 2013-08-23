@@ -7,6 +7,7 @@
 //
 
 #import "MyHandle.h"
+#import "Globals.h"
 
 static float distMoved = 0.0;
 static CGRect origLoc;
@@ -28,6 +29,15 @@ static CGRect origLoc;
 #endif
     distMoved = 0.0;
     origLoc = self.delegate.view.frame;
+    CGRect r = [[UIScreen mainScreen] bounds];
+    UIView *adView = [self.delegate.view viewWithTag:999];
+    UIView *v = [[UIView alloc] initWithFrame:r];
+    v.backgroundColor = BACKGROUNDCOLOR;
+    CGRect r2 = r;
+    r2.origin.y = adView.frame.origin.y;
+    v.frame = r2;
+    v.tag = 9999;
+    [self.delegate.view insertSubview:v belowSubview:self.delegate.view];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -42,9 +52,19 @@ static CGRect origLoc;
         r.origin.y -= distMoved;
         self.delegate.view.frame = r;
         if (distMoved > r.size.height * 0.1) {
-            [self.delegate performSelector:@selector(showSettings)];
+            [self finishSlide];
         }
     }
+}
+
+- (void)byebye {
+    UIView *v = [self.delegate.view viewWithTag:9999];
+    [v removeFromSuperview];
+}
+
+- (void)finishSlide {
+    [self performSelector:@selector(byebye) withObject:nil afterDelay:0.5];
+    [self.delegate performSelector:@selector(showSettings)];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
