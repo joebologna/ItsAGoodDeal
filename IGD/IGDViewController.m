@@ -176,16 +176,26 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     } else if (button.tag == Clr) {
         for (Field *f in self.fields.inputFields) {
             f.value = @"";
-            if (f.tag == Slider) {
-                ((UISlider *)f.control).value = 1.0;
-            }
         }
+        [self resetSlider];
         self.fields.curField = self.fields.inputFields[0];
         self.fields.curField.value = @"";
     } else if (button.tag == Del) {
         NSString *s = self.fields.curField.value;
         if (s.length > 0) {
             self.fields.curField.value = [s substringToIndex:s.length - 1];
+        }
+    }
+}
+
+- (void)resetSlider {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    for (Field *f in self.fields.allFields) {
+        if (f.tag == Slider) {
+            [f makeSlider];
+            break;
         }
     }
 }

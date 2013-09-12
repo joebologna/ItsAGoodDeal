@@ -218,14 +218,15 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    MySlider *s = [[MySlider alloc] initWithFrame:self.rect];
-    self.value = @"1";
-    s.continuous = YES;
-    s.maximumValue = SLIDER_MIN;
-    s.minimumValue = self.value.floatValue;
-    s.caller = self;
-    s.hidden = YES;
-    self.control = s;
+    if (self.control == nil) {
+        self.control = [[MySlider alloc] initWithFrame:self.rect];
+    }
+    ((MySlider *)self.control).value = 1;
+    ((MySlider *)self.control).continuous = YES;
+    ((MySlider *)self.control).maximumValue = SLIDER_MIN;
+    ((MySlider *)self.control).minimumValue = self.value.floatValue;
+    ((MySlider *)self.control).caller = self;
+    ((MySlider *)self.control).hidden = YES;
 }
 
 - (void)updateSavings {
