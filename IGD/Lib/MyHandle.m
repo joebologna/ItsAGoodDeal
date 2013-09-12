@@ -34,10 +34,10 @@ static CGRect origLoc;
     UIView *v = [[UIView alloc] initWithFrame:r];
     v.backgroundColor = BACKGROUNDCOLOR;
     CGRect r2 = r;
-    r2.origin.y = adView.frame.origin.y;
+    r2.origin.y = adView.frame.origin.y * .1;
     v.frame = r2;
     v.tag = 9999;
-    [self.delegate.view insertSubview:v belowSubview:self.delegate.view];
+    [self.delegate.view insertSubview:v belowSubview:self.delegate.view.subviews[0]];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -51,7 +51,7 @@ static CGRect origLoc;
         CGRect r = origLoc;
         r.origin.y -= distMoved;
         self.delegate.view.frame = r;
-        if (distMoved > r.size.height * 0.1) {
+        if (distMoved > r.size.height * 0.04) {
             [self finishSlide];
         }
     }
@@ -71,8 +71,9 @@ static CGRect origLoc;
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    self.delegate.view.frame = origLoc;
-    distMoved = 0.0;
+//    self.delegate.view.frame = origLoc;
+//    distMoved = 0.0;
+    [self finishSlide];
 }
 
 /*

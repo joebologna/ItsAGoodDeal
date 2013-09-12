@@ -483,6 +483,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Joe Bologna";
+				TargetAttributes = {
+					3B730720175EC9F500873194 = {
+						DevelopmentTeam = 2GC862GT48;
+					};
+				};
 			};
 			buildConfigurationList = 3B73071C175EC9F400873194 /* Build configuration list for PBXProject "ItsAGoodDeal" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -820,7 +825,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ItsAGoodDeal.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "IGD/ItsAGoodDeal-Prefix.pch";
