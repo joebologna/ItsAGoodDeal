@@ -224,7 +224,7 @@
     ((MySlider *)self.control).value = 1;
     ((MySlider *)self.control).continuous = YES;
     ((MySlider *)self.control).maximumValue = SLIDER_MIN;
-    ((MySlider *)self.control).minimumValue = self.value.floatValue;
+    ((MySlider *)self.control).minimumValue = MAX(self.value.floatValue, 1);
     ((MySlider *)self.control).caller = self;
     ((MySlider *)self.control).hidden = YES;
 }

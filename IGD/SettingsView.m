@@ -140,16 +140,14 @@
         } else {
             ra.bothTitles = @"Remove Ads";
             ra.enabled = r.enabled = YES;
-            r.bothTitles = @"Restore";
+            r.bothTitles = @"Restore Purchase";
         }
         r.hidden = ra.hidden = NO;
         msg.hidden = YES;
     } else {
         ra.enabled = r.enabled = NO;
-        r.bothTitles = @"Buy Later";
-        ra.bothTitles = @"App Store not Available";
         r.hidden = ra.hidden = YES;
-        msg.text = @"\nThe App Store is not available, please try later.";
+        msg.text = @"\nThe App Store is not available, please try to purchase the App later.";
         msg.hidden = NO;
     }
 }
