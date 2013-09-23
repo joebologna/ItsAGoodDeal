@@ -333,7 +333,7 @@
     c1.origin.x = 0;
     c1.size.height = h2 + 2;
     c1.size.width = width;
-    _message = [Field allocFieldWithRect:c1 andF:fontSize * ([self isPhone] ? 1.1 : 1.5) andValue:@PROMPT andTag:Message andType:LabelField caller:self];
+    _message = [Field allocFieldWithRect:c1 andF:fontSize * ([self isPhone] ? 1 : 1.2) andValue:@PROMPT andTag:Message andType:LabelField caller:self];
     
     // keypad
     CGPoint origin, size, spacing;
@@ -453,7 +453,7 @@
     }
     float unitCostDiff = fabsf(unitCostA - unitCostB);
     if (allSet) {
-        if (useQty) {
+        if (useQty && self.qty.floatValue > 0) {
             float v;
             v = self.priceA.floatValue * (self.qty.floatValue / self.numItemsA.floatValue);
             self.priceA.value = [self fmtPrice:v d:2];
@@ -466,20 +466,23 @@
         }
         if (unitCostA < unitCostB) {
             float totalSavings = unitCostDiff * numUnitsA;
+            float totalCost = unitCostA * numUnitsA;
             if (totalSavings < 0.01) {
-                self.message.value = [NSString stringWithFormat:@"Buy A, You Save: almost %@0.01", self.currencySymbol];
+                self.message.value = [NSString stringWithFormat:@"%.0f items of A cost %@, saves almost %@0.01", self.numItemsA.floatValue, [self fmtPrice:totalCost d:2], self.currencySymbol];
             } else {
-                self.message.value = [NSString stringWithFormat:@"Buy A, You Save: %@", [self fmtPrice:totalSavings d:2]];
+                self.message.value = [NSString stringWithFormat:@"%.0f items of A cost %@, saves %@", self.numItemsA.floatValue, [self fmtPrice:totalCost d:2], [self fmtPrice:totalSavings d:2]];
             }
         } else if (unitCostA > unitCostB) {
             float totalSavings = unitCostDiff * numUnitsB;
+            float totalCost = unitCostB * numUnitsB;
             if (totalSavings < 0.01) {
-                self.message.value = [NSString stringWithFormat:@"Buy B, You Save: almost %@0.01", self.currencySymbol];
+                self.message.value = [NSString stringWithFormat:@"%.0f items of B cost %@, saves almost %@0.01", self.numItemsB.floatValue, [self fmtPrice:totalCost d:2], self.currencySymbol];
             } else {
-                self.message.value = [NSString stringWithFormat:@"Buy B, You Save: %@", [self fmtPrice:totalSavings d:2]];
+                self.message.value = [NSString stringWithFormat:@"%.0f items of B cost %@, saves %@", self.numItemsB.floatValue, [self fmtPrice:totalCost d:2], [self fmtPrice:totalSavings d:2]];
             }
         } else {
-            self.message.value = @"A is the same price as B";
+            float totalCost = unitCostA * numUnitsA;
+            self.message.value = [NSString stringWithFormat:@"A cost the same as B, cost %@", [self fmtPrice:totalCost d:2]];
         }
 
     } else {
@@ -531,6 +534,9 @@
 #ifdef DEBUG
     NSLog(@"%s:%.2f", __func__, v);
 #endif
+    if (v < 1) {
+        v = 1;
+    }
     NSString *s = [NSString stringWithFormat:@"%.0f", v];
     self.qty.value = s;
 }
