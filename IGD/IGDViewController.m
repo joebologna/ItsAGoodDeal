@@ -335,7 +335,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    NSString *s = [NSString stringWithFormat:@"Remove Ads for %@?", [NSNumberFormatter localizedStringFromNumber:((SKProduct *)[MyStoreObserver myStoreObserver].myProducts[0]).price numberStyle:NSNumberFormatterCurrencyStyle]];
+    NSString *s = [NSString stringWithFormat:@"Remove Ads for %@?", [NSNumberFormatter localizedStringFromNumber:((SKProduct *)myStoreObserver.myProducts[0]).price numberStyle:NSNumberFormatterCurrencyStyle]];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:REMOVE_ADS message:s delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
     alert.delegate = self;
     [alert show];

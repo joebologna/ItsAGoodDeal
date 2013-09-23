@@ -15,7 +15,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.myStoreObserver = [MyStoreObserver myStoreObserver];
 #ifdef DEBUG
-    NSLog(@"bought: %d", self.myStoreObserver.bought);
+    NSLog(@"%s, bought: %d", __func__, self.myStoreObserver.bought);
 #endif
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self.myStoreObserver];
     [self requestProductData];
@@ -23,6 +23,9 @@
 }
 
 - (void) requestProductData {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
     SKProductsRequest *request= [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:@"com.focusedforsuccess.ItsAGoodDeal.removeads"]];
     request.delegate = self;
     [request start];
@@ -30,6 +33,7 @@
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
 #ifdef DEBUG
+    NSLog(@"%s", __func__);
     NSLog(@"valid: %@", response.products);
     NSLog(@"invalid: %@", response.invalidProductIdentifiers);
 #endif
@@ -38,6 +42,13 @@
     NSLog(@"%s, %@", __func__, self.myStoreObserver.myProducts);
     [self.myStoreObserver showProductInfo];
 #endif
+}
+
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error
+{
+    //UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"In-App Store unavailable" message:@"The In-App Store is currently unavailable, please try again later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    //[alert show];
+    NSLog(@"%s, App store unavailable: %@", __func__, error);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

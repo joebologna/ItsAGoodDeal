@@ -1,0 +1,31 @@
+#!/bin/bash
+
+square() {
+    echo sips -z ${2} ${1} --out square-${1}x${2}.png ../Design/square-2048x2048.png
+}
+
+landscape() {
+    echo sips -z ${2} ${1} --out landscape-${1}x${2}.png ../Design/landscape-2048x1536.png
+}
+
+portrait() {
+    echo sips -z ${2} ${1} --out portrait-${1}x${2}.png ../Design/portrait-1536x2048.png
+}
+
+for i in 29 40 50 57 58 72 76 80 100 114 120 144 152
+do
+    square $i $i
+done
+
+for i in 320x480 640x960 640x1136 768x1004 1536x2008 768x1024 1536x2048
+do
+    set $(echo $i | awk -Fx '{printf "%s %s", $1, $2}')
+    portrait $1 $2
+done
+
+for i in 1024x748 2048x1496 1024x768 2048x1536
+do
+    set $(echo $i | awk -Fx '{printf "%s %s", $1, $2}')
+    landscape $1 $2
+done
+

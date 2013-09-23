@@ -67,6 +67,7 @@ typedef enum {
     HandleWidget,
     Slider,
     Qty,
+    HelpView = 998,
     Ad = 999,
     FtagNotSet = -1
 } FTAG;

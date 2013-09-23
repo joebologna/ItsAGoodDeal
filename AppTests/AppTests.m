@@ -63,7 +63,6 @@
     [vc viewDidAppear:YES];
     STAssertTrue(YES, @"...");
 }
- */
 
 - (void)test04CalcSavings {
     vc.fields.priceA.value = vc.fields.priceB.value = @"4.20";
@@ -108,4 +107,6 @@
     [vc.fields calcSavings];
     STAssertTrue([vc.fields.message.value isEqualToString:@"Buy B, You Save: almost $0.01"], @"Message: %@", vc.fields.message.value);
 }
+ */
+
 @end

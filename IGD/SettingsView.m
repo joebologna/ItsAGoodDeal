@@ -7,6 +7,7 @@
 //
 
 #import "Globals.h"
+#import "Field.h"
 #import "SettingsView.h"
 #import "MyButton.h"
 #import "MyStoreObserver.h"
@@ -19,6 +20,7 @@
     MyButton *ra;
     MyButton *r;
     MyButton *b;
+    UITextView *msg;
 }
 
 @end
@@ -81,6 +83,7 @@
     [self.view addSubview:l];
 
     UIWebView *h = [[UIWebView alloc] initWithFrame:CGRectMake(bheight, toffset + SLOT(position++), width - 2 * bheight, theight)];
+    h.tag = HelpView;
     NSString *page = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"index.html"];
     [h loadData:[NSData dataWithContentsOfFile:page] MIMEType:@"text/html" textEncodingName:@"utf-8" baseURL:[[NSBundle mainBundle] bundleURL]];
     [h.layer setBorderColor:[[[UIColor blackColor] colorWithAlphaComponent:0.5] CGColor]];
@@ -111,11 +114,44 @@
     [b setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor blackColor], nil]];
     [b addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:b];
+    
+    msg = [[UITextView alloc] initWithFrame:CGRectMake(ra.frame.origin.x, ra.frame.origin.y, ra.frame.size.width, ra.frame.size.height * 2 + fontSize/2)];
+    msg.backgroundColor = [UIColor whiteColor];
+    msg.hidden = YES;
+//    msg.font = r.titleLabel.font;
+    msg.font = [UIFont systemFontOfSize:fontSize * (self.isPhone ? 0.8 : 0.6)];
+    msg.textAlignment = NSTextAlignmentCenter;
+    msg.delegate = self;
+    [self.view addSubview:msg];
+
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    return NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    ra.bothTitles = myStoreObserver.bought ? @"Ad Free!" : @"Remove Ads";
+    if (myStoreObserver.myProducts.count > 0) {
+        if (myStoreObserver.bought) {
+            ra.bothTitles = @"Ad Free!";
+            ra.enabled = r.enabled = NO;
+            r.bothTitles = @"Restore";
+        } else {
+            ra.bothTitles = @"Remove Ads";
+            ra.enabled = r.enabled = YES;
+            r.bothTitles = @"Restore";
+        }
+        r.hidden = ra.hidden = NO;
+        msg.hidden = YES;
+    } else {
+        ra.enabled = r.enabled = NO;
+        r.bothTitles = @"Buy Later";
+        ra.bothTitles = @"App Store not Available";
+        r.hidden = ra.hidden = YES;
+        msg.text = @"\nThe App Store is not available, please try later.";
+        msg.hidden = NO;
+    }
 }
 
 - (void)restore:(id)sender {

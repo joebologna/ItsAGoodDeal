@@ -256,7 +256,7 @@
     
     CGRect c1 = CGRectMake(0, 0, 0, 0);
     c1.origin.x = fontSize;
-    c1.origin.y = 0;
+    c1.origin.y = 20;
     c1.size.height = h;
     c1.size.width = ceilf(width/2 - fontSize * 1.5);
     _priceAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Price A" andTag:PriceAL andType:LabelField caller:self];

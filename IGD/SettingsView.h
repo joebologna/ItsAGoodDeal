@@ -10,7 +10,7 @@
 
 @protocol SettingsViewDelegate;
 
-@interface SettingsView : UIViewController
+@interface SettingsView : UIViewController <UITextViewDelegate>
 
 @property (unsafe_unretained, nonatomic) id delegate;
 
