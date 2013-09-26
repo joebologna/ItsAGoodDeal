@@ -29,10 +29,12 @@
                              rightDrawerViewController:nil];
     [self.drawerController setRestorationIdentifier:@"MMDrawer"];
     CGFloat w = [[UIScreen mainScreen] bounds].size.width;
-    CGFloat drawerWidth = w <= 320 ? w * 0.75 : w * 0.25;
+//    CGFloat drawerWidth = w <= 320 ? w * 0.75 : w * 0.25;
+    CGFloat drawerWidth = w * 0.75;
     [self.drawerController setMaximumLeftDrawerWidth:drawerWidth];
     [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    left.d = self.drawerController;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setRootViewController:self.drawerController];
@@ -44,6 +46,14 @@
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self.myStoreObserver];
     [self requestProductData];
     return YES;
+}
+
+
+- (void) closeDrawer {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    [self.drawerController closeDrawerAnimated:YES completion:^(BOOL x) {}];
 }
 
 - (void) requestProductData {

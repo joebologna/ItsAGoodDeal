@@ -6,11 +6,18 @@
 //  Copyright (c) 2013 Joe Bologna. All rights reserved.
 //
 
-#import <MMDrawerController.h>
+#import "AppDelegate.h"
 #import "LeftViewController.h"
+#import "MyStoreObserver.h"
+
+typedef enum {
+    Help,
+    RemoveAds,
+    RestorePurchases
+} Selection;
 
 @interface LeftViewController() {
-    NSMutableArray *theList;
+    NSArray *theList;
 }
 
 @end
@@ -22,7 +29,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        theList = [[NSMutableArray alloc] init];
         self.view.backgroundColor = HIGHLIGHTCOLOR;
         self.title = @"Settings View";
         [self setRestorationIdentifier:@"MMExampleLeftSideDrawerController"];
@@ -33,17 +39,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [theList addObject:@"Help"];
-    [theList addObject:@"Remove Ads"];
-    [theList addObject:@"Restore Purchases"];
-    [self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right)];}
+    theList = [NSArray arrayWithObjects:@"Help", @"Remove Ads", @"Restore Purchases", nil];
+    [self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right)];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return theList.count;
+    // not bought, show Help, Remove Ads
+    // bought, show Help, Restore Purchases
+    // no store, show Help, Try Later
+    return 2;
 }
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -63,15 +71,35 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
     }
     
-    // Set up the cell.
-    cell.textLabel.text = theList[indexPath.row];
+    if (MyStoreObserver.myStoreObserver.myProducts.count == 0) {
+        if (indexPath.row == 0) {
+            cell.textLabel.text = theList[Help];
+        } else if(indexPath.row == 1) {
+            cell.textLabel.text = theList[RestorePurchases];
+        }
+    } else {
+        if (indexPath.row == 1) {
+            cell.textLabel.text = MyStoreObserver.myStoreObserver.bought ? theList[RestorePurchases] : theList[RemoveAds];
+        }
+    }
     cell.backgroundColor = self.view.backgroundColor;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"blah");
+    [self.d closeDrawerAnimated:YES completion:^(BOOL done) {}];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if ([cell.textLabel.text isEqualToString:theList[Help]]) {
+        [self.cvc showSettings];
+    } else if ([cell.textLabel.text isEqualToString:theList[RemoveAds]]) {
+        [self.cvc removeAds];
+    } else if ([cell.textLabel.text isEqualToString:theList[RestorePurchases]]) {
+        [self.cvc restorePurchase];
+    } else {
+        NSLog(@"dunno");
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

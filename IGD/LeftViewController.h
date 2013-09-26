@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MMDrawerController.h>
 #import "IGDViewController.h"
 
 @interface LeftViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property IGDViewController *cvc;
+@property MMDrawerController *d;
 
 @end

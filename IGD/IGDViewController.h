@@ -12,7 +12,7 @@
 #import "MyStoreObserver.h"
 #import "Fields.h"
 #import "MyButton.h"
-#import "SettingsView.h"
+#import "HelpView.h"
 #import "MyHandle.h"
 
 @interface IGDViewController : UIViewController <MyStoreObserverDelegate, TraverseViewDelegate,SettingsViewDelegate, MyHandleDelegate>

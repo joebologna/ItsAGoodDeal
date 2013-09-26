@@ -70,7 +70,7 @@
 		3B73073E175EC9F500873194 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073C175EC9F500873194 /* MainStoryboard_iPhone.storyboard */; };
 		3B730741175EC9F500873194 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */; };
 		3B7E5DDD17B111AE00A256D3 /* MyHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E5DDC17B111AE00A256D3 /* MyHandle.m */; };
-		3B91250017B0A22900A4B633 /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9124FF17B0A22900A4B633 /* SettingsView.m */; };
+		3B91250017B0A22900A4B633 /* HelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9124FF17B0A22900A4B633 /* HelpView.m */; };
 		3BC2893C1799F12B00D884BB /* Fields.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893A1799F12B00D884BB /* Fields.m */; };
 		3BC289441799FFDD00D884BB /* Field.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC289421799FFDD00D884BB /* Field.m */; };
 		3BDB0D021762C184007AB586 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDB0D011762C184007AB586 /* StoreKit.framework */; };
@@ -179,8 +179,8 @@
 		3B730740175EC9F500873194 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		3B7E5DDB17B111AE00A256D3 /* MyHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyHandle.h; path = Lib/MyHandle.h; sourceTree = "<group>"; };
 		3B7E5DDC17B111AE00A256D3 /* MyHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyHandle.m; path = Lib/MyHandle.m; sourceTree = "<group>"; };
-		3B9124FE17B0A22900A4B633 /* SettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsView.h; sourceTree = "<group>"; };
-		3B9124FF17B0A22900A4B633 /* SettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
+		3B9124FE17B0A22900A4B633 /* HelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpView.h; sourceTree = "<group>"; };
+		3B9124FF17B0A22900A4B633 /* HelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpView.m; sourceTree = "<group>"; };
 		3B9AAA18179E1C10008B3569 /* Simple.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = Simple.numbers; sourceTree = "<group>"; };
 		3BA69A621773D3E500AA23FB /* IGDUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGDUnitTests.h; sourceTree = "<group>"; };
 		3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ItsAGoodDeal.entitlements; sourceTree = "<group>"; };
@@ -396,8 +396,8 @@
 				3BAD90EF179EC80500EDE6E8 /* Globals.h */,
 				3B71F52F179C43C900E52260 /* IGDViewController.h */,
 				3B71F530179C43C900E52260 /* IGDViewController.m */,
-				3B9124FE17B0A22900A4B633 /* SettingsView.h */,
-				3B9124FF17B0A22900A4B633 /* SettingsView.m */,
+				3B9124FE17B0A22900A4B633 /* HelpView.h */,
+				3B9124FF17B0A22900A4B633 /* HelpView.m */,
 				3B730733175EC9F500873194 /* AppDelegate.h */,
 				3B730734175EC9F500873194 /* AppDelegate.m */,
 				3BE052E717778EE80041D6C0 /* Lib */,
@@ -801,7 +801,7 @@
 				3B71F531179C43C900E52260 /* IGDViewController.m in Sources */,
 				3B3C28E517A5A83900B36EF6 /* Grid.m in Sources */,
 				3B529E9F17AD8B530059ABDA /* MySlider.m in Sources */,
-				3B91250017B0A22900A4B633 /* SettingsView.m in Sources */,
+				3B91250017B0A22900A4B633 /* HelpView.m in Sources */,
 				3B0D554217F3BC9E00503681 /* LeftViewController.m in Sources */,
 				3B7E5DDD17B111AE00A256D3 /* MyHandle.m in Sources */,
 			);

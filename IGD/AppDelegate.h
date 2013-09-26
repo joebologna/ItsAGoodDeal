@@ -19,4 +19,6 @@
 @property (strong, nonatomic) MyStoreObserver *myStoreObserver;
 @property MMDrawerController *drawerController;
 
+- (void)closeDrawer;
+
 @end

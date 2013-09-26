@@ -8,14 +8,14 @@
 
 #import "Globals.h"
 #import "Field.h"
-#import "SettingsView.h"
+#import "HelpView.h"
 #import "MyButton.h"
 #import "MyStoreObserver.h"
 #import "NSObject+Utils.h"
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface SettingsView () {
+@interface HelpView () {
     MyStoreObserver *myStoreObserver;
     MyButton *ra;
     MyButton *r;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation SettingsView
+@implementation HelpView
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,7 +57,7 @@
     float bwidth = width - 2 * bheight;
     float tfontSize = fontSize * 0.8;
     float slots = 10;
-    float theight = SLOT(6);
+    float theight = SLOT(8);
     float lheight = bheight * 0.75;
     if (self.getDeviceType == iPhone5) {
         lheight = bheight * 0.8;
@@ -83,30 +83,15 @@
     [self.view addSubview:l];
 
     UIWebView *h = [[UIWebView alloc] initWithFrame:CGRectMake(bheight, toffset + SLOT(position++), width - 2 * bheight, theight)];
-    h.tag = HelpView;
+    h.tag = HelpViewTag;
     NSString *page = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"index.html"];
     [h loadData:[NSData dataWithContentsOfFile:page] MIMEType:@"text/html" textEncodingName:@"utf-8" baseURL:[[NSBundle mainBundle] bundleURL]];
     [h.layer setBorderColor:[[[UIColor blackColor] colorWithAlphaComponent:0.5] CGColor]];
     [h.layer setBorderWidth:2.0];
     [self.view addSubview:h];
     
-    position = 7;
-    ra = [[MyButton alloc] initWithFrame:CGRectMake(bheight, SLOT(position++), bwidth, bheight)];
-    ra.bothTitles = @"Remove Ads";
-    ra.font = [UIFont systemFontOfSize:fontSize];
-    ra.radius = radius;
-    [ra setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor blackColor], nil]];
-    [ra addTarget:self action:@selector(removeAds:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:ra];
+    position = 9;
     
-    r = [[MyButton alloc] initWithFrame:CGRectMake(bheight, SLOT(position++), bwidth, bheight)];
-    r.bothTitles = @"Restore";
-    r.font = [UIFont systemFontOfSize:fontSize];
-    r.radius = radius;
-    [r setTitleColors:[NSArray arrayWithObjects:[UIColor blackColor], [UIColor blackColor], nil]];
-    [r addTarget:self action:@selector(restore:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:r];
-
     b = [[MyButton alloc] initWithFrame:CGRectMake(bheight, SLOT(position++), bwidth, bheight)];
     b.bothTitles = @"Done";
     b.font = [UIFont systemFontOfSize:fontSize];

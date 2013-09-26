@@ -261,15 +261,7 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    if (textField.enabled) {
-//        if (textField.tag == HandleWidget) {
-//            [self.caller showSettings];
-//            return NO;
-//        }
-        return YES;
-    } else {
-        return NO;
-    }
+    return textField.enabled;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {

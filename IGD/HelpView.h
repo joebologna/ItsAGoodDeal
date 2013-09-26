@@ -10,7 +10,7 @@
 
 @protocol SettingsViewDelegate;
 
-@interface SettingsView : UIViewController <UITextViewDelegate>
+@interface HelpView : UIViewController <UITextViewDelegate>
 
 @property (unsafe_unretained, nonatomic) id delegate;
 
@@ -18,7 +18,7 @@
 
 @protocol SettingsViewDelegate <NSObject>
 
-- (void)dismissSettingsView:(SettingsView *)vc;
+- (void)dismissSettingsView:(HelpView *)vc;
 - (void)removeAds;
 - (void)restorePurchase;
 

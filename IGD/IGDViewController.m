@@ -361,12 +361,12 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    SettingsView *s = [[SettingsView alloc] init];
+    HelpView *s = [[HelpView alloc] init];
     s.delegate = self;
     [self presentViewController:s animated:YES completion:nil];
 }
 
-- (void)dismissSettingsView:(SettingsView *)vc {
+- (void)dismissSettingsView:(HelpView *)vc {
     [vc dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -375,10 +375,10 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     [self.navigationItem setLeftBarButtonItem:leftDrawerButton animated:YES];
 }
 
--(void)setupRightMenuButton {
-    MMDrawerBarButtonItem * rightDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(rightDrawerButtonPress:)];
-    [self.navigationItem setRightBarButtonItem:rightDrawerButton animated:YES];
-}
+//-(void)setupRightMenuButton {
+//    MMDrawerBarButtonItem * rightDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(rightDrawerButtonPress:)];
+//    [self.navigationItem setRightBarButtonItem:rightDrawerButton animated:YES];
+//}
 
 #pragma mark - Button Handlers
 -(void)leftDrawerButtonPress:(id)sender {
