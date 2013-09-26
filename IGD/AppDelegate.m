@@ -7,12 +7,36 @@
 //
 
 #import "AppDelegate.h"
+#import "LeftViewController.h"
+#import "IGDViewController.h"
+
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AppDelegate
 
+@synthesize drawerController;
 @synthesize myStoreObserver = _myStoreObserver;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    IGDViewController *center = [[IGDViewController alloc] init];
+    LeftViewController *left = [[LeftViewController alloc] init];
+    left.cvc = center;
+
+    self.drawerController = [[MMDrawerController alloc]
+                             initWithCenterViewController:center
+                             leftDrawerViewController:left
+                             rightDrawerViewController:nil];
+    [self.drawerController setRestorationIdentifier:@"MMDrawer"];
+    CGFloat w = [[UIScreen mainScreen] bounds].size.width;
+    CGFloat drawerWidth = w <= 320 ? w * 0.75 : w * 0.25;
+    [self.drawerController setMaximumLeftDrawerWidth:drawerWidth];
+    [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window setRootViewController:self.drawerController];
+
     self.myStoreObserver = [MyStoreObserver myStoreObserver];
 #ifdef DEBUG
     NSLog(@"%s, bought: %d", __func__, self.myStoreObserver.bought);

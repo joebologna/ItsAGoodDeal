@@ -10,6 +10,9 @@
 #import "MyButton.h"
 #import "MyStoreObserver.h"
 
+#import <MMDrawerBarButtonItem.h>
+#import <UIViewController+MMDrawerController.h>
+
 #import <iAd/iAd.h>
 #import <StoreKit/StoreKit.h>
 
@@ -57,6 +60,19 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     NSLog(@"%s", __func__);
 #endif
     [super viewDidLoad];
+    
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+    [doubleTap setNumberOfTapsRequired:2];
+    [self.view addGestureRecognizer:doubleTap];
+    
+    UITapGestureRecognizer *twoFingerDoubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(twoFingerDoubleTap:)];
+    
+    [twoFingerDoubleTap setNumberOfTapsRequired:2];
+    [twoFingerDoubleTap setNumberOfTouchesRequired:2];
+    
+    [self.view addGestureRecognizer:twoFingerDoubleTap];
+    
+    [self setupLeftMenuButton];
 
     myStoreObserver = [MyStoreObserver myStoreObserver];
     myStoreObserver.delegate = self;
@@ -237,13 +253,6 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     if (myStoreObserver.bought) {
         [bannerView cancelBannerViewAction];
         bannerView.hidden = YES;
-        CGRect r = _fields.handle.rect;
-        r.origin.y = _fields.menuthingBought;
-        _fields.handle.rect = r;
-    } else {
-        CGRect r = _fields.handle.rect;
-        r.origin.y = _fields.menuthingNotBought;
-        _fields.handle.rect = r;
     }
 }
 
@@ -360,4 +369,32 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 - (void)dismissSettingsView:(SettingsView *)vc {
     [vc dismissViewControllerAnimated:YES completion:nil];
 }
+
+-(void)setupLeftMenuButton {
+    MMDrawerBarButtonItem * leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(leftDrawerButtonPress:)];
+    [self.navigationItem setLeftBarButtonItem:leftDrawerButton animated:YES];
+}
+
+-(void)setupRightMenuButton {
+    MMDrawerBarButtonItem * rightDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(rightDrawerButtonPress:)];
+    [self.navigationItem setRightBarButtonItem:rightDrawerButton animated:YES];
+}
+
+#pragma mark - Button Handlers
+-(void)leftDrawerButtonPress:(id)sender {
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+}
+
+-(void)rightDrawerButtonPress:(id)sender {
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideRight animated:YES completion:nil];
+}
+
+-(void)doubleTap:(UITapGestureRecognizer*)gesture {
+    [self.mm_drawerController bouncePreviewForDrawerSide:MMDrawerSideLeft completion:nil];
+}
+
+-(void)twoFingerDoubleTap:(UITapGestureRecognizer*)gesture {
+    [self.mm_drawerController bouncePreviewForDrawerSide:MMDrawerSideRight completion:nil];
+}
+
 @end

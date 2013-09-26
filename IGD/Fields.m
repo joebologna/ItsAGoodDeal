@@ -254,6 +254,7 @@
 
     CGFloat fontSize2 = ceilf(h2 * .6);
     
+    CGRect r;
     CGRect c1 = CGRectMake(0, 0, 0, 0);
     c1.origin.x = fontSize;
     c1.origin.y = 20;
@@ -333,6 +334,13 @@
     c1.origin.x = 0;
     c1.size.height = h2 + 2;
     c1.size.width = width;
+
+    r = c1;
+    r.origin.x = fontSize/2;
+    r.size.width = fontSize;
+    r.size.height = fontSize*3;
+    _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:HandleWidget andType:LabelField caller:self];
+
     _message = [Field allocFieldWithRect:c1 andF:fontSize * ([self isPhone] ? 1 : 1.2) andValue:@PROMPT andTag:Message andType:LabelField caller:self];
     
     // keypad
@@ -361,6 +369,7 @@
     
     int row = 0;
     int col = 0;
+    
     _one = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"1" andTag:One andType:KeyType caller:self];
     _two = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"2" andTag:Two andType:KeyType caller:self];
     _three = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"3" andTag:Three andType:KeyType caller:self];
@@ -380,19 +389,11 @@
     _period = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"." andTag:Period andType:KeyType caller:self];
     _zero = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"0" andTag:Zero andType:KeyType caller:self];
     _del = [Field allocFieldWithRect:[grid getRectAtX:row andY:col++] andF:fontSize andValue:@"Del" andTag:Del andType:KeyType caller:self];
-    CGRect r = [grid getRectAtX:row andY:col];
+    
+    r = [grid getRectAtX:row andY:col];
     r.origin.y -= 2 * r.size.height + 2 * spacing.y;
     r.size.height = 3 * r.size.height + 3 * spacing.y;
     _next = [Field allocFieldWithRect:r andF:nextKeyFontSize andValue:@"Next" andTag:Next andType:KeyType caller:self];
-    
-    r = [grid getRectAtX:3 andY:2];
-    r.origin.y += spacing.y + size.y;
-    r.origin.x -= fontSize*3/2 + spacing.x / 2;
-    r.size.width = fontSize*3;
-    r.size.height = fontSize;
-    _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:HandleWidget andType:LabelField caller:self];
-    _menuthingNotBought = r.origin.y;
-    _menuthingBought = _menuthingNotBought + 0.75 * h;
 }
 
 - (void)setView:(Field *)f {

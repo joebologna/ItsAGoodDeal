@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MMDrawerController.h>
+
 #include "Globals.h"
 
 #import "MyStoreObserver.h"
@@ -15,5 +17,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) MyStoreObserver *myStoreObserver;
+@property MMDrawerController *drawerController;
 
 @end

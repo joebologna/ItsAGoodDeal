@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B0D554217F3BC9E00503681 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D554117F3BC9E00503681 /* LeftViewController.m */; };
+		3B0D554917F3CB6D00503681 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D554317F3CB6D00503681 /* background.png */; };
+		3B0D554A17F3CB6D00503681 /* ButtonGradient3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D554417F3CB6D00503681 /* ButtonGradient3.png */; };
+		3B0D554B17F3CB6D00503681 /* menuthing.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D554517F3CB6D00503681 /* menuthing.png */; };
+		3B0D554C17F3CB6D00503681 /* Mints-6items.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D554617F3CB6D00503681 /* Mints-6items.png */; };
+		3B0D554D17F3CB6D00503681 /* Mints-Entered.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D554717F3CB6D00503681 /* Mints-Entered.png */; };
+		3B0D554E17F3CB6D00503681 /* Mints-Note.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D554817F3CB6D00503681 /* Mints-Note.png */; };
 		3B2230B317B486590097F693 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 3B2230AD17B486590097F693 /* index.html */; };
 		3B312C0B17602A8F00AF12F9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B312C0A17602A8F00AF12F9 /* iAd.framework */; };
 		3B3C28DE17A5A54000B36EF6 /* gridTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C28DD17A5A54000B36EF6 /* gridTests.m */; };
@@ -72,6 +79,9 @@
 		3BE052E317778EE00041D6C0 /* MyStoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */; };
 		3BE052E517778EE00041D6C0 /* NSObject+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Utils.m */; };
 		3BE052E617778EE00041D6C0 /* NSObject+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Utils.m */; };
+		B71777D5DA43456A93545F81 /* libPods-ItsAGoodDeal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF0B33B840A94E458106FB7A /* libPods-ItsAGoodDeal.a */; };
+		BBC3930BF2A344ED8C5DABAB /* libPods-AppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA87A886F11C4C76821D463F /* libPods-AppTests.a */; };
+		DFB9723D24094A9DB1467607 /* libPods-IGDUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CE91D3B7284974B81019A9 /* libPods-IGDUnitTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +96,14 @@
 
 /* Begin PBXFileReference section */
 		3B031DD117A0A8500039A5A5 /* KeyboardSupport.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = KeyboardSupport.numbers; sourceTree = "<group>"; };
+		3B0D554017F3BC9E00503681 /* LeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftViewController.h; sourceTree = "<group>"; };
+		3B0D554117F3BC9E00503681 /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
+		3B0D554317F3CB6D00503681 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Art/background.png; sourceTree = "<group>"; };
+		3B0D554417F3CB6D00503681 /* ButtonGradient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonGradient3.png; path = Art/ButtonGradient3.png; sourceTree = "<group>"; };
+		3B0D554517F3CB6D00503681 /* menuthing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menuthing.png; path = Art/menuthing.png; sourceTree = "<group>"; };
+		3B0D554617F3CB6D00503681 /* Mints-6items.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mints-6items.png"; path = "Art/Mints-6items.png"; sourceTree = "<group>"; };
+		3B0D554717F3CB6D00503681 /* Mints-Entered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mints-Entered.png"; path = "Art/Mints-Entered.png"; sourceTree = "<group>"; };
+		3B0D554817F3CB6D00503681 /* Mints-Note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mints-Note.png"; path = "Art/Mints-Note.png"; sourceTree = "<group>"; };
 		3B2230AB17B486590097F693 /* .project */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = .project; sourceTree = "<group>"; };
 		3B2230AD17B486590097F693 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		3B312C0A17602A8F00AF12F9 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
@@ -182,6 +200,12 @@
 		3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyStoreObserver.m; path = Lib/MyStoreObserver.m; sourceTree = "<group>"; };
 		3BE052DF17778EE00041D6C0 /* NSObject+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Utils.h"; path = "Lib/NSObject+Utils.h"; sourceTree = "<group>"; };
 		3BE052E017778EE00041D6C0 /* NSObject+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Utils.m"; path = "Lib/NSObject+Utils.m"; sourceTree = "<group>"; };
+		44CE91D3B7284974B81019A9 /* libPods-IGDUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IGDUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AB35BCF049E4B75BD67D861 /* Pods-AppTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTests.xcconfig"; path = "Pods/Pods-AppTests.xcconfig"; sourceTree = "<group>"; };
+		C12A6B98059B47B0920271B3 /* Pods-IGDUnitTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGDUnitTests.xcconfig"; path = "Pods/Pods-IGDUnitTests.xcconfig"; sourceTree = "<group>"; };
+		CCCE7B091A784A1698953218 /* Pods-ItsAGoodDeal.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ItsAGoodDeal.xcconfig"; path = "Pods/Pods-ItsAGoodDeal.xcconfig"; sourceTree = "<group>"; };
+		DA87A886F11C4C76821D463F /* libPods-AppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF0B33B840A94E458106FB7A /* libPods-ItsAGoodDeal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ItsAGoodDeal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +218,7 @@
 				3B557541176FAADA005EEB51 /* SenTestingKit.framework in Frameworks */,
 				3B557542176FAADA005EEB51 /* UIKit.framework in Frameworks */,
 				3B557543176FAADA005EEB51 /* Foundation.framework in Frameworks */,
+				DFB9723D24094A9DB1467607 /* libPods-IGDUnitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +229,7 @@
 				3B71F51B179BFABE00E52260 /* SenTestingKit.framework in Frameworks */,
 				3B71F51C179BFABE00E52260 /* UIKit.framework in Frameworks */,
 				3B71F51D179BFABE00E52260 /* Foundation.framework in Frameworks */,
+				BBC3930BF2A344ED8C5DABAB /* libPods-AppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +243,7 @@
 				3B730725175EC9F500873194 /* UIKit.framework in Frameworks */,
 				3B730727175EC9F500873194 /* Foundation.framework in Frameworks */,
 				3B730729175EC9F500873194 /* CoreGraphics.framework in Frameworks */,
+				B71777D5DA43456A93545F81 /* libPods-ItsAGoodDeal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +355,9 @@
 				3B730723175EC9F500873194 /* Frameworks */,
 				3B9AAA1A179E1C45008B3569 /* Resources */,
 				3B730722175EC9F500873194 /* Products */,
+				9AB35BCF049E4B75BD67D861 /* Pods-AppTests.xcconfig */,
+				C12A6B98059B47B0920271B3 /* Pods-IGDUnitTests.xcconfig */,
+				CCCE7B091A784A1698953218 /* Pods-ItsAGoodDeal.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -351,6 +381,9 @@
 				3B730726175EC9F500873194 /* Foundation.framework */,
 				3B730728175EC9F500873194 /* CoreGraphics.framework */,
 				3B557540176FAADA005EEB51 /* SenTestingKit.framework */,
+				DA87A886F11C4C76821D463F /* libPods-AppTests.a */,
+				44CE91D3B7284974B81019A9 /* libPods-IGDUnitTests.a */,
+				FF0B33B840A94E458106FB7A /* libPods-ItsAGoodDeal.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -358,6 +391,8 @@
 		3B73072A175EC9F500873194 /* IGD */ = {
 			isa = PBXGroup;
 			children = (
+				3B0D554017F3BC9E00503681 /* LeftViewController.h */,
+				3B0D554117F3BC9E00503681 /* LeftViewController.m */,
 				3BAD90EF179EC80500EDE6E8 /* Globals.h */,
 				3B71F52F179C43C900E52260 /* IGDViewController.h */,
 				3B71F530179C43C900E52260 /* IGDViewController.m */,
@@ -387,6 +422,12 @@
 		3B9AAA1A179E1C45008B3569 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3B0D554317F3CB6D00503681 /* background.png */,
+				3B0D554417F3CB6D00503681 /* ButtonGradient3.png */,
+				3B0D554517F3CB6D00503681 /* menuthing.png */,
+				3B0D554617F3CB6D00503681 /* Mints-6items.png */,
+				3B0D554717F3CB6D00503681 /* Mints-Entered.png */,
+				3B0D554817F3CB6D00503681 /* Mints-Note.png */,
 				3B47645717EFD83D00230688 /* landscape-1024x768.png */,
 				3B47645817EFD83D00230688 /* portrait-768x1024.png */,
 				3B47642B17EFD6B200230688 /* Default-568h@2x.png */,
@@ -454,10 +495,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3B557550176FAADA005EEB51 /* Build configuration list for PBXNativeTarget "IGDUnitTests" */;
 			buildPhases = (
+				F8D6584102324D5BBC15EE90 /* Check Pods Manifest.lock */,
 				3B55753A176FAADA005EEB51 /* Sources */,
 				3B55753B176FAADA005EEB51 /* Frameworks */,
 				3B55753C176FAADA005EEB51 /* Resources */,
 				3B55753D176FAADA005EEB51 /* ShellScript */,
+				FF700E345EA54383A40464E0 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -472,10 +515,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3B71F528179BFABE00E52260 /* Build configuration list for PBXNativeTarget "AppTests" */;
 			buildPhases = (
+				7566DB12AD774AB4AC466983 /* Check Pods Manifest.lock */,
 				3B71F515179BFABE00E52260 /* Sources */,
 				3B71F516179BFABE00E52260 /* Frameworks */,
 				3B71F517179BFABE00E52260 /* Resources */,
 				3B71F518179BFABE00E52260 /* ShellScript */,
+				415C18CF34D34E57BC63647C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -491,9 +536,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3B730747175EC9F500873194 /* Build configuration list for PBXNativeTarget "ItsAGoodDeal" */;
 			buildPhases = (
+				4B3C22B30A974B81B71EF243 /* Check Pods Manifest.lock */,
 				3B73071D175EC9F500873194 /* Sources */,
 				3B73071E175EC9F500873194 /* Frameworks */,
 				3B73071F175EC9F500873194 /* Resources */,
+				A6AFB94BE8A44532B32160BF /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -567,14 +614,18 @@
 				3B47645217EFD6B200230688 /* square-100x100.png in Resources */,
 				3B47645917EFD83D00230688 /* landscape-1024x768.png in Resources */,
 				3B47644717EFD6B200230688 /* Default~iphone.png in Resources */,
+				3B0D554A17F3CB6D00503681 /* ButtonGradient3.png in Resources */,
 				3B73072F175EC9F500873194 /* InfoPlist.strings in Resources */,
 				3B47645317EFD6B200230688 /* square-114x114.png in Resources */,
 				3B47645417EFD6B200230688 /* square-120x120.png in Resources */,
 				3B47645117EFD6B200230688 /* square-80x80.png in Resources */,
+				3B0D554917F3CB6D00503681 /* background.png in Resources */,
 				3B47645017EFD6B200230688 /* square-76x76.png in Resources */,
 				3B73073E175EC9F500873194 /* MainStoryboard_iPhone.storyboard in Resources */,
+				3B0D554D17F3CB6D00503681 /* Mints-Entered.png in Resources */,
 				3B730741175EC9F500873194 /* MainStoryboard_iPad.storyboard in Resources */,
 				3B47644417EFD6B200230688 /* Default-Portrait@2x~ipad.png in Resources */,
+				3B0D554C17F3CB6D00503681 /* Mints-6items.png in Resources */,
 				3B47644617EFD6B200230688 /* Default~ipad.png in Resources */,
 				3B47644117EFD6B200230688 /* Default-568h@2x.png in Resources */,
 				3B2230B317B486590097F693 /* index.html in Resources */,
@@ -583,9 +634,11 @@
 				3B47644817EFD6B200230688 /* landscape-2048x1536.png in Resources */,
 				3B47644F17EFD6B200230688 /* square-72x72.png in Resources */,
 				3B47644A17EFD6B200230688 /* square-29x29.png in Resources */,
+				3B0D554E17F3CB6D00503681 /* Mints-Note.png in Resources */,
 				3B47644E17EFD6B200230688 /* square-58x58.png in Resources */,
 				3B47645A17EFD83D00230688 /* portrait-768x1024.png in Resources */,
 				3B47645617EFD6B200230688 /* square-152x152.png in Resources */,
+				3B0D554B17F3CB6D00503681 /* menuthing.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,6 +670,96 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		415C18CF34D34E57BC63647C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-AppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B3C22B30A974B81B71EF243 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7566DB12AD774AB4AC466983 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A6AFB94BE8A44532B32160BF /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-ItsAGoodDeal-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8D6584102324D5BBC15EE90 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FF700E345EA54383A40464E0 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-IGDUnitTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -659,6 +802,7 @@
 				3B3C28E517A5A83900B36EF6 /* Grid.m in Sources */,
 				3B529E9F17AD8B530059ABDA /* MySlider.m in Sources */,
 				3B91250017B0A22900A4B633 /* SettingsView.m in Sources */,
+				3B0D554217F3BC9E00503681 /* LeftViewController.m in Sources */,
 				3B7E5DDD17B111AE00A256D3 /* MyHandle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -719,6 +863,7 @@
 /* Begin XCBuildConfiguration section */
 		3B55754E176FAADA005EEB51 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C12A6B98059B47B0920271B3 /* Pods-IGDUnitTests.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
@@ -734,6 +879,7 @@
 		};
 		3B55754F176FAADA005EEB51 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C12A6B98059B47B0920271B3 /* Pods-IGDUnitTests.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
@@ -749,6 +895,7 @@
 		};
 		3B71F529179BFABE00E52260 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9AB35BCF049E4B75BD67D861 /* Pods-AppTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ItsAGoodDeal.app/ItsAGoodDeal";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -765,6 +912,7 @@
 		};
 		3B71F52A179BFABE00E52260 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9AB35BCF049E4B75BD67D861 /* Pods-AppTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ItsAGoodDeal.app/ItsAGoodDeal";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -847,6 +995,7 @@
 		};
 		3B730748175EC9F500873194 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCCE7B091A784A1698953218 /* Pods-ItsAGoodDeal.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ItsAGoodDeal.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -863,6 +1012,7 @@
 		};
 		3B730749175EC9F500873194 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCCE7B091A784A1698953218 /* Pods-ItsAGoodDeal.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ItsAGoodDeal.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
