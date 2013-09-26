@@ -206,11 +206,10 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    MyHandle *m = [[MyHandle alloc] initWithFrame:self.rect];
+    UIButton *m = [[UIButton alloc] initWithFrame:self.rect];
     m.enabled = YES;
     [m setBackgroundImage:[UIImage imageNamed:@"menuthing.png"] forState:UIControlStateNormal];
     [m setBackgroundImage:[UIImage imageNamed:@"menuthing.png"] forState:UIControlStateSelected];
-    m.delegate = [self.caller getVC];
     self.control = (UIControl *)m;
 }
 
@@ -263,10 +262,10 @@
     NSLog(@"%s", __func__);
 #endif
     if (textField.enabled) {
-        if (textField.tag == HandleWidget) {
-            [self.caller showSettings];
-            return NO;
-        }
+//        if (textField.tag == HandleWidget) {
+//            [self.caller showSettings];
+//            return NO;
+//        }
         return YES;
     } else {
         return NO;

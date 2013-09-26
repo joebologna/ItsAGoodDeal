@@ -23,8 +23,8 @@
     if (self) {
         // Custom initialization
         theList = [[NSMutableArray alloc] init];
-        self.view.backgroundColor = [UIColor cyanColor];
-        self.title = @"Blue View";
+        self.view.backgroundColor = HIGHLIGHTCOLOR;
+        self.title = @"Settings View";
         [self setRestorationIdentifier:@"MMExampleLeftSideDrawerController"];
     }
     return self;
@@ -33,7 +33,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [theList addObject:@"A"];
+    [theList addObject:@"Help"];
+    [theList addObject:@"Remove Ads"];
+    [theList addObject:@"Restore Purchases"];
     [self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right)];}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -44,9 +46,9 @@
     return theList.count;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"List";
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    return @"List";
+//}
 
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
