@@ -321,15 +321,18 @@
     
     c1.origin.y += c1.size.height;
     CGFloat qtyY = c1.origin.y;
+    if (![self isPhone]) c1.origin.y += fontSize/2;
     c1.origin.x = fontSize * 2;
     c1.size.height = h;
     c1.size.width = 0.75 * (width - fontSize * 4);
     _slider = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:Slider andType:LabelField caller:self];
+    c1.origin.y -= fontSize;
     
     r = c1;
     r.origin.x = fontSize/2;
     r.size.width = fontSize;
     r.size.height = fontSize*3;
+    if (![self isPhone]) r.origin.y += fontSize/2;
     _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:HandleWidget andType:LabelField caller:self];
 
     r.origin.x = fontSize * 3 + c1.size.width;
