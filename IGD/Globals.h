@@ -18,5 +18,7 @@
 #define BACKGROUNDCOLOR UIColorFromRGB(0x53e99e)
 #define HIGHLIGHTCOLOR UIColorFromRGB(0xd2fde8)
 
+//#define DEBUG_VERBOSE
+
 
 #endif

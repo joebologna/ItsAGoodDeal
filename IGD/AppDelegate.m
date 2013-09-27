@@ -29,7 +29,6 @@
                              rightDrawerViewController:nil];
     [self.drawerController setRestorationIdentifier:@"MMDrawer"];
     CGFloat w = [[UIScreen mainScreen] bounds].size.width;
-//    CGFloat drawerWidth = w <= 320 ? w * 0.75 : w * 0.25;
     CGFloat drawerWidth = w * 0.75;
     [self.drawerController setMaximumLeftDrawerWidth:drawerWidth];
     [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];

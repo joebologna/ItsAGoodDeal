@@ -66,17 +66,21 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     myStoreObserver = [MyStoreObserver myStoreObserver];
     myStoreObserver.delegate = self;
 
-    ADBannerView *adView = (ADBannerView *)[self.view viewWithTag:Ad];
-    adView.delegate = self;
+    bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+    bannerView.delegate = self;
+    CGRect r = bannerView.frame;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    r = CGRectMake(r.origin.x, height - r.size.height, r.size.width, r.size.height);
+    bannerView.frame = r;
+    bannerView.hidden = YES;
+    [self.view addSubview:bannerView];
     
     //self.view.backgroundColor = UIColorFromRGB(0x53e99e);
     self.view.backgroundColor = BACKGROUNDCOLOR;
     
     self.fields = [[Fields alloc] init];
     [self.fields makeFields:(UIViewController *)self];
-    [self setAdButtonState];
     [self.fields populateScreen];
-    [self initGUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -84,7 +88,6 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     NSLog(@"%s", __func__);
 #endif
     [super viewWillAppear:animated];
-    [self setAdButtonState];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -92,28 +95,17 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     NSLog(@"%s", __func__);
 #endif
     [super viewDidAppear:animated];
-    [self setAdButtonState];
     NSString *usedOnce = @"usedOnce";
     if ([[NSUserDefaults standardUserDefaults] boolForKey:usedOnce] == NO) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:usedOnce];
         [[NSUserDefaults standardUserDefaults] synchronize];
-//        [self showSettings];
+        [self performSelector:@selector(showSettings) withObject:nil afterDelay:3];
     }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark -
-#pragma mark Handle Screen
-
-- (void)initGUI {
-#ifdef DEBUG
-    NSLog(@"%s", __func__);
-#endif
-    [self setAdButtonState];
 }
 
 #pragma mark -
@@ -224,29 +216,23 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
             [self doPayment];
         } else {
             myStoreObserver.bought = NO;
-            [self setAdButtonState];
         }
     } else if ([t isEqualToString:SUCCESS_TITLE] || [t isEqualToString:FAILURE_TITLE] || [t isEqualToString:PAYMENT_FAILED]) {
         NSLog(@"%s, nothing to do for '%@'", __func__, t);
     } else {
         NSLog(@"%s, oops, no handler for '%@'", __func__, t);
     }
-    [self setAdButtonState];
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
-}
-
-- (void)setAdButtonState {
-#ifdef DEBUG
-    NSLog(@"%s, bought: %d", __func__, myStoreObserver.bought);
-#endif
-    if (myStoreObserver.bought) {
-        [bannerView cancelBannerViewAction];
-        bannerView.hidden = YES;
-    }
 }
 
 #pragma mark -
 #pragma mark Banner Delegate
+
+- (void)bannerViewWillLoadAd:(ADBannerView *)banner {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+}
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
 #ifdef DEBUG
@@ -257,18 +243,15 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
         [bannerView cancelBannerViewAction];
         [bannerView removeFromSuperview];
         bannerView.delegate = nil;
-    } else {
-        bannerView.hidden = NO;
     }
+    bannerView.hidden = myStoreObserver.bought;
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    bannerView = banner;
-    banner.hidden = YES;
-    [bannerView cancelBannerViewAction];
+    bannerView.hidden = YES;
 }
 
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
@@ -326,7 +309,6 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     } else {
         [[[UIAlertView alloc] initWithTitle:FAILURE_TITLE message:@"Purchase failed. Please try again later." delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil] show];
     }
-    [self setAdButtonState];
 }
 
 - (void)removeAds {
@@ -340,7 +322,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 }
 
 - (void)addControl:(UIView *)control {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
     NSLog(@"%s", __func__);
 #endif
     [self.view addSubview:control];
@@ -353,6 +335,47 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     HelpView *s = [[HelpView alloc] init];
     s.delegate = self;
     [self presentViewController:s animated:YES completion:nil];
+}
+
+- (void)fillWithExample {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    for (Field *f in self.fields.inputFields) {
+        switch ((FTAG)f.tag) {
+            case PriceA:
+                f.value = @"4";
+                break;
+                
+            case UnitsEachA:
+                f.value = @"4.67";
+                break;
+                
+            case NumItemsA:
+                f.value = @"3";
+                break;
+                
+            case PriceB:
+                f.value = @"5";
+                break;
+                
+            case UnitsEachB:
+                f.value = @"12";
+                break;
+                
+            case NumItemsB:
+                f.value = @"2";
+                break;
+                
+            case Qty:
+                f.value = @"<-tap here";
+                
+            default:
+                break;
+        }
+    }
+    [self resetSlider];
+    [self.fields calcSavings:NO];
 }
 
 - (void)dismissSettingsView:(HelpView *)vc {

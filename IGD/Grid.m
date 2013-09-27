@@ -13,7 +13,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
         NSLog(@"%s", __func__);
 #endif
         _origin = nil;
@@ -25,7 +25,7 @@
 }
 
 + (Grid *)initWithOrigin:(CGPoint *)o andSize:(CGPoint *)sz andSpacing:(CGPoint *)sp {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
     NSLog(@"%s", __func__);
 #endif
     Grid *g = [[Grid alloc] init];
@@ -37,7 +37,7 @@
 }
 
 - (void)makeGridWithRows:(int)nrows andCols:(int)ncols  {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
     NSLog(@"%s", __func__);
     printf("\n");
 #endif
@@ -46,12 +46,12 @@
         for (int col = 0; col < ncols; col++) {
             float x = _origin->x + (_size->x + _spacing->x) * col;
             float y = _origin->y + (_size->y + _spacing->y) * row;
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
             printf("[%d,%d] (%.2f, %.2f, %.2f, %.2f)\n", row, col, x, y, _size->x, _size->y);
 #endif
             [[_grid lastObject] addObject:[self makeBoxWith:x andY:y andWidth:_size->x andHeight:_size->y]];
         }
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
         printf("\n");
 #endif
     }
@@ -79,7 +79,7 @@
 }
 
 - (void)printGrid {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
     NSLog(@"%s", __func__);
     printf("\n");
     int x = 0;
@@ -96,7 +96,7 @@
 }
 
 - (void)printRect:(CGRect)r AtX:(int)x andY:(int)y {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
     printf("[%d, %d] (%.2f, %.2f, %.2f, %.2f)\n", x, y, r.origin.x, r.origin.y, r.size.width, r.size.height);
 #endif
 }

@@ -268,9 +268,9 @@
     c1.origin.x = fontSize;
     c1.size.height = h2;
     c1.size.width = ceilf(width/2 - fontSize * 1.5);
-    _priceA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:debug ? @"2.99" : @"" andTag:PriceA andType:LabelField caller:self];
+    _priceA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@""andTag:PriceA andType:LabelField caller:self];
     c1.origin.x = c1.size.width + fontSize * 2;
-    _priceB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:debug ? @"1.99" : @"" andTag:PriceB andType:LabelField caller:self];
+    _priceB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:PriceB andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
     c1.origin.x = fontSize;
@@ -292,18 +292,18 @@
     c1.origin.x = fontSize;
     c1.size.width = ceilf((width - fontSize * 5)/4);
     c1.size.height = h2;
-    _unitsEachA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:debug ? @"7.5" : @"" andTag:UnitsEachA andType:LabelField caller:self];
+    _unitsEachA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:UnitsEachA andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     c1.size.width = fontSize;
     _xAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XAL andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     c1.size.width = ceilf((width - fontSize * 5)/4);
-    _numItemsA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:debug ? @"2" : @"" andTag:NumItemsA andType:LabelField caller:self];
+    _numItemsA = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:NumItemsA andType:LabelField caller:self];
     
     c1.origin.x += c1.size.width + fontSize;
     c1.size.width = ceilf((width - fontSize * 5)/4);
     c1.size.height = h2;
-    _unitsEachB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:debug ? @"8" : @"" andTag:UnitsEachB andType:LabelField caller:self];
+    _unitsEachB = [Field allocFieldWithRect:c1 andF:fontSize2 andValue:@"" andTag:UnitsEachB andType:LabelField caller:self];
     c1.origin.x += c1.size.width;
     c1.size.width = fontSize;
     _xBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"x" andTag:XBL andType:LabelField caller:self];
@@ -332,7 +332,7 @@
     r.origin.x = fontSize/2;
     r.size.width = fontSize;
     r.size.height = fontSize*3;
-    if (![self isPhone]) r.origin.y += fontSize/2;
+    r.origin.y += fontSize/2;
     _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:HandleWidget andType:LabelField caller:self];
 
     r.origin.x = fontSize * 3 + c1.size.width;
@@ -341,7 +341,7 @@
     r.size.width = 0.25 * (width - fontSize * 4);
     _qty = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:Qty andType:LabelField caller:self];
     
-    c1.origin.y += c1.size.height;
+    c1.origin.y += c1.size.height + ([self isPhone] ? fontSize : 0);
     c1.origin.x = 0;
     c1.size.height = h2 + 2;
     c1.size.width = width;
@@ -402,7 +402,7 @@
 }
 
 - (void)setView:(Field *)f {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
     NSLog(@"%s", __func__);
 #endif
     assert(_vc != nil);
@@ -469,6 +469,8 @@
             self.numItemsB.value = self.qty.value;
             numUnitsA = (self.unitsEachA.floatValue * self.numItemsA.floatValue);
             numUnitsB = (self.unitsEachB.floatValue * self.numItemsB.floatValue);
+        } else {
+            self.qty.value = @"<-tap here";
         }
         if (unitCostA < unitCostB) {
             float totalSavings = unitCostDiff * numUnitsA;
@@ -548,10 +550,16 @@
 }
 
 - (void)updateSavings {
+#if DEBUG && DEBUG_VERBOSE
+    NSLog(@"%s", __func__);
+#endif
     [self calcSavings:YES]; // use Qty
 }
 
 - (void)showSettings {
+#if DEBUG && DEBUG_VERBOSE
+    NSLog(@"%s", __func__);
+#endif
     [self.vc showSettings];
 }
 @end

@@ -69,7 +69,6 @@
 		3B730735175EC9F500873194 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B730734175EC9F500873194 /* AppDelegate.m */; };
 		3B73073E175EC9F500873194 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073C175EC9F500873194 /* MainStoryboard_iPhone.storyboard */; };
 		3B730741175EC9F500873194 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */; };
-		3B7E5DDD17B111AE00A256D3 /* MyHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E5DDC17B111AE00A256D3 /* MyHandle.m */; };
 		3B91250017B0A22900A4B633 /* HelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9124FF17B0A22900A4B633 /* HelpView.m */; };
 		3BC2893C1799F12B00D884BB /* Fields.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893A1799F12B00D884BB /* Fields.m */; };
 		3BC289441799FFDD00D884BB /* Field.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC289421799FFDD00D884BB /* Field.m */; };
@@ -104,7 +103,6 @@
 		3B0D554617F3CB6D00503681 /* Mints-6items.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mints-6items.png"; path = "Art/Mints-6items.png"; sourceTree = "<group>"; };
 		3B0D554717F3CB6D00503681 /* Mints-Entered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mints-Entered.png"; path = "Art/Mints-Entered.png"; sourceTree = "<group>"; };
 		3B0D554817F3CB6D00503681 /* Mints-Note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mints-Note.png"; path = "Art/Mints-Note.png"; sourceTree = "<group>"; };
-		3B2230AB17B486590097F693 /* .project */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = .project; sourceTree = "<group>"; };
 		3B2230AD17B486590097F693 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		3B312C0A17602A8F00AF12F9 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		3B3C28DC17A5A54000B36EF6 /* gridTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gridTests.h; sourceTree = "<group>"; };
@@ -177,8 +175,6 @@
 		3B730734175EC9F500873194 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3B73073D175EC9F500873194 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		3B730740175EC9F500873194 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		3B7E5DDB17B111AE00A256D3 /* MyHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyHandle.h; path = Lib/MyHandle.h; sourceTree = "<group>"; };
-		3B7E5DDC17B111AE00A256D3 /* MyHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyHandle.m; path = Lib/MyHandle.m; sourceTree = "<group>"; };
 		3B9124FE17B0A22900A4B633 /* HelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpView.h; sourceTree = "<group>"; };
 		3B9124FF17B0A22900A4B633 /* HelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpView.m; sourceTree = "<group>"; };
 		3B9AAA18179E1C10008B3569 /* Simple.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = Simple.numbers; sourceTree = "<group>"; };
@@ -253,7 +249,6 @@
 		3B2230AA17B486590097F693 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
-				3B2230AB17B486590097F693 /* .project */,
 				3B2230AD17B486590097F693 /* index.html */,
 			);
 			path = HTML;
@@ -391,9 +386,9 @@
 		3B73072A175EC9F500873194 /* IGD */ = {
 			isa = PBXGroup;
 			children = (
+				3BAD90EF179EC80500EDE6E8 /* Globals.h */,
 				3B0D554017F3BC9E00503681 /* LeftViewController.h */,
 				3B0D554117F3BC9E00503681 /* LeftViewController.m */,
-				3BAD90EF179EC80500EDE6E8 /* Globals.h */,
 				3B71F52F179C43C900E52260 /* IGDViewController.h */,
 				3B71F530179C43C900E52260 /* IGDViewController.m */,
 				3B9124FE17B0A22900A4B633 /* HelpView.h */,
@@ -482,8 +477,6 @@
 				3B3C28E417A5A83900B36EF6 /* Grid.m */,
 				3B529E9D17AD8B530059ABDA /* MySlider.h */,
 				3B529E9E17AD8B530059ABDA /* MySlider.m */,
-				3B7E5DDB17B111AE00A256D3 /* MyHandle.h */,
-				3B7E5DDC17B111AE00A256D3 /* MyHandle.m */,
 			);
 			name = Lib;
 			sourceTree = "<group>";
@@ -803,7 +796,6 @@
 				3B529E9F17AD8B530059ABDA /* MySlider.m in Sources */,
 				3B91250017B0A22900A4B633 /* HelpView.m in Sources */,
 				3B0D554217F3BC9E00503681 /* LeftViewController.m in Sources */,
-				3B7E5DDD17B111AE00A256D3 /* MyHandle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

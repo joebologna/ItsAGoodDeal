@@ -91,7 +91,7 @@
 }
 
 + (Field *)allocFieldWithRect:(CGRect)r andF:(CGFloat)f andValue:(NSString *)v andTag:(FTAG)tag andType:(FieldType)t caller:(id)c {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
     NSLog(@"%s", __func__);
 #endif
     Field *field = [[Field alloc] init];
@@ -149,7 +149,7 @@
 }
 
 - (void)makeButton {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
     NSLog(@"%s", __func__);
 #endif
     MyButton *b = [[MyButton alloc] initWithFrame:self.rect];
@@ -169,7 +169,7 @@
 }
 
 - (void)makeField {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
     NSLog(@"%s", __func__);
 #endif
 
@@ -203,7 +203,7 @@
 }
 
 - (void)makeHandle {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
     NSLog(@"%s", __func__);
 #endif
     UIButton *m = [[UIButton alloc] initWithFrame:self.rect];
@@ -214,7 +214,7 @@
 }
 
 - (void)makeSlider {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
     NSLog(@"%s", __func__);
 #endif
     if (self.control == nil) {
@@ -233,7 +233,7 @@
 }
 
 - (void)makeKeyboardToolBar {
-#ifdef DEBUG
+#if DEBUG && DEBUG_VERBOSE
     NSLog(@"%s", __func__);
 #endif
     rowOfKeys = [[UIToolbar alloc] init];

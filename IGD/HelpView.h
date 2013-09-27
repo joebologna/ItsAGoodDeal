@@ -21,5 +21,6 @@
 - (void)dismissSettingsView:(HelpView *)vc;
 - (void)removeAds;
 - (void)restorePurchase;
+- (void)fillWithExample;
 
 @end

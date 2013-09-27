@@ -27,8 +27,11 @@
 
 @implementation HelpView
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+#if DEBUG && DEBUG_VERBOSE
+    NSLog(@"%s", __func__);
+#endif
+
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         myStoreObserver = [MyStoreObserver myStoreObserver];
@@ -38,8 +41,10 @@
 
 #define SLOT(n) ((height / slots * n) - (fontSize))
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+#if DEBUG && DEBUG_VERBOSE
+    NSLog(@"%s", __func__);
+#endif
     [super viewDidLoad];
 	
     self.view.backgroundColor = HIGHLIGHTCOLOR;
@@ -112,10 +117,16 @@
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+#if DEBUG && DEBUG_VERBOSE
+    NSLog(@"%s", __func__);
+#endif
     return NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+#if DEBUG && DEBUG_VERBOSE
+    NSLog(@"%s", __func__);
+#endif
     [super viewWillAppear:animated];
     if (myStoreObserver.myProducts.count > 0) {
         if (myStoreObserver.bought) {
@@ -138,25 +149,33 @@
 }
 
 - (void)restore:(id)sender {
+#if DEBUG && DEBUG_VERBOSE
+    NSLog(@"%s", __func__);
+#endif
     [self.delegate restorePurchase];
-    [self.delegate dismissSettingsView:self];
+    [self goBack:nil];
 }
 
 - (void)removeAds:(id)sender {
+#if DEBUG && DEBUG_VERBOSE
+    NSLog(@"%s", __func__);
+#endif
     [self.delegate removeAds];
-    [self.delegate dismissSettingsView:self];
-}
-
-- (void)help:(id)sender {
-    [self.delegate dismissSettingsView:self];
+    [self goBack:nil];
 }
 
 - (void)goBack:(id)sender {
+#if DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    [self.delegate fillWithExample];
     [self.delegate dismissSettingsView:self];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+#if DEBUG && DEBUG_VERBOSE
+    NSLog(@"%s", __func__);
+#endif
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
