@@ -320,26 +320,28 @@
     _unitCostBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:UnitCostBL andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
-    c1.origin.x = fontSize;
+    CGFloat qtyY = c1.origin.y;
+    c1.origin.x = fontSize * 2;
     c1.size.height = h;
-    c1.size.width = 0.75 * (width - fontSize * 3);
+    c1.size.width = 0.75 * (width - fontSize * 4);
     _slider = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:Slider andType:LabelField caller:self];
-
-    c1.origin.x = fontSize * 2 + c1.size.width;
-    c1.size.height = h;
-    c1.size.width = 0.25 * (width - fontSize * 4);
-    _qty = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:Qty andType:LabelField caller:self];
     
-    c1.origin.y += c1.size.height;
-    c1.origin.x = 0;
-    c1.size.height = h2 + 2;
-    c1.size.width = width;
-
     r = c1;
     r.origin.x = fontSize/2;
     r.size.width = fontSize;
     r.size.height = fontSize*3;
     _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:HandleWidget andType:LabelField caller:self];
+
+    r.origin.x = fontSize * 3 + c1.size.width;
+    r.origin.y = qtyY + fontSize/2;
+    r.size.height = h;
+    r.size.width = 0.25 * (width - fontSize * 4);
+    _qty = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:Qty andType:LabelField caller:self];
+    
+    c1.origin.y += c1.size.height;
+    c1.origin.x = 0;
+    c1.size.height = h2 + 2;
+    c1.size.width = width;
 
     _message = [Field allocFieldWithRect:c1 andF:fontSize * ([self isPhone] ? 1 : 1.2) andValue:@PROMPT andTag:Message andType:LabelField caller:self];
     

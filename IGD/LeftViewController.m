@@ -16,16 +16,29 @@ typedef enum {
     RestorePurchases
 } Selection;
 
+typedef enum {
+    StoreNotAvailable,
+    Paid,
+    NotPaid
+} PaymentStates;
+
+
+typedef enum {
+    ShowHelp,
+    HandlePayment,
+    HandleRestore
+} Actions;
+
 @interface LeftViewController() {
     NSArray *theList;
+    PaymentStates paymentState;
 }
 
 @end
 
 @implementation LeftViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -36,11 +49,25 @@ typedef enum {
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    theList = [NSArray arrayWithObjects:@"Help", @"Remove Ads", @"Restore Purchases", nil];
+    theList = [NSArray arrayWithObjects:
+               [NSArray arrayWithObjects:@"Help", @"App Store Not Available", @"Try Again Later", nil],      // StoreNotAvailable
+               [NSArray arrayWithObjects:@"Help", @"App is Ad Free!", @"Thank you!", nil], // Paid
+               [NSArray arrayWithObjects:@"Help", @"Remove Ads", @"Restore Purchases", nil],                 // NotPaid
+               nil];
+    
     [self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right)];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (MyStoreObserver.myStoreObserver.myProducts.count == 0) {
+        paymentState = StoreNotAvailable;
+    } else {
+        paymentState = MyStoreObserver.myStoreObserver.bought ? Paid : NotPaid;
+    }
+    [[self tableView] reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -48,16 +75,12 @@ typedef enum {
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // not bought, show Help, Remove Ads
-    // bought, show Help, Restore Purchases
-    // no store, show Help, Try Later
-    return 2;
+    return [theList[paymentState] count];
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    return @"List";
-//}
-
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"Control Panel";
+}
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *MyIdentifier = @"MyIdentifier";
@@ -71,35 +94,31 @@ typedef enum {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
     }
     
-    if (MyStoreObserver.myStoreObserver.myProducts.count == 0) {
-        if (indexPath.row == 0) {
-            cell.textLabel.text = theList[Help];
-        } else if(indexPath.row == 1) {
-            cell.textLabel.text = theList[RestorePurchases];
-        }
-    } else {
-        if (indexPath.row == 1) {
-            cell.textLabel.text = MyStoreObserver.myStoreObserver.bought ? theList[RestorePurchases] : theList[RemoveAds];
-        }
-    }
+    cell.textLabel.text = theList[paymentState][indexPath.row];
+    cell.tag = (Actions)indexPath.row;
     cell.backgroundColor = self.view.backgroundColor;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.d closeDrawerAnimated:YES completion:^(BOOL done) {}];
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if ([cell.textLabel.text isEqualToString:theList[Help]]) {
-        [self.cvc showSettings];
-    } else if ([cell.textLabel.text isEqualToString:theList[RemoveAds]]) {
-        [self.cvc removeAds];
-    } else if ([cell.textLabel.text isEqualToString:theList[RestorePurchases]]) {
-        [self.cvc restorePurchase];
-    } else {
-        NSLog(@"dunno");
-    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.d closeDrawerAnimated:YES completion:^(BOOL done) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        switch ((Actions)cell.tag) {
+            case ShowHelp:
+                [self.cvc showSettings];
+                break;
+                
+            case HandlePayment:
+                if (paymentState != StoreNotAvailable && !MyStoreObserver.myStoreObserver.bought) [self.cvc removeAds];
+                break;
+                
+            case HandleRestore:
+                if (paymentState != StoreNotAvailable && !MyStoreObserver.myStoreObserver.bought) [self.cvc restorePurchase];
+                break;
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
