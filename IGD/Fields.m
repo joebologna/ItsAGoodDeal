@@ -276,17 +276,17 @@
     c1.origin.x = fontSize;
     c1.size.height = h;
     c1.size.width = ceilf((width - fontSize * 5)/4);
-    _unitsEachAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Units" andTag:UnitsEachAL andType:LabelField caller:self];
+    _unitsEachAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"#Units" andTag:UnitsEachAL andType:LabelField caller:self];
     c1.origin.x += fontSize + c1.size.width;
     c1.size.width = ceilf((width - fontSize * 5)/4);
-    _numItemsAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Items" andTag:NumItemsAL andType:LabelField caller:self];
+    _numItemsAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"#Items" andTag:NumItemsAL andType:LabelField caller:self];
 
     c1.origin.x += c1.size.width + fontSize;
     c1.size.height = h;
     c1.size.width = ceilf((width - fontSize * 5)/4);
-    _unitsEachBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Units" andTag:UnitsEachBL andType:LabelField caller:self];
+    _unitsEachBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"#Units" andTag:UnitsEachBL andType:LabelField caller:self];
     c1.origin.x += fontSize + c1.size.width;
-    _numItemsBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"# of Items" andTag:NumItemsBL andType:LabelField caller:self];
+    _numItemsBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"#Items" andTag:NumItemsBL andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
     c1.origin.x = fontSize;
@@ -470,7 +470,7 @@
             numUnitsA = (self.unitsEachA.floatValue * self.numItemsA.floatValue);
             numUnitsB = (self.unitsEachB.floatValue * self.numItemsB.floatValue);
         } else {
-            self.qty.value = @"<-tap here";
+//            self.qty.value = @"<-tap here";
         }
         if (unitCostA < unitCostB) {
             float totalSavings = unitCostDiff * numUnitsA;

@@ -367,9 +367,9 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
                 f.value = @"2";
                 break;
                 
-            case Qty:
-                f.value = @"<-tap here";
-                
+//            case Qty:
+//                f.value = @"<-tap here";
+//                
             default:
                 break;
         }

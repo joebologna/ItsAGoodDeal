@@ -245,15 +245,18 @@
     prevButton = [[UIBarButtonItem alloc] initWithTitle:PREVBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
     prevButton.style = UIBarButtonItemStyleBordered;
     prevButton.tag = PrevButton;
+    prevButton.tintColor = [UIColor whiteColor];
 
     calcButton = [[UIBarButtonItem alloc] initWithTitle:CALCBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
     calcButton.style = UIBarButtonItemStyleBordered;
     calcButton.tag = CalcButton;
+    calcButton.tintColor = [UIColor whiteColor];
     
     nextButton = [[UIBarButtonItem alloc] initWithTitle:NEXTBUTTON style:UIBarButtonItemStylePlain target:self action:@selector(buttonPushed:)];
     nextButton.style = UIBarButtonItemStyleBordered;
     nextButton.tag = NextButton;
-    
+    nextButton.tintColor = [UIColor whiteColor];
+
     [rowOfKeys setItems:@[prevButton, f, calcButton, f, nextButton]];
 }
 
