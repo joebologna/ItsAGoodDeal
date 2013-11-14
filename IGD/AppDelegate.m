@@ -31,8 +31,11 @@
     CGFloat w = [[UIScreen mainScreen] bounds].size.width;
     CGFloat drawerWidth = w * 0.75;
     [self.drawerController setMaximumLeftDrawerWidth:drawerWidth];
-    [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeBezelPanningCenterView];
     [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    [self. drawerController setGestureShouldRecognizeTouchBlock:^BOOL(MMDrawerController *drawerController, UIGestureRecognizer *gesture, UITouch *touch){
+        return NO;
+    }];
     left.d = self.drawerController;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
