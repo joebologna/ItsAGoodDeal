@@ -17,6 +17,7 @@ typedef enum {
     ShowResult
 } MessageMode;
 
+typedef enum {OnA, OnB, OnNeither} Emphasis;
 @protocol TraverseViewDelegate;
 
 @interface Fields : NSObject <TraverseFieldsDelegate>
@@ -30,6 +31,7 @@ typedef enum {
 - (void)gotoPrevField:(BOOL)grabKeyboard;
 - (void)gotoFieldWithControl:(UITextField *)t;
 - (void)calcSavings:(BOOL)useQty;
+- (void)emphasize:(Emphasis)e;
 
 @property (unsafe_unretained, nonatomic) DeviceType deviceType;
 @property (unsafe_unretained, nonatomic) float menuthingBought, menuthingNotBought;

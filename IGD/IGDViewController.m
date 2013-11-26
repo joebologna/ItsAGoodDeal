@@ -175,6 +175,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
             f.value = @"";
         }
         [self resetSlider];
+        [self.fields emphasize:OnNeither];
         self.fields.curField = self.fields.inputFields[0];
         self.fields.curField.value = @"";
     } else if (button.tag == Del) {
@@ -344,7 +345,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     for (Field *f in self.fields.inputFields) {
         switch ((FTAG)f.tag) {
             case PriceA:
-                f.value = @"4";
+                f.value = [f fmtPrice:4 d:2];
                 break;
                 
             case UnitsEachA:
@@ -356,7 +357,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
                 break;
                 
             case PriceB:
-                f.value = @"5";
+                f.value = [f fmtPrice:5 d:2];
                 break;
                 
             case UnitsEachB:

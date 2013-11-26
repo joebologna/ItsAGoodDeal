@@ -99,6 +99,7 @@ typedef enum {
 @property (unsafe_unretained, nonatomic) CGRect rect;
 @property (unsafe_unretained, nonatomic) CGFloat f;
 @property (copy, nonatomic) NSString *value;
+@property (unsafe_unretained, nonatomic) BOOL hilight;
 @property (unsafe_unretained, nonatomic) FTAG tag;
 @property (unsafe_unretained, nonatomic) FieldType type;
 @property (strong, nonatomic) UIView *control;

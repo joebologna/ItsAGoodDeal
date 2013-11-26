@@ -68,6 +68,14 @@
     return f;
 }
 
+@synthesize hilight = _hilight;
+- (void)setHilight:(BOOL)h {
+//    ((UITextField *)_control).textColor = h ? [UIColor redColor] : [UIColor blackColor];
+    CGFloat fs = [[((UITextField *)_control) font] pointSize];
+    ((UITextField *)_control).font = h ? [UIFont boldSystemFontOfSize:fs] : [UIFont systemFontOfSize:fs];
+    _hilight = h;
+}
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -82,6 +90,7 @@
         _control = nil;
         _caller = nil;
         previousPlaceholder = @"";
+        _hilight = NO;
     }
     return self;
 }

@@ -346,7 +346,7 @@
     c1.size.height = h2 + 2;
     c1.size.width = width;
 
-    _message = [Field allocFieldWithRect:c1 andF:fontSize * ([self isPhone] ? 1 : 1.2) andValue:@PROMPT andTag:Message andType:LabelField caller:self];
+    _message = [Field allocFieldWithRect:c1 andF:fontSize * ([self isPhone] ? 1.2 : 1.4) andValue:@PROMPT andTag:Message andType:LabelField caller:self];
     
     // keypad
     CGPoint origin, size, spacing;
@@ -459,6 +459,7 @@
     }
     float unitCostDiff = fabsf(unitCostA - unitCostB);
     if (allSet) {
+        self.message.hilight = YES;
         if (useQty && self.qty.floatValue > 0) {
             float v;
             v = self.priceA.floatValue * (self.qty.floatValue / self.numItemsA.floatValue);
@@ -480,6 +481,7 @@
             } else {
                 self.message.value = [NSString stringWithFormat:@"%.0f items of A cost %@, saves %@", self.numItemsA.floatValue, [self fmtPrice:totalCost d:2], [self fmtPrice:totalSavings d:2]];
             }
+            [self emphasize:OnA];
         } else if (unitCostA > unitCostB) {
             float totalSavings = unitCostDiff * numUnitsB;
             float totalCost = unitCostB * numUnitsB;
@@ -488,13 +490,16 @@
             } else {
                 self.message.value = [NSString stringWithFormat:@"%.0f items of B cost %@, saves %@", self.numItemsB.floatValue, [self fmtPrice:totalCost d:2], [self fmtPrice:totalSavings d:2]];
             }
+            [self emphasize:OnB];
         } else {
             float totalCost = unitCostA * numUnitsA;
             self.message.value = [NSString stringWithFormat:@"A cost the same as B, cost %@", [self fmtPrice:totalCost d:2]];
+            [self emphasize:OnNeither];
         }
 
     } else {
         self.message.value = @PROMPT;
+        self.message.hilight = NO;
     }
     self.slider.control.hidden = self.qty.control.hidden = !allSet;
 }
@@ -515,6 +520,7 @@
     BOOL allSet = AisAllSet && BisAllSet;
     if (!allSet) {
         self.message.value = @PROMPT;
+        self.message.hilight = NO;
         self.slider.control.hidden = self.qty.control.hidden = YES;
         self.qty.value = @"";
     }
@@ -562,4 +568,24 @@
 #endif
     [self.vc showSettings];
 }
+
+- (void)emphasize:(Emphasis)e {
+#if DEBUG && DEBUG_VERBOSE
+    NSLog(@"%s", __func__);
+#endif
+    if (e == OnA) {
+        self.priceA.hilight = self.unitsEachA.hilight = self.numItemsA.hilight = YES;
+        self.priceB.hilight = self.unitsEachB.hilight = self.numItemsB.hilight = NO;
+        self.message.hilight = YES;
+    } else if (e == OnB) {
+        self.priceA.hilight = self.unitsEachA.hilight = self.numItemsA.hilight = NO;
+        self.priceB.hilight = self.unitsEachB.hilight = self.numItemsB.hilight = YES;
+        self.message.hilight = YES;
+    } else {
+        self.priceA.hilight = self.unitsEachA.hilight = self.numItemsA.hilight = NO;
+        self.priceB.hilight = self.unitsEachB.hilight = self.numItemsB.hilight = NO;
+        self.message.hilight = NO;
+    }
+}
+
 @end
