@@ -31,7 +31,7 @@ typedef enum {OnA, OnB, OnNeither} Emphasis;
 - (void)gotoPrevField:(BOOL)grabKeyboard;
 - (void)gotoFieldWithControl:(UITextField *)t;
 - (void)calcSavings:(BOOL)useQty;
-- (void)emphasize:(Emphasis)e;
+- (void)emphasis:(Emphasis)e;
 
 @property (unsafe_unretained, nonatomic) DeviceType deviceType;
 @property (unsafe_unretained, nonatomic) float menuthingBought, menuthingNotBought;
@@ -57,6 +57,7 @@ typedef enum {OnA, OnB, OnNeither} Emphasis;
     *unitCostAL,
     *unitCostBL,
     *slider,
+    *qtyL,
     *qty,
 	*message,
 	*ad,

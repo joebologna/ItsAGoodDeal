@@ -81,6 +81,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
     self.fields = [[Fields alloc] init];
     [self.fields makeFields:(UIViewController *)self];
     [self.fields populateScreen];
+    [self popDefaults];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -171,19 +172,28 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
             self.fields.curField.value = [s stringByAppendingString:button.titleLabel.text];
         }
     } else if (button.tag == Clr) {
-        for (Field *f in self.fields.inputFields) {
-            f.value = @"";
-        }
-        [self resetSlider];
-        [self.fields emphasize:OnNeither];
-        self.fields.curField = self.fields.inputFields[0];
-        self.fields.curField.value = @"";
+        [self popDefaults];
     } else if (button.tag == Del) {
         NSString *s = self.fields.curField.value;
         if (s.length > 0) {
             self.fields.curField.value = [s substringToIndex:s.length - 1];
         }
     }
+}
+
+- (void)popDefaults {
+#ifdef DEBUG
+    NSLog(@"%s", __func__);
+#endif
+    for (Field *f in self.fields.inputFields) {
+        f.value = @"";
+    }
+    self.fields.unitsEachA.value = self.fields.unitsEachB.value = @"1";
+    self.fields.numItemsA.value = self.fields.numItemsB.value = @"1";
+    [self resetSlider];
+    [self.fields emphasis:OnNeither];
+    self.fields.curField = self.fields.inputFields[0];
+    self.fields.curField.value = @"";
 }
 
 - (void)resetSlider {

@@ -196,7 +196,7 @@
     t.borderStyle = UITextBorderStyleNone;
     
     if (self.tag == Qty) {
-        t.hidden = YES;
+        t.hidden = NO;
     }
     
     self.control = (UIControl *)t;

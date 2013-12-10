@@ -65,6 +65,7 @@ typedef enum {
     NextButton,
     HandleWidget,
     Slider,
+    QtyL,
     Qty,
     HelpViewTag = 998,
     Ad = 999,

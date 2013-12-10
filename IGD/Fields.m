@@ -62,8 +62,9 @@
     NSLog(@"%s", __func__);
 #endif
     ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue d:2] : self.curField.value;
-    if (self.curField.tag >= NumItemsB) {
+    if (self.curField.tag >= Qty) {
         self.curField = self.inputFields[0];
+        [self calcSavings:YES];
     } else {
         NSInteger i = [self.inputFields indexOfObject:self.curField];
         self.curField = self.inputFields[i + 1];
@@ -128,6 +129,7 @@
         _unitCostBL = nil;
         _message = nil;
         _slider = nil;
+        _qtyL = nil;
         _qty = nil;
         _ad = nil;
         _vc = nil;
@@ -153,12 +155,12 @@
     
     [self buildScreen];
 
-    // this is the order that the Next button traverses.
+    // this is the order that the Next button traverses
     self.inputFields = [NSArray arrayWithObjects:
                         _priceA,
+                        _priceB,
                         _unitsEachA,
                         _numItemsA,
-                        _priceB,
                         _unitsEachB,
                         _numItemsB,
                         _qty,
@@ -182,6 +184,7 @@
                       _unitCostAL,
                       _unitCostBL,
                       _slider,
+                      _qtyL,
                       _qty,
                       _message,
                       _handle,
@@ -260,9 +263,9 @@
     c1.origin.y = 20;
     c1.size.height = h;
     c1.size.width = ceilf(width/2 - fontSize * 1.5);
-    _priceAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Price A" andTag:PriceAL andType:LabelField caller:self];
+    _priceAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Unit Price A" andTag:PriceAL andType:LabelField caller:self];
     c1.origin.x += c1.size.width + fontSize;
-    _priceBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Price B" andTag:PriceBL andType:LabelField caller:self];
+    _priceBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Unit Price B" andTag:PriceBL andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
     c1.origin.x = fontSize;
@@ -324,7 +327,7 @@
     if (![self isPhone]) c1.origin.y += fontSize/2;
     c1.origin.x = fontSize * 2;
     c1.size.height = h;
-    c1.size.width = 0.75 * (width - fontSize * 4);
+    c1.size.width = 0.5 * (width - fontSize * 5);
     _slider = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:Slider andType:LabelField caller:self];
     c1.origin.y -= fontSize;
     
@@ -336,6 +339,12 @@
     _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:HandleWidget andType:LabelField caller:self];
 
     r.origin.x = fontSize * 3 + c1.size.width;
+    r.origin.y = qtyY + fontSize/2;
+    r.size.height = h;
+    r.size.width = 0.25 * (width - fontSize * 4);
+    _qtyL = [Field allocFieldWithRect:r andF:fontSize andValue:@"Qty" andTag:QtyL andType:LabelField caller:self];
+    
+    r.origin.x = fontSize * 4 + c1.size.width * 1.5;
     r.origin.y = qtyY + fontSize/2;
     r.size.height = h;
     r.size.width = 0.25 * (width - fontSize * 4);
@@ -441,7 +450,7 @@
     
     BOOL AisAllSet = self.priceA.floatValue != 0.0 && self.unitsEachA.floatValue != 0.0 && self.numItemsA.floatValue != 0.0;
     BOOL BisAllSet = self.priceB.floatValue != 0.0 && self.unitsEachB.floatValue != 0.0 && self.numItemsB.floatValue != 0.0;
-    BOOL allSet = AisAllSet && BisAllSet;
+    BOOL allSet = AisAllSet && BisAllSet && self.qty.floatValue != 0;
     float unitCostA = 0;
     float unitCostB = 0;
     float numUnitsA = 0;
@@ -481,7 +490,7 @@
             } else {
                 self.message.value = [NSString stringWithFormat:@"%.0f items of A cost %@, saves %@", self.numItemsA.floatValue, [self fmtPrice:totalCost d:2], [self fmtPrice:totalSavings d:2]];
             }
-            [self emphasize:OnA];
+            [self emphasis:OnA];
         } else if (unitCostA > unitCostB) {
             float totalSavings = unitCostDiff * numUnitsB;
             float totalCost = unitCostB * numUnitsB;
@@ -490,18 +499,18 @@
             } else {
                 self.message.value = [NSString stringWithFormat:@"%.0f items of B cost %@, saves %@", self.numItemsB.floatValue, [self fmtPrice:totalCost d:2], [self fmtPrice:totalSavings d:2]];
             }
-            [self emphasize:OnB];
+            [self emphasis:OnB];
         } else {
             float totalCost = unitCostA * numUnitsA;
             self.message.value = [NSString stringWithFormat:@"A cost the same as B, cost %@", [self fmtPrice:totalCost d:2]];
-            [self emphasize:OnNeither];
+            [self emphasis:OnNeither];
         }
 
     } else {
         self.message.value = @PROMPT;
         self.message.hilight = NO;
     }
-    self.slider.control.hidden = self.qty.control.hidden = !allSet;
+    self.slider.control.hidden = !allSet;
 }
 
 - (void)buttonPushed:(id)sender {
@@ -521,7 +530,7 @@
     if (!allSet) {
         self.message.value = @PROMPT;
         self.message.hilight = NO;
-        self.slider.control.hidden = self.qty.control.hidden = YES;
+        self.slider.control.hidden = YES;
         self.qty.value = @"";
     }
 }
@@ -569,7 +578,7 @@
     [self.vc showSettings];
 }
 
-- (void)emphasize:(Emphasis)e {
+- (void)emphasis:(Emphasis)e {
 #if DEBUG && DEBUG_VERBOSE
     NSLog(@"%s", __func__);
 #endif
