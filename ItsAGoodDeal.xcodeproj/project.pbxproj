@@ -70,6 +70,7 @@
 		3B73073E175EC9F500873194 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073C175EC9F500873194 /* MainStoryboard_iPhone.storyboard */; };
 		3B730741175EC9F500873194 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B73073F175EC9F500873194 /* MainStoryboard_iPad.storyboard */; };
 		3B91250017B0A22900A4B633 /* HelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9124FF17B0A22900A4B633 /* HelpView.m */; };
+		3B9EA37D18442ACC00085F84 /* libPods-ItsAGoodDeal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9EA37C18442ACC00085F84 /* libPods-ItsAGoodDeal.a */; };
 		3BC2893C1799F12B00D884BB /* Fields.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2893A1799F12B00D884BB /* Fields.m */; };
 		3BC289441799FFDD00D884BB /* Field.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC289421799FFDD00D884BB /* Field.m */; };
 		3BDB0D021762C184007AB586 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDB0D011762C184007AB586 /* StoreKit.framework */; };
@@ -78,9 +79,6 @@
 		3BE052E317778EE00041D6C0 /* MyStoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */; };
 		3BE052E517778EE00041D6C0 /* NSObject+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Utils.m */; };
 		3BE052E617778EE00041D6C0 /* NSObject+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE052E017778EE00041D6C0 /* NSObject+Utils.m */; };
-		B71777D5DA43456A93545F81 /* libPods-ItsAGoodDeal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF0B33B840A94E458106FB7A /* libPods-ItsAGoodDeal.a */; };
-		BBC3930BF2A344ED8C5DABAB /* libPods-AppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA87A886F11C4C76821D463F /* libPods-AppTests.a */; };
-		DFB9723D24094A9DB1467607 /* libPods-IGDUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CE91D3B7284974B81019A9 /* libPods-IGDUnitTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +176,7 @@
 		3B9124FE17B0A22900A4B633 /* HelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpView.h; sourceTree = "<group>"; };
 		3B9124FF17B0A22900A4B633 /* HelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpView.m; sourceTree = "<group>"; };
 		3B9AAA18179E1C10008B3569 /* Simple.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = Simple.numbers; sourceTree = "<group>"; };
+		3B9EA37C18442ACC00085F84 /* libPods-ItsAGoodDeal.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libPods-ItsAGoodDeal.a"; path = "Pods/build/Debug-iphoneos/libPods-ItsAGoodDeal.a"; sourceTree = "<group>"; };
 		3BA69A621773D3E500AA23FB /* IGDUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGDUnitTests.h; sourceTree = "<group>"; };
 		3BA69AA81773E3EA00AA23FB /* ItsAGoodDeal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ItsAGoodDeal.entitlements; sourceTree = "<group>"; };
 		3BAD90EF179EC80500EDE6E8 /* Globals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Globals.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -196,12 +195,9 @@
 		3BE052DE17778EE00041D6C0 /* MyStoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyStoreObserver.m; path = Lib/MyStoreObserver.m; sourceTree = "<group>"; };
 		3BE052DF17778EE00041D6C0 /* NSObject+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Utils.h"; path = "Lib/NSObject+Utils.h"; sourceTree = "<group>"; };
 		3BE052E017778EE00041D6C0 /* NSObject+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Utils.m"; path = "Lib/NSObject+Utils.m"; sourceTree = "<group>"; };
-		44CE91D3B7284974B81019A9 /* libPods-IGDUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IGDUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AB35BCF049E4B75BD67D861 /* Pods-AppTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTests.xcconfig"; path = "Pods/Pods-AppTests.xcconfig"; sourceTree = "<group>"; };
 		C12A6B98059B47B0920271B3 /* Pods-IGDUnitTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGDUnitTests.xcconfig"; path = "Pods/Pods-IGDUnitTests.xcconfig"; sourceTree = "<group>"; };
 		CCCE7B091A784A1698953218 /* Pods-ItsAGoodDeal.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ItsAGoodDeal.xcconfig"; path = "Pods/Pods-ItsAGoodDeal.xcconfig"; sourceTree = "<group>"; };
-		DA87A886F11C4C76821D463F /* libPods-AppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FF0B33B840A94E458106FB7A /* libPods-ItsAGoodDeal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ItsAGoodDeal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,7 +210,6 @@
 				3B557541176FAADA005EEB51 /* SenTestingKit.framework in Frameworks */,
 				3B557542176FAADA005EEB51 /* UIKit.framework in Frameworks */,
 				3B557543176FAADA005EEB51 /* Foundation.framework in Frameworks */,
-				DFB9723D24094A9DB1467607 /* libPods-IGDUnitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +220,6 @@
 				3B71F51B179BFABE00E52260 /* SenTestingKit.framework in Frameworks */,
 				3B71F51C179BFABE00E52260 /* UIKit.framework in Frameworks */,
 				3B71F51D179BFABE00E52260 /* Foundation.framework in Frameworks */,
-				BBC3930BF2A344ED8C5DABAB /* libPods-AppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,13 +227,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B9EA37D18442ACC00085F84 /* libPods-ItsAGoodDeal.a in Frameworks */,
 				3BDB0D021762C184007AB586 /* StoreKit.framework in Frameworks */,
 				3B312C0B17602A8F00AF12F9 /* iAd.framework in Frameworks */,
 				3BDF4FAA17601B3C00964B0E /* QuartzCore.framework in Frameworks */,
 				3B730725175EC9F500873194 /* UIKit.framework in Frameworks */,
 				3B730727175EC9F500873194 /* Foundation.framework in Frameworks */,
 				3B730729175EC9F500873194 /* CoreGraphics.framework in Frameworks */,
-				B71777D5DA43456A93545F81 /* libPods-ItsAGoodDeal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +363,7 @@
 		3B730723175EC9F500873194 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B9EA37C18442ACC00085F84 /* libPods-ItsAGoodDeal.a */,
 				3BDB0D011762C184007AB586 /* StoreKit.framework */,
 				3B312C0A17602A8F00AF12F9 /* iAd.framework */,
 				3BDF4FA917601B3C00964B0E /* QuartzCore.framework */,
@@ -376,9 +371,6 @@
 				3B730726175EC9F500873194 /* Foundation.framework */,
 				3B730728175EC9F500873194 /* CoreGraphics.framework */,
 				3B557540176FAADA005EEB51 /* SenTestingKit.framework */,
-				DA87A886F11C4C76821D463F /* libPods-AppTests.a */,
-				44CE91D3B7284974B81019A9 /* libPods-IGDUnitTests.a */,
-				FF0B33B840A94E458106FB7A /* libPods-ItsAGoodDeal.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -989,15 +981,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CCCE7B091A784A1698953218 /* Pods-ItsAGoodDeal.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_ENTITLEMENTS = ItsAGoodDeal.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "IGD/ItsAGoodDeal-Prefix.pch";
 				INFOPLIST_FILE = "IGD/ItsAGoodDeal-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = ItsAGoodDeal;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1006,15 +1001,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CCCE7B091A784A1698953218 /* Pods-ItsAGoodDeal.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_ENTITLEMENTS = ItsAGoodDeal.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "IGD/ItsAGoodDeal-Prefix.pch";
 				INFOPLIST_FILE = "IGD/ItsAGoodDeal-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = ItsAGoodDeal;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
