@@ -336,7 +336,7 @@
     r.origin.x = fontSize/2;
     r.size.width = fontSize;
     r.size.height = fontSize*3;
-    r.origin.y += fontSize/2;
+    r.origin.y += fontSize*.8;
     _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:HandleWidget andType:LabelField caller:self];
 
     // qty label
@@ -362,7 +362,8 @@
     // keypad
     CGPoint origin, size, spacing;
     float nextKeyWidth, nextKeyFontSize;
-    origin = CGPointMake(20, c1.origin.y + c1.size.height);
+    CGFloat factor = c1.size.height*.8;
+    origin = CGPointMake(20, c1.origin.y + factor);
     size = CGPointMake(64, 48);
     spacing = CGPointMake(8, 2);
     fontSize = 15;
@@ -370,10 +371,10 @@
     nextKeyFontSize = fontSize;
     if (self.deviceType == iPhone5) {
         size = CGPointMake(64, 62);
-        origin = CGPointMake(20, c1.origin.y + c1.size.height);
+        origin = CGPointMake(20, c1.origin.y + factor);
     }
     if (self.deviceType == iPad) {
-        origin = CGPointMake(20, c1.origin.y + c1.size.height);
+        origin = CGPointMake(20, c1.origin.y + factor);
         size = CGPointMake(176, 110);
         fontSize = 48;
         nextKeyWidth = 360;
