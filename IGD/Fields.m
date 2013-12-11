@@ -353,7 +353,7 @@
     
     // message
     // c1.origin.y += c1.size.height + ([self isPhone] ? fontSize : 0);
-    c1.origin.y += h2 + fontSize/2;
+    c1.origin.y += h2 + fontSize;
     c1.origin.x = 0;
     c1.size.height = h2 + 2;
     c1.size.width = width;
