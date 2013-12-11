@@ -322,15 +322,16 @@
     c1.origin.x += c1.size.width;
     _unitCostBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:UnitCostBL andType:LabelField caller:self];
     
-    c1.origin.y += c1.size.height;
-    CGFloat qtyY = c1.origin.y;
+    // slider
+    c1.origin.y += c1.size.height + fontSize;
     if (![self isPhone]) c1.origin.y += fontSize/2;
     c1.origin.x = fontSize * 2;
     c1.size.height = h;
     c1.size.width = 0.5 * (width - fontSize * 5);
     _slider = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"" andTag:Slider andType:LabelField caller:self];
-    c1.origin.y -= fontSize;
+    c1.origin.y -= fontSize2;
     
+    // handle
     r = c1;
     r.origin.x = fontSize/2;
     r.size.width = fontSize;
@@ -338,23 +339,24 @@
     r.origin.y += fontSize/2;
     _handle = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:HandleWidget andType:LabelField caller:self];
 
+    // qty label
     r.origin.x = fontSize * 3 + c1.size.width;
-    r.origin.y = qtyY + fontSize/2;
-    r.size.height = h;
+    r.size.height = h2;
     r.size.width = 0.25 * (width - fontSize * 4);
-    _qtyL = [Field allocFieldWithRect:r andF:fontSize andValue:@"Qty" andTag:QtyL andType:LabelField caller:self];
+    _qtyL = [Field allocFieldWithRect:r andF:fontSize2 andValue:@"Qty" andTag:QtyL andType:LabelField caller:self];
     
+    // qty
     r.origin.x = fontSize * 4 + c1.size.width * 1.5;
-    r.origin.y = qtyY + fontSize/2;
-    r.size.height = h;
-    r.size.width = 0.25 * (width - fontSize * 4);
-    _qty = [Field allocFieldWithRect:r andF:fontSize andValue:@"" andTag:Qty andType:LabelField caller:self];
+    r.size.height = h2;
+    r.size.width = 0.24 * (width - fontSize * 4);
+    _qty = [Field allocFieldWithRect:r andF:fontSize2 andValue:@"" andTag:Qty andType:LabelField caller:self];
     
-    c1.origin.y += c1.size.height + ([self isPhone] ? fontSize : 0);
+    // message
+    // c1.origin.y += c1.size.height + ([self isPhone] ? fontSize : 0);
+    c1.origin.y += h2 + fontSize/2;
     c1.origin.x = 0;
     c1.size.height = h2 + 2;
     c1.size.width = width;
-
     _message = [Field allocFieldWithRect:c1 andF:fontSize * ([self isPhone] ? 1.2 : 1.4) andValue:@PROMPT andTag:Message andType:LabelField caller:self];
     
     // keypad
@@ -502,7 +504,7 @@
             [self emphasis:OnB];
         } else {
             float totalCost = unitCostA * numUnitsA;
-            self.message.value = [NSString stringWithFormat:@"A cost the same as B, cost %@", [self fmtPrice:totalCost d:2]];
+            self.message.value = [NSString stringWithFormat:@"A and B are the same, cost %@", [self fmtPrice:totalCost d:2]];
             [self emphasis:OnNeither];
         }
 
