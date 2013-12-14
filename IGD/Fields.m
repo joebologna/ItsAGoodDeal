@@ -47,7 +47,14 @@
     previous.backgroundColor = FIELDCOLOR;
     selected.backgroundColor = HIGHLIGHTCOLOR;
     _curField = c;
-    //[self calcSavings];
+    if (_curField.floatValue == 0) {
+        NSLog(@"%f", fmod(self.numItemsA.floatValue, self.numItemsB.floatValue));
+        if (fmod(self.numItemsA.floatValue, self.numItemsB.floatValue) < 1) {
+            self.qty.value = [NSString stringWithFormat:@"%.f", MAX(self.numItemsA.floatValue, self.numItemsB.floatValue)];
+        } else {
+            self.qty.value = [NSString stringWithFormat:@"%.2f", MAX(self.numItemsA.floatValue, self.numItemsB.floatValue)];
+        }
+    }
 }
 
 - (void)fieldWasSelected:(Field *)field {
@@ -453,7 +460,10 @@
     
     BOOL AisAllSet = self.priceA.floatValue != 0.0 && self.unitsEachA.floatValue != 0.0 && self.numItemsA.floatValue != 0.0;
     BOOL BisAllSet = self.priceB.floatValue != 0.0 && self.unitsEachB.floatValue != 0.0 && self.numItemsB.floatValue != 0.0;
-    BOOL allSet = AisAllSet && BisAllSet && self.qty.floatValue != 0;
+    BOOL allSet = AisAllSet && BisAllSet;
+    if (self.qty.floatValue == 0) {
+        self.qty.value = [NSString stringWithFormat:@"%.2f", MAX(self.numItemsA.floatValue, self.numItemsB.floatValue)];
+    }
     float unitCostA = 0;
     float unitCostB = 0;
     float numUnitsA = 0;
