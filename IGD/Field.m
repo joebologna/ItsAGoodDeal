@@ -47,6 +47,10 @@
 @synthesize control = _control;
 @synthesize value = _value;
 - (void)setValue:(NSString *)v {
+#ifdef DEBUG
+    NSLog(@"%s: tag = %d, value: %@", __func__, self.tag, v);
+#endif
+    if ((self.tag == NumItemsA || self.tag == NumItemsB || self.tag == Qty) && [v rangeOfString:@"."].location != NSNotFound) return;
     _value = v;
     if ([self isButton]) {
         ((MyButton *)_control).bothTitles = _value;
@@ -91,6 +95,7 @@
         _caller = nil;
         previousPlaceholder = @"";
         _hilight = NO;
+        _dirty = NO;        
     }
     return self;
 }

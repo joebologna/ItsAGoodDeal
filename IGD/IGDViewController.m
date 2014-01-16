@@ -161,7 +161,11 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
         if (button.tag == Period) {
             NSRange r = [s rangeOfString:@"."];
             if (r.location == NSNotFound) {
-                self.fields.curField.value = [s stringByAppendingString:button.titleLabel.text];
+                if (self.fields.curField.dirty) {
+                    self.fields.curField.value = [s stringByAppendingString:button.titleLabel.text];
+                } else {
+                    self.fields.curField.value = button.titleLabel.text;
+                }
             }
 #ifdef DEBUG
             else {
@@ -169,8 +173,13 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
             }
 #endif
         } else {
-            self.fields.curField.value = [s stringByAppendingString:button.titleLabel.text];
+            if (self.fields.curField.dirty) {
+                self.fields.curField.value = [s stringByAppendingString:button.titleLabel.text];
+            } else {
+                self.fields.curField.value = button.titleLabel.text;
+            }
         }
+        self.fields.curField.dirty = YES;
     } else if (button.tag == Clr) {
         [self popDefaults];
     } else if (button.tag == Del) {
@@ -187,6 +196,7 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
 #endif
     for (Field *f in self.fields.inputFields) {
         f.value = @"";
+        f.dirty = NO;
     }
     self.fields.unitsEachA.value = self.fields.unitsEachB.value = @"1";
     self.fields.numItemsA.value = self.fields.numItemsB.value = @"1";

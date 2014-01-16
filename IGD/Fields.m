@@ -289,14 +289,14 @@
     _unitsEachAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"#Units" andTag:UnitsEachAL andType:LabelField caller:self];
     c1.origin.x += fontSize + c1.size.width;
     c1.size.width = ceilf((width - fontSize * 5)/4);
-    _numItemsAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"#Items" andTag:NumItemsAL andType:LabelField caller:self];
+    _numItemsAL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Qty" andTag:NumItemsAL andType:LabelField caller:self];
 
     c1.origin.x += c1.size.width + fontSize;
     c1.size.height = h;
     c1.size.width = ceilf((width - fontSize * 5)/4);
     _unitsEachBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"#Units" andTag:UnitsEachBL andType:LabelField caller:self];
     c1.origin.x += fontSize + c1.size.width;
-    _numItemsBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"#Items" andTag:NumItemsBL andType:LabelField caller:self];
+    _numItemsBL = [Field allocFieldWithRect:c1 andF:fontSize andValue:@"Qty" andTag:NumItemsBL andType:LabelField caller:self];
     
     c1.origin.y += c1.size.height;
     c1.origin.x = fontSize;
@@ -515,7 +515,7 @@
             [self emphasis:OnB];
         } else {
             float totalCost = unitCostA * numUnitsA;
-            self.message.value = [NSString stringWithFormat:@"A and B are the same, cost %@", [self fmtPrice:totalCost d:2]];
+            self.message.value = [NSString stringWithFormat:@"A = B, total cost %@", [self fmtPrice:totalCost d:2]];
             [self emphasis:OnNeither];
         }
 

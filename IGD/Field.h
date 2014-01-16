@@ -109,6 +109,7 @@ typedef enum {
 @property (strong, nonatomic, readonly) NSString *toString, *tagToString, *rectToString, *fTagToString;
 @property (unsafe_unretained, nonatomic, readonly) CGFloat floatValue;
 
+@property (unsafe_unretained, nonatomic) BOOL dirty;
 @end
 
 @protocol TraverseFieldsDelegate <NSObject>
