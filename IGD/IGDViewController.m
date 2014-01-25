@@ -198,8 +198,9 @@ typedef enum { AisBigger, AisBetter, BisBetter, Same, NotTesting } Test;
         f.value = @"";
         f.dirty = NO;
     }
-    self.fields.unitsEachA.value = self.fields.unitsEachB.value = @"1";
-    self.fields.numItemsA.value = self.fields.numItemsB.value = @"1";
+    self.fields.unitsEachA.value = self.fields.unitsEachB.value = @"";
+    self.fields.numItemsA.value = self.fields.numItemsB.value = @"";
+    self.fields.qty.value = @"";
     [self resetSlider];
     [self.fields emphasis:OnNeither];
     self.fields.curField = self.fields.inputFields[0];

@@ -309,7 +309,15 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    textField.text = [self isCurrency] ? [self fmtPrice:self.floatValue d:2] : self.value;
+    if ([self isCurrency]) {
+        if ([self.value isEqualToString:@""]) {
+            ((UITextField *)self.control).text = @"";
+        } else {
+            ((UITextField *)self.control).text = [self fmtPrice:self.floatValue d:2];
+        }
+    } else {
+        ((UITextField *)self.control).text = self.value;
+    }
     textField.placeholder = previousPlaceholder;
     if ([self isQty]) {
         [self.caller updateSavings];

@@ -68,7 +68,16 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue d:2] : self.curField.value;
+    if ([self.curField isCurrency]) {
+        if ([self.curField.value isEqualToString:@""]) {
+            ((UITextField *)self.curField.control).text = @"";
+        } else {
+            ((UITextField *)self.curField.control).text = [self fmtPrice:self.curField.floatValue d:2];
+        }
+    } else {
+        ((UITextField *)self.curField.control).text = self.curField.value;
+    }
+    
     if (self.curField.tag >= Qty) {
         self.curField = self.inputFields[0];
         [self calcSavings:YES];
@@ -85,7 +94,16 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue d:2] : self.curField.value;
+    if ([self.curField isCurrency]) {
+        if ([self.curField.value isEqualToString:@""]) {
+            ((UITextField *)self.curField.control).text = @"";
+        } else {
+            ((UITextField *)self.curField.control).text = [self fmtPrice:self.curField.floatValue d:2];
+        }
+    } else {
+        ((UITextField *)self.curField.control).text = self.curField.value;
+    }
+
     if ([self.curField isEqual:self.inputFields[0]]) {
         self.curField = self.inputFields.lastObject;
     } else {
@@ -101,7 +119,15 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
-    ((UITextField *)self.curField.control).text = [self.curField isCurrency] ? [self fmtPrice:self.curField.floatValue d:2] : self.curField.value;
+    if ([self.curField isCurrency]) {
+        if ([self.curField.value isEqualToString:@""]) {
+            ((UITextField *)self.curField.control).text = @"";
+        } else {
+            ((UITextField *)self.curField.control).text = [self fmtPrice:self.curField.floatValue d:2];
+        }
+    } else {
+        ((UITextField *)self.curField.control).text = self.curField.value;
+    }
     for (Field *f in self.inputFields) {
         if ([f.control isEqual:t]) {
             self.curField = f;
@@ -457,7 +483,15 @@
 #ifdef DEBUG
     NSLog(@"%s", __func__);
 #endif
+
+    if (self.priceA.floatValue != 0.0 && self.unitsEachA.floatValue == 0.0 && self.numItemsA.floatValue == 0.0) {
+        self.qty.value = self.numItemsA.value = self.unitsEachA.value = @"1";
+    }
     
+    if (self.priceB.floatValue != 0.0 && self.unitsEachB.floatValue == 0.0 && self.numItemsB.floatValue == 0.0) {
+        self.qty.value = self.numItemsB.value = self.unitsEachB.value = @"1";
+    }
+
     BOOL AisAllSet = self.priceA.floatValue != 0.0 && self.unitsEachA.floatValue != 0.0 && self.numItemsA.floatValue != 0.0;
     BOOL BisAllSet = self.priceB.floatValue != 0.0 && self.unitsEachB.floatValue != 0.0 && self.numItemsB.floatValue != 0.0;
     BOOL allSet = AisAllSet && BisAllSet;
@@ -544,7 +578,7 @@
         self.message.value = @PROMPT;
         self.message.hilight = NO;
         self.slider.control.hidden = YES;
-        self.qty.value = @"";
+//        self.qty.value = @"";
     }
 }
 
